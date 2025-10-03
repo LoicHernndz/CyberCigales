@@ -23,6 +23,7 @@ function flash($name = '', $message = '', $class = 'form-message form-message-re
             return $message;
         }
     }
+    return '';
 }
 
 // Ma fonction pour rediriger l'utilisateur vers une autre page

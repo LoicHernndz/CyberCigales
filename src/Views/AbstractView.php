@@ -1,7 +1,8 @@
 <?php
 namespace Views;
 abstract class AbstractView {
-    function renderBody() {
+    function renderBody(): void
+    {
         $template = file_get_contents($this->templatePath());
 
         foreach($this->templateKeys() as $key => $value){
@@ -49,8 +50,7 @@ abstract class AbstractView {
         endif;
         echo '
             </ul>
-        </nav>
-    <body>';
+        </nav>';
     }
     function renderFooter(): void
     {

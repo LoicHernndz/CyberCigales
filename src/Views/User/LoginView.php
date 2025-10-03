@@ -14,6 +14,6 @@ class LoginView extends AbstractView {
     }
 
     public function templateKeys() : array {
-        return [self::FLASH_KEY => flash('login')];
+        return [self::FLASH_KEY => flash('Login')];
     }
 }
