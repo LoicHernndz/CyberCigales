@@ -5,7 +5,7 @@ abstract class AbstractView {
         $template = file_get_contents($this->templatePath());
 
         foreach($this->templateKeys() as $key => $value){
-            $template = str_replace("{{$key}}", $value, $template);
+            $template = str_replace("{{{$key}}}", $value, $template);
         }
 
         echo $template ;
@@ -34,7 +34,7 @@ abstract class AbstractView {
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>PHP Login System</title>
-        <link rel="stylesheet" href="styles/main.css" type="text/css">
+        <link rel="stylesheet" href="/styles/main.css" type="text/css">
     </head>
     <body>
         <nav>
