@@ -17,9 +17,10 @@ function flash($name = '', $message = '', $class = 'form-message form-message-re
         } else if(empty($message) && !empty($_SESSION[$name])){
             // Si je veux AFFICHER le message stocké (pas de nouveau message fourni)
             $class = !empty($_SESSION[$name.'_class']) ? $_SESSION[$name.'_class'] : $class;
-            echo '<div class="'.$class.'">'.$_SESSION[$name].'</div>'; // J'affiche le message
+            $message = '<div class="'.$class.'">'.$_SESSION[$name].'</div>'; // J'affiche le message
             unset($_SESSION[$name]); // Je supprime le message après l'avoir affiché
             unset($_SESSION[$name.'_class']); // Je supprime la classe aussi
+            return $message;
         }
     }
 }

@@ -5,7 +5,7 @@ abstract class AbstractView {
         $template = file_get_contents($this->templatePath());
 
         foreach($this->templateKeys() as $key => $value){
-            $template = str_replace("{{{$key}}}", $value, $template);
+            $template = str_replace("{{$key}}", $value, $template);
         }
 
         echo $template ;
