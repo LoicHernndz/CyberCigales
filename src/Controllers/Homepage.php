@@ -1,5 +1,5 @@
 <?php
-namespace Controllers;
+namespace controllers;
 use Controllers\ControllerInterface ;
 use Models\User\User;
 use Views\HomepageView;
@@ -9,7 +9,6 @@ class Homepage implements ControllerInterface
     function control(){
         $view = new HomepageView();
         $view->render();
-
     }
 
     static function support(string $chemin, string $method) : bool{

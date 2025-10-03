@@ -1,5 +1,5 @@
 <?php
-namespace Controllers;
+namespace controllers;
 
 interface ControllerInterface {
     function control() ; 

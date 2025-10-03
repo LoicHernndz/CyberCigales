@@ -1,5 +1,6 @@
 <?php
 include "Autoloader.php";
+include "src/helpers/session_helper.php";
 
 use Controllers\User\Register;
 use Controllers\User\RegisterPost;

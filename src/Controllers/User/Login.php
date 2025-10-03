@@ -1,6 +1,6 @@
 <?php
-namespace Controllers\User;
-use Controllers\ControllerInterface ;
+namespace controllers\User;
+use controllers\ControllerInterface ;
 use Models\User\User;
 use Views\User\LoginView;
 
