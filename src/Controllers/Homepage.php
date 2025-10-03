@@ -1,5 +1,5 @@
 <?php
-namespace controllers;
+namespace Controllers;
 use Controllers\ControllerInterface ;
 use Models\User\User;
 use Views\HomepageView;
