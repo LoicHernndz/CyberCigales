@@ -34,7 +34,7 @@ abstract class AbstractView {
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>PHP Login System</title>
-        <link rel="stylesheet" href="../../style.css" type="text/css">
+        <link rel="stylesheet" href="styles/main.css" type="text/css">
     </head>
     <body>
         <nav>
@@ -42,8 +42,8 @@ abstract class AbstractView {
                 <a href="../../index.php"><li>Accueil</li></a>
             ';
         if(!isset($_SESSION['user_id'])) :
-            echo '<a href="user/SignupView.php"><li>Inscription</li></a>
-                    <a href="user/LoginView.php"><li>Connexion</li></a>';
+            echo '<a href="src/Views/user/SignupView.php"><li>Inscription</li></a>
+                    <a href="user/login"><li>Connexion</li></a>';
         else :
             echo '<a href="../controllers/Users.php?q=logout"><li>Déconnexion</li></a>';
         endif;
