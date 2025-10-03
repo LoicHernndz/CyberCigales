@@ -17,5 +17,6 @@ foreach ($controller as $key => $value) {
     }
 }
 
+//  Securite : Si l'url ne correspond a aucune page / methode implemente -> ERREUR 404
 echo "ERREUR 404 ";
     exit();
