@@ -6,8 +6,7 @@ use Controllers\User\RegisterPost;
 use Controllers\User\Login;
 use Controllers\Homepage;
 
-
-
+// LISTE MANUELLE DES CONTROLLERS DISPONIBLES
 $controller = [new Register(), new RegisterPost(), new Login(), new Homepage()];
 
 //  AFFICHAGE DU SITE SELON URI
