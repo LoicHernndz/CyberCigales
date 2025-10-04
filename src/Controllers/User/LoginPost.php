@@ -30,7 +30,7 @@ class LoginPost
     function control(): void
     {
         // Je nettoie TOUTES les données POST en une seule fois
-        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        $_POST = filter_input_array(INPUT_POST);
 
         // Je récupère et nettoie les données du formulaire de connexion
         $data = [
