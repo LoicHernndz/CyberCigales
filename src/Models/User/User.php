@@ -35,7 +35,7 @@ class User{
 
 
     // Ma méthode pour insérer un nouvel utilisateur en base de données
-    public function register($data){
+    public function signup($data){
 
         // Ma requête d'insertion avec tous les champs nécessaires
         $this->db->query('INSERT INTO users (prenom, nom, pseudo, email, password_hash) 
