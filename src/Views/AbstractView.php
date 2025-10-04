@@ -43,7 +43,7 @@ abstract class AbstractView {
                 <a href="/"><li>Accueil</li></a>
             ';
         if(!isset($_SESSION['user_id'])) :
-            echo '<a href="/user/Signup"><li>Inscription</li></a>
+            echo '<a href="/user/signup"><li>Inscription</li></a>
                     <a href="/user/login"><li>Connexion</li></a>';
         else :
             echo '<a href="/user/logout"><li>Déconnexion</li></a>';

@@ -13,6 +13,6 @@ class Signup implements ControllerInterface
     }
 
     static function support(string $chemin, string $method) : bool{
-        return $chemin === "/user/register" && $method === "GET";
+        return $chemin === "/user/signup" && $method === "GET";
     }
 }
