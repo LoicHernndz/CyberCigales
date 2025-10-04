@@ -1,6 +1,8 @@
 <?php
 
 // Je vérifie si une session n'est pas déjà démarrée pour éviter les erreurs
+use JetBrains\PhpStorm\NoReturn;
+
 if(!isset($_SESSION)){
     session_start(); // Je démarre la session pour pouvoir stocker des messages temporaires
 }
@@ -9,7 +11,8 @@ if(!isset($_SESSION)){
 // $name = le nom du message (ex: "register", "login")
 // $message = le texte à afficher
 // $class = la classe CSS pour le style (rouge pour erreur par défaut)
-function flash($name = '', $message = '', $class = 'form-message form-message-red'){
+function flash($name = '', $message = '', $class = 'form-message form-message-red'): string
+{
     if(!empty($name)){
         if(!empty($message) && empty($_SESSION[$name])){
             $_SESSION[$name] = $message; // Je stocke le message
@@ -27,7 +30,10 @@ function flash($name = '', $message = '', $class = 'form-message form-message-re
 }
 
 // Ma fonction pour rediriger l'utilisateur vers une autre page
-function redirect($location){
+
+#[NoReturn]
+function redirect($location) : void
+{
     header("location: ".$location); // Je dis au navigateur d'aller à cette adresse
     exit();
 }
