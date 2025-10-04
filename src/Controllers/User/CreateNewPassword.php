@@ -24,6 +24,6 @@ class CreateNewPassword implements ControllerInterface
     }
 
     static function support(string $chemin, string $method) : bool{
-        return $chemin === "/user/login" && $method === "GET";
+        return $chemin === "/user/new-password" && $method === "GET";
     }
 }

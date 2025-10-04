@@ -19,6 +19,7 @@ $controller = [new Signup(), new SignupPost(), new Login(), new LoginPost(), new
 
 
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
+
 //  AFFICHAGE DU SITE SELON URI
 foreach ($controller as $key => $value) {
     if($value::support($uri, $_SERVER['REQUEST_METHOD'])){
