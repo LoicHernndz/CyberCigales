@@ -39,7 +39,7 @@ class CreateNewPasswordPost implements ControllerInterface
             'pwd' => trim($_POST['pwd']),
             'pwd-repeat' => trim($_POST['pwd-repeat'])
         ];
-        $url = 'https://benahmed.alwaysdata.net/create-new-password.php?selector=' . $data['selector'] .
+        $url = 'https://benahmed.alwaysdata.net/user/new-password?selector=' . $data['selector'] .
             '&validator=' . $data['validator'];
 
         if(empty($_POST['pwd']) || empty($_POST['pwd-repeat'])){
