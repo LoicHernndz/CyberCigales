@@ -3,11 +3,31 @@
 namespace Controllers\User;
 
 use Controllers\ControllerInterface;
+use Models\User\ResetPasswords;
+use PHPMailer\PHPMailer\PHPMailer;
 use Views\User\ResetPasswordView;
 
 class ResetPasswordPost implements ControllerInterface
 {
-    function control(){
+    private ResetPasswords $resetModel;
+    private PHPMailer $mail;
+
+    public function __construct()
+    {
+        $this->resetModel = new ResetPasswords;
+        // Set up PHPMailer
+        $this->mail = new PHPMailer();
+        $this->mail->SMTPDebug = 0;
+        $this->mail->isSMTP();
+        $this->mail->Host = "smtp.gmail.com";
+        $this->mail->SMTPAuth = true;
+        $this->mail->Username = "cybercigales@gmail.com";
+        $this->mail->Password = "megr wvzc czjy iejh ";
+        $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $this->mail->Port = 587;
+    }
+    function control(): void
+    {
         $_POST = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         $usersEmail = trim($_POST['usersEmail']);
 
@@ -31,7 +51,7 @@ class ResetPasswordPost implements ControllerInterface
         $token = random_bytes(32);
         $url = "https://benahmed.alwaysdata.net/create-new-password.php?selector=" . $selector . "&validator=" . bin2hex($token);
         // Expire au bout de 30 minutes
-        $expires = date("U") + 1800;
+        $expires = date("U") . 1800;
         if(!$this->resetModel->deleteEmail($usersEmail)){
             die ("There was an error");
         }

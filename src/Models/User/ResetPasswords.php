@@ -1,9 +1,11 @@
-<?php 
+<?php
 
-require_once '../config/Database.php';
+namespace Models\User;
 
-class ResetPassword{
-    private $db;
+use config\Database;
+
+class ResetPasswords{
+    private Database $db;
 
     public function __construct()
     {
