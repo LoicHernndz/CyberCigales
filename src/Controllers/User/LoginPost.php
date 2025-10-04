@@ -8,7 +8,7 @@ class LoginPost
 {
     private User $userModel;
 
-    // Le constructeur qui se lance automatiquement dès que je crée un objet Users
+    // Le constructeur qui se lance automatiquement dès que je crée un objet Logout
     public function __construct() {
         // Je crée une instance de ma classe User pour pouvoir faire des opérations en BDD
         // Maintenant je peux utiliser $this->userModel partout dans ma classe pour :

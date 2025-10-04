@@ -46,7 +46,7 @@ abstract class AbstractView {
             echo '<a href="/user/Signup"><li>Inscription</li></a>
                     <a href="/user/login"><li>Connexion</li></a>';
         else :
-            echo '<a href="../controllers/Users.php?q=logout"><li>Déconnexion</li></a>';
+            echo '<a href="/user/logout"><li>Déconnexion</li></a>';
         endif;
         echo '
             </ul>

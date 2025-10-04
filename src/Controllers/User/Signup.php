@@ -2,12 +2,12 @@
 namespace Controllers\User;
 use Controllers\ControllerInterface ;
 use Models\User\User;
-use Views\User\RegisterView;
+use Views\User\SignupView;
 
-class Register implements ControllerInterface
+class Signup implements ControllerInterface
 {
     function control(){
-        $view = new RegisterView();
+        $view = new SignupView();
         $view->render();
 
     }

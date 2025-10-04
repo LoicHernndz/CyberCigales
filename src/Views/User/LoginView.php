@@ -6,10 +6,6 @@ use Views\AbstractView;
 class LoginView extends AbstractView {
 
     private const FLASH_KEY = 'FLASH';
-
-    public function __construct() {
-
-    }
     private const TEMPLATE_HTML = __DIR__ . '/login.html';
 
     public function templatePath() : string {
