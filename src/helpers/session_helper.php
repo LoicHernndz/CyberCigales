@@ -1,8 +1,8 @@
 <?php
 
-// Je vérifie si une session n'est pas déjà démarrée pour éviter les erreurs
 use JetBrains\PhpStorm\NoReturn;
 
+// Je vérifie si une session n'est pas déjà démarrée pour éviter les erreurs
 if(!isset($_SESSION)){
     session_start(); // Je démarre la session pour pouvoir stocker des messages temporaires
 }

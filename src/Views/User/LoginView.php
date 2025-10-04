@@ -6,12 +6,9 @@ use Views\AbstractView;
 class LoginView extends AbstractView {
 
     private const FLASH_KEY = 'FLASH';
-    private String $message;
-    private String $class;
 
-    public function __construct($message = "", $class = 'form-message form-message-red') {
-        $this->message = $message;
-        $this->class = $class;
+    public function __construct() {
+
     }
     private const TEMPLATE_HTML = __DIR__ . '/login.html';
 
@@ -20,6 +17,6 @@ class LoginView extends AbstractView {
     }
 
     public function templateKeys() : array {
-        return [self::FLASH_KEY => flash('login', $this->message, $this->class)];
+        return [self::FLASH_KEY => flash('login')];
     }
 }

@@ -1,6 +1,6 @@
 <?php
 namespace Controllers\User;
-use Controllers\ControllerInterface ;
+use Controllers\ControllerInterface;
 use Models\User\User;
 use Views\User\LoginView;
 
@@ -40,7 +40,8 @@ class LoginPost
 
         // Validation des inputs - je vérifie que tous les champs sont remplis
         if(empty($data['name/email']) || empty($data['password'])) {
-            $view = new LoginView("Veuillez remplir tous les champs");
+            flash('login', "Veuillez remplir tous les champs");
+            $view = new LoginView();
             $view->render();
             exit();
         }
@@ -54,12 +55,14 @@ class LoginPost
                 $this->createUserSession($loggedInUser);
             } else{
                 // Si le mot de passe est incorrect, j'affiche une erreur
-                $view = new LoginView("Utilisateur non trouvé");
+                flash('login', "Utilisateur non trouvé");
+                $view = new LoginView();
                 $view->render();
             }
         } else{
             // Si l'utilisateur n'existe pas, j'affiche une erreur
-            $view = new LoginView("Utilisateur non trouvé");
+            flash('login', "Utilisateur non trouvé");
+            $view = new LoginView();
             $view->render();
         }
     }
