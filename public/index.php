@@ -17,9 +17,11 @@ use Controllers\Homepage;
 $controller = [new Signup(), new SignupPost(), new Login(), new LoginPost(), new Logout(),
     new ResetPassword(), new ResetPasswordPost(), new CreateNewPassword(), new CreateNewPasswordPost(), new Homepage()];
 
+
+$uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 //  AFFICHAGE DU SITE SELON URI
 foreach ($controller as $key => $value) {
-    if($value::support($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD'])){
+    if($value::support($uri, $_SERVER['REQUEST_METHOD'])){
         $value->control();  //  Execute l'action du controller
         exit();
     }
