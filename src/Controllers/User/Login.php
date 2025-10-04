@@ -9,7 +9,6 @@ class Login implements ControllerInterface
     function control(){
         $view = new LoginView();
         $view->render();
-
     }
 
     static function support(string $chemin, string $method) : bool{
