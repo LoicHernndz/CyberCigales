@@ -3,8 +3,6 @@ namespace Controllers\User;
 use Controllers\ControllerInterface ;
 use Models\User\User;
 use Views\User\SignupView;
-use Views\User\UserView;
-
 
 class SignupPost implements ControllerInterface
 {
@@ -28,7 +26,7 @@ class SignupPost implements ControllerInterface
         // - Protéger contre les attaques XSS (cross-site scripting)
         // Exemple : si quelqu'un tape "<script>alert('hack')</script>" dans le prénom,
         // ça devient juste "scriptalert('hack')script" (inoffensif)
-        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        $_POST = filter_input_array(INPUT_POST);
 
         // Je récupère et nettoie toutes les données du formulaire d'inscription
         $data = [
