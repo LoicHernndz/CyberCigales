@@ -5,10 +5,11 @@ include "src/helpers/session_helper.php";
 use Controllers\User\Register;
 use Controllers\User\RegisterPost;
 use Controllers\User\Login;
+use Controllers\User\LoginPost;
 use Controllers\Homepage;
 
 // LISTE MANUELLE DES CONTROLLERS DISPONIBLES
-$controller = [new Register(), new RegisterPost(), new Login(), new Homepage()];
+$controller = [new Register(), new RegisterPost(), new Login(), new LoginPost(), new Homepage()];
 
 //  AFFICHAGE DU SITE SELON URI
 foreach ($controller as $key => $value) {
