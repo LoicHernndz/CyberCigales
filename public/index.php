@@ -11,11 +11,6 @@ use Controllers\Homepage;
 // LISTE MANUELLE DES CONTROLLERS DISPONIBLES
 $controller = [new Register(), new RegisterPost(), new Login(), new LoginPost(), new Homepage()];
 
-if ($_SERVER['REQUEST_URI'] === '/styles/main.css') {
-    echo file_get_contents('./styles/main.css');
-    exit();
-}
-
 //  AFFICHAGE DU SITE SELON URI
 foreach ($controller as $key => $value) {
     if($value::support($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD'])){
