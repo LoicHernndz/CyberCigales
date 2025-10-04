@@ -13,6 +13,7 @@ $controller = [new Register(), new RegisterPost(), new Login(), new LoginPost(),
 
 if ($_SERVER['REQUEST_URI'] === '/styles/main.css') {
     echo file_get_contents('./styles/main.css');
+    exit();
 }
 
 //  AFFICHAGE DU SITE SELON URI
