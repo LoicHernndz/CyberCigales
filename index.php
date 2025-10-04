@@ -19,6 +19,12 @@ foreach ($controller as $key => $value) {
     }
 }
 
+if ($_SERVER['REQUEST_URI'] === '/styles/main.css')
+{
+    echo file_get_contents('./styles/main.css');
+    exit();
+}
+
 //  Securite : Si l'url ne correspond a aucune page / methode implemente -> ERREUR 404
 echo "ERREUR 404";
     exit();
