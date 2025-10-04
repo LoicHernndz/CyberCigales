@@ -4,8 +4,11 @@ namespace Controllers\User;
 
 use Controllers\ControllerInterface;
 use Models\User\ResetPasswords;
-use PHPMailer\src\PHPMailer;
 use Views\User\ResetPasswordView;
+
+use PHPMailer\src\PHPMailer;
+use PHPMailer\src\Exception;
+use PHPMailer\src\SMTP;
 
 class ResetPasswordPost implements ControllerInterface
 {
