@@ -3,8 +3,6 @@
 namespace Models\User;
 use config\Database;
 
-require_once '../../config/Database.php';
-
 class User{
     private $db;
 
