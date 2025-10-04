@@ -4,6 +4,7 @@ namespace Controllers\User;
 
 use Controllers\ControllerInterface;
 use Models\User\ResetPasswords;
+use Random\RandomException;
 use Views\User\ResetPasswordView;
 
 use PHPMailer\src\PHPMailer;
@@ -29,6 +30,11 @@ class ResetPasswordPost implements ControllerInterface
         $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $this->mail->Port = 587;
     }
+
+    /**
+     * @throws RandomException
+     * @throws Exception
+     */
     function control(): void
     {
         $_POST = filter_input_array(INPUT_POST, FILTER_DEFAULT);
