@@ -2,7 +2,7 @@
 namespace Controllers\Code\Cesar;
 
 use Controllers\AbstractController;
-use Views\Code\Cesar\DecodePermutationView;
+use Views\Code\Cesar\DecodeCesarView;
 
 class DecryptCesar extends AbstractController
 {
@@ -11,7 +11,7 @@ class DecryptCesar extends AbstractController
     function getMethod(){
 
         // Créer une instance de la vue CodePermutationView
-        $view = new DecodePermutationView();
+        $view = new DecodeCesarView();
 
         // Afficher le contenu de la page
         $view->render();
@@ -28,7 +28,7 @@ class DecryptCesar extends AbstractController
         }else {
             echo json_encode(['success' => false, 'message' => 'Action invalide']);
         }
-        $view = new DecodePermutationView();
+        $view = new DecodeCesarView();
 
         // Afficher le contenu de la page
         $view->render();
