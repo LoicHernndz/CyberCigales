@@ -1,0 +1,130 @@
+/* Styles pour les icônes SVG externes */
+
+/* Taille par défaut des icônes */
+.icon, .ionicon {
+    width: 24px;
+    height: 24px;
+    display: block;
+    vertical-align: top;
+}
+
+/* Icônes plus petites */
+.icon.small, .ionicon.small {
+    width: 16px;
+    height: 16px;
+}
+
+/* Icônes plus grandes */
+.icon.large, .ionicon.large {
+    width: 32px;
+    height: 32px;
+}
+
+/* Couleurs pour les boutons */
+.nav-btn .icon,
+.nav-btn .ionicon {
+    filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);
+}
+
+.nav-btn.active .icon,
+.nav-btn.active .ionicon {
+    filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);
+}
+
+/* Boutons d'action des posts */
+.action-btn .icon {
+    filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);
+    transition: filter 0.2s ease;
+}
+
+.action-btn:hover .icon {
+    filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(50%) contrast(100%);
+}
+
+/* Bouton like spécial */
+.like-btn .icon {
+    filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);
+    transition: all 0.2s ease;
+}
+
+.like-btn:hover .icon {
+    transform: scale(1.1);
+    filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(50%) contrast(100%);
+}
+
+.like-btn.liked .icon {
+    filter: brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+}
+
+/* Icônes du header */
+.icon-btn .icon {
+    filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);
+}
+
+/* Icônes du profil */
+.icon_button .ionicon {
+    filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);
+}
+
+/* Icône vérifiée (bleue) */
+.ionicon.verified {
+    filter: brightness(0) saturate(100%) invert(27%) sepia(100%) saturate(2000%) hue-rotate(200deg) brightness(100%) contrast(100%);
+}
+
+/* Icônes des onglets */
+.tab_button .ionicon {
+    filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);
+    transition: filter 0.2s ease;
+}
+
+.tab_button.active .ionicon {
+    filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);
+}
+
+.tab_button:hover .ionicon {
+    filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(50%) contrast(100%);
+}
+
+/* Icônes du chat */
+.back-btn .icon,
+.action-btn .icon {
+    filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);
+    transition: all 0.2s ease;
+}
+
+.back-btn:hover .icon,
+.action-btn:hover .icon {
+    transform: scale(1.05);
+    filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(50%) contrast(100%);
+}
+
+/* Icônes de saisie de message */
+.attachment-btn .icon,
+.send-btn .icon {
+    filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);
+    transition: all 0.2s ease;
+}
+
+.attachment-btn:hover .icon,
+.send-btn:hover .icon {
+    transform: scale(1.1);
+    filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(50%) contrast(100%);
+}
+
+/* Icônes spéciales */
+.video_icon {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .icon, .ionicon {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .icon.small, .ionicon.small {
+        width: 14px;
+        height: 14px;
+    }
+}

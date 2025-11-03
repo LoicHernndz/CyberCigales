@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat avec Melina</title>
+    <link rel="stylesheet" href="/assets/instagram/css/instagram-mobile.css">
+    <link rel="stylesheet" href="/assets/instagram/css/melina-chat.css">
+    <link rel="stylesheet" href="/assets/instagram/css/svg-icons.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+        <script src="/assets/instagram/js/melina-chat.js"></script>
+</head>
+<body>
+    <div class="chat-container">
+        <!-- Header du chat -->
+        <header class="chat-header">
+            <div class="chat-header-content">
+                <button class="back-btn" onclick="window.location.href='/instagram/melina'">
+                    <img src="/images/instagram/svgs/chevron-back-outline.svg" alt="Retour" class="icon">
+                </button>
+                <div class="chat-user-info">
+                    <div class="user-avatar">
+                        <img src="/images/instagram/faux-profil-amie-hacke/melina_photo_selfie_salon.png" alt="Melina">
+                    </div>
+                    <div class="user-details">
+                        <h3>Melina</h3>
+                        <p>@mel_133</p>
+                        <span class="status">En ligne</span>
+                    </div>
+                </div>
+                <div class="chat-actions">
+                    <button class="action-btn" aria-label="Appel vidéo">
+                        <img src="/images/instagram/svgs/videocam-outline.svg" alt="Appel vidéo" class="icon">
+                    </button>
+                    <button class="action-btn" aria-label="Plus d'options">
+                        <img src="/images/instagram/svgs/ellipsis-horizontal.svg" alt="Options" class="icon">
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Messages -->
+        <div class="messages-container">
+            <div class="messages">
+                {{MESSAGES}}
+            </div>
+        </div>
+
+        <!-- Zone de saisie -->
+        <div class="message-input-container">
+            <div class="message-input">
+                <button class="attachment-btn" aria-label="Joindre un fichier">
+                    <img src="/images/instagram/svgs/link-outline.svg" alt="Joindre" class="icon">
+                </button>
+                <input type="text" placeholder="Tapez un message..." class="message-field" id="messageInput">
+                <button class="send-btn" aria-label="Envoyer">
+                    <img src="/images/instagram/svgs/navigate-outline.svg" alt="Envoyer" class="icon">
+                </button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

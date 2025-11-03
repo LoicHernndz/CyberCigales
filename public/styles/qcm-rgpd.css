@@ -1,0 +1,347 @@
+/* QCM RGPD - Styles simplifiés */
+
+.qcm-container, .feedback-container, .resultat-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+}
+
+/* Header */
+.qcm-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: rgba(0, 255, 65, 0.05);
+    border: 1px solid #00ff41;
+    border-radius: 5px;
+}
+
+.qcm-header h1 {
+    color: #00ff41;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0;
+    color: #b0b0b0;
+}
+
+.score-display strong {
+    color: #00ff41;
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid #00ff41;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 0.5rem;
+}
+
+.progress-bar {
+    height: 100%;
+    background: #00ff41;
+    transition: width 0.3s ease;
+}
+
+/* Question Card */
+.question-card {
+    background: rgba(0, 255, 65, 0.03);
+    border: 1px solid #00ff41;
+    border-radius: 5px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.question-meta {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+}
+
+.categorie-badge, .difficulte-badge, .points-badge {
+    padding: 0.3rem 0.7rem;
+    border-radius: 3px;
+    border: 1px solid #00ff41;
+    color: #00ff41;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.question-title {
+    color: #b0b0b0;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+/* Réponses */
+.reponses-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.reponse-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid #00ff41;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.reponse-card:hover {
+    background: rgba(0, 255, 65, 0.08);
+}
+
+.reponse-card input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.reponse-letter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #00ff41;
+    border-radius: 3px;
+    color: #00ff41;
+    font-weight: bold;
+}
+
+.reponse-text {
+    color: #b0b0b0;
+    flex: 1;
+}
+
+/* Boutons */
+.btn-valider, .btn-next, .btn-rejouer, .btn-home, .btn-secondary {
+    padding: 0.8rem 1.5rem;
+    background: #00ff41;
+    border: none;
+    border-radius: 3px;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+}
+
+.btn-valider:hover, .btn-next:hover, .btn-rejouer:hover, .btn-home:hover {
+    background: #00cc33;
+    
+    
+}
+
+.btn-secondary {
+    background: #555;
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background: #777;
+}
+
+.btn-valider {
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+/* Feedback */
+.feedback-container {
+    text-align: center;
+}
+
+.feedback-success {
+    border: 2px solid #00ff41;
+    background: rgba(0, 255, 65, 0.05);
+}
+
+.feedback-error {
+    border: 2px solid #ff4444;
+    background: rgba(255, 68, 68, 0.05);
+}
+
+.feedback-icon {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.feedback-title {
+    color: #b0b0b0;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.feedback-points {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 1rem 0;
+}
+
+.points-positive { color: #00ff41; }
+.points-negative { color: #ff4444; }
+
+.feedback-explication {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1.5rem;
+    border-radius: 5px;
+    border: 1px solid #00ff41;
+    margin: 1.5rem 0;
+    text-align: left;
+}
+
+.feedback-explication h2 {
+    color: #00ff41;
+    margin-bottom: 0.8rem;
+    font-size: 1.2rem;
+}
+
+.feedback-explication p {
+    color: #b0b0b0;
+    line-height: 1.6;
+}
+
+.feedback-actions {
+    margin-top: 1.5rem;
+}
+
+/* Résultats */
+.resultat-titre {
+    color: #00ff41;
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.niveau-card {
+    text-align: center;
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid;
+    border-radius: 5px;
+    margin-bottom: 1.5rem;
+}
+
+.niveau-card h2 {
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+}
+
+.niveau-commentaire {
+    color: #b0b0b0;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.stat-card {
+    background: rgba(0, 255, 65, 0.03);
+    border: 1px solid #00ff41;
+    border-radius: 5px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.stat-value {
+    color: #00ff41;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+}
+
+.stat-label {
+    color: #b0b0b0;
+    font-size: 0.9rem;
+}
+
+.leaderboard-section {
+    margin: 1.5rem 0;
+}
+
+.leaderboard-section h2 {
+    color: #00ff41;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid #00ff41;
+}
+
+.leaderboard-table th {
+    background: rgba(0, 255, 65, 0.1);
+    color: #00ff41;
+    padding: 0.8rem;
+    text-align: left;
+}
+
+.leaderboard-table td {
+    color: #b0b0b0;
+    padding: 0.8rem;
+    border-top: 1px solid rgba(0, 255, 65, 0.1);
+}
+
+.score-cell {
+    color: #00ff41;
+    font-weight: bold;
+}
+
+.resultat-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+}
+
+.info-banner {
+    background: rgba(136, 204, 255, 0.1);
+    border: 1px solid #88ccff;
+    color: #88ccff;
+    padding: 0.8rem;
+    border-radius: 3px;
+    margin-bottom: 1rem;
+}
+
+.qcm-navigation {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .qcm-container, .feedback-container, .resultat-container {
+        padding: 1rem;
+    }
+
+    .progress-info {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .question-meta {
+        flex-direction: column;
+    }
+}

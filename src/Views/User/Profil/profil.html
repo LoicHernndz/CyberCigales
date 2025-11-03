@@ -1,0 +1,401 @@
+<link rel="stylesheet" href="/styles/profil.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+<div class="profil-container">
+    <!-- Hero Header avec Avatar -->
+    <div class="profil-hero">
+        <div class="hero-background"></div>
+        <div class="hero-content">
+            <div class="user-avatar-large">
+                <span class="material-icons">account_circle</span>
+            </div>
+            <div class="user-info-hero">
+                <h1>{{FIRSTNAME_KEY}} {{LASTNAME_KEY}}</h1>
+                <p class="user-username">@{{USERNAME_KEY}}</p>
+                <p class="user-member-since">
+                    <span class="material-icons">calendar_today</span>
+                    Membre depuis le {{MEMBRE_DEPUIS}}
+                </p>
+            </div>
+            <div class="user-rank">
+                <div class="rank-badge">
+                    <span class="material-icons">workspace_premium</span>
+                    <span class="rank-number">#{{GLOBAL_RANK}}</span>
+                </div>
+                <p class="rank-text">Top {{PERCENTILE}}%</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Grid principale -->
+    <div class="stats-grid-main">
+        <div class="stat-card stat-card-primary">
+            <div class="stat-icon stat-icon-primary">
+                <span class="material-icons">star</span>
+            </div>
+            <div class="stat-content">
+                <h3>Score Total</h3>
+                <p class="stat-number">{{SCORE_KEY}}</p>
+                <p class="stat-label">points accumulés</p>
+            </div>
+        </div>
+
+        <div class="stat-card stat-card-success">
+            <div class="stat-icon stat-icon-success">
+                <span class="material-icons">emoji_events</span>
+            </div>
+            <div class="stat-content">
+                <h3>Badges</h3>
+                <p class="stat-number">{{BADGES_KEY}}</p>
+                <p class="stat-label">débloqués</p>
+            </div>
+        </div>
+
+        <div class="stat-card stat-card-info">
+            <div class="stat-icon stat-icon-info">
+                <span class="material-icons">schedule</span>
+            </div>
+            <div class="stat-content">
+                <h3>Temps passé</h3>
+                <p class="stat-number">{{TIME_KEY}}</p>
+                <p class="stat-label">d'apprentissage</p>
+            </div>
+        </div>
+
+        <div class="stat-card stat-card-warning">
+            <div class="stat-icon stat-icon-warning">
+                <span class="material-icons">people</span>
+            </div>
+            <div class="stat-content">
+                <h3>Classement</h3>
+                <p class="stat-number">{{GLOBAL_RANK}}/{{TOTAL_USERS}}</p>
+                <p class="stat-label">utilisateurs</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grille principale : Graphiques + Détails -->
+    <div class="content-grid-profil">
+        <!-- Colonne gauche : Graphiques -->
+        <div class="left-column">
+            <!-- Graphique d'activité récente -->
+            <div class="chart-card">
+                <div class="card-header-chart">
+                    <div class="card-icon-header">
+                        <span class="material-icons">show_chart</span>
+                    </div>
+                    <div>
+                        <h2>Activité récente</h2>
+                        <p class="card-subtitle">Vos derniers 7 jours</p>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="activityChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Graphique de progression par module -->
+            <div class="chart-card">
+                <div class="card-header-chart">
+                    <div class="card-icon-header">
+                        <span class="material-icons">donut_large</span>
+                    </div>
+                    <div>
+                        <h2>Progression par module</h2>
+                        <p class="card-subtitle">Taux de complétion</p>
+                    </div>
+                </div>
+                <div class="chart-container chart-container-small">
+                    <canvas id="progressionChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Statistiques RGPD détaillées -->
+            <div class="stats-detailed-card">
+                <div class="card-header-stats">
+                    <div class="card-icon-header">
+                        <span class="material-icons">verified_user</span>
+                    </div>
+                    <h2>Formation RGPD</h2>
+                </div>
+                <div class="progress-section">
+                    <div class="progress-info">
+                        <span class="progress-label">Progression</span>
+                        <span class="progress-value">{{RGPD_PROGRESS}}%</span>
+                    </div>
+                    <div class="progress-bar-custom">
+                        <div class="progress-fill-custom" style="width: {{RGPD_PROGRESS}}%"></div>
+                    </div>
+                </div>
+                <div class="stats-details-grid">
+                    {{RGPD_STATS_HTML}}
+                </div>
+            </div>
+
+            <!-- Statistiques Cypher Rush détaillées -->
+            <div class="stats-detailed-card">
+                <div class="card-header-stats">
+                    <div class="card-icon-header">
+                        <span class="material-icons">vpn_key</span>
+                    </div>
+                    <h2>Cypher Rush</h2>
+                </div>
+                <div class="stats-details-grid">
+                    {{CYPHER_STATS_HTML}}
+                </div>
+            </div>
+        </div>
+
+        <!-- Colonne droite : Informations + Badges -->
+        <div class="right-column">
+            <!-- Informations personnelles -->
+            <div class="info-card-profil">
+                <div class="card-header-profil">
+                    <div class="card-icon-header">
+                        <span class="material-icons">person</span>
+                    </div>
+                    <h2>Informations</h2>
+                </div>
+                <div class="info-list">
+                    <div class="info-row">
+                        <span class="info-label">
+                            <span class="material-icons">badge</span>
+                            Prénom
+                        </span>
+                        <span class="info-value">{{FIRSTNAME_KEY}}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">
+                            <span class="material-icons">badge</span>
+                            Nom
+                        </span>
+                        <span class="info-value">{{LASTNAME_KEY}}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">
+                            <span class="material-icons">alternate_email</span>
+                            Pseudo
+                        </span>
+                        <span class="info-value">{{USERNAME_KEY}}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">
+                            <span class="material-icons">email</span>
+                            Email
+                        </span>
+                        <span class="info-value">{{EMAIL_KEY}}</span>
+                    </div>
+                </div>
+                <div class="card-footer-profil">
+                    <a href="/user/edit" class="btn-edit-profil">
+                        <span class="material-icons">edit</span>
+                        <span>Modifier mon profil</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Badges débloqués -->
+            <div class="badges-card">
+                <div class="card-header-profil">
+                    <div class="card-icon-header">
+                        <span class="material-icons">workspace_premium</span>
+                    </div>
+                    <h2>Mes Badges</h2>
+                </div>
+                <div class="badges-grid">
+                    {{BADGES_HTML}}
+                </div>
+            </div>
+
+            <!-- Actions rapides -->
+            <div class="quick-actions-card">
+                <div class="card-header-profil">
+                    <div class="card-icon-header">
+                        <span class="material-icons">flash_on</span>
+                    </div>
+                    <h2>Actions rapides</h2>
+                </div>
+                <div class="actions-list">
+                    <a href="/qcm/rgpd/presentation" class="action-button">
+                        <span class="material-icons">school</span>
+                        <span>Continuer la formation RGPD</span>
+                        <span class="material-icons action-arrow">arrow_forward</span>
+                    </a>
+                    <a href="/" class="action-button">
+                        <span class="material-icons">dashboard</span>
+                        <span>Voir toutes les formations</span>
+                        <span class="material-icons action-arrow">arrow_forward</span>
+                    </a>
+                    <a href="/user/reset-password" class="action-button">
+                        <span class="material-icons">lock_reset</span>
+                        <span>Changer mon mot de passe</span>
+                        <span class="material-icons action-arrow">arrow_forward</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Données d'activité
+const activityData = {{ACTIVITY_DATA}};
+const progressionData = {{PROGRESSION_DATA}};
+
+// Configuration de Chart.js
+Chart.defaults.color = 'rgba(255, 255, 255, 0.7)';
+Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';
+Chart.defaults.font.family = "'Inter', sans-serif";
+
+// Graphique d'activité récente
+const activityCtx = document.getElementById('activityChart');
+if (activityCtx) {
+    new Chart(activityCtx, {
+        type: 'line',
+        data: {
+            labels: activityData.map(d => d.date),
+            datasets: [
+                {
+                    label: 'Formation RGPD',
+                    data: activityData.map(d => d.rgpd),
+                    borderColor: '#00ff41',
+                    backgroundColor: 'rgba(0, 255, 65, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    pointBackgroundColor: '#00ff41',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2
+                },
+                {
+                    label: 'Cypher Rush',
+                    data: activityData.map(d => d.cypher),
+                    borderColor: '#00ffff',
+                    backgroundColor: 'rgba(0, 255, 255, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    pointBackgroundColor: '#00ffff',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                    labels: {
+                        usePointStyle: true,
+                        padding: 15,
+                        font: {
+                            size: 13,
+                            weight: '600'
+                        }
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(10, 14, 39, 0.95)',
+                    titleColor: '#00ff41',
+                    bodyColor: '#fff',
+                    borderColor: '#00ff41',
+                    borderWidth: 1,
+                    padding: 12,
+                    displayColors: true,
+                    callbacks: {
+                        label: function(context) {
+                            return context.dataset.label + ': ' + context.parsed.y + ' activité(s)';
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1,
+                        font: {
+                            size: 12
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.05)'
+                    }
+                },
+                x: {
+                    ticks: {
+                        font: {
+                            size: 12
+                        }
+                    },
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Graphique de progression (Doughnut)
+const progressionCtx = document.getElementById('progressionChart');
+if (progressionCtx && progressionData) {
+    const modules = Object.values(progressionData);
+    const labels = modules.map(m => m.name);
+    const data = modules.map(m => m.completion);
+    const colors = ['#00ff41', '#00ffff', '#ff0040', '#ffaa00'];
+    
+    new Chart(progressionCtx, {
+        type: 'doughnut',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: data,
+                backgroundColor: colors.map(c => c + '40'),
+                borderColor: colors,
+                borderWidth: 3,
+                hoverOffset: 10
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        padding: 15,
+                        usePointStyle: true,
+                        font: {
+                            size: 12,
+                            weight: '600'
+                        }
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(10, 14, 39, 0.95)',
+                    titleColor: '#00ff41',
+                    bodyColor: '#fff',
+                    borderColor: '#00ff41',
+                    borderWidth: 1,
+                    padding: 12,
+                    callbacks: {
+                        label: function(context) {
+                            return context.label + ': ' + context.parsed + '%';
+                        }
+                    }
+                }
+            },
+            cutout: '65%'
+        }
+    });
+}
+</script>

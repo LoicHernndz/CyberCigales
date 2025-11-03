@@ -1,0 +1,54 @@
+<div class="qcm-container">
+    <!-- Header avec progression -->
+    <div class="qcm-header">
+        <h1>QCM RGPD - Protection des Données</h1>
+        <div class="progress-info">
+            <span class="progress-text">Question {{QUESTION_NUM}} / {{TOTAL_QUESTIONS}}</span>
+            <span class="score-display">Score : <strong>{{SCORE}} pts</strong></span>
+        </div>
+        <div class="progress-bar-container">
+            <div class="progress-bar" style="width: {{PROGRESS_PERCENT}}%"></div>
+        </div>
+    </div>
+
+    {{FLASH_MESSAGE}}
+    {{DEJA_REPONDU_MSG}}
+
+    <!-- Carte de question -->
+    <div class="question-card">
+        <div class="question-meta">
+            <span class="categorie-badge">{{CATEGORIE_BADGE}}</span>
+            <span class="difficulte-badge" style="color: {{DIFFICULTE_COLOR}}">
+                {{DIFFICULTE}}
+            </span>
+            <span class="points-badge">
+                +{{POINTS_CORRECT}} pts / {{POINTS_INCORRECT}} pts
+            </span>
+        </div>
+
+        <h2 class="question-title">{{QUESTION}}</h2>
+
+        <form method="POST" action="/qcm/rgpd" class="reponses-form">
+            <input type="hidden" name="question_num" value="{{QUESTION_NUM}}">
+            
+            <div class="reponses-grid">
+                {{REPONSES}}
+            </div>
+
+            <button type="submit" class="btn-valider">
+                Valider ma réponse
+            </button>
+        </form>
+    </div>
+
+    <!-- Boutons navigation -->
+    <div class="qcm-navigation">
+        <a href="/qcm/rgpd/resultat" class="btn-secondary">
+            Voir mes résultats
+        </a>
+    </div>
+</div>
+
+<link rel="stylesheet" href="/styles/qcm-rgpd-immersive.css">
+<script src="/scripts/qcm-rgpd-immersive.js"></script>
+

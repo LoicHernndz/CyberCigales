@@ -1,0 +1,467 @@
+/* Instagram Profile Styles
+ * 
+ * Basé sur le projet IG Grid Profile de Angela Holden
+ * Repository: https://github.com/angelajholden/ig-grid-profile
+ * 
+ * Styles pour le profil Instagram avec :
+ * - Grille de posts responsive
+ * - Statistiques du profil
+ * - Design mobile-first
+ * - Animations et effets de survol
+ */
+
+/* CORRECTION : Images des posts trop grandes */
+.post_grid .figure {
+    aspect-ratio: 1;
+    overflow: hidden;
+}
+
+.post_grid .figure img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Effets hover pour navigation */
+.icon_button:hover {
+    background-color: #f5f5f5;
+    transform: scale(1.05);
+    transition: all 0.2s ease;
+}
+
+.tab_button:hover {
+    background-color: #f5f5f5;
+    transform: scale(1.05);
+    transition: all 0.2s ease;
+}
+
+.tab_button:hover .ionicon {
+    filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(50%) contrast(100%);
+    transition: filter 0.2s ease;
+}
+
+/* Responsive pour les posts */
+@media (max-width: 768px) {
+    .post_grid {
+        gap: 1px;
+    }
+    
+    .post_grid .figure {
+        aspect-ratio: 1;
+        overflow: hidden;
+    }
+}
+
+@media (min-width: 768px) {
+    .post_grid {
+        gap: 2px;
+    }
+    
+    .post_grid .figure {
+        aspect-ratio: 1;
+        overflow: hidden;
+    }
+}
+
+
+/*
+.inter-<uniquifier> {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+*/
+:root {
+	--white: #fff;
+	--charcoal: #0d0e10;
+	--black: #0b0e13;
+	--gray: #696c73;
+	--lt-gray: #e8e9ed;
+	--aqua: #208ffa;
+	--blue: #3647d5;
+}
+
+html {
+	box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+	min-height: 100vh;
+	font-family: "Inter", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 400;
+	font-style: normal;
+	font-size: 100%;
+	line-height: 1.45;
+	background-color: var(--black);
+	color: var(--charcoal);
+}
+
+a {
+	color: var(--blue);
+	text-decoration-color: transparent;
+	text-decoration-thickness: 2px;
+	text-underline-offset: 3px;
+	transition: text-decoration-color 300ms ease-in-out;
+}
+
+a:focus,
+a:hover,
+a:active {
+	text-decoration-color: var(--blue);
+}
+
+.bold,
+strong {
+	font-weight: 600;
+	color: var(--black);
+}
+
+a.bold:focus,
+a.bold:hover,
+a.bold:active {
+	text-decoration-color: var(--black);
+}
+
+figure {
+	margin: 0;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+svg {
+	display: inline-block;
+	width: 3rem;
+	height: 3rem;
+	stroke: var(--charcoal);
+	fill: var(--charcoal);
+}
+
+button {
+	border: none;
+	background-color: transparent;
+	padding: 0;
+}
+
+.button {
+	/* padding: 0.65rem 1.25rem; */
+	padding-top: 0.65rem;
+	padding-bottom: 0.65rem;
+	background-color: var(--lt-gray);
+	font-weight: 600;
+	line-height: 1;
+	color: var(--charcoal);
+	border-radius: 10px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	border: 2px solid transparent;
+}
+
+.button:hover {
+	background-color: var(--aqua);
+	color: var(--white);
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(32, 143, 250, 0.3);
+	border-color: var(--aqua);
+}
+
+.button svg {
+	width: 0.85rem;
+	height: auto;
+}
+
+.icon_button {
+	width: 3rem;
+	height: 3rem;
+	padding: 0.5rem;
+}
+
+.icon_button svg {
+	width: 1.75rem;
+	height: 1.75rem;
+}
+
+.access-hidden {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+@media (min-width: 768px) {
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		background-color: var(--white);
+		border-radius: 8px;
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+		min-height: 100vh;
+	}
+}
+
+/* Header */
+.header {
+	padding: 1rem 1rem 0 0;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	align-items: center;
+	background-color: var(--white);
+}
+
+.header_left {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.primary_header {
+	margin: 0;
+	line-height: 1;
+	font-size: 1.25rem;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.verified {
+	width: 1.5rem;
+	height: 1.5rem;
+	fill: var(--aqua);
+}
+
+/* Main */
+.main {
+	padding: 0 1rem;
+	background-color: var(--white);
+}
+
+.profile {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 1rem;
+}
+
+.profile .figure {
+	width: 7rem; /* any size */
+	aspect-ratio: 1;
+	border-radius: 50%;
+	overflow: hidden; /* fine! */
+	/* white ring = padding; gradient ring = border */
+	padding: 0.25rem;
+	border: 0.25rem solid transparent;
+	background: linear-gradient(var(--white), var(--white)) padding-box, conic-gradient(#d812c7, #dd2a7b, #f9b224, #f3c52a, #d812c7) border-box;
+}
+
+.profile img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 50%;
+}
+
+.meta_count-container {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	gap: 2rem;
+}
+
+.name {
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: 1rem;
+	color: var(--gray);
+	letter-spacing: 0.5px;
+	margin: 0 0 0.55rem;
+}
+
+.count {
+	font-weight: 700;
+	color: var(--black);
+}
+
+.description p {
+	margin: 0.5rem 0;
+}
+
+.description svg {
+	vertical-align: middle;
+	width: 1.25rem;
+	height: 1.25rem;
+}
+
+.description p:nth-of-type(2) svg {
+	transform: rotate(-45deg);
+}
+
+/* Followed By */
+.followed_by {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.followed_profiles {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.followed_profiles .figure {
+	position: relative;
+	width: 2.5rem;
+	height: auto;
+	aspect-ratio: 1 / 1;
+	border-radius: 50%;
+	overflow: hidden;
+	border: 2px solid var(--white);
+	z-index: 2;
+}
+
+.followed_profiles .figure:nth-of-type(2) {
+	transform: translateX(-1rem);
+	z-index: 1;
+}
+
+.followed_profiles .figure:nth-of-type(3) {
+	transform: translateX(-2rem);
+	z-index: 0;
+}
+
+.followed_by p {
+	transform: translate(-1rem);
+	font-size: 0.9rem;
+}
+
+/* CTA Button */
+.ctas {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	align-items: center;
+	gap: 0.25rem;
+}
+
+.ctas .button {
+	padding-inline: max(0.9rem, 4svw);
+}
+
+/* Button Tabs */
+.button_tabs {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-evenly;
+	align-items: center;
+	margin: 0 0 1px;
+}
+
+.tab_button {
+	width: 4rem;
+	height: 4rem;
+	padding: 1rem;
+}
+
+.tab_button.active {
+	border-bottom: 3px solid var(--black);
+}
+
+.tab_button svg {
+	width: 2rem;
+	height: 2rem;
+	fill: var(--gray);
+	stroke: var(--gray);
+}
+
+.tab_button.active svg {
+	fill: var(--charcoal);
+	stroke: var(--black);
+}
+
+/* Post Grid */
+.post_grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 1px;
+}
+
+.post_grid .figure {
+	position: relative;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 1 / 1.31;
+	z-index: 0;
+}
+
+.post_grid img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.post_grid svg {
+	position: absolute;
+	top: 0.5rem;
+	right: 0.5rem;
+	width: 1.25rem;
+	height: 1.25rem;
+	transform: rotate(45deg);
+	z-index: 1;
+	fill: var(--white);
+	stroke: var(--white);
+}
+
+.post_grid .video_icon {
+	transform: rotate(-215deg);
+}
+
+/* Footer */
+.footer {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-around;
+	align-items: center;
+	padding: 0 1rem 2rem;
+	background-color: var(--white);
+}
+
+.footer .tab_button svg {
+	fill: var(--black);
+	stroke: var(--black);
+}
+
+.footer .figure {
+	width: 100%;
+	height: auto;
+	aspect-ratio: 1 / 1;
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.footer img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}

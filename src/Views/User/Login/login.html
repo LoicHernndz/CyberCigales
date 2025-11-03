@@ -1,0 +1,67 @@
+<link rel="stylesheet" href="/styles/auth.css">
+
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <div class="auth-icon">
+                <span class="material-icons">login</span>
+            </div>
+            <h1>Connexion</h1>
+            <p class="auth-subtitle">Accédez à votre espace de formation en cybersécurité</p>
+        </div>
+
+        {{FLASH}}
+
+        <form method="post" action="/user/login" class="auth-form">
+            <input type="hidden" name="type" value="login">
+            
+            <div class="form-group">
+                <label for="name-email">
+                    <span class="material-icons">person</span>
+                    Pseudo ou E-mail
+                </label>
+                <input 
+                    type="text" 
+                    name="name/email" 
+                    id="name-email"
+                    placeholder="Entrez votre pseudo ou email"
+                    required
+                    autocomplete="username">
+            </div>
+
+            <div class="form-group">
+                <label for="password">
+                    <span class="material-icons">lock</span>
+                    Mot de passe
+                </label>
+                <input 
+                    type="password" 
+                    name="password" 
+                    id="password"
+                    placeholder="Entrez votre mot de passe"
+                    required
+                    autocomplete="current-password">
+            </div>
+
+            <button type="submit" name="submit" class="btn-auth btn-primary">
+                <span class="material-icons">login</span>
+                <span>Se connecter</span>
+            </button>
+
+            <div class="auth-links">
+                <a href="/user/reset-password" class="link-forgot">
+                    <span class="material-icons">help_outline</span>
+                    Mot de passe oublié ?
+                </a>
+            </div>
+
+            <div class="auth-footer">
+                <p>Pas encore de compte ?</p>
+                <a href="/user/signup" class="link-secondary">
+                    <span class="material-icons">person_add</span>
+                    Créer un compte
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

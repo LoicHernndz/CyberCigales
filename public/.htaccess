@@ -1,0 +1,9 @@
+# Restriction des droits sur les fichiers
+RewriteEngine On
+
+# Si la requete concerne un fichier public, l'acces est autorise
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Sinon, on s'addresse au routeur (index.php)
+RewriteRule ^(.*)$ index.php [L,QSA]

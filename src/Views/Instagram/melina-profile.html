@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Melina (@mel_133) - Instagram Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/normalize.css">
+    <link rel="stylesheet" href="/assets/instagram/css/instagram-profile.css">
+    <link rel="stylesheet" href="/assets/instagram/css/svg-icons.css">
+</head>
+<body class="container">
+    <!-- Header avec navigation -->
+    <header class="header">
+        <div class="header_left">
+            <button class="icon_button" aria-label="Go Back" type="button" onclick="window.location.href='/instagram'" title="Retour à l'accueil">
+                <img src="/images/instagram/svgs/chevron-back-outline.svg" alt="Retour" class="ionicon">
+            </button>
+            <h1 class="primary_header">
+                mel_133
+                <span class="access-hidden">Verified</span>
+                <img src="/images/instagram/svgs/shield-checkmark.svg" alt="Vérifié" class="ionicon verified">
+            </h1>
+        </div>
+        <div class="header_right">
+            <button class="icon_button" aria-label="Notifications" type="button">
+                <img src="/images/instagram/svgs/notifications-outline.svg" alt="Notifications" class="ionicon">
+            </button>
+            <button class="icon_button" type="button">
+                <img src="/images/instagram/svgs/ellipsis-horizontal.svg" alt="Menu" class="ionicon">
+            </button>
+        </div>
+    </header>
+    
+    <!-- Contenu principal -->
+    <main class="main">
+        <!-- Section profil avec avatar et stats -->
+        <div class="profile">
+            <figure class="figure">
+                <img loading="lazy" src="/images/instagram/faux-profil-amie-hacke/melina_photo_selfie_salon.png?v=3" alt="Melina profile" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" />
+            </figure>
+            <div class="profile_meta">
+                <div class="name">Melina</div>
+                <div class="meta_count-container">
+                    <div class="meta_count">
+                        <div class="count">3</div>
+                        <div class="type">publications</div>
+                    </div>
+                    <div class="meta_count">
+                        <div class="count">89.2K</div>
+                        <div class="type">abonnés</div>
+                    </div>
+                    <div class="meta_count">
+                        <div class="count">1,156</div>
+                        <div class="type">abonnements</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Description et liens générés dynamiquement -->
+        {{PROFILE_INFO}}
+        
+        <!-- Section "Followed by" -->
+        <div class="followed_by">
+            <div class="followed_profiles">
+                <figure class="figure">
+                    <img loading="lazy" src="/images/instagram/alexander-schimmeck-2zJhA9RSkys-unsplash.jpg" alt="fashion_paris" />
+                </figure>
+                <figure class="figure">
+                    <img loading="lazy" src="/images/instagram/anna-bratiychuk-IeNoBmJ011g-unsplash.jpg" alt="style_blogger" />
+                </figure>
+                <figure class="figure">
+                    <img loading="lazy" src="/images/instagram/annie-spratt-e92dhXE8PUg-unsplash.jpg" alt="annie_nature" />
+                </figure>
+            </div>
+            <p>
+                Suivi par
+                <span class="bold">fashion_paris, style_blogger</span>
+                et
+                <span class="bold">15 autres</span>
+            </p>
+        </div>
+        
+        <!-- Boutons d'action -->
+        <div class="ctas">
+            <button class="button" type="button">Suivre</button>
+            <button class="button" type="button" onclick="window.location.href='/instagram/melina/chat'">Message</button>
+            <button class="button" type="button">Email</button>
+            <button class="button" aria-label="Ajouter au profil" type="button">
+                <img src="/images/instagram/svgs/person-add-outline.svg" alt="Ajouter" class="ionicon">
+            </button>
+        </div>
+        
+        <!-- Onglets de navigation -->
+        <div class="button_tabs">
+            <button class="tab_button active" aria-pressed="true" aria-label="Post Grid" type="button">
+                <img src="/images/instagram/svgs/grid.svg" alt="Grid" class="ionicon">
+            </button>
+            <button class="tab_button" aria-label="Reels" type="button">
+                <img src="/images/instagram/svgs/videocam-outline.svg" alt="Reels" class="ionicon">
+            </button>
+            <button class="tab_button" aria-label="Remix" type="button">
+                <img src="/images/instagram/svgs/repeat-outline.svg" alt="Remix" class="ionicon">
+            </button>
+            <button class="tab_button" aria-label="Tagged" type="button">
+                <img src="/images/instagram/svgs/person-circle-outline.svg" alt="Tagged" class="ionicon">
+            </button>
+        </div>
+        
+        <!-- Grille des posts -->
+        <div class="post_grid">
+            {{POSTS}}
+        </div>
+    </main>
+    
+    <!-- Navigation du bas -->
+    <footer class="footer">
+        <button class="tab_button" aria-label="Accueil" type="button" onclick="window.location.href='/instagram'" title="Retour à l'accueil">
+            <img src="/images/instagram/svgs/home-sharp.svg" alt="Accueil" class="ionicon">
+        </button>
+        <button class="tab_button" aria-label="Recherche" type="button">
+            <img src="/images/instagram/svgs/search.svg" alt="Recherche" class="ionicon">
+        </button>
+        <button class="tab_button" aria-label="Ajouter du contenu" type="button">
+            <img src="/images/instagram/svgs/add-circle-outline.svg" alt="Ajouter" class="ionicon">
+        </button>
+        <button class="tab_button" aria-label="Reels" type="button">
+            <img src="/images/instagram/svgs/videocam-outline.svg" alt="Reels" class="ionicon">
+        </button>
+        <button class="tab_button" aria-label="Profil utilisateur actuel" type="button">
+            <figure class="figure">
+                <img src="/images/instagram/faux-profil-amie-hacke/melina_photo_selfie_salon.png?v=3" alt="Profil Melina" />
+            </figure>
+        </button>
+    </footer>
+</body>
+</html>

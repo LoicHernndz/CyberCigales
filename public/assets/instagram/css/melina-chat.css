@@ -1,0 +1,286 @@
+/* Chat avec Melina - Styles
+ * 
+ * Basé sur le projet IG Grid Profile de Angela Holden
+ * Repository: https://github.com/angelajholden/ig-grid-profile
+ * 
+ * Styles pour l'interface de chat Instagram avec :
+ * - Design mobile-first responsive
+ * - Messages avec bulles différenciées
+ * - Zone de saisie interactive
+ * - Animations et transitions fluides
+ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #fafafa;
+    color: #262626;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-width: 500px;
+    margin: 0 auto;
+    background: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Header du chat */
+.chat-header {
+    background: #fff;
+    border-bottom: 1px solid #dbdbdb;
+    padding: 12px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.chat-header-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.back-btn:hover {
+    background-color: #f0f0f0;
+}
+
+.back-btn .icon {
+    width: 24px;
+    height: 24px;
+    color: #262626;
+}
+
+.chat-user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.user-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.user-details h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #262626;
+    margin-bottom: 2px;
+}
+
+.user-details p {
+    font-size: 14px;
+    color: #8e8e8e;
+    margin-bottom: 2px;
+}
+
+.status {
+    font-size: 12px;
+    color: #42b883;
+    font-weight: 500;
+}
+
+.chat-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.action-btn:hover {
+    background-color: #f0f0f0;
+}
+
+.action-btn .icon {
+    width: 20px;
+    height: 20px;
+    color: #262626;
+}
+
+/* Messages */
+.messages-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    background: #fafafa;
+}
+
+.messages {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 100%;
+}
+
+.message {
+    display: flex;
+    margin-bottom: 8px;
+}
+
+.message.received {
+    justify-content: flex-start;
+}
+
+.message.sent {
+    justify-content: flex-end;
+}
+
+.message-content {
+    max-width: 70%;
+    padding: 12px 16px;
+    border-radius: 18px;
+    position: relative;
+}
+
+.message.received .message-content {
+    background: #fff;
+    border: 1px solid #dbdbdb;
+    border-bottom-left-radius: 4px;
+}
+
+.message.sent .message-content {
+    background: #0095f6;
+    color: #fff;
+    border-bottom-right-radius: 4px;
+}
+
+.message-content p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.message-content .time {
+    font-size: 11px;
+    opacity: 0.7;
+    margin-top: 4px;
+    display: block;
+}
+
+/* Zone de saisie */
+.message-input-container {
+    background: #fff;
+    border-top: 1px solid #dbdbdb;
+    padding: 12px 16px;
+}
+
+.message-input {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f0f0f0;
+    border-radius: 25px;
+    padding: 8px 16px;
+}
+
+.attachment-btn {
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.attachment-btn:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.attachment-btn .icon {
+    width: 20px;
+    height: 20px;
+    color: #8e8e8e;
+}
+
+.message-field {
+    flex: 1;
+    border: none;
+    background: none;
+    outline: none;
+    font-size: 14px;
+    color: #262626;
+    padding: 8px 0;
+}
+
+.message-field::placeholder {
+    color: #8e8e8e;
+}
+
+.send-btn {
+    background: #0095f6;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.send-btn:hover {
+    background: #0084d4;
+}
+
+.send-btn .icon {
+    width: 20px;
+    height: 20px;
+    color: #fff;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+    .chat-container {
+        max-width: 600px;
+        border-radius: 8px;
+        margin: 20px auto;
+        height: calc(100vh - 40px);
+    }
+}
+
+/* Animations */
+.message {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

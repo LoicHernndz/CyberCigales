@@ -1,0 +1,62 @@
+<link rel="stylesheet" href="/styles/auth.css">
+
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <div class="auth-icon">
+                <span class="material-icons"></span>
+            </div>
+            <h1>Déchiffrement Vigenère</h1>
+            <p class="auth-subtitle">Testez votre capacité à déchiffrer un message !</p>
+        </div>
+
+        {{FLASH}}
+
+        <form method="post" action="/code/dechiffrement-vigenere" class="auth-form">
+            <input type="hidden" name="type" value="">
+
+            <div class="form-group">
+                <label for="word-vigenere">
+                    Entrez le mot ou la phrase que vous souhaitez déchiffrer avec la méthode Vigenère :
+                </label>
+                <input
+                        type="text"
+                        name="word-vigenere"
+                        id="word-vigenere"
+                        placeholder="Entrez le mot ou la phrase ici"
+                        required
+                        autocomplete="username">
+            </div>
+
+            <div class="form-group">
+                <label for="key-vigenere">
+                    Entrez la clé qui a été utilisé pour crypter le texte que vous avez entré :
+                </label>
+                <input
+                        type="text"
+                        name="key-vigenere"
+                        id="key-vigenere"
+                        placeholder="Entrez le décalage ici"
+                        required
+                        autocomplete="username">
+            </div>
+
+            <div class="form-group">
+                <label for="word-vigenere-verify">
+                    Entrez le code déchiffré pour vérifier si vous l'avez bien décrypté :
+                </label>
+                <input
+                        type="text"
+                        name="word-vigenere-verify"
+                        id="word-vigenere-verify"
+                        placeholder="Entrez le code chiffré ici"
+                        required
+                        autocomplete="username">
+            </div>
+
+            <button type="submit" name="submit" class="btn-auth btn-primary" id="btn-submit">
+                <span>Vérifier</span>
+            </button>
+        </form>
+    </div>
+</div>

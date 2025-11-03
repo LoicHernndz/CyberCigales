@@ -1,0 +1,62 @@
+<link rel="stylesheet" href="/styles/auth.css">
+
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <div class="auth-icon">
+                <span class="material-icons"></span>
+            </div>
+            <h1>Chiffrement Cesar</h1>
+            <p class="auth-subtitle">Testez votre capacité à chiffrer un message !</p>
+        </div>
+
+        {{FLASH}}
+
+        <form method="post" action="/code/chiffrement-cesar" class="auth-form">
+            <input type="hidden" name="type" value="login">
+
+            <div class="form-group">
+                <label for="word-cesar">
+                    Entrez le mot ou la phrase que vous souhaitez chiffrer avec le chiffre César :
+                </label>
+                <input
+                        type="text"
+                        name="word-cesar"
+                        id="word-cesar"
+                        placeholder="Entrez le mot ou la phrase ici"
+                        required
+                        autocomplete="username">
+            </div>
+
+            <div class="form-group">
+                <label for="shift-cesar">
+                    Entrez le décalage (nombre entier) que vous souhaitez utiliser pour le chiffrement de César :
+                </label>
+                <input
+                        type="number"
+                        name="shift-cesar"
+                        id="shift-cesar"
+                        placeholder="Entrez le décalage ici"
+                        required
+                        autocomplete="username">
+            </div>
+
+            <div class="form-group">
+                <label for="word-cesar-verify">
+                    Entrez le code chiffré du mot ou de la phrase que vous avez rentré précédemment pour vérifier votre chiffrement :
+                </label>
+                <input
+                        type="text"
+                        name="word-cesar-verify"
+                        id="word-cesar-verify"
+                        placeholder="Entrez le code chiffré ici"
+                        required
+                        autocomplete="username">
+            </div>
+
+            <button type="submit" name="submit" class="btn-auth btn-primary" id="btn-submit">
+                <span>Vérifier</span>
+            </button>
+        </form>
+    </div>
+</div>

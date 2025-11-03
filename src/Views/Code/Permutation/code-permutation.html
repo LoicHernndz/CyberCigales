@@ -1,0 +1,76 @@
+<link rel="stylesheet" href="/styles/auth.css">
+
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <div class="auth-icon">
+                <span class="material-icons"></span>
+            </div>
+            <h1>Chiffrement par Permutation</h1>
+            <p class="auth-subtitle">Testez votre capacité à chiffrer un message !</p>
+        </div>
+
+        {{FLASH}}
+
+        <form method="post" action="/code/chiffrement-permutation" class="auth-form">
+            <input type="hidden" name="type" value="login">
+
+            <div class="form-group">
+                <label for="word-permutation">
+                    Entrez le mot ou la phrase que vous souhaitez chiffrer par permutation :
+                </label>
+                <input
+                        type="text"
+                        name="word-permutation"
+                        id="word-permutation"
+                        placeholder="Entrez le mot ou la phrase ici"
+                        required
+                        autocomplete="username">
+            </div>
+
+            <div class="form-group">
+                <label for="key-permutation">
+                    Entrez la clé que vous souhaitez utiliser pour le chiffrement de Vigenère :
+                </label>
+                <input
+                        type="text"
+                        name="key-permutation"
+                        id="key-permutation"
+                        placeholder="Entrez le code chiffré ici"
+                        required
+                        autocomplete="username">
+            </div>
+
+            <div class="form-group">
+                <label for="space-char-permutation">
+                    Entrez le caractère par lequel les espaces seront remplacés dans votre message original :
+                </label>
+                <input
+                        type="text"
+                        name="space-char-permutation"
+                        id="space-char-permutation"
+                        placeholder="Entrez le code chiffré ici"
+                        required
+                        autocomplete="username"
+                        pattern="[a-zA-Z]">
+            </div>
+
+            <div class="form-group">
+                <label for="word-permutation-verify">
+                    Entrez le code chiffré du mot ou de la phrase que vous avez rentré précédemment pour vérifier votre chiffrement :
+                </label>
+                <input
+                        type="text"
+                        name="word-permutation-verify"
+                        id="word-permutation-verify"
+                        placeholder="Entrez le code chiffré ici"
+                        required
+                        autocomplete="username">
+            </div>
+
+            <button type="submit" name="submit" class="btn-auth btn-primary" id="btn-submit">
+                <span>Vérifier</span>
+            </button>
+        </form>
+    </div>
+</div>

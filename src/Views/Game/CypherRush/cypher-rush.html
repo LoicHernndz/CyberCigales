@@ -1,0 +1,269 @@
+<div class="cypher-rush-container">
+    <!-- Header du jeu -->
+    <header class="game-header">
+        <div class="header-content">
+            <div class="logo-section">
+                <span class="logo-icon">🔐</span>
+                <h1 class="game-title">CYPHER RUSH</h1>
+            </div>
+            <div class="player-info">
+                <span class="player-name">👤 {{USERNAME_KEY}}</span>
+                <span class="player-score">🏆 Score: <span id="current-score">{{SCORE_KEY}}</span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Zone de dialogue avec Cyba -->
+    <div class="dialogue-box" id="dialogue-box">
+        <div class="character-avatar">
+            <span class="avatar-icon">🐝</span>
+            <span class="character-name">Cyba</span>
+        </div>
+        <div class="dialogue-content">
+            <p id="dialogue-text">
+                Bienvenue, analyste ! Bugz a intercepté un message crypté destiné à un complice. 
+                Tu dois le déchiffrer avant qu'il n'agisse. Es-tu prêt à relever le défi ? 🔍
+            </p>
+        </div>
+    </div>
+
+    <!-- Zone de jeu principale -->
+    <div class="game-area">
+        <!-- Écran de démarrage -->
+        <div class="start-screen" id="start-screen">
+            <div class="mission-brief">
+                <h2>🎯 MISSION : DÉCODAGE URGENT</h2>
+                <div class="brief-content">
+                    <p><strong>Objectif :</strong> Déchiffrer le message intercepté</p>
+                    <p><strong>Difficulté :</strong> Moyenne</p>
+                    <p><strong>Temps estimé :</strong> 5-8 minutes</p>
+                    <p><strong>Indices disponibles :</strong> 3 maximum (-100 pts chacun)</p>
+                </div>
+                <div class="scoring-info">
+                    <h3>📊 Calcul du score :</h3>
+                    <ul>
+                        <li>Score de base : 1000 points</li>
+                        <li>Bonus temps : +500 points maximum (-5 pts/sec)</li>
+                        <li>Pénalité indice : -100 points par indice utilisé</li>
+                    </ul>
+                </div>
+                <button class="btn-primary btn-large" id="btn-start-game">
+                    🚀 LANCER LA MISSION
+                </button>
+            </div>
+        </div>
+
+        <!-- Écran de jeu -->
+        <div class="play-screen" id="play-screen" style="display: none;">
+            <!-- Timer et compteurs -->
+            <div class="game-stats">
+                <div class="stat-item">
+                    <span class="stat-label">⏱️ Temps</span>
+                    <span class="stat-value" id="timer">00:00</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">💡 Indices utilisés</span>
+                    <span class="stat-value" id="hints-used">0 / 3</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">🎯 Score estimé</span>
+                    <span class="stat-value" id="estimated-score">1000</span>
+                </div>
+            </div>
+
+            <!-- Message chiffré -->
+            <div class="encrypted-message-box">
+                <h3>📜 MESSAGE INTERCEPTÉ</h3>
+                <div class="encrypted-message" id="encrypted-message">
+                    <div class="loading-animation">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                </div>
+                <div class="cipher-type-badge" id="cipher-type-badge"></div>
+            </div>
+
+            <!-- Zone d'indices -->
+            <div class="hints-section">
+                <button class="btn-secondary" id="btn-get-hint">
+                    💡 Demander un indice (-100 pts)
+                </button>
+                <div class="hints-display" id="hints-display"></div>
+            </div>
+
+            <!-- Zone de saisie de réponse -->
+            <div class="answer-section">
+                <h3>🔓 VOTRE DÉCHIFFREMENT</h3>
+                <div class="answer-input-group">
+                    <input 
+                        type="text" 
+                        id="answer-input" 
+                        placeholder="Entrez le message déchiffré..." 
+                        class="answer-input"
+                        autocomplete="off"
+                    >
+                    <button class="btn-primary" id="btn-submit-answer">
+                        ✅ VALIDER
+                    </button>
+                </div>
+                <div class="answer-feedback" id="answer-feedback"></div>
+            </div>
+
+            <!-- Outils de déchiffrement -->
+            <div class="tools-section">
+                <h3>🛠️ OUTILS DE DÉCHIFFREMENT</h3>
+                <div class="tools-grid">
+                    <!-- Outil César -->
+                    <div class="tool-card">
+                        <h4>🔄 Déchiffrement César</h4>
+                        <div class="tool-controls">
+                            <label>Décalage : <span id="cesar-shift-value">0</span></label>
+                            <input 
+                                type="range" 
+                                id="cesar-shift" 
+                                min="0" 
+                                max="25" 
+                                value="0" 
+                                class="slider"
+                            >
+                            <textarea 
+                                id="cesar-result" 
+                                readonly 
+                                placeholder="Résultat du déchiffrement César..."
+                                rows="3"
+                            ></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Outil Atbash -->
+                    <div class="tool-card">
+                        <h4>🔀 Déchiffrement Atbash</h4>
+                        <div class="tool-controls">
+                            <p class="tool-description">Miroir alphabétique (A↔Z, B↔Y...)</p>
+                            <button class="btn-tool" id="btn-atbash">Appliquer Atbash</button>
+                            <textarea 
+                                id="atbash-result" 
+                                readonly 
+                                placeholder="Résultat du déchiffrement Atbash..."
+                                rows="3"
+                            ></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Outil Reverse -->
+                    <div class="tool-card">
+                        <h4>↩️ Inversion de texte</h4>
+                        <div class="tool-controls">
+                            <p class="tool-description">Inverse chaque mot individuellement</p>
+                            <button class="btn-tool" id="btn-reverse">Inverser</button>
+                            <textarea 
+                                id="reverse-result" 
+                                readonly 
+                                placeholder="Résultat de l'inversion..."
+                                rows="3"
+                            ></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Analyseur de fréquences -->
+                    <div class="tool-card">
+                        <h4>📊 Analyse de fréquences</h4>
+                        <div class="tool-controls">
+                            <button class="btn-tool" id="btn-analyze">Analyser</button>
+                            <div id="frequency-result" class="frequency-display"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Écran de victoire -->
+        <div class="victory-screen" id="victory-screen" style="display: none;">
+            <div class="victory-content">
+                <div class="victory-icon">🎉</div>
+                <h2>MISSION ACCOMPLIE !</h2>
+                <p class="victory-message" id="victory-message"></p>
+                
+                <div class="final-stats">
+                    <div class="final-stat">
+                        <span class="final-stat-label">Score final</span>
+                        <span class="final-stat-value" id="final-score">0</span>
+                    </div>
+                    <div class="final-stat">
+                        <span class="final-stat-label">Temps</span>
+                        <span class="final-stat-value" id="final-time">00:00</span>
+                    </div>
+                    <div class="final-stat">
+                        <span class="final-stat-label">Indices</span>
+                        <span class="final-stat-value" id="final-hints">0</span>
+                    </div>
+                </div>
+
+                <div class="badge-earned">
+                    <span class="badge-icon">🔐</span>
+                    <span class="badge-name">BADGE DÉBLOQUÉ : DÉCODEUR</span>
+                </div>
+
+                <div class="explanation-box" id="explanation-box">
+                    <h3>🧠 Explication pédagogique</h3>
+                    <p id="explanation-text"></p>
+                </div>
+
+                <div class="victory-actions">
+                    <button class="btn-primary" id="btn-play-again">🔄 REJOUER</button>
+                    <button class="btn-secondary" id="btn-next-mission">➡️ MISSION SUIVANTE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panneau d'informations pédagogiques -->
+    <div class="info-panel" id="info-panel">
+        <button class="info-toggle" id="info-toggle">📚 Aide</button>
+        <div class="info-content" id="info-content" style="display: none;">
+            <h3>📖 Guide de la cryptographie</h3>
+            
+            <div class="info-section">
+                <h4>🔄 Chiffrement de César</h4>
+                <p>Méthode utilisée par Jules César. Chaque lettre est remplacée par une autre lettre située à une position fixe dans l'alphabet.</p>
+                <p><strong>Exemple :</strong> Avec un décalage de 3, "ABC" devient "DEF"</p>
+            </div>
+
+            <div class="info-section">
+                <h4>🔀 Chiffrement Atbash</h4>
+                <p>L'alphabet est inversé : A↔Z, B↔Y, C↔X, etc. Très ancien, utilisé dans la Bible hébraïque.</p>
+                <p><strong>Exemple :</strong> "ABC" devient "ZYX"</p>
+            </div>
+
+            <div class="info-section">
+                <h4>↩️ Chiffrement par inversion</h4>
+                <p>Le texte est simplement écrit à l'envers, mot par mot ou en entier.</p>
+                <p><strong>Exemple :</strong> "BONJOUR" devient "RUOJNOB"</p>
+            </div>
+
+            <div class="info-section">
+                <h4>🔢 ROT13</h4>
+                <p>Variante du César avec un décalage fixe de 13. Appliqué deux fois, il redonne le texte original.</p>
+                <p><strong>Exemple :</strong> "ABC" devient "NOP"</p>
+            </div>
+
+            <div class="info-section">
+                <h4>📊 Analyse de fréquences</h4>
+                <p>En français, les lettres les plus fréquentes sont E, A, S, I, N, T, R... Cela peut aider à identifier le type de chiffrement.</p>
+            </div>
+
+            <div class="info-section">
+                <h4>💡 Conseils</h4>
+                <ul>
+                    <li>Observe la structure du message (espaces, ponctuation)</li>
+                    <li>Essaie différents décalages pour le César</li>
+                    <li>Utilise l'analyse de fréquences pour repérer les patterns</li>
+                    <li>Les indices sont là pour t'aider, n'hésite pas !</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+

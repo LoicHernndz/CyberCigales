@@ -1,0 +1,53 @@
+<div class="resultat-container">
+    <h1 class="resultat-titre">Résultats du QCM RGPD</h1>
+
+    <!-- Carte niveau -->
+    <div class="niveau-card" style="border-color: {{NIVEAU_COLOR}};">
+        <h2 style="color: {{NIVEAU_COLOR}};">{{NIVEAU}}</h2>
+        <p class="niveau-commentaire">{{COMMENTAIRE}}</p>
+    </div>
+
+    <!-- Statistiques -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-value">{{CORRECT_ANSWERS}}/{{TOTAL_ANSWERED}}</div>
+            <div class="stat-label">Bonnes réponses</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">{{SUCCESS_RATE}}%</div>
+            <div class="stat-label">Taux de réussite</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">{{SCORE}} pts</div>
+            <div class="stat-label">Score total</div>
+        </div>
+    </div>
+
+    <!-- Classement -->
+    <div class="leaderboard-section">
+        <h2>Classement Général</h2>
+        <table class="leaderboard-table">
+            <thead>
+                <tr>
+                    <th>Rang</th>
+                    <th>Joueur</th>
+                    <th>Réussites</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{LEADERBOARD}}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Actions -->
+    <div class="resultat-actions">
+        <a href="/qcm/rgpd?q=1" class="btn-rejouer">Refaire le QCM</a>
+        <a href="/" class="btn-home">Retour à l'accueil</a>
+    </div>
+</div>
+
+<link rel="stylesheet" href="/styles/qcm-rgpd-immersive.css">
+<script src="/scripts/qcm-rgpd-immersive.js"></script>
+

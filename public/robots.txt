@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /user/new-password
+
+User-agent: *
+Disallow: /user/reset-password
+
+Sitemap: https://benahmed.alwaysdata.net/sitemap.xml
