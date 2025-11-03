@@ -35,7 +35,10 @@ class Routes
 
         '/instagram' => 'Controllers\Instagram\Instagram',
         '/instagram/melina' => 'Controllers\Instagram\MelinaProfile',
-        '/instagram/melina/chat' => 'Controllers\Instagram\MelinaChat'
+        '/instagram/melina/chat' => 'Controllers\Instagram\MelinaChat',
+
+        '/ssh' => 'Controllers\Ssh\Ssh',
+        '/ssh/exec' => 'helpers\Bash',
         ];
 
 }

@@ -1,0 +1,16 @@
+html {
+    background: black;
+    color: white;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+#input{
+    background: black;
+    color: white;
+    border: none;
+    width: 100%;
+}
