@@ -1394,10 +1394,141 @@ body::after {
     }
 
     .retour-accueil {
-        justify-content: center;
-        align-items: center;
+        background: red;
+        color: white;
+    }
 
+}
 
+/* ======== Thème Cyber-Néon Universel ======== */
 
+* {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #0a0f14;
+    color: #c8ffb0;
+    margin: 0;
+    padding: 0;
+    line-height: 1.75;
+}
+
+/* ---- Header + Footer ---- */
+
+header, footer {
+    text-align: center;
+    padding: 45px 20px;
+    margin-bottom: 35px;
+    background: rgba(0,255,120,0.06);
+    border-bottom: 1px solid rgba(0,255,120,0.25);
+}
+
+footer {
+    margin-top: 40px;
+    border-top: 1px solid rgba(0,255,120,0.25);
+    border-bottom: none;
+}
+
+h1, h2 {
+    color: #8eff52;
+    text-shadow: 0 0 8px #8eff52;
+    margin-bottom: 18px;
+}
+
+/* ---- Contenu principal ---- */
+
+main {
+    width: 90%;
+    max-width: 900px;
+    margin: auto;
+}
+
+/* ---- Sections ---- */
+
+section {
+    margin-bottom: 60px;
+    padding: 30px;
+    border: 1px solid #1aff66;
+    border-radius: 12px;
+    background: rgba(0,255,140,0.05);
+    box-shadow: 0 0 18px rgba(0,255,140,0.2);
+}
+
+section p, section li {
+    font-size: 1.05rem;
+}
+
+/* ---- Boîtes & Exemples ---- */
+
+.box,
+.exercise {
+    background: rgba(0,255,90,0.12);
+    border-left: 4px solid #32ff7e;
+    padding: 17px;
+    margin-top: 18px;
+    margin-bottom: 18px;
+    border-radius: 6px;
+}
+
+/* ---- Code & formules ---- */
+
+pre {
+    background: #001b0f;
+    color: #d0ffd1;
+    padding: 18px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin-top: 18px;
+    margin-bottom: 18px;
+    font-size: 0.95rem;
+    border: 1px solid rgba(0,255,90,0.35);
+}
+
+/* ---- Grille de fréquences ---- */
+
+.freq {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.cell {
+    background: #002915;
+    padding: 10px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 0.9rem;
+    border: 1px solid rgba(0,255,120,0.25);
+}
+
+/* ---- Listes ---- */
+
+ol, ul {
+    padding-left: 25px;
+    margin-top: 10px;
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 700px) {
+    main {
+        width: 94%;
+    }
+
+    section {
+        padding: 22px;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    pre {
+        font-size: 0.85rem;
     }
 }
+

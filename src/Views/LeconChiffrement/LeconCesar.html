@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Leçon : Chiffrement de César — Style Cyber</title>
+    <link rel="stylesheet" href="style_cyber.css">
+</head>
+<body>
+<header>
+    <h1>Leçon : Chiffrement de César</h1>
+    <p>Découvre le fonctionnement du chiffrement de César à travers théorie, histoire et exemples pratiques — avec un style cyber-néon.</p>
+</header>
+
+<main>
+    <section>
+        <h2>1) Origine historique</h2>
+        <p>Jules César utilisait ce système pour envoyer des messages codés à ses généraux : chaque lettre était décalée d’un nombre fixe, souvent k = 3.</p>
+        <div class="box">Exemple : « RENDEZ-VOUS DEMAIN » devient « UHQGHC-YRXV GHPDLQ » pour k = 3.</div>
+    </section>
+
+    <section>
+        <h2>2) Principe mathématique</h2>
+        <p>Chaque lettre est remplacée par la lettre décalée de k positions dans l’alphabet :</p>
+        <pre>C = (P + k) mod 26</pre>
+        <p>Pour déchiffrer :</p>
+        <pre>P = (C - k) mod 26</pre>
+        <p>où P est la position de la lettre claire, C celle de la lettre chiffrée.</p>
+    </section>
+
+    <section>
+        <h2>3) Implémentation en pseudo-code</h2>
+        <pre>// Entrées : texte, clé k
+pour chaque caractère ch dans texte :
+  si ch est une lettre :
+    pos = ord(ch) - ord('A')
+    pos2 = (pos + k) % 26
+    résultat += chr(ord('A') + pos2)
+  sinon :
+    résultat += ch
+</pre>
+    </section>
+
+    <section>
+        <h2>4) Cryptanalyse</h2>
+        <p>Le chiffrement de César conserve les fréquences des lettres. Cette propriété permet une attaque par <strong>analyse de fréquence</strong>.</p>
+        <div class="box">
+            Étapes :
+            <ol>
+                <li>Mesurer la fréquence des lettres du texte chiffré.</li>
+                <li>Comparer avec la distribution normale du français.</li>
+                <li>En déduire la clé probable k.</li>
+            </ol>
+        </div>
+        <div class="freq">
+            <div class="cell">A: 9.4%</div><div class="cell">B: 1.0%</div><div class="cell">C: 2.6%</div><div class="cell">D: 3.4%</div><div class="cell">E: 15.9%</div><div class="cell">F: 1.0%</div><div class="cell">G: 1.0%</div><div class="cell">H: 0.8%</div><div class="cell">I: 8.4%</div><div class="cell">J: 0.9%</div><div class="cell">K: 0%</div><div class="cell">L: 5.3%</div><div class="cell">M: 3.2%</div>
+        </div>
+    </section>
+
+    <section>
+        <h2>5) Exercices</h2>
+        <div class="exercise">
+            <ol>
+                <li>Chiffre « HELLO » avec k = 3 → « KHOOR ».</li>
+                <li>Déchiffre « FRZDUG » avec k = 3.</li>
+                <li>Teste tous les k possibles pour casser le message « ERQMRXU ».</li>
+            </ol>
+        </div>
+    </section>
+
+    <section>
+        <h2>6) Variantes</h2>
+        <ul>
+            <li><strong>ROT13</strong> — décalage de 13, auto-inverse.</li>
+            <li><strong>Vigenère</strong> — clé répétée, polyalphabétique.</li>
+            <li><strong>Vernam</strong> — clé aléatoire, sécurité parfaite.</li>
+        </ul>
+    </section>
+</main>
+
+</body>
+</html>

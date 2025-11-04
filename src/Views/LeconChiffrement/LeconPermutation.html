@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Leçon : Code de permutation — Style Cyber</title>
+    <link rel="stylesheet" href="style_cyber.css">
+</head>
+<body>
+<header>
+    <h1>Leçon : Code de permutation</h1>
+    <p>Découvre le chiffrement par permutation : réarrangement des lettres pour coder un message — style cyber-néon.</p>
+</header>
+
+<main>
+    <section>
+        <h2>1) Principe</h2>
+        <p>Le code de permutation consiste à réordonner les lettres d’un message selon une permutation fixe ou une clé spécifique.</p>
+        <div class="box">Exemple : texte « ABCD » avec permutation [3,1,4,2] → « BDAC ».</div>
+    </section>
+
+    <section>
+        <h2>2) Mathématique</h2>
+        <p>Si P est le texte clair et π la permutation, alors :</p>
+        <pre>C_i = P_{π(i)}</pre>
+        <p>Pour déchiffrer, il faut appliquer l’inverse de la permutation :</p>
+        <pre>P_i = C_{π^{-1}(i)}</pre>
+    </section>
+
+    <section>
+        <h2>3) Implémentation en pseudo-code</h2>
+        <pre>// Entrées : texte, permutation π
+résultat = ""
+pour i de 0 à len(texte)-1 :
+  résultat += texte[π[i]]
+</pre>
+    </section>
+
+    <section>
+        <h2>4) Cryptanalyse</h2>
+        <p>Le texte chiffré contient les mêmes lettres que le texte clair. Les permutations simples sont vulnérables à la recherche exhaustive si le texte est court.</p>
+        <div class="box">
+            Étapes :
+            <ol>
+                <li>Analyser les lettres répétées.</li>
+                <li>Essayer toutes les permutations possibles pour trouver le texte clair.</li>
+            </ol>
+        </div>
+    </section>
+
+    <section>
+        <h2>5) Exercices</h2>
+        <div class="exercise">
+            <ol>
+                <li>Applique la permutation [2,3,1] au texte « CAT ».</li>
+                <li>Déchiffre « BADC » avec permutation [2,4,1,3].</li>
+                <li>Teste une permutation de 5 lettres pour coder « HELLO ».</li>
+            </ol>
+        </div>
+    </section>
+
+    <section>
+        <h2>6) Variantes</h2>
+        <ul>
+            <li><strong>Permutation simple</strong> — réarrangement direct des lettres.</li>
+            <li><strong>Permutation par blocs</strong> — diviser le texte en blocs puis permuter.</li>
+            <li><strong>Permutation combinée</strong> — avec substitution pour plus de sécurité.</li>
+        </ul>
+    </section>
+</main>
+
+</body>
+</html>

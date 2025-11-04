@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Leçon : Chiffrement de Vigenère — Style Cyber</title>
+    <link rel="stylesheet" href="style_cyber.css">
+</head>
+<body>
+<header>
+    <h1>Leçon : Chiffrement de Vigenère</h1>
+    <p>Apprends à utiliser le chiffrement polyalphabétique de Vigenère, combinant théorie, exemples et exercices — style cyber-néon.</p>
+</header>
+
+<main>
+    <section>
+        <h2>1) Origine historique</h2>
+        <p>Inventé par Blaise de Vigenère au XVIe siècle, ce chiffrement améliore le César en utilisant une clé répétée pour décaler les lettres selon plusieurs alphabets.</p>
+        <div class="box">Exemple : texte « BONJOUR » avec clé « CLE » → « DQPLQVS ».</div>
+    </section>
+
+    <section>
+        <h2>2) Principe mathématique</h2>
+        <p>Chaque lettre du texte clair est décalée selon la lettre correspondante de la clé :</p>
+        <pre>C_i = (P_i + K_i) mod 26</pre>
+        <p>Pour déchiffrer :</p>
+        <pre>P_i = (C_i - K_i) mod 26</pre>
+        <p>où P_i est la position de la lettre claire, C_i celle de la lettre chiffrée, et K_i la position de la lettre de la clé répétée.</p>
+    </section>
+
+    <section>
+        <h2>3) Implémentation en pseudo-code</h2>
+        <pre>// Entrées : texte, clé
+texte = texte.upper()
+clé = clé.upper()
+résultat = ""
+for i de 0 à len(texte)-1 :
+  si texte[i] est une lettre :
+    P = ord(texte[i]) - ord('A')
+    K = ord(clé[i % len(clé)]) - ord('A')
+    C = (P + K) % 26
+    résultat += chr(ord('A') + C)
+  sinon :
+    résultat += texte[i]
+</pre>
+    </section>
+
+    <section>
+        <h2>4) Cryptanalyse</h2>
+        <p>La répétition de la clé crée des motifs détectables. L'attaque de Kasiski ou l'analyse de fréquence étendue permettent de retrouver la longueur de la clé.</p>
+        <div class="box">
+            Étapes :
+            <ol>
+                <li>Identifier les répétitions de séquences dans le texte chiffré.</li>
+                <li>Mesurer les distances pour déduire la longueur probable de la clé.</li>
+                <li>Découper le texte en sous-textes et appliquer l'analyse de fréquence.</li>
+            </ol>
+        </div>
+    </section>
+
+    <section>
+        <h2>5) Exercices</h2>
+        <div class="exercise">
+            <ol>
+                <li>Chiffre « SALUT » avec clé « ABC ».</li>
+                <li>Déchiffre « DQPLQVS » avec clé « CLE ».</li>
+                <li>Teste une clé courte pour deviner un message chiffré « WFSJX ».</li>
+            </ol>
+        </div>
+    </section>
+
+    <section>
+        <h2>6) Variantes</h2>
+        <ul>
+            <li><strong>Vigenère classique</strong> — clé répétée.</li>
+            <li><strong>Vernam</strong> — clé aléatoire, sécurité parfaite.</li>
+            <li><strong>Auto-clé</strong> — la clé est prolongée par le texte clair.</li>
+        </ul>
+    </section>
+</main>
+
+</body>
+</html>
