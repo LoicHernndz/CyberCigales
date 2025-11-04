@@ -1,0 +1,47 @@
+/* Configuration de la police Inter */
+html { font-family: 'Inter', sans-serif; }
+
+/* Simulation du fond d'écran macOS */
+body {
+    background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+    overflow: hidden;
+}
+
+/* Configuration pour l'effet de verre (Glassmorphism) du Dock */
+.dock-container {
+    backdrop-filter: blur(15px) saturate(180%);
+    -webkit-backdrop-filter: blur(15px) saturate(180%);
+    background-color: rgba(43, 44, 49, 0.7); /* Gris sombre semi-transparent */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Configuration pour l'effet de verre (Glassmorphism) du Menu Bar */
+.menu-bar {
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    background-color: rgba(255, 255, 255, 0.7); /* Blanc semi-transparent */
+}
+
+/* Styles de base pour les icônes du Dock */
+.dock-icon {
+    transition: transform 0.1s ease-out; /* Transition pour un effet plus doux */
+    transform-origin: bottom; /* Important pour l'effet de pop-up */
+    cursor: pointer;
+    will-change: transform; /* Optimisation de la performance */
+}
+
+/* Styles pour les fenêtres (nécessaire pour le z-index et le positionnement) */
+.app-window {
+    z-index: 10;
+}
+
+/* Animation pour le curseur du Terminal */
+.animate-pulse {
+    animation: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .5; }
+}

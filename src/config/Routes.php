@@ -37,7 +37,7 @@ class Routes
         '/instagram/melina' => 'Controllers\Instagram\MelinaProfile',
         '/instagram/melina/chat' => 'Controllers\Instagram\MelinaChat',
 
-        '/captcha' => 'helpers/Captcha',
+        '/macos' => 'Controllers\MacOSController',
         ];
 
 }
