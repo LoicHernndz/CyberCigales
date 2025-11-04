@@ -113,14 +113,14 @@ function createNewWindow(appName) {
             </div>
             <span class="text-sm font-semibold">${appName}</span>
         </div>
-        <div class="window-content p-4 overflow-y-auto h-[calc(100%-33px)] text-gray-700">
-            ${getContentForApp(appName)}
+        <div class="window-content overflow-y-auto h-[calc(100%-33px)] text-gray-700">
         </div>
         <!-- Poignée de redimensionnement (dans le coin inférieur droit) -->
         <div class="resize-handle absolute bottom-0 right-0 w-3 h-3 cursor-nwse-resize"></div>
     `;
 
     document.getElementById('desktop').appendChild(windowElement);
+    getContentForApp(appName, windowElement);
 
     // Initialiser la draggabilité et le redimensionnement
     makeDraggable(windowElement);
@@ -130,11 +130,23 @@ function createNewWindow(appName) {
 }
 
 /**
+ * Renvoie seulement le texte de la page resultat d'une requete Ajax.
+ * Utile pour afficher le resultat d'un url dans une page du bureau.
+ * @param responseText - Reponse obtenue à partir de l'url
+ */
+function getBodyFromRequest(responseText) {
+    const match = responseText.match(/<body[^>]*>([\s\S]*?)<\/body>/i); // Recherche du body par expression regex
+    return match[1].trim();
+}
+
+/**
  * Fournit un contenu simulé pour chaque application.
  * @param {string} appName - Le nom de l'application.
  * @returns {string} Le contenu HTML de la fenêtre.
  */
-function getContentForApp(appName) {
+function getContentForApp(appName, windowElement) {
+    const xmlhttp = new XMLHttpRequest();
+
     switch (appName) {
         case 'Finder':
             return `
@@ -147,13 +159,15 @@ function getContentForApp(appName) {
                 <p class="mt-4 text-xs text-gray-500">Ceci est une simulation de l'explorateur de fichiers.</p>
             `;
         case 'Web':
-            return `
-                <div class="h-8 bg-gray-200 flex items-center px-3 mb-4 rounded-lg">
-                    <span class="text-gray-600">🌐 simulation-site-web.com</span>
-                </div>
-                <h1 class="text-3xl font-light text-center">Bienvenue sur le Web Simulé</h1>
-                <p class="mt-4 text-center">Utilisez ce navigateur pour imaginer vos recherches les plus folles.</p>
-            `;
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState === 4 && this.status === 200) {
+                    document.getElementsByClassName("window-content")[0].innerHTML = getBodyFromRequest(this.responseText);
+                    console.log(this.responseText);
+                }
+            }
+            xmlhttp.open("GET", "/instagram", true);
+            xmlhttp.send();
+            break;
         case 'Mail':
             return `
                 <h2 class="text-xl font-bold mb-3">Boîte de Réception</h2>

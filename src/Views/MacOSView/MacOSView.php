@@ -59,6 +59,9 @@ class MacOSView {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dock Dynamique et Esthétique</title>
+    <link rel="stylesheet" href="/styles/normalize.css"> <!-- Reset CSS pour la cohérence cross-browser -->
+    <link rel="stylesheet" href="/assets/instagram/css/instagram-fixed.css"> <!-- Styles Instagram corrigés -->
+    <link rel="stylesheet" href="/assets/instagram/css/svg-icons.css"> <!-- Styles pour les icônes SVG -->
 
     <!-- Chargement de Tailwind CSS (via CDN) pour le style -->
     <script src="https://cdn.tailwindcss.com"></script>
