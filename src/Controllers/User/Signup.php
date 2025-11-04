@@ -43,12 +43,23 @@ class Signup extends AbstractController
             'email' => trim($_POST['email']), // Je récupère l'email et j'enlève les espaces
             'password' => trim($_POST['password']), // Je récupère le mot de passe
             'password_repeat' => trim($_POST['password_repeat']), // Je récupère la confirmation du mot de passe
-            'accept_mentions' => isset($_POST['accept_mentions']) ? $_POST['accept_mentions'] : ''
+            'accept_mentions' => isset($_POST['accept_mentions']) ? $_POST['accept_mentions'] : '',
+            'captcha_code' => isset($_POST['captcha_code']) ? trim($_POST['captcha_code']) : ''
         ];
 
         // Validation des inputs - je vérifie que tous les champs sont remplis
-        if(empty($data['prenom']) || empty($data['nom']) || empty($data['pseudo']) || empty($data['email']) || empty($data['password']) || empty($data['password_repeat'])) {
+        if(empty($data['prenom']) || empty($data['nom']) || empty($data['pseudo']) || empty($data['email']) || empty($data['password']) || empty($data['password_repeat']) || empty($data['captcha_code'])) {
             flash("signup", "Veuillez remplir tous les champs");
+            $view = new SignupView();
+            $view->render();
+            exit();
+        }
+
+        // Validation Captcha
+        if (!isset($_SESSION)) { session_start(); }
+        $sessionCaptcha = isset($_SESSION['captcha']) ? $_SESSION['captcha'] : '';
+        if (empty($sessionCaptcha) || strcasecmp($data['captcha_code'], $sessionCaptcha) !== 0) {
+            flash("signup", "Captcha invalide. Cliquez sur l'image pour le régénérer et réessayez.");
             $view = new SignupView();
             $view->render();
             exit();

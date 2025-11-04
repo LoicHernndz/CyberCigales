@@ -19,6 +19,8 @@ class Routes
         '/user/logout' => 'Controllers\User\Logout',
         '/user/profil' => 'Controllers\User\Profil',
 
+        '/captcha' => 'Controllers\Captcha',
+
         '/cypher-rush' => 'Controllers\Game\CypherRush',
 
         '/qcm/rgpd/resultat' => 'Controllers\Qcm\QcmResultat',
