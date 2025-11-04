@@ -63,6 +63,13 @@ class MacOSView {
     <!-- Chargement de Tailwind CSS (via CDN) pour le style -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <link rel="stylesheet" href="/styles/normalize.css"> <!-- Reset CSS pour la cohérence cross-browser -->
+    <link rel="stylesheet" href="/assets/instagram/css/instagram-mobile.css">
+    <link rel="stylesheet" href="/assets/instagram/css/instagram-fixed.css"> <!-- Styles Instagram corrigés -->
+    <link rel="stylesheet" href="/assets/instagram/css/instagram-profile.css">
+    <link rel="stylesheet" href="/assets/instagram/css/melina-chat.css">
+    <link rel="stylesheet" href="/assets/instagram/css/svg-icons.css"> <!-- Styles pour les icônes SVG -->
+    
     <!-- STYLES CSS INTÉGRÉS POUR LE DOCK, LA BARRE DE MENUS ET LES FENÊTRES -->
     <style>
         /* ---------------------------------- */

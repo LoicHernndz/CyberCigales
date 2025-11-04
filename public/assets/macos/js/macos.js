@@ -113,14 +113,14 @@ function createNewWindow(appName) {
             </div>
             <span class="text-sm font-semibold">${appName}</span>
         </div>
-        <div class="window-content p-4 overflow-y-auto h-[calc(100%-33px)] text-gray-700">
-            ${getContentForApp(appName)}
+        <div id="${appName}-content" class="window-content overflow-y-auto h-[calc(100%-33px)] text-gray-700">
         </div>
         <!-- Poignée de redimensionnement (dans le coin inférieur droit) -->
         <div class="resize-handle absolute bottom-0 right-0 w-3 h-3 cursor-nwse-resize"></div>
     `;
 
     document.getElementById('desktop').appendChild(windowElement);
+    getContentForApp(appName);
 
     // Initialiser la draggabilité et le redimensionnement
     makeDraggable(windowElement);
@@ -130,14 +130,30 @@ function createNewWindow(appName) {
 }
 
 /**
+ * Renvoie seulement le texte de la page resultat d'une requete Ajax.
+ * Utile pour afficher le resultat d'un url dans une page du bureau.
+ * @param responseText - Reponse obtenue à partir de l'url
+ */
+function getBodyFromRequest(responseText) {
+    const match = responseText.match(/<body[^>]*>([\s\S]*?)<\/body>/i); // Recherche du body par expression regex
+    return match[1].trim();
+}
+
+/**
  * Fournit un contenu simulé pour chaque application.
  * @param {string} appName - Le nom de l'application.
  * @returns {string} Le contenu HTML de la fenêtre.
  */
 function getContentForApp(appName) {
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+            document.getElementById(`${appName}-content`).innerHTML = getBodyFromRequest(this.responseText);
+        }
+    }
     switch (appName) {
         case 'Finder':
-            return `
+            document.getElementById(`${appName}-content`).innerHTML = `
                 <h2 class="text-xl font-bold mb-3">Mes Fichiers</h2>
                 <div class="space-y-1">
                     <p class="p-2 bg-gray-100 rounded">Documents (120 Mo)</p>
@@ -146,16 +162,18 @@ function getContentForApp(appName) {
                 </div>
                 <p class="mt-4 text-xs text-gray-500">Ceci est une simulation de l'explorateur de fichiers.</p>
             `;
+            break;
         case 'Web':
-            return `
+            document.getElementById(`${appName}-content`).innerHTML =  `
                 <div class="h-8 bg-gray-200 flex items-center px-3 mb-4 rounded-lg">
                     <span class="text-gray-600">🌐 simulation-site-web.com</span>
                 </div>
                 <h1 class="text-3xl font-light text-center">Bienvenue sur le Web Simulé</h1>
                 <p class="mt-4 text-center">Utilisez ce navigateur pour imaginer vos recherches les plus folles.</p>
             `;
+            break;
         case 'Mail':
-            return `
+            document.getElementById(`${appName}-content`).innerHTML =  `
                 <h2 class="text-xl font-bold mb-3">Boîte de Réception</h2>
                 <div class="space-y-2">
                     <div class="p-2 border-l-4 border-blue-500 bg-blue-50 rounded shadow-sm">
@@ -168,8 +186,9 @@ function getContentForApp(appName) {
                     </div>
                 </div>
             `;
+            break;
         case 'Terminal':
-            return `
+            document.getElementById(`${appName}-content`).innerHTML =  `
                 <div class="h-full bg-gray-900 text-green-400 p-2 font-mono text-sm overflow-auto">
                     $ Bienvenue sur le Terminal Simulé.<br>
                     $ ping 127.0.0.1<br>
@@ -182,6 +201,11 @@ function getContentForApp(appName) {
                     @keyframes blink { from, to { color: transparent } 50% { color: #48bb78 } }
                 </style>
             `;
+            break;
+        case 'Instagram':
+            xmlhttp.open("GET", "/instagram", true);
+            xmlhttp.send();
+            break;
         default:
             return `<p class="text-lg text-center mt-8">Application "${appName}" lancée avec succès!</p><p class="text-xs text-center mt-2 text-gray-500">Fermez la fenêtre en cliquant sur le bouton rouge.</p>`;
     }
