@@ -1,16 +1,16 @@
 <?php
 
-namespace Controllers\LeconCode;
+namespace Controllers\Lecon;
 
-use Views\LeconChiffrement\LeconCesarView;
+use Views\LeconChiffrement\LeconVigenereView;
 use Controllers\AbstractController;
 
-class LeconCesar extends AbstractController {
+class LeconVigenere extends AbstractController {
 
     // Méthode principale exécutée quand la route correspond à ce contrôleur
     function getMethod(){
         // Création d’une instance de la vue "MentionsView"
-        $view = new LeconCesarView();
+        $view = new LeconVigenereView();
         // Affichage de la page des mentions légales
         $view->render();
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Controllers\LeconCode;
+namespace Controllers\Lecon;
 
 use Views\LeconChiffrement\LeconPermutationView;
 use Controllers\AbstractController;
