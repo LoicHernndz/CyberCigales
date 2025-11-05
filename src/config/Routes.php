@@ -36,7 +36,11 @@ class Routes
         '/instagram' => 'Controllers\Instagram\Instagram',
         '/instagram/melina' => 'Controllers\Instagram\MelinaProfile',
         '/instagram/melina/chat' => 'Controllers\Instagram\MelinaChat',
-
+        '/LeconCesar' => 'Controllers\Lecon\LeconCesar',
+        '/LeconPermutation' => 'Controllers\Lecon\LeconPermutation',
+        '/LeconVigenere' => 'Controllers\Lecon\LeconVigenere',
+        '/instagram/melina/chat' => 'Controllers\Instagram\MelinaChat',
+        '/LeconHistMdp' => 'Controllers\Lecon\LeconHistMdp',
         '/macos' => 'Controllers\MacOSController',
         ];
 
