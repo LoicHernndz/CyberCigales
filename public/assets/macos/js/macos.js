@@ -130,27 +130,11 @@ function createNewWindow(appName) {
 }
 
 /**
- * Renvoie seulement le texte de la page resultat d'une requete Ajax.
- * Utile pour afficher le resultat d'un url dans une page du bureau.
- * @param responseText - Reponse obtenue à partir de l'url
- */
-function getBodyFromRequest(responseText) {
-    const match = responseText.match(/<body[^>]*>([\s\S]*?)<\/body>/i); // Recherche du body par expression regex
-    return match[1].trim();
-}
-
-/**
  * Fournit un contenu simulé pour chaque application.
  * @param {string} appName - Le nom de l'application.
  * @returns {string} Le contenu HTML de la fenêtre.
  */
 function getContentForApp(appName) {
-    const xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState === 4 && this.status === 200) {
-            document.getElementById(`${appName}-content`).innerHTML = getBodyFromRequest(this.responseText);
-        }
-    }
     switch (appName) {
         case 'Finder':
             document.getElementById(`${appName}-content`).innerHTML = `
@@ -203,8 +187,7 @@ function getContentForApp(appName) {
             `;
             break;
         case 'Instagram':
-            xmlhttp.open("GET", "/instagram", true);
-            xmlhttp.send();
+            document.getElementById(`${appName}-content`).innerHTML =  `<iframe src='/instagram'></iframe>`
             break;
         default:
             return `<p class="text-lg text-center mt-8">Application "${appName}" lancée avec succès!</p><p class="text-xs text-center mt-2 text-gray-500">Fermez la fenêtre en cliquant sur le bouton rouge.</p>`;
@@ -262,7 +245,6 @@ function handleWindowClick(e) {
         focusWindow(targetWindow);
     }
 }
-
 
 // =========================================================
 // 3. CONTRÔLES DE FENÊTRE (Fermer, Minimiser, Agrandir)
@@ -360,6 +342,9 @@ function makeDraggable(windowElement) {
         focusWindow(windowElement);
         windowElement.classList.remove('maximized'); // Annuler le mode maximisé si l'utilisateur essaie de bouger la fenêtre
 
+        // Empeche l'Iframe de prendre le focus pendant le drag
+        windowElement.classList.add('dragging');
+
         // Calculer le décalage entre la souris et le coin supérieur gauche de la fenêtre
         offsetX = e.clientX - windowElement.offsetLeft;
         offsetY = e.clientY - windowElement.offsetTop;
@@ -376,6 +361,7 @@ function makeDraggable(windowElement) {
 
         let newX = e.clientX - offsetX;
         let newY = e.clientY - offsetY;
+        console.log(newX, newY);
 
         // Limiter le mouvement (optionnel, mais améliore l'UX)
         newX = Math.max(0, Math.min(newX, window.innerWidth - windowElement.offsetWidth));
@@ -387,11 +373,14 @@ function makeDraggable(windowElement) {
 
     const stopDrag = () => {
         isDragging = false;
+        windowElement.classList.remove('dragging');
         document.removeEventListener('mousemove', drag);
         document.removeEventListener('mouseup', stopDrag);
     };
 
-    titleBar.addEventListener('mousedown', startDrag);
+    titleBar.addEventListener('mousedown', function(e) {
+        if (e.button === 0) {startDrag(e);}
+    });
 }
 
 /**
