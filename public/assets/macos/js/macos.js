@@ -317,48 +317,6 @@ function getTerminalContent() {
     const initialInputType = 'text';
 
     return `
-        <div id="terminal-wrapper" class="h-full bg-gray-900 text-green-400 p-2 font-mono text-sm overflow-auto flex flex-col">
-            <div id="terminal-output" class="flex-grow overflow-y-auto">
-                <span class="text-gray-400">** MacOS Terminal Simulé **</span><br>
-                ${state.isTerminalLoggedIn ?
-        `<span class="text-gray-400">Bienvenue. Tapez '<span class="text-yellow-400">help</span>' pour les commandes.</span><br>` :
-        `<span class="text-gray-400">Connexion requise pour accéder au système de fichiers.</span><br>`
-    }
-            </div>
-            
-            <div id="terminal-input-line" class="flex items-center">
-                <input id="terminal-input" type="${initialInputType}" spellcheck="false" class="absolute left-0 top-0 w-full h-full bg-transparent border-none text-transparent caret-green-400 z-50 focus:outline-none" style="left: -9999px; opacity: 0;">
-                
-                <span id="terminal-prompt" class="text-blue-400">${initialPromptText}</span>
-                <span id="terminal-display-input" class="whitespace-pre text-white"></span>
-                <span id="terminal-cursor" class="blinking-cursor w-2 h-4 inline-block bg-green-400"></span>
-            </div>
-        </div>
-        <style>
-            /* Style CSS intégré pour l'animation du curseur */
-            .blinking-cursor { 
-                animation: blink 1s step-end infinite; 
-                display: inline-block;
-                vertical-align: middle;
-                margin-left: 2px;
-                margin-right: -4px;
-            }
-            @keyframes blink { 
-                from, to { opacity: 0 } 
-                50% { opacity: 1 } 
-            }
-            /* Forcer le terminal à utiliser un style de curseur de texte */
-            #terminal-wrapper {
-                cursor: text;
-            }
-            /* Ajuster la hauteur de la zone de contenu pour le terminal */
-            #app-window-terminal .window-content {
-                height: calc(100% - 33px); /* 100% - hauteur de la barre de titre */
-                padding: 0; /* Pas de padding pour un look plein écran de la console */
-            }
-            .file { color: #ffffff; }
-            .dir { color: #5BBAFF; }
-        </style>
     `;
 }
 
