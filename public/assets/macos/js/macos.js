@@ -636,6 +636,7 @@ function executeLs(outputElement) {
         if ((i + 1) % columnCount === 0) {
             output += '<br>';
         }
+    }
 
     // Si la dernière ligne n'a pas été terminée par un <br>, il faut l'ajouter
     if (names.length % columnCount !== 0) {
