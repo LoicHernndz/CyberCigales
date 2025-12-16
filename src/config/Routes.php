@@ -42,6 +42,8 @@ class Routes
         '/instagram/melina/chat' => 'Controllers\Instagram\MelinaChat',
         '/LeconHistMdp' => 'Controllers\Lecon\LeconHistMdp',
         '/macos' => 'Controllers\MacOSController',
+
+        '/email' => 'Controllers\InterfaceMail\InterfaceMail',
         ];
 
 }

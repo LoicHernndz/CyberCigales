@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mail macOS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet" href="/assets/macos/InterfaceMail/style.css">
+</head>
+<body>
+
+<div class="mail-window">
+
+    <div class="toolbar">
+        <div class="toolbar-group">
+            <button class="active-btn" title="Nouveau message"><i class="fas fa-envelope"></i></button>
+        </div>
+        <div class="toolbar-group">
+            <button title="Supprimer"><i class="fas fa-trash-alt"></i></button>
+            <button title="Archiver"><i class="fas fa-archive"></i></button>
+            <button title="Marquer comme lu/non lu"><i class="fas fa-flag"></i></button>
+            <button title="Déplacer"><i class="fas fa-folder-open"></i></button>
+        </div>
+        <div class="toolbar-group">
+            <button title="Répondre"><i class="fas fa-reply"></i></button>
+            <button title="Répondre à tous"><i class="fas fa-reply-all"></i></button>
+            <button title="Transférer"><i class="fas fa-share"></i></button>
+        </div>
+    </div>
+
+    <div class="content-area">
+
+        <div class="sidebar">
+            <div class="mailbox-title">Mailboxes</div>
+            <ul class="mailbox-list">
+                <li class="active-mailbox" data-mailbox="inbox"><div class="icon-label"><i class="fas fa-inbox"></i> Inbox</div> <span class="count">21</span></li>
+                <li data-mailbox="flagged"><div class="icon-label"><i class="fas fa-flag"></i> Flagged</div> <span class="count">18</span></li>
+                <li data-mailbox="drafts"><div class="icon-label"><i class="fas fa-file-alt"></i> Drafts</div> <span class="count">1</span></li>
+                <li data-mailbox="sent"><div class="icon-label"><i class="fas fa-paper-plane"></i> Sent</div></li>
+                <li data-mailbox="junk"><div class="icon-label"><i class="fas fa-trash-alt"></i> Junk</div></li>
+                <li data-mailbox="trash"><div class="icon-label"><i class="fas fa-trash-alt"></i> Trash</div> <span class="count">109</span></li>
+            </ul>
+
+            <div class="separator"></div>
+
+            <div class="mailbox-title">Smart Mailboxes</div>
+            <ul class="mailbox-list">
+                <li data-mailbox="today"><div class="icon-label"><i class="fas fa-sun"></i> Today</div></li>
+            </ul>
+        </div>
+
+        <div class="email-list-column">
+            <div class="sort-bar">
+                Sorted by <strong>Date</strong> <i class="fas fa-caret-down"></i>
+            </div>
+            <ul id="email-list-container" class="email-list">
+                {{ EMAIL_LIST }}
+            </ul>
+        </div>
+
+        <div id="reading-pane" class="reading-pane">
+            {{ READING_PANE_CONTENT }}
+        </div>
+
+    </div>
+</div>
+
+<script src="/assets/macos/InterfaceMail/script.js"></script>
+
+</body>
+</html>

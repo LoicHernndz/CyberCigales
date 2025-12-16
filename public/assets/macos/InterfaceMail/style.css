@@ -1,0 +1,286 @@
+/* --- Variables pour un style macOS cohérent --- */
+:root {
+    --color-bg-light: #f7f7f7;
+    --color-bg-dark: #e8e8e8;
+    --color-border: #d0d0d0;
+    --color-text-dark: #333;
+    --color-text-light: #666;
+    --color-accent-blue: #007aff;
+    --color-selected-bg: #007aff;
+    --color-selected-text: white;
+    --sidebar-width: 240px;
+    --list-width: 320px;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    background-color: var(--color-bg-dark);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* --- Conteneur Principal de la Fenêtre --- */
+.mail-window {
+    width: 1200px;
+    max-width: 100%;
+    height: 80vh;
+    min-height: 600px;
+    background-color: white;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Barre d'Outils Supérieure --- */
+.toolbar {
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-bg-light);
+}
+
+.toolbar-group {
+    display: flex;
+    margin-right: 20px;
+}
+
+.toolbar-group button {
+    background: none;
+    border: none;
+    color: var(--color-text-light);
+    font-size: 16px;
+    margin: 0 4px;
+    padding: 5px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.toolbar-group button:hover {
+    background-color: var(--color-border);
+    color: var(--color-text-dark);
+}
+
+.toolbar-group .active-btn {
+    background-color: white;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-dark);
+}
+
+/* --- Conteneur Principal des Colonnes (Flex) --- */
+.content-area {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+/* --- Colonne des Boîtes aux Lettres (Sidebar) --- */
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--color-bg-light);
+    border-right: 1px solid var(--color-border);
+    padding: 10px 0;
+    overflow-y: auto;
+    flex-shrink: 0;
+}
+
+.mailbox-title {
+    font-weight: 600;
+    color: var(--color-text-dark);
+    padding: 8px 15px 4px;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+.mailbox-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mailbox-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 15px;
+    color: var(--color-text-dark);
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 14px;
+}
+
+.mailbox-list li:hover {
+    background-color: var(--color-bg-dark);
+}
+
+.mailbox-list .active-mailbox {
+    background-color: var(--color-accent-blue);
+    color: var(--color-selected-text);
+}
+
+.mailbox-list .active-mailbox .count {
+    background-color: var(--color-selected-text);
+    color: var(--color-accent-blue);
+}
+
+.mailbox-list .icon-label i {
+    width: 20px;
+    text-align: center;
+    margin-right: 8px;
+}
+
+.mailbox-list .count {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 1px 6px;
+    background-color: var(--color-border);
+    color: var(--color-text-dark);
+    border-radius: 9px;
+}
+
+.separator {
+    height: 1px;
+    background-color: var(--color-border);
+    margin: 10px 15px;
+}
+
+/* --- Colonne de la Liste des E-mails --- */
+.email-list-column {
+    width: var(--list-width);
+    flex-shrink: 0;
+    border-right: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
+    background-color: white;
+}
+
+.sort-bar {
+    /*padding: 8px 15px;*/
+    font-size: 12px;
+    color: var(--color-text-light);
+    border-bottom: 1px solid var(--color-border);
+    font-weight: 500;
+}
+
+.email-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.email-item {
+    padding: 10px 15px;
+    border-bottom: 1px solid var(--color-border);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.email-item:hover {
+    background-color: var(--color-bg-light);
+}
+
+.email-item.selected {
+    background-color: var(--color-selected-bg);
+    color: var(--color-selected-text);
+}
+
+.email-item.selected .sender,
+.email-item.selected .snippet {
+    color: var(--color-selected-text);
+}
+
+.email-item:not(.read) .sender,
+.email-item:not(.read) .subject {
+    font-weight: 600;
+}
+
+.email-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2px;
+}
+
+.sender {
+    font-size: 14px;
+    color: var(--color-text-dark);
+    font-weight: 500;
+}
+
+.time {
+    font-size: 12px;
+    color: var(--color-text-light);
+    flex-shrink: 0;
+}
+
+.email-item.selected .time {
+    color: var(--color-selected-text);
+}
+
+.subject {
+    font-size: 13px;
+    margin-bottom: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.snippet {
+    font-size: 12px;
+    color: var(--color-text-light);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* --- Panneau de Lecture des E-mails --- */
+.reading-pane {
+    flex-grow: 1;
+    background-color: white;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.reading-pane h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: var(--color-text-dark);
+}
+
+.recipient-info {
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: var(--color-text-light);
+}
+
+.recipient-info strong {
+    color: var(--color-text-dark);
+    font-weight: 500;
+}
+
+.email-content p {
+    line-height: 1.6;
+    color: var(--color-text-dark);
+    font-size: 14px;
+}
+
+.placeholder {
+    text-align: center;
+    padding-top: 50px;
+    color: var(--color-text-light);
+}

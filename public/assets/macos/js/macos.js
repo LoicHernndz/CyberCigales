@@ -18,7 +18,7 @@ let currentPath = ['home'];
 // NOUVEAUX IDENTIFIANTS : Définition des identifiants (simples pour la démo)
 const LOGIN_CREDENTIALS = {
     user: 'admin',
-    pass: 'secure' // Note: Ce mot de passe est simple pour la démo. L'indice se trouve dans les fichiers si l'utilisateur doit le deviner.
+    pass: 'secure'
 };
 
 /**
@@ -213,8 +213,8 @@ function createNewWindow(appName) {
     // Définition de la structure de base, du style et de la draggabilité
     windowElement.id = windowId;
     windowElement.className = 'app-window fixed bg-white/70 backdrop-blur-md rounded-xl shadow-2xl overflow-hidden resize transition-shadow duration-300 ring-1 ring-gray-200';
-    windowElement.style.width = '600px';
-    windowElement.style.height = '400px';
+    windowElement.style.width = '800px';
+    windowElement.style.height = '500px';
     windowElement.style.minWidth = '300px';
     windowElement.style.minHeight = '200px';
     // Position de départ aléatoire mais centrée
@@ -280,22 +280,9 @@ function getContentForApp(appName) {
             `;
             break;
         case 'Mail':
-            document.getElementById(`${appName}-content`).innerHTML =  `
-                <h2 class="text-xl font-bold mb-3">Boîte de Réception</h2>
-                <div class="space-y-2">
-                    <div class="p-2 border-l-4 border-blue-500 bg-blue-50 rounded shadow-sm">
-                        <p class="font-semibold">Nouveau: Invitation à collaborer</p>
-                        <p class="text-sm text-gray-600 truncate">Bonjour, j'aimerais vous ajouter à notre nouveau projet...</p>
-                    </div>
-                    <div class="p-2 bg-gray-50 rounded shadow-sm">
-                        <p class="font-semibold text-gray-500">Rappel: Réunion demain</p>
-                        <p class="text-sm text-gray-600 truncate">N'oubliez pas que la réunion d'équipe aura lieu à 10h...</p>
-                    </div>
-                </div>
-            `;
+            document.getElementById(`${appName}-content`).innerHTML =  `<iframe src='/email'></iframe>`
             break;
         case 'Terminal':
-            // UTILISE LA NOUVELLE FONCTION POUR LE CONTENU DU TERMINAL
             document.getElementById(`${appName}-content`).innerHTML = getTerminalContent();
             break;
         case 'Instagram':
@@ -396,7 +383,7 @@ function initializeTerminal(windowElement) {
 
     // 2. Mettre à jour le texte affiché par rapport à l'input invisible
     input.addEventListener('input', () => {
-        // NOUVEAU: Logique unifiée pour l'affichage en clair du nom d'utilisateur et des commandes.
+        // Logique unifiée pour l'affichage en clair du nom d'utilisateur et des commandes.
         if (state.isTerminalLoggedIn || currentLoginStep === 'username') {
             // Afficher le texte saisi en clair
             displayInput.textContent = input.value;
