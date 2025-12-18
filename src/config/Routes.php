@@ -20,6 +20,7 @@ class Routes
         '/user/profil' => 'Controllers\User\Profil',
 
         '/cypher-rush' => 'Controllers\Game\CypherRush',
+        '/hamming' => 'Controllers\Game\Hamming',
 
         '/qcm/rgpd/resultat' => 'Controllers\Qcm\QcmResultat',
         '/qcm/rgpd/feedback' => 'Controllers\Qcm\QcmFeedback',
