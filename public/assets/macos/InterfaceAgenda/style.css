@@ -1,0 +1,319 @@
+:root {
+    --bg-sidebar: #f5f5f7;
+    --bg-main: #ffffff;
+    --border-color: #e0e0e0;
+    --text-primary: #1d1d1f;
+    --text-secondary: #86868b;
+    --accent-color: #ff3b30;
+    --grid-line: #dadada;
+    --header-height: 60px; /* Légèrement plus haut pour l'aération */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #eef1f5;
+    color: var(--text-primary);
+}
+
+/* --- Le conteneur principal --- */
+.app-container {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    height: 100%;
+    background-color: var(--bg-main);
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    overflow: hidden;
+    border: 1px solid #d1d1d1;
+}
+
+/* --- Sidebar --- */
+.sidebar {
+    width: 250px;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.mini-calendar {
+    height: 180px;
+    background: #fff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ccc;
+    font-size: 14px;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.calendar-list h3 {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.calendar-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+    cursor: pointer;
+}
+.checkbox { width: 14px; height: 14px; border-radius: 4px; display: inline-block; }
+
+/* --- Main Content --- */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+/* --- Toolbar --- */
+.toolbar {
+    height: var(--header-height);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Espacement équitable */
+    padding: 0 20px;
+    gap: 10px; /* Espace minimum entre les éléments */
+}
+
+.toolbar-left, .toolbar-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.toolbar-right {
+    justify-content: flex-end;
+}
+
+.toolbar-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.date-title {
+    font-size: 24px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* Styles des boutons */
+.nav-buttons button, .view-buttons button, .btn-today {
+    background: none;
+    border: 1px solid var(--border-color);
+    padding: 6px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-buttons button:hover, .view-buttons button:hover, .btn-today:hover {
+    background: #f5f5f5;
+}
+
+/* Groupement des boutons navigation */
+.nav-buttons {
+    display: flex;
+}
+.nav-buttons button:first-child { border-radius: 6px 0 0 6px; border-right: none; }
+.nav-buttons button:last-child { border-radius: 0 6px 6px 0; }
+
+.btn-today {
+    margin-right: 15px;
+    border-radius: 6px !important;
+    font-weight: 500;
+}
+
+/* Groupement des boutons de vue */
+.view-buttons {
+    display: flex;
+}
+/* Style pour le bouton actif (Mois) */
+.active-view {
+    background: #e5e5e5 !important;
+    font-weight: 600;
+}
+
+
+/* --- RESPONSIVE : MEDIA QUERIES --- */
+
+/* Écrans moyens (Tablettes / Petite fenêtre) - < 900px */
+@media (max-width: 900px) {
+    .date-title {
+        font-size: 18px;
+    }
+
+    .sidebar {
+        display: none;
+
+    }
+
+    .app-container {
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
+        border: none;
+    }
+}
+
+/* Écrans petits (Mobiles) - < 600px */
+@media (max-width: 600px) {
+    .toolbar {
+        padding: 0 10px;
+        flex-wrap: wrap;
+        height: auto;
+        min-height: var(--header-height);
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .toolbar-left {
+        order: 1;
+        flex: 1 1 100%;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+
+    .toolbar-center {
+        order: 2;
+        flex: 1;
+        justify-content: flex-start;
+    }
+
+    .toolbar-right {
+        order: 3;
+        flex: 0;
+    }
+
+    .hide-mobile {
+        display: none;
+    }
+
+    .view-buttons button {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+
+    .day-header {
+        font-size: 10px;
+        padding-right: 5px;
+    }
+}
+
+/* --- Calendar Grid --- */
+.calendar-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: 40px auto;
+    overflow-y: auto;
+}
+
+.day-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 15px;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    background-color: #fafafa;
+}
+
+.days-container {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-rows: minmax(120px, 1fr);
+}
+
+.day-cell {
+    border-right: 1px solid var(--grid-line);
+    border-bottom: 1px solid var(--grid-line);
+    padding: 8px;
+    font-size: 14px;
+    position: relative;
+    background: #fff;
+    transition: background 0.2s;
+}
+
+.day-cell:hover {
+    background-color: #fafafa;
+}
+
+.day-cell.other-month {
+    background-color: #fcfcfc;
+    color: #e0e0e0;
+}
+
+.day-number {
+    display: block;
+    text-align: right;
+    margin-bottom: 8px;
+    font-weight: 500;
+    margin-right: 4px;
+}
+
+/* Current Day Style */
+.current-day .day-number {
+    background-color: var(--accent-color);
+    color: white;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    box-shadow: 0 2px 4px rgba(255, 59, 48, 0.4);
+}
+
+.event {
+    background-color: #ebf3fc;
+    color: #1a73e8;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-bottom: 4px;
+    font-weight: 600;
+    border-left: 3px solid #1a73e8;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.event.work { background-color: #fce8e6; color: #c5221f; border-left-color: #c5221f; }
+.event.personal { background-color: #e6f4ea; color: #137333; border-left-color: #137333; }

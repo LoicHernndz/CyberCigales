@@ -44,6 +44,7 @@ class Routes
         '/macos' => 'Controllers\MacOSController',
 
         '/email' => 'Controllers\InterfaceMail\InterfaceMail',
+        '/agenda' => 'Controllers\InterfaceAgenda\InterfaceAgenda',
         ];
 
 }

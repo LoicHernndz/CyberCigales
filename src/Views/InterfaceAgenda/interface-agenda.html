@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda macOS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet" href="/assets/macos/InterfaceAgenda/style.css">
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <aside class="sidebar">
+        <div class="mini-calendar">
+            Mini Calendrier
+        </div>
+
+        <div class="calendar-list">
+            <h3>MES CALENDRIERS</h3>
+            <div class="calendar-item"><span class="checkbox" style="background:#1a73e8"></span>Personnel</div>
+            <div class="calendar-item"><span class="checkbox" style="background:#c5221f"></span>Travail</div>
+            <div class="calendar-item"><span class="checkbox" style="background:#137333"></span>Famille</div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="toolbar">
+            <div class="toolbar-left">
+                <h1 id="monthYear" class="date-title">Chargement...</h1>
+            </div>
+
+            <div class="toolbar-center">
+                <button class="btn-today" onclick="goToToday()">Aujourd'hui</button>
+                <div class="nav-buttons">
+                    <button onclick="changeMonth(-1)">&#9664;</button>
+                    <button onclick="changeMonth(1)">&#9654;</button>
+                </div>
+            </div>
+
+            <div class="toolbar-right">
+                <div class="view-buttons">
+                    <button style="border-radius: 6px 0 0 6px;">Jour</button>
+                    <button class="hide-mobile">Semaine</button> <button class="active-view">Mois</button>
+                    <button style="border-radius: 0 6px 6px 0;">Année</button>
+                </div>
+            </div>
+        </header>
+
+        <div class="calendar-grid">
+            <div class="day-header">Lun</div>
+            <div class="day-header">Mar</div>
+            <div class="day-header">Mer</div>
+            <div class="day-header">Jeu</div>
+            <div class="day-header">Ven</div>
+            <div class="day-header">Sam</div>
+            <div class="day-header">Dim</div>
+
+            <div id="gridDays" class="days-container"></div>
+        </div>
+    </main>
+</div>
+
+<script src="/assets/macos/InterfaceAgenda/script.js"></script>
+
+</body>
+</html>

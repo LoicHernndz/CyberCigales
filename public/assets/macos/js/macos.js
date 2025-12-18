@@ -288,6 +288,9 @@ function getContentForApp(appName) {
         case 'Instagram':
             document.getElementById(`${appName}-content`).innerHTML =  `<iframe src='/instagram'></iframe>`
             break;
+        case 'Calendrier':
+            document.getElementById(`${appName}-content`).innerHTML =  `<iframe src='/agenda'></iframe>`
+            break;
         default:
             return `<p class="text-lg text-center mt-8">Application "${appName}" lancée avec succès!</p><p class="text-xs text-center mt-2 text-gray-500">Fermez la fenêtre en cliquant sur le bouton rouge.</p>`;
     }
