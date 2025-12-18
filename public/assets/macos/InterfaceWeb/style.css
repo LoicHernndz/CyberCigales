@@ -1,0 +1,107 @@
+:root {
+    --toolbar-bg: rgba(255, 255, 255, 0.8);
+    --border-color: #b5b5b5;
+    --accent-blue: #007aff;
+    --input-bg: #e3e3e5;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* La barre d'outils du haut */
+.toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    height: 50px;
+    background-color: var(--toolbar-bg);
+    border-bottom: 1px solid var(--border-color);
+
+    /* L'effet de flou comme sur Safari quand le contenu passe dessous */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 15px;
+    justify-content: space-between;
+}
+
+/* navigation (Flèches) */
+.nav-controls {
+    display: flex;
+    gap: 20px;
+    color: #555;
+    font-size: 20px;
+    min-width: 80px;
+}
+
+.nav-btn {
+    cursor: pointer;
+    transition: color 0.2s, transform 0.1s;
+    user-select: none;
+}
+.nav-btn:hover { color: #000; }
+.nav-btn:active { transform: scale(0.9); }
+
+/* Conteneur de la barre d'adresse */
+.address-bar-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    max-width: 800px;
+}
+
+/* La barre d'adresse */
+.address-bar {
+    background-color: var(--input-bg);
+    border-radius: 8px;
+    padding: 0 12px;
+    height: 34px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+
+.address-bar:focus-within {
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.3);
+    border: 1px solid var(--accent-blue);
+}
+
+.lock-icon { font-size: 10px; color: #555; }
+
+input[type="text"] {
+    border: none;
+    background: transparent;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    font-size: 14px;
+    text-align: center;
+    color: #000;
+}
+
+/* Zone de contenu principale */
+.content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 100px;
+    color: #333;
+}
+
+h1 { font-weight: 600; font-size: 2.5rem; margin-bottom: 10px;}

@@ -271,13 +271,7 @@ function getContentForApp(appName) {
             `;
             break;
         case 'Web':
-            document.getElementById(`${appName}-content`).innerHTML =  `
-                <div class="h-8 bg-gray-200 flex items-center px-3 mb-4 rounded-lg">
-                    <span class="text-gray-600">🌐 simulation-site-web.com</span>
-                </div>
-                <h1 class="text-3xl font-light text-center">Bienvenue sur le Web Simulé</h1>
-                <p class="mt-4 text-center">Utilisez ce navigateur pour imaginer vos recherches les plus folles.</p>
-            `;
+            document.getElementById(`${appName}-content`).innerHTML =  `<iframe src='/web'></iframe>`
             break;
         case 'Mail':
             document.getElementById(`${appName}-content`).innerHTML =  `<iframe src='/email'></iframe>`

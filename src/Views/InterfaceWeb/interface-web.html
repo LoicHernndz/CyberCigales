@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safari Interface</title>
+    <link rel="stylesheet" href="assets/macos/InterfaceWeb/style.css">
+</head>
+<body>
+<header class="toolbar">
+    <div class="nav-controls">
+        <span class="nav-btn">&#10094;</span>
+        <span class="nav-btn">&#10095;</span>
+    </div>
+
+    <div class="address-bar-container">
+        <form method="POST" action="/web" style="width: 100%;">
+            <div class="address-bar">
+                <span class="lock-icon">&#128274;</span>
+
+                <input type="text"
+                       name="url_input"
+                       value="{{URL_VALUE}}"
+                       autocomplete="off"
+                       placeholder="Entrez l'url de votre site">
+
+                <div class="loading-bar" id="loadingBar"></div>
+            </div>
+        </form>
+    </div>
+
+    <div class="nav-controls">
+        <span class="nav-btn">+</span>
+    </div>
+</header>
+
+<main class="content">
+    {{CONTENT_VALUE}}
+</main>
+<script src="assets/macos/InterfaceWeb/script.js"></script>
+</body>
+</html>
