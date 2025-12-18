@@ -3,6 +3,9 @@
 namespace Models\Bash;
 
 use Exception;
+use Exceptions\bash\CommandCallingException;
+use Exceptions\bash\InvalidPathException;
+
 
 class File
 {
@@ -30,13 +33,13 @@ class File
                     break;
                 }
             }
-            if ($this->prev != $pathArray[$i]) { throw new Exception("Bad path : ".$path); }
+            if ($this->prev->getName() != $pathArray[$i]) { throw new InvalidPathException("Bad path : ".$path); }
         }
         $this->type = $type;
         $this->content = $content;
         $this->name = $pathArray[sizeof($pathArray) - 1];
 
-        $this->prev->addFile($this);
+        $this->prev?->addFile($this);       //  Si prev non null, ajouter au dossier
     }
 
     public function getPrev(): File { return $this->prev; }
@@ -48,13 +51,35 @@ class File
     public function getContent(): mixed { return $this->content; }
     public function setContent(mixed $content): void { $this->content = $content; }
 
+    public function getPath(): string {
+        if ($this->prev == null) { return ""; }
+        return $this->prev->getPath()."/".$this->getName();
+    }
+
     /**
      * @throws Exception
      */
     public function addFile(File $file): void {
-        if ($file->getType() != "dir") {
-            throw new Exception($this->getName()." n'est pas un dossier.");
+        if ($this->getType() != "dir") {
+            throw new InvalidPathException($this->getName()." n'est pas un dossier.");
         }
         $this->content[] = $file;
+    }
+
+    public function getChild(string $name): File|null {
+        if ($this->getType() != "dir") { return null; }
+        foreach ($this->content as $file) {
+            if ($file->getName() == $name) { return $file; }
+        }
+        return null;
+    }
+
+    public function relativeResolution(array $path): string {
+        $current = $this;
+        foreach ($path as $fileName) {
+            if ($fileName == "..") { $current = $current->getPrev(); }
+            else { $current = $current->getChild($fileName); }
+        }
+        return $current->getPath();
     }
 }

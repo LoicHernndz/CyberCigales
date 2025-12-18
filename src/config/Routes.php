@@ -44,7 +44,7 @@ class Routes
         '/macos' => 'Controllers\MacOSController',
 
         '/bash' => 'Controllers\Bash\Bash',
-        '/bash/exec' => 'Bash',
+        '/bash/exec' => 'helpers\BashRequest',
         ];
 
 }

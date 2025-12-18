@@ -1,4 +1,5 @@
 const input = document.getElementById("input");
+let path = "/home";
 input.addEventListener("keyup", function(event) {
     if (event.key === "Enter") {
         event.preventDefault();
@@ -7,14 +8,23 @@ input.addEventListener("keyup", function(event) {
     }
 });
 
-function generateOutput(input) {
-    let xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState === 4 && this.status === 200) {
-            document.getElementById("output").innerHTML += "<br>" + this.responseText;
-            console.log(this.responseText);
+async function generateOutput(input) {
+    let url = "/bash/exec?input=" + input + "&path=" + path
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
         }
-    };
-    xmlhttp.open("GET", "/bash/exec?input=" + input, true);
-    xmlhttp.send();
+
+        let result = await response.json();
+
+        console.log(result);
+
+        document.getElementById("output").innerHTML += "<br>" + result.output;
+        console.log(this.responseText);
+        path = result.path;
+    } catch (error) {
+        console.error(error.message);
+    }
+
 }
