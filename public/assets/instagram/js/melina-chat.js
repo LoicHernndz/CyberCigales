@@ -54,11 +54,10 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Scroll vers le bas
             scrollToBottom();
-            
+
             // Simuler une réponse de Melina après 2 secondes
             setTimeout(() => {
-                const response = getRandomResponse();
-                addMelinaMessage(response);
+                const response = generateResponse(message);
                 scrollToBottom();
             }, 2000);
         }
@@ -126,21 +125,21 @@ document.addEventListener('DOMContentLoaded', function() {
      * Retourne une réponse aléatoire de Melina
      * @returns {string} Une réponse aléatoire
      */
-    function getRandomResponse() {
-        const responses = [
-            "C'est super ! 😊",
-            "J'adore ça ! ✨",
-            "Merci pour ton message ! 💕",
-            "C'est génial ! 🎉",
-            "Parfait ! 👍",
-            "J'aime beaucoup ! 💖",
-            "C'est magnifique ! 🌟",
-            "Excellent ! 👏",
-            "Trop cool ! 🔥",
-            "J'adore ! 😍"
-        ];
-        
-        return responses[Math.floor(Math.random() * responses.length)];
+    async function generateResponse(message) {
+        try {
+            let url = "/instagram/chat/response?name=Melina&message=" + message
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Response status: ${response.status}`);
+            }
+
+            let text = await response.text();
+            addMelinaMessage(text);
+
+        } catch (error) {
+            console.error(error.message);
+            return "?!";
+        }
     }
     
     // ========================================

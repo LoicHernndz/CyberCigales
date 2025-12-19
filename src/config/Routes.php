@@ -40,7 +40,7 @@ class Routes
         '/LeconPermutation' => 'Controllers\Lecon\LeconPermutation',
         '/LeconVigenere' => 'Controllers\Lecon\LeconVigenere',
         '/instagram/melina/chat' => 'Controllers\Instagram\MelinaChat',
-        '/LeconHistMdp' => 'Controllers\Lecon\LeconHistMdp',
+        '/instagram/chat/response' => 'helpers\GenerateAnswer',
         '/macos' => 'Controllers\MacOSController',
 
         '/email' => 'Controllers\InterfaceMail\InterfaceMail',
