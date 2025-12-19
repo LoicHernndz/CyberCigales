@@ -296,7 +296,7 @@ function getContentForApp(appName) {
             break;
         case 'Terminal':
             // UTILISE LA NOUVELLE FONCTION POUR LE CONTENU DU TERMINAL
-            document.getElementById(`${appName}-content`).innerHTML = getTerminalContent();
+            document.getElementById(`${appName}-content`).innerHTML = `<iframe src='/bash'></iframe>`;
             break;
         case 'Instagram':
             document.getElementById(`${appName}-content`).innerHTML =  `<iframe src='/instagram'></iframe>`
