@@ -21,6 +21,7 @@ class Routes
 
         '/cypher-rush' => 'Controllers\Game\CypherRush',
         '/game/frequency' => 'Controllers\Game\FrequencyGame',
+        '/game/phishing' => 'Controllers\Game\PhishingGame',
 
         '/qcm/rgpd/resultat' => 'Controllers\Qcm\QcmResultat',
         '/qcm/rgpd/feedback' => 'Controllers\Qcm\QcmFeedback',

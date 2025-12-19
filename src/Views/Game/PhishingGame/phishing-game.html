@@ -1,0 +1,100 @@
+<link rel="stylesheet" href="/styles/phishing-game.css">
+
+<div class="game-container">
+    <div class="game-header">
+        <a href="/minigames" class="back-link">
+            <span class="material-icons">arrow_back</span>
+            Retour aux jeux
+        </a>
+        <h1>Phishing Detective</h1>
+        <div class="score-display">
+            Score: <span id="score">0</span>/5
+        </div>
+    </div>
+
+    <div class="game-content" id="game-area">
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <div class="email-viewer">
+            <div class="email-header-fake">
+                <div class="fake-buttons">
+                    <span class="fake-dot red"></span>
+                    <span class="fake-dot yellow"></span>
+                    <span class="fake-dot green"></span>
+                </div>
+                <div class="fake-address-bar" id="fake-subject">Sujet de l'email</div>
+            </div>
+            <div class="email-image-container">
+                <img id="email-image" src="" alt="Email à analyser">
+                <div class="loading-spinner" id="image-loader">
+                    <span class="material-icons spinning">refresh</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="analysis-panel">
+            <h2>Analyse de sécurité</h2>
+            <p class="instruction">Cet email est-il une tentative de phishing ?</p>
+            
+            <div class="decision-buttons">
+                <button class="btn-decision safe" onclick="PhishingGame.makeDecision(false)">
+                    <span class="material-icons">verified_user</span>
+                    C'est légitime
+                </button>
+                <button class="btn-decision phish" onclick="PhishingGame.showPhishingTypes()">
+                    <span class="material-icons">warning</span>
+                    C'est du phishing
+                </button>
+            </div>
+
+            <div id="phishing-types" class="phishing-types hidden">
+                <h3>Quel type de phishing ?</h3>
+                <div class="type-grid">
+                    <button class="btn-type" onclick="PhishingGame.makeDecision(true, 'urgency')">
+                        <span class="material-icons">timer</span>
+                        Urgence / Pression
+                    </button>
+                    <button class="btn-type" onclick="PhishingGame.makeDecision(true, 'fake_site')">
+                        <span class="material-icons">link_off</span>
+                        Faux lien / Site
+                    </button>
+                    <button class="btn-type" onclick="PhishingGame.makeDecision(true, 'auth')">
+                        <span class="material-icons">admin_panel_settings</span>
+                        Fausse Autorité
+                    </button>
+                    <button class="btn-type" onclick="PhishingGame.makeDecision(true, 'offer')">
+                        <span class="material-icons">card_giftcard</span>
+                        Offre trop belle
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="feedback-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="feedback-icon" id="feedback-icon"></div>
+            <h2 id="feedback-title">Résultat</h2>
+            <p id="feedback-message">Explication...</p>
+            <button class="btn-next" onclick="PhishingGame.nextScenario()">
+                Suivant
+                <span class="material-icons">arrow_forward</span>
+            </button>
+        </div>
+    </div>
+    
+    <div id="end-screen" class="hidden">
+        <div class="end-card">
+            <span class="material-icons trophy-icon">emoji_events</span>
+            <h2>Analyse Terminée !</h2>
+            <p class="final-score">Votre score : <span id="final-score">0</span>/5</p>
+            <p id="final-message">Pas mal, mais restez vigilant !</p>
+            <a href="/minigames" class="btn-finish">Retour aux jeux</a>
+            <button class="btn-restart" onclick="location.reload()">Rejouer</button>
+        </div>
+    </div>
+</div>
+
+<script src="/js/phishing-game.js"></script>
