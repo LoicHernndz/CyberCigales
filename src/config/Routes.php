@@ -46,6 +46,9 @@ class Routes
         '/email' => 'Controllers\InterfaceMail\InterfaceMail',
         '/agenda' => 'Controllers\InterfaceAgenda\InterfaceAgenda',
         '/web'  => 'Controllers\InterfaceWeb\InterfaceWeb',
+
+        '/bash' => 'Controllers\Bash\Bash',
+        '/bash/exec' => 'helpers\BashRequest',
         ];
 
 }
