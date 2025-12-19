@@ -244,11 +244,6 @@ function createNewWindow(appName) {
     makeDraggable(windowElement);
     makeResizable(windowElement);
 
-    // Initialisation spécifique du terminal après création
-    if (appName === 'Terminal') {
-        initializeTerminal(windowElement);
-    }
-
     return windowElement;
 }
 
@@ -734,6 +729,7 @@ function closeApp(appName) {
 
         // NOUVEAU: Si le terminal est fermé, réinitialiser l'état de connexion pour la prochaine ouverture
         if (appName === 'Terminal') {
+            console.log('yup')
             state.isTerminalLoggedIn = false;
         }
 
