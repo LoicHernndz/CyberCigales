@@ -20,6 +20,7 @@ class Routes
         '/user/profil' => 'Controllers\User\Profil',
 
         '/cypher-rush' => 'Controllers\Game\CypherRush',
+        '/game/frequency' => 'Controllers\Game\FrequencyGame',
 
         '/qcm/rgpd/resultat' => 'Controllers\Qcm\QcmResultat',
         '/qcm/rgpd/feedback' => 'Controllers\Qcm\QcmFeedback',
@@ -45,6 +46,7 @@ class Routes
 
         '/email' => 'Controllers\InterfaceMail\InterfaceMail',
         '/agenda' => 'Controllers\InterfaceAgenda\InterfaceAgenda',
+        '/minigames' => 'Controllers\Minigames',
         ];
 
 }
