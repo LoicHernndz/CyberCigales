@@ -90,6 +90,31 @@
     text-overflow: ellipsis;
 }
 
+.email-meta-data {
+    padding: 1rem;
+    background: #fdfdfd;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.meta-row {
+    display: flex;
+    font-size: 0.9rem;
+    gap: 0.5rem;
+}
+
+.meta-label {
+    font-weight: 600;
+    color: #666;
+    min-width: 50px;
+}
+
+.meta-value {
+    color: #333;
+}
+
 .email-image-container {
     position: relative;
     min-height: 400px;

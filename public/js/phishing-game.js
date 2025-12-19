@@ -5,43 +5,58 @@ const PhishingGame = (function() {
     const scenarios = [
         {
             id: 1,
+            from: 'Security <security@bank-verify-alert.com>',
+            to: 'votre.nom@gmail.com',
+            date: '19 Dec 2025, 10:45',
             image: 'https://placehold.co/800x500/e0f7fa/006064?text=Banque+Security+Check%0A%0AAttention+votre+compte+va+etre+bloque!%0ACliquez+ici+pour+verifier+vos+infos+urgemment.',
             subject: 'ALERTE SECURITE - ACTION REQUISE IMMEDIATE',
             isPhishing: true,
             type: 'urgency',
-            explanation: 'Ce mail utilise l\'urgence ("immédiate", "bloqué") pour vous faire paniquer et cliquer sans réfléchir. C\'est une technique classique.'
+            explanation: 'Ce mail utilise l\'urgence ("immédiate", "bloqué") pour vous faire paniquer. De plus, l\'adresse de l\'expéditeur "bank-verify-alert.com" est suspecte.'
         },
         {
             id: 2,
+            from: 'Amazon Rewards <no-reply@amazon-win-prizes.net>',
+            to: 'votre.nom@gmail.com',
+            date: '18 Dec 2025, 14:20',
             image: 'https://placehold.co/800x500/fff3e0/e65100?text=Amazon+Cadeau%0A%0AFelicitations!+Vous+avez+gagne+un+iPhone+15.%0AReclamez+votre+prix+maintenant+en+payant+les+frais+de+port.',
             subject: 'Votre colis est en attente !',
             isPhishing: true,
             type: 'offer',
-            explanation: 'Si c\'est trop beau pour être vrai, c\'est du phishing. Un iPhone gratuit contre des frais de port est une arnaque courante.'
+            explanation: 'Si c\'est trop beau pour être vrai, c\'est du phishing. Notez l\'adresse en ".net" qui n\'est pas le domaine officiel d\'Amazon.'
         },
         {
             id: 3,
+            from: 'RH CyberCigales <rh@cybercigales.fr>',
+            to: 'equipe@cybercigales.fr',
+            date: '19 Dec 2025, 09:00',
             image: 'https://placehold.co/800x500/f3e5f5/4a148c?text=Direction+RH%0A%0AVeuillez+trouver+ci-joint+le+nouveau+protocole+sanitaire.%0A%0ACordialement,%0ADr.+Dupont',
             subject: 'Mise à jour protocole interne',
             isPhishing: false,
             type: 'none',
-            explanation: 'Ce mail semble légitime. Le ton est professionnel, pas d\'urgence injustifiée, et l\'expéditeur semble cohérent avec le contenu.'
+            explanation: 'Ce mail est légitime. L\'adresse d\'expédition correspond au domaine de l\'entreprise (@cybercigales.fr) et le contenu est cohérent.'
         },
         {
             id: 4,
+            from: 'PayPal Service <support@paypa1-verify.com>',
+            to: 'votre.nom@gmail.com',
+            date: '17 Dec 2025, 23:10',
             image: 'https://placehold.co/800x500/e8eaf6/1a237e?text=Paypal+Support%0A%0AVeuillez+vous+connecter+sur+paypa1-secure-verify.com%0Apour+confirmer+votre+transaction.',
             subject: 'Confirmation de paiement',
             isPhishing: true,
             type: 'fake_site',
-            explanation: 'Regardez bien le lien : "paypa1" avec un chiffre 1 au lieu de "l". C\'est du typosquatting pour vous emmener sur un faux site.'
+            explanation: 'L\'expéditeur utilise "paypa1" (avec un 1). C\'est une tentative de tromperie visuelle très courante.'
         },
         {
             id: 5,
+            from: 'Police Nationale <ne-pas-repondre@gouv-amendes-fr.info>',
+            to: 'citoyen@france.fr',
+            date: '16 Dec 2025, 11:05',
             image: 'https://placehold.co/800x500/ffebee/b71c1c?text=Police+Nationale%0A%0AVous+etes+convoque+pour+une+infraction.%0AVeuillez+payer+l\'amende+ici+pour+eviter+les+poursuites.',
             subject: 'CONVOCATION JUDICIAIRE',
             isPhishing: true,
             type: 'auth',
-            explanation: 'Les escrocs se font passer pour des autorités (Police, Impôts) pour vous intimider. La police n\'envoie jamais d\'amendes par mail simple.'
+            explanation: 'Les sites gouvernementaux utilisent ".gouv.fr". L\'extension ".info" et le nom de domaine fantaisiste sont des preuves de phishing.'
         }
     ];
 
@@ -52,7 +67,11 @@ const PhishingGame = (function() {
     const els = {
         score: document.getElementById('score'),
         progressBar: document.getElementById('progress-bar'),
-        subject: document.getElementById('fake-subject'),
+        subjectBar: document.getElementById('fake-subject-bar'),
+        emailFrom: document.getElementById('email-from'),
+        emailTo: document.getElementById('email-to'),
+        emailDate: document.getElementById('email-date'),
+        emailSubject: document.getElementById('email-subject'),
         image: document.getElementById('email-image'),
         loader: document.getElementById('image-loader'),
         phishingTypes: document.getElementById('phishing-types'),
@@ -81,7 +100,11 @@ const PhishingGame = (function() {
         // Update UI
         els.score.textContent = score;
         els.progressBar.style.width = `${(index / scenarios.length) * 100}%`;
-        els.subject.textContent = scenario.subject;
+        els.subjectBar.textContent = scenario.subject;
+        els.emailFrom.textContent = scenario.from;
+        els.emailTo.textContent = scenario.to;
+        els.emailDate.textContent = scenario.date;
+        els.emailSubject.textContent = scenario.subject;
         
         // Reset state
         els.phishingTypes.classList.add('hidden');
