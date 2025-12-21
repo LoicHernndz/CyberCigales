@@ -197,10 +197,10 @@ function attachClickListeners() {
  * Initialise le carré de Hamming au chargement de la page
  * 
  * Cette fonction est appelée une fois au chargement de la page.
- * Le HTML du carré est déjà généré par PHP, on n'a qu'à attacher les event listeners.
+ * Elle récupère les données du carré depuis le HTML et génère l'affichage initial.
  */
 function initHamming() {
-    // Récupérer le conteneur qui contient le carré
+    // Récupérer le conteneur qui va contenir le carré
     var O_container = document.getElementById('square-container');
     
     // Vérifier que le conteneur existe
@@ -210,9 +210,53 @@ function initHamming() {
         return;
     }
     
-    // Le HTML est déjà généré par PHP, on n'a qu'à attacher les event listeners
-    // pour rendre les boutons cliquables
-    attachClickListeners();
+    // Récupérer la balise <script type="application/json"> qui contient les données JSON
+    // Cette balise est injectée par PHP dans le HTML
+    var O_scriptTag = document.getElementById('square-data');
+    
+    // Vérifier que la balise script existe
+    if (O_scriptTag) {
+        // try/catch : gérer les erreurs de parsing JSON
+        try {
+            // Récupérer le texte contenu dans la balise script
+            // textContent : contenu textuel (recommandé)
+            // innerText : alternative (pour compatibilité)
+            // || : si textContent est vide, utiliser innerText
+            var S_jsonText = O_scriptTag.textContent || O_scriptTag.innerText;
+            
+            // Nettoyer le texte : enlever les espaces au début et à la fin
+            // trim() supprime les espaces, retours à la ligne, etc.
+            S_jsonText = S_jsonText.trim();
+            
+            // Correction d'un bug potentiel : si le template PHP a mal injecté le JSON
+            // et qu'il y a des accolades en trop, on les enlève
+            // charAt(0) : premier caractère
+            // charAt(length - 1) : dernier caractère
+            if (S_jsonText.charAt(0) === '{' && S_jsonText.charAt(S_jsonText.length - 1) === '}') {
+                // substring(1, length - 1) : enlever le premier et dernier caractère
+                S_jsonText = S_jsonText.substring(1, S_jsonText.length - 1);
+            }
+            
+            // Vérifier si le placeholder PHP n'a pas été remplacé
+            // indexOf() retourne -1 si la chaîne n'est pas trouvée
+            if (S_jsonText.indexOf('{{{SQUARE_JSON}}}') !== -1) {
+                // Le placeholder est encore là, erreur de template PHP
+                return; // Arrêter l'exécution
+            }
+            
+            // Parser le JSON : convertir la chaîne JSON en objet JavaScript
+            // JSON.parse() peut lancer une erreur si le JSON est invalide
+            var A_square = JSON.parse(S_jsonText);
+            
+            // Vérifier qu'on a bien un carré valide (3 lignes)
+            if (A_square && A_square.length === 3) {
+                // Générer et afficher le carré
+                updateSquare(A_square);
+            }
+        } catch (O_error) {
+            // Erreur silencieuse - si le JSON est invalide, on ne fait rien
+        }
+    }
 }
 
 // Note : Cette fonction n'est pas appelée automatiquement ici.
