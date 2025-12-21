@@ -1,6 +1,25 @@
 <div class="hamming-container">
-    <div class="square-container" id="square-container">
-        {{{SQUARE_HTML}}}
-    </div>
+    <div class="square-container" id="square-container">{{{SQUARE_HTML}}}</div>
 </div>
+
+<script src="/assets/hamming/js/hamming.js"></script>
+<script>
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof initHamming === 'function') {
+                initHamming();
+            }
+        });
+    } else {
+        if (typeof initHamming === 'function') {
+            initHamming();
+        } else {
+            setTimeout(function() {
+                if (typeof initHamming === 'function') {
+                    initHamming();
+                }
+            }, 100);
+        }
+    }
+</script>
 
