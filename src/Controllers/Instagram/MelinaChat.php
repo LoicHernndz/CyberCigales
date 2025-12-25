@@ -43,8 +43,9 @@ class MelinaChat extends AbstractController
         $chatMessages = $model->getMelinaChatMessages($conversationId);
         
         // Passer l'ID de conversation à la vue pour qu'il soit dans l'URL
-        // Utiliser htmlspecialchars pour éviter les problèmes d'injection XSS
-        $view->addTemplateKey('CONVERSATION_ID', htmlspecialchars($conversationId, ENT_QUOTES, 'UTF-8'));
+        // Utiliser htmlspecialchars avec ENT_QUOTES pour échapper les guillemets dans les attributs HTML
+        // ENT_QUOTES échappe à la fois les guillemets simples et doubles
+        $view->addTemplateKey('CONVERSATION_ID', htmlspecialchars($conversationId, ENT_QUOTES | ENT_HTML5, 'UTF-8'));
         
         // ========================================
         // GÉNÉRATION DU HTML POUR LE HEADER DU CHAT
