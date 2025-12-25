@@ -1,6 +1,8 @@
 <?php
 namespace Models\Instagram;
 
+use config\Database;
+
 /**
  * Modèle pour les données Instagram
  * 
@@ -9,6 +11,13 @@ namespace Models\Instagram;
  */
 class InstagramModel
 {
+    private $db;
+    
+    public function __construct()
+    {
+        $this->db = new Database();
+        $this->createMessagesTableIfNotExists();
+    }
     /**
      * Récupère les données des stories
      * 
@@ -175,11 +184,107 @@ class InstagramModel
     }
     
     /**
-     * Récupère les messages du chat avec Melina
+     * Récupère les messages du chat avec Melina depuis la base de données
      * 
      * @return array Messages du chat
      */
     public function getMelinaChatMessages(): array
+    {
+        try {
+            // Récupérer tous les messages triés par date de création
+            $this->db->query('SELECT type, content, created_at FROM instagram_messages ORDER BY created_at ASC');
+            $results = $this->db->resultSet();
+            
+            $messages = [];
+            foreach ($results as $row) {
+                // Formater l'heure au format HH:MM
+                $time = date('H:i', strtotime($row->created_at));
+                $messages[] = [
+                    'type' => $row->type,
+                    'content' => $row->content,
+                    'time' => $time
+                ];
+            }
+            
+            // Si aucun message en base, initialiser avec les messages par défaut
+            if (empty($messages)) {
+                $this->initializeDefaultMessages();
+                return $this->getMelinaChatMessages(); // Récupérer à nouveau après initialisation
+            }
+            
+            return $messages;
+        } catch (\Exception $e) {
+            error_log("Erreur récupération messages Instagram : " . $e->getMessage());
+            // En cas d'erreur, retourner les messages par défaut
+            return $this->getDefaultMessages();
+        }
+    }
+    
+    /**
+     * Sauvegarde un nouveau message dans la base de données
+     * 
+     * @param string $type Type de message ('sent' ou 'received')
+     * @param string $content Contenu du message
+     * @return bool True si la sauvegarde a réussi, false sinon
+     */
+    public function saveMessage(string $type, string $content): bool
+    {
+        try {
+            $this->db->query('INSERT INTO instagram_messages (type, content, created_at) VALUES (:type, :content, NOW())');
+            $this->db->bind(':type', $type);
+            $this->db->bind(':content', $content);
+            return $this->db->execute();
+        } catch (\Exception $e) {
+            error_log("Erreur sauvegarde message Instagram : " . $e->getMessage());
+            return false;
+        }
+    }
+    
+    /**
+     * Crée la table des messages si elle n'existe pas
+     */
+    private function createMessagesTableIfNotExists(): void
+    {
+        try {
+            $query = "CREATE TABLE IF NOT EXISTS instagram_messages (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                type ENUM('sent', 'received') NOT NULL,
+                content TEXT NOT NULL,
+                created_at DATETIME NOT NULL,
+                INDEX idx_created_at (created_at)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci";
+            
+            // Utiliser exec() pour exécuter directement la requête CREATE TABLE
+            $this->db->exec($query);
+        } catch (\Exception $e) {
+            // Ignorer l'erreur si la table existe déjà
+            // error_log("Erreur création table instagram_messages : " . $e->getMessage());
+        }
+    }
+    
+    /**
+     * Initialise les messages par défaut dans la base de données
+     */
+    private function initializeDefaultMessages(): void
+    {
+        $defaultMessages = [
+            ['type' => 'received', 'content' => 'Salut ! Comment ça va ? 😊'],
+            ['type' => 'sent', 'content' => 'Salut Melina ! Ça va super, merci !'],
+            ['type' => 'received', 'content' => 'J\'ai vu tes nouvelles photos, elles sont magnifiques ! 📸'],
+            ['type' => 'sent', 'content' => 'Merci beaucoup ! J\'adore la photographie ✨']
+        ];
+        
+        foreach ($defaultMessages as $message) {
+            $this->saveMessage($message['type'], $message['content']);
+        }
+    }
+    
+    /**
+     * Retourne les messages par défaut (fallback en cas d'erreur)
+     * 
+     * @return array Messages par défaut
+     */
+    private function getDefaultMessages(): array
     {
         return [
             [

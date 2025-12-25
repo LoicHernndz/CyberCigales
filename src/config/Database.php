@@ -173,4 +173,11 @@ class Database
         // Ou null si aucun résultat trouvé
     }
 
+    // Ma méthode pour exécuter directement une requête SQL (sans préparation)
+    // Utile pour les requêtes DDL comme CREATE TABLE, ALTER TABLE, etc.
+    public function exec($sql)
+    {
+        return $this->dbh->exec($sql);
+    }
+
 }

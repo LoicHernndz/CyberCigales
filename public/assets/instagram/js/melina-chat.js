@@ -46,21 +46,44 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Vérification que le message n'est pas vide
         if (message) {
-            // Ajouter le message de l'utilisateur à l'interface
-            addUserMessage(message);
-            
-            // Vider le champ de saisie
+            // Vider le champ de saisie immédiatement pour une meilleure UX
             messageInput.value = '';
             
-            // Scroll vers le bas
+            // Ajouter le message de l'utilisateur à l'interface (optimiste)
+            addUserMessage(message);
             scrollToBottom();
             
-            // Simuler une réponse de Melina après 2 secondes
-            setTimeout(() => {
-                const response = getRandomResponse();
-                addMelinaMessage(response);
-                scrollToBottom();
-            }, 2000);
+            // Envoyer le message au serveur via AJAX
+            const formData = new FormData();
+            formData.append('message', message);
+            
+            fetch(window.location.pathname, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(function(response) {
+                if (!response.ok) {
+                    throw new Error('Erreur HTTP: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(function(data) {
+                if (data.success) {
+                    // Le message utilisateur est déjà affiché, on ajoute juste la réponse de Melina
+                    if (data.melinaMessage) {
+                        addMelinaMessage(data.melinaMessage.content);
+                        scrollToBottom();
+                    }
+                } else {
+                    console.error('Erreur:', data.message || 'Erreur inconnue');
+                }
+            })
+            .catch(function(error) {
+                console.error('Erreur lors de l\'envoi du message:', error);
+            });
         }
     }
     
@@ -122,26 +145,6 @@ document.addEventListener('DOMContentLoaded', function() {
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
     
-    /**
-     * Retourne une réponse aléatoire de Melina
-     * @returns {string} Une réponse aléatoire
-     */
-    function getRandomResponse() {
-        const responses = [
-            "C'est super ! 😊",
-            "J'adore ça ! ✨",
-            "Merci pour ton message ! 💕",
-            "C'est génial ! 🎉",
-            "Parfait ! 👍",
-            "J'aime beaucoup ! 💖",
-            "C'est magnifique ! 🌟",
-            "Excellent ! 👏",
-            "Trop cool ! 🔥",
-            "J'adore ! 😍"
-        ];
-        
-        return responses[Math.floor(Math.random() * responses.length)];
-    }
     
     // ========================================
     // INITIALISATION

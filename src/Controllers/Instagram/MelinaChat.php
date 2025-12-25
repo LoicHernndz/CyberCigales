@@ -48,8 +48,77 @@ class MelinaChat extends AbstractController
         $view->render();
     }
     
+    function postMethod(){
+        // Vérifier si c'est une requête AJAX
+        $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+                  strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+        
+        $model = new InstagramModel();
+        $response = ['success' => false, 'message' => ''];
+        
+        // Récupérer le message depuis POST
+        $messageContent = $_POST['message'] ?? '';
+        $messageContent = trim($messageContent);
+        
+        if (empty($messageContent)) {
+            $response['message'] = 'Le message ne peut pas être vide';
+            if ($isAjax) {
+                header('Content-Type: application/json');
+                echo json_encode($response);
+                return;
+            }
+        }
+        
+        // Sauvegarder le message de l'utilisateur
+        $saved = $model->saveMessage('sent', $messageContent);
+        
+        if ($saved) {
+            // Générer une réponse automatique de Melina
+            $responses = [
+                "C'est super ! 😊",
+                "J'adore ça ! ✨",
+                "Merci pour ton message ! 💕",
+                "C'est génial ! 🎉",
+                "Parfait ! 👍",
+                "J'aime beaucoup ! 💖",
+                "C'est magnifique ! 🌟",
+                "Excellent ! 👏",
+                "Trop cool ! 🔥",
+                "J'adore ! 😍"
+            ];
+            $melinaResponse = $responses[array_rand($responses)];
+            
+            // Sauvegarder la réponse de Melina
+            $model->saveMessage('received', $melinaResponse);
+            
+            $response['success'] = true;
+            $response['userMessage'] = [
+                'type' => 'sent',
+                'content' => $messageContent,
+                'time' => date('H:i')
+            ];
+            $response['melinaMessage'] = [
+                'type' => 'received',
+                'content' => $melinaResponse,
+                'time' => date('H:i')
+            ];
+        } else {
+            $response['message'] = 'Erreur lors de la sauvegarde du message';
+        }
+        
+        if ($isAjax) {
+            header('Content-Type: application/json');
+            echo json_encode($response);
+            return;
+        }
+        
+        // Si ce n'est pas AJAX, rediriger vers la page du chat
+        header('Location: /instagram/melina/chat');
+        exit;
+    }
+    
     public function support(string $method): bool
     {
-        return $method === 'GET';
+        return $method === 'GET' || $method === 'POST';
     }
 }
