@@ -39,9 +39,9 @@ class MelinaChat extends AbstractController
         $melinaInfo = $model->getMelinaProfile();
         $melinaInfo['status'] = 'En ligne'; // Ajout du statut pour le chat
         
-        // Pour le GET, on affiche juste les messages par défaut
+        // Pour le GET, on affiche juste un tableau vide
         // Le JavaScript chargera les vrais messages via AJAX avec le bon conversationId
-        $chatMessages = $model->getDefaultMessages();
+        $chatMessages = [];
         
         // ========================================
         // GÉNÉRATION DU HTML POUR LE HEADER DU CHAT

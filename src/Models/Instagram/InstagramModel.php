@@ -368,7 +368,7 @@ class InstagramModel
      * 
      * @return array Messages par défaut
      */
-    private function getDefaultMessages(): array
+    public function getDefaultMessages(): array
     {
         return [
             [
