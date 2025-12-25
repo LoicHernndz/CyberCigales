@@ -16,50 +16,52 @@
 // Tous les onglets du même navigateur partageront le même ID (et donc les mêmes messages)
 // Chaque navigateur différent (Chrome, Firefox, etc.) aura son propre ID
 
-// D'abord, vérifier si PHP a fourni un ID de conversation
+// D'abord, vérifier si PHP a fourni un ID de conversation via un attribut data
 let conversationId = null;
 
-// Récupérer depuis l'URL d'abord (si JavaScript l'a ajouté)
-const urlParams = new URLSearchParams(window.location.search);
-const urlConvId = urlParams.get('conv_id');
-
-// Si INSTAGRAM_CONV_ID est défini globalement (depuis PHP) et n'est pas vide
-// ET qu'il ne contient pas d'accolades (bug de template)
-if (typeof INSTAGRAM_CONV_ID !== 'undefined' && INSTAGRAM_CONV_ID && INSTAGRAM_CONV_ID !== '' && !INSTAGRAM_CONV_ID.startsWith('{')) {
-    conversationId = INSTAGRAM_CONV_ID.trim();
+// Récupérer depuis l'attribut data-conv-id (fourni par PHP)
+const convDataElement = document.getElementById('instagram-conv-data');
+if (convDataElement && convDataElement.dataset.convId) {
+    conversationId = convDataElement.dataset.convId.trim();
     // Sauvegarder dans localStorage pour la persistance
     localStorage.setItem('instagram_conv_id', conversationId);
     console.log('Utilisation de l\'ID de conversation fourni par PHP:', conversationId);
-} else if (urlConvId && urlConvId !== '') {
-    // Utiliser celui de l'URL
-    conversationId = urlConvId.trim();
-    localStorage.setItem('instagram_conv_id', conversationId);
-    console.log('Utilisation de l\'ID de conversation depuis l\'URL:', conversationId);
 } else {
-    // Sinon, utiliser celui du localStorage ou en générer un nouveau
-    conversationId = localStorage.getItem('instagram_conv_id');
+    // Récupérer depuis l'URL (si JavaScript l'a ajouté)
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlConvId = urlParams.get('conv_id');
     
-    if (!conversationId || conversationId === '') {
-        // Générer un ID unique (32 caractères hexadécimaux)
-        conversationId = Array.from(crypto.getRandomValues(new Uint8Array(16)))
-            .map(b => b.toString(16).padStart(2, '0'))
-            .join('');
-        // Stocker dans localStorage (persiste après fermeture)
+    if (urlConvId && urlConvId !== '') {
+        // Utiliser celui de l'URL
+        conversationId = urlConvId.trim();
         localStorage.setItem('instagram_conv_id', conversationId);
-        console.log('Nouvel ID de conversation généré:', conversationId);
+        console.log('Utilisation de l\'ID de conversation depuis l\'URL:', conversationId);
     } else {
-        // Nettoyer l'ID s'il contient des accolades (bug)
-        conversationId = conversationId.replace(/[{}]/g, '').trim();
-        if (conversationId.length === 32) {
-            localStorage.setItem('instagram_conv_id', conversationId);
-            console.log('Utilisation de l\'ID de conversation depuis localStorage (nettoyé):', conversationId);
-        } else {
-            // ID invalide, en générer un nouveau
+        // Sinon, utiliser celui du localStorage ou en générer un nouveau
+        conversationId = localStorage.getItem('instagram_conv_id');
+        
+        if (!conversationId || conversationId === '') {
+            // Générer un ID unique (32 caractères hexadécimaux)
             conversationId = Array.from(crypto.getRandomValues(new Uint8Array(16)))
                 .map(b => b.toString(16).padStart(2, '0'))
                 .join('');
+            // Stocker dans localStorage (persiste après fermeture)
             localStorage.setItem('instagram_conv_id', conversationId);
-            console.log('ID invalide détecté, nouveau ID généré:', conversationId);
+            console.log('Nouvel ID de conversation généré:', conversationId);
+        } else {
+            // Nettoyer l'ID s'il contient des caractères invalides
+            conversationId = conversationId.replace(/[{}]/g, '').trim();
+            if (conversationId.length === 32) {
+                localStorage.setItem('instagram_conv_id', conversationId);
+                console.log('Utilisation de l\'ID de conversation depuis localStorage (nettoyé):', conversationId);
+            } else {
+                // ID invalide, en générer un nouveau
+                conversationId = Array.from(crypto.getRandomValues(new Uint8Array(16)))
+                    .map(b => b.toString(16).padStart(2, '0'))
+                    .join('');
+                localStorage.setItem('instagram_conv_id', conversationId);
+                console.log('ID invalide détecté, nouveau ID généré:', conversationId);
+            }
         }
     }
 }
