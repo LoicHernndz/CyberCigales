@@ -43,8 +43,10 @@ class MelinaChat extends AbstractController
         $chatMessages = $model->getMelinaChatMessages($conversationId);
         
         // Passer l'ID de conversation à la vue pour qu'il soit dans l'URL
-        // Utiliser JSON pour éviter les problèmes d'échappement et d'accolades
-        $view->addTemplateKey('CONVERSATION_ID', $conversationId);
+        // Utiliser json_encode pour éviter les problèmes d'échappement et d'accolades
+        // json_encode produit déjà une chaîne JSON valide avec guillemets
+        $view->addTemplateKey('CONVERSATION_ID', htmlspecialchars($conversationId, ENT_QUOTES, 'UTF-8'));
+        // json_encode retourne déjà une chaîne avec guillemets, parfait pour injection JS
         $view->addTemplateKey('CONVERSATION_ID_JSON', json_encode($conversationId));
         
         // ========================================
