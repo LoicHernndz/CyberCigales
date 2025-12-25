@@ -19,17 +19,27 @@
 // D'abord, vérifier si PHP a fourni un ID de conversation
 let conversationId = null;
 
+// Récupérer depuis l'URL d'abord (si JavaScript l'a ajouté)
+const urlParams = new URLSearchParams(window.location.search);
+const urlConvId = urlParams.get('conv_id');
+
 // Si INSTAGRAM_CONV_ID est défini globalement (depuis PHP) et n'est pas vide
-if (typeof INSTAGRAM_CONV_ID !== 'undefined' && INSTAGRAM_CONV_ID && INSTAGRAM_CONV_ID !== '') {
-    conversationId = INSTAGRAM_CONV_ID;
+// ET qu'il ne contient pas d'accolades (bug de template)
+if (typeof INSTAGRAM_CONV_ID !== 'undefined' && INSTAGRAM_CONV_ID && INSTAGRAM_CONV_ID !== '' && !INSTAGRAM_CONV_ID.startsWith('{')) {
+    conversationId = INSTAGRAM_CONV_ID.trim();
     // Sauvegarder dans localStorage pour la persistance
     localStorage.setItem('instagram_conv_id', conversationId);
     console.log('Utilisation de l\'ID de conversation fourni par PHP:', conversationId);
+} else if (urlConvId && urlConvId !== '') {
+    // Utiliser celui de l'URL
+    conversationId = urlConvId.trim();
+    localStorage.setItem('instagram_conv_id', conversationId);
+    console.log('Utilisation de l\'ID de conversation depuis l\'URL:', conversationId);
 } else {
     // Sinon, utiliser celui du localStorage ou en générer un nouveau
     conversationId = localStorage.getItem('instagram_conv_id');
     
-    if (!conversationId) {
+    if (!conversationId || conversationId === '') {
         // Générer un ID unique (32 caractères hexadécimaux)
         conversationId = Array.from(crypto.getRandomValues(new Uint8Array(16)))
             .map(b => b.toString(16).padStart(2, '0'))
@@ -38,12 +48,35 @@ if (typeof INSTAGRAM_CONV_ID !== 'undefined' && INSTAGRAM_CONV_ID && INSTAGRAM_C
         localStorage.setItem('instagram_conv_id', conversationId);
         console.log('Nouvel ID de conversation généré:', conversationId);
     } else {
-        console.log('Utilisation de l\'ID de conversation depuis localStorage:', conversationId);
+        // Nettoyer l'ID s'il contient des accolades (bug)
+        conversationId = conversationId.replace(/[{}]/g, '').trim();
+        if (conversationId.length === 32) {
+            localStorage.setItem('instagram_conv_id', conversationId);
+            console.log('Utilisation de l\'ID de conversation depuis localStorage (nettoyé):', conversationId);
+        } else {
+            // ID invalide, en générer un nouveau
+            conversationId = Array.from(crypto.getRandomValues(new Uint8Array(16)))
+                .map(b => b.toString(16).padStart(2, '0'))
+                .join('');
+            localStorage.setItem('instagram_conv_id', conversationId);
+            console.log('ID invalide détecté, nouveau ID généré:', conversationId);
+        }
     }
 }
 
 // Attendre que le DOM soit chargé
 document.addEventListener('DOMContentLoaded', function() {
+    // Envoyer le conversationId à PHP lors du chargement de la page
+    // pour que PHP utilise le même ID que celui du localStorage
+    if (conversationId && conversationId !== '' && !conversationId.startsWith('{')) {
+        // Ajouter le conversationId à l'URL si ce n'est pas déjà fait
+        const url = new URL(window.location);
+        if (!url.searchParams.has('conv_id')) {
+            url.searchParams.set('conv_id', conversationId);
+            // Utiliser replaceState pour ne pas créer une nouvelle entrée dans l'historique
+            window.history.replaceState({}, '', url);
+        }
+    }
     // Récupération des éléments du DOM
     const messageInput = document.getElementById('messageInput');
     const sendButton = document.querySelector('.send-btn');

@@ -14,12 +14,19 @@ class MelinaChat extends AbstractController
         }
         
         // Récupérer l'ID de conversation depuis POST (envoyé par JavaScript) ou GET
-        // Le JavaScript génère un ID unique par onglet dans sessionStorage
+        // Le JavaScript génère un ID unique et le stocke dans localStorage
         $conversationId = $_POST['conv_id'] ?? $_GET['conv_id'] ?? '';
         
-        // Si aucun ID n'est fourni, générer un nouveau (fallback)
+        // Si aucun ID n'est fourni, essayer la session PHP (fallback)
+        if (empty($conversationId)) {
+            $conversationId = $_SESSION['instagram_conv_id'] ?? '';
+        }
+        
+        // Si toujours vide, générer un nouveau (dernier recours)
+        // Mais normalement le JavaScript devrait toujours envoyer un ID
         if (empty($conversationId)) {
             $conversationId = bin2hex(random_bytes(16)); // 32 caractères hexadécimaux
+            $_SESSION['instagram_conv_id'] = $conversationId;
         }
         
         // Création des instances MVC
@@ -36,7 +43,9 @@ class MelinaChat extends AbstractController
         $chatMessages = $model->getMelinaChatMessages($conversationId);
         
         // Passer l'ID de conversation à la vue pour qu'il soit dans l'URL
+        // Utiliser JSON pour éviter les problèmes d'échappement et d'accolades
         $view->addTemplateKey('CONVERSATION_ID', $conversationId);
+        $view->addTemplateKey('CONVERSATION_ID_JSON', json_encode($conversationId));
         
         // ========================================
         // GÉNÉRATION DU HTML POUR LE HEADER DU CHAT
