@@ -189,13 +189,21 @@ class InstagramModel
      * @param string $sessionId ID de la session PHP
      * @return array Messages du chat
      */
+    /**
+     * Récupère les messages du chat avec Melina depuis la base de données
+     * 
+     * @param string $sessionId ID de la conversation (conversationId généré par JavaScript)
+     * @return array Messages du chat triés par date de création
+     */
     public function getMelinaChatMessages(string $sessionId = ''): array
     {
         try {
+            // Si pas d'ID de conversation, retourner les messages par défaut
             if (empty($sessionId)) {
                 return $this->getDefaultMessages();
             }
             
+            // Récupérer les messages de cette conversation uniquement, triés par date
             $this->db->query('SELECT type, content, created_at FROM instagram_messages WHERE session_id = :session_id ORDER BY created_at ASC');
             $this->db->bind(':session_id', $sessionId);
             $results = $this->db->resultSet();
@@ -209,6 +217,7 @@ class InstagramModel
                 ];
             }
             
+            // Si aucun message pour cette conversation, initialiser avec les messages par défaut
             if (empty($messages)) {
                 $this->initializeDefaultMessages($sessionId);
                 return $this->getMelinaChatMessages($sessionId);
@@ -216,6 +225,7 @@ class InstagramModel
             
             return $messages;
         } catch (\Exception $e) {
+            // En cas d'erreur, retourner les messages par défaut
             return $this->getDefaultMessages();
         }
     }
@@ -228,15 +238,26 @@ class InstagramModel
      * @param string $sessionId ID de la session PHP
      * @return bool True si la sauvegarde a réussi, false sinon
      */
+    /**
+     * Sauvegarde un nouveau message dans la base de données
+     * 
+     * @param string $type Type de message ('sent' ou 'received')
+     * @param string $content Contenu du message
+     * @param string $sessionId ID de la conversation (conversationId généré par JavaScript)
+     * @return bool True si la sauvegarde a réussi, false sinon
+     */
     public function saveMessage(string $type, string $content, string $sessionId = ''): bool
     {
         try {
+            // Vérifier que l'ID de conversation est fourni (obligatoire)
             if (empty($sessionId)) {
                 return false;
             }
             
+            // S'assurer que la table existe
             $this->createMessagesTableIfNotExists();
             
+            // Insérer le message dans la base de données
             $this->db->query('INSERT INTO instagram_messages (session_id, type, content, created_at) VALUES (:session_id, :type, :content, NOW())');
             $this->db->bind(':session_id', $sessionId);
             $this->db->bind(':type', $type);
