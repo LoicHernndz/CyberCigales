@@ -1,84 +1,26 @@
 /**
  * JavaScript pour le chat avec Melina
- * 
- * Basé sur le projet IG Grid Profile de Angela Holden
- * Repository: https://github.com/angelajholden/ig-grid-profile
- * 
- * Fonctionnalités :
- * - Envoi de messages en temps réel
- * - Réponses automatiques de Melina
- * - Gestion des événements clavier (Enter)
- * - Scroll automatique vers les nouveaux messages
+ * Gestion complète de l'ID de conversation côté client
  */
 
-// Générer un ID unique pour cette conversation (unique par navigateur, persistant)
-// Utiliser localStorage pour que l'ID persiste après fermeture
-// Tous les onglets du même navigateur partageront le même ID (et donc les mêmes messages)
-// Chaque navigateur différent (Chrome, Firefox, etc.) aura son propre ID
+// Générer ou récupérer l'ID de conversation unique (32 caractères hexadécimaux)
+// Cet ID est unique par navigateur et persiste dans localStorage
+let conversationId = localStorage.getItem('instagram_conv_id');
 
-// D'abord, vérifier si PHP a fourni un ID de conversation via un attribut data
-let conversationId = null;
-
-// Récupérer depuis l'attribut data-conv-id (fourni par PHP)
-const convDataElement = document.getElementById('instagram-conv-data');
-if (convDataElement && convDataElement.dataset.convId) {
-    conversationId = convDataElement.dataset.convId.trim();
+if (!conversationId || conversationId.length !== 32) {
+    // Générer un nouvel ID unique
+    conversationId = Array.from(crypto.getRandomValues(new Uint8Array(16)))
+        .map(b => b.toString(16).padStart(2, '0'))
+        .join('');
     // Sauvegarder dans localStorage pour la persistance
     localStorage.setItem('instagram_conv_id', conversationId);
-    console.log('Utilisation de l\'ID de conversation fourni par PHP:', conversationId);
+    console.log('Nouvel ID de conversation généré:', conversationId);
 } else {
-    // Récupérer depuis l'URL (si JavaScript l'a ajouté)
-    const urlParams = new URLSearchParams(window.location.search);
-    const urlConvId = urlParams.get('conv_id');
-    
-    if (urlConvId && urlConvId !== '') {
-        // Utiliser celui de l'URL
-        conversationId = urlConvId.trim();
-        localStorage.setItem('instagram_conv_id', conversationId);
-        console.log('Utilisation de l\'ID de conversation depuis l\'URL:', conversationId);
-    } else {
-        // Sinon, utiliser celui du localStorage ou en générer un nouveau
-        conversationId = localStorage.getItem('instagram_conv_id');
-        
-        if (!conversationId || conversationId === '') {
-            // Générer un ID unique (32 caractères hexadécimaux)
-            conversationId = Array.from(crypto.getRandomValues(new Uint8Array(16)))
-                .map(b => b.toString(16).padStart(2, '0'))
-                .join('');
-            // Stocker dans localStorage (persiste après fermeture)
-            localStorage.setItem('instagram_conv_id', conversationId);
-            console.log('Nouvel ID de conversation généré:', conversationId);
-        } else {
-            // Nettoyer l'ID s'il contient des caractères invalides
-            conversationId = conversationId.replace(/[{}]/g, '').trim();
-            if (conversationId.length === 32) {
-                localStorage.setItem('instagram_conv_id', conversationId);
-                console.log('Utilisation de l\'ID de conversation depuis localStorage (nettoyé):', conversationId);
-            } else {
-                // ID invalide, en générer un nouveau
-                conversationId = Array.from(crypto.getRandomValues(new Uint8Array(16)))
-                    .map(b => b.toString(16).padStart(2, '0'))
-                    .join('');
-                localStorage.setItem('instagram_conv_id', conversationId);
-                console.log('ID invalide détecté, nouveau ID généré:', conversationId);
-            }
-        }
-    }
+    console.log('ID de conversation récupéré depuis localStorage:', conversationId);
 }
 
 // Attendre que le DOM soit chargé
 document.addEventListener('DOMContentLoaded', function() {
-    // Envoyer le conversationId à PHP lors du chargement de la page
-    // pour que PHP utilise le même ID que celui du localStorage
-    if (conversationId && conversationId !== '' && !conversationId.startsWith('{')) {
-        // Ajouter le conversationId à l'URL si ce n'est pas déjà fait
-        const url = new URL(window.location);
-        if (!url.searchParams.has('conv_id')) {
-            url.searchParams.set('conv_id', conversationId);
-            // Utiliser replaceState pour ne pas créer une nouvelle entrée dans l'historique
-            window.history.replaceState({}, '', url);
-        }
-    }
     // Récupération des éléments du DOM
     const messageInput = document.getElementById('messageInput');
     const sendButton = document.querySelector('.send-btn');
@@ -111,67 +53,62 @@ document.addEventListener('DOMContentLoaded', function() {
         const message = messageInput.value.trim();
         
         // Vérification que le message n'est pas vide
-        if (message) {
-            // Vider le champ de saisie immédiatement pour une meilleure UX
-            messageInput.value = '';
-            
-            // Ajouter le message de l'utilisateur à l'interface (optimiste)
-            addUserMessage(message);
-            scrollToBottom();
-            
-            // Envoyer le message au serveur via AJAX
-            const formData = new FormData();
-            formData.append('message', message);
-            formData.append('conv_id', conversationId); // Envoyer l'ID de conversation unique
-            
-            // Debug : afficher l'ID de conversation envoyé
-            console.log('Envoi message avec conversationId:', conversationId);
-            console.log('Type de conversationId:', typeof conversationId);
-            console.log('Longueur conversationId:', conversationId ? conversationId.length : 0);
-            
-            // Vérifier que conversationId est bien défini
-            if (!conversationId || conversationId === '') {
-                console.error('ERREUR: conversationId est vide ou non défini !');
-                alert('Erreur: ID de conversation manquant. Rechargez la page.');
-                return;
-            }
-            
-            fetch(window.location.pathname, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            })
-            .then(function(response) {
-                if (!response.ok) {
-                    throw new Error('Erreur HTTP: ' + response.status);
-                }
-                return response.json();
-            })
-            .then(function(data) {
-                console.log('Réponse serveur:', data);
-                if (data.success) {
-                    // Le message utilisateur est déjà affiché, on ajoute juste la réponse de Melina
-                    if (data.melinaMessage) {
-                        addMelinaMessage(data.melinaMessage.content);
-                        scrollToBottom();
-                    }
-                } else {
-                    console.error('Erreur:', data.message || 'Erreur inconnue');
-                    alert('Erreur: ' + (data.message || 'Erreur inconnue'));
-                }
-            })
-            .catch(function(error) {
-                console.error('Erreur lors de l\'envoi du message:', error);
-                alert('Erreur lors de l\'envoi: ' + error.message);
-            });
+        if (!message) {
+            return;
         }
+        
+        // Vérifier que conversationId est valide
+        if (!conversationId || conversationId.length !== 32) {
+            console.error('ID de conversation invalide:', conversationId);
+            return;
+        }
+        
+        // Vider le champ de saisie immédiatement
+        messageInput.value = '';
+        
+        // Ajouter le message de l'utilisateur à l'interface (optimiste)
+        addUserMessage(message);
+        scrollToBottom();
+        
+        // Envoyer le message au serveur via AJAX
+        const formData = new FormData();
+        formData.append('message', message);
+        formData.append('conv_id', conversationId);
+        
+        console.log('Envoi message avec conversationId:', conversationId);
+        
+        fetch(window.location.pathname, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(function(response) {
+            if (!response.ok) {
+                throw new Error('Erreur HTTP: ' + response.status);
+            }
+            return response.json();
+        })
+        .then(function(data) {
+            console.log('Réponse serveur:', data);
+            if (data.success) {
+                // Le message utilisateur est déjà affiché, on ajoute juste la réponse de Melina
+                if (data.melinaMessage) {
+                    addMelinaMessage(data.melinaMessage.content);
+                    scrollToBottom();
+                }
+            } else {
+                console.error('Erreur:', data.message || 'Erreur inconnue');
+            }
+        })
+        .catch(function(error) {
+            console.error('Erreur lors de l\'envoi du message:', error);
+        });
     }
     
     /**
      * Ajoute un message de l'utilisateur à l'interface
-     * @param {string} message - Le message à afficher
      */
     function addUserMessage(message) {
         const messageHtml = createMessageHtml(message, 'sent');
@@ -180,7 +117,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     /**
      * Ajoute un message de Melina à l'interface
-     * @param {string} message - Le message à afficher
      */
     function addMelinaMessage(message) {
         const messageHtml = createMessageHtml(message, 'received');
@@ -189,9 +125,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     /**
      * Crée le HTML pour un message
-     * @param {string} content - Le contenu du message
-     * @param {string} type - Le type de message ('sent' ou 'received')
-     * @returns {string} Le HTML généré
      */
     function createMessageHtml(content, type) {
         const time = new Date().toLocaleTimeString('fr-FR', {
@@ -211,8 +144,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     /**
      * Échappe les caractères HTML pour éviter les injections XSS
-     * @param {string} text - Le texte à échapper
-     * @returns {string} Le texte échappé
      */
     function escapeHtml(text) {
         const div = document.createElement('div');
@@ -227,10 +158,51 @@ document.addEventListener('DOMContentLoaded', function() {
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
     
+    // Charger les messages existants au chargement de la page
+    loadMessages();
     
-    // ========================================
-    // INITIALISATION
-    // ========================================
+    /**
+     * Charge les messages existants depuis le serveur
+     */
+    function loadMessages() {
+        const formData = new FormData();
+        formData.append('conv_id', conversationId);
+        formData.append('action', 'load');
+        
+        fetch(window.location.pathname + '?action=load', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(function(response) {
+            if (!response.ok) {
+                throw new Error('Erreur HTTP: ' + response.status);
+            }
+            return response.json();
+        })
+        .then(function(data) {
+            if (data.success && data.messages) {
+                // Vider le conteneur de messages
+                messagesContainer.innerHTML = '';
+                
+                // Ajouter tous les messages
+                data.messages.forEach(function(msg) {
+                    if (msg.type === 'sent') {
+                        addUserMessage(msg.content);
+                    } else {
+                        addMelinaMessage(msg.content);
+                    }
+                });
+                
+                scrollToBottom();
+            }
+        })
+        .catch(function(error) {
+            console.error('Erreur lors du chargement des messages:', error);
+        });
+    }
     
     // Scroll initial vers le bas pour voir les derniers messages
     scrollToBottom();
