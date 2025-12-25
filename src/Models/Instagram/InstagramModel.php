@@ -192,37 +192,30 @@ class InstagramModel
     public function getMelinaChatMessages(string $sessionId = ''): array
     {
         try {
-            // S'assurer qu'on a un session_id
             if (empty($sessionId)) {
-                $sessionId = session_id();
+                return $this->getDefaultMessages();
             }
             
-            // Récupérer les messages de cette session uniquement, triés par date de création
             $this->db->query('SELECT type, content, created_at FROM instagram_messages WHERE session_id = :session_id ORDER BY created_at ASC');
             $this->db->bind(':session_id', $sessionId);
             $results = $this->db->resultSet();
             
             $messages = [];
             foreach ($results as $row) {
-                // Formater l'heure au format HH:MM
-                $time = date('H:i', strtotime($row->created_at));
                 $messages[] = [
                     'type' => $row->type,
                     'content' => $row->content,
-                    'time' => $time
+                    'time' => date('H:i', strtotime($row->created_at))
                 ];
             }
             
-            // Si aucun message pour cette session, initialiser avec les messages par défaut
             if (empty($messages)) {
                 $this->initializeDefaultMessages($sessionId);
-                return $this->getMelinaChatMessages($sessionId); // Récupérer à nouveau après initialisation
+                return $this->getMelinaChatMessages($sessionId);
             }
             
             return $messages;
         } catch (\Exception $e) {
-            error_log("Erreur récupération messages Instagram : " . $e->getMessage());
-            // En cas d'erreur, retourner les messages par défaut
             return $this->getDefaultMessages();
         }
     }
@@ -238,52 +231,19 @@ class InstagramModel
     public function saveMessage(string $type, string $content, string $sessionId = ''): bool
     {
         try {
-            // IMPORTANT: Ne PAS utiliser session_id() par défaut !
-            // Le sessionId doit être le conversationId passé depuis le contrôleur
-            // Si sessionId est vide, c'est une erreur, on ne doit pas utiliser session_id()
-            
-            // Vérifier que session_id n'est pas vide
             if (empty($sessionId)) {
-                error_log("ERREUR CRITIQUE: session_id (conversationId) est vide lors de la sauvegarde du message !");
-                error_log("Type: $type, Content: " . substr($content, 0, 50));
                 return false;
             }
             
-            // Log pour debug
-            error_log("Tentative sauvegarde message - type: $type, sessionId: $sessionId, content: " . substr($content, 0, 50));
-            
-            // Vérifier d'abord que la table existe et a la bonne structure
             $this->createMessagesTableIfNotExists();
             
-            // Essayer d'insérer le message
-            // Vérifier d'abord que la table existe
-            try {
-                $checkQuery = "SELECT COUNT(*) as count FROM instagram_messages LIMIT 1";
-                $this->db->query($checkQuery);
-                $this->db->execute();
-            } catch (\Exception $e) {
-                error_log("Table instagram_messages n'existe pas, création en cours...");
-                $this->createMessagesTableIfNotExists();
-            }
-            
-            // Maintenant insérer le message
             $this->db->query('INSERT INTO instagram_messages (session_id, type, content, created_at) VALUES (:session_id, :type, :content, NOW())');
             $this->db->bind(':session_id', $sessionId);
             $this->db->bind(':type', $type);
             $this->db->bind(':content', $content);
-            $result = $this->db->execute();
             
-            if ($result) {
-                error_log("Message sauvegardé avec succès - sessionId: $sessionId, type: $type");
-            } else {
-                error_log("Erreur: execute() a retourné false pour la sauvegarde du message");
-            }
-            
-            return $result;
+            return $this->db->execute();
         } catch (\Exception $e) {
-            error_log("Erreur sauvegarde message Instagram : " . $e->getMessage());
-            error_log("Stack trace: " . $e->getTraceAsString());
-            error_log("Fichier: " . $e->getFile() . " Ligne: " . $e->getLine());
             return false;
         }
     }
@@ -321,26 +281,21 @@ class InstagramModel
                     $alterQuery = "ALTER TABLE instagram_messages ADD COLUMN session_id VARCHAR(255) NOT NULL DEFAULT '' AFTER id";
                     $this->db->exec($alterQuery);
                     
-                    // Ajouter l'index après avoir ajouté la colonne
                     $indexQuery = "ALTER TABLE instagram_messages ADD INDEX idx_session_id (session_id)";
                     $this->db->exec($indexQuery);
-                    error_log("Colonne session_id ajoutée à la table instagram_messages");
                 }
             } catch (\Exception $e) {
-                // Si la vérification échoue, essayer quand même d'ajouter la colonne
                 try {
                     $alterQuery = "ALTER TABLE instagram_messages ADD COLUMN session_id VARCHAR(255) NOT NULL DEFAULT '' AFTER id";
                     $this->db->exec($alterQuery);
                     $indexQuery = "ALTER TABLE instagram_messages ADD INDEX idx_session_id (session_id)";
                     $this->db->exec($indexQuery);
-                    error_log("Colonne session_id ajoutée à la table instagram_messages (méthode fallback)");
                 } catch (\Exception $e2) {
-                    // La colonne existe probablement déjà
-                    error_log("Colonne session_id probablement déjà existante: " . $e2->getMessage());
+                    // La colonne existe déjà
                 }
             }
         } catch (\Exception $e) {
-            error_log("Erreur création table instagram_messages : " . $e->getMessage());
+            // Table existe déjà
         }
     }
     

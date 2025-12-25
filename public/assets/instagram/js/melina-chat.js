@@ -8,15 +8,10 @@
 let conversationId = localStorage.getItem('instagram_conv_id');
 
 if (!conversationId || conversationId.length !== 32) {
-    // Générer un nouvel ID unique
     conversationId = Array.from(crypto.getRandomValues(new Uint8Array(16)))
         .map(b => b.toString(16).padStart(2, '0'))
         .join('');
-    // Sauvegarder dans localStorage pour la persistance
     localStorage.setItem('instagram_conv_id', conversationId);
-    console.log('Nouvel ID de conversation généré:', conversationId);
-} else {
-    console.log('ID de conversation récupéré depuis localStorage:', conversationId);
 }
 
 // Attendre que le DOM soit chargé
@@ -75,8 +70,6 @@ document.addEventListener('DOMContentLoaded', function() {
         formData.append('message', message);
         formData.append('conv_id', conversationId);
         
-        console.log('Envoi message avec conversationId:', conversationId);
-        
         fetch(window.location.pathname, {
             method: 'POST',
             body: formData,
@@ -91,19 +84,16 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(function(data) {
-            console.log('Réponse serveur:', data);
             if (data.success) {
                 // Le message utilisateur est déjà affiché, on ajoute juste la réponse de Melina
                 if (data.melinaMessage) {
                     addMelinaMessage(data.melinaMessage.content);
                     scrollToBottom();
                 }
-            } else {
-                console.error('Erreur:', data.message || 'Erreur inconnue');
-            }
+                }
         })
         .catch(function(error) {
-            console.error('Erreur lors de l\'envoi du message:', error);
+            // Erreur silencieuse
         });
     }
     
@@ -204,8 +194,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Scroll initial vers le bas pour voir les derniers messages
     scrollToBottom();
-    
-    console.log('Chat avec Melina initialisé avec succès');
 });

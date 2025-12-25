@@ -8,86 +8,37 @@ use Controllers\AbstractController;
 class MelinaChat extends AbstractController
 {
     function getMethod(){
-        // Démarrer la session si elle n'est pas déjà démarrée
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
         
-        // Récupérer l'ID de conversation depuis POST (envoyé par JavaScript) ou GET
-        // Le JavaScript génère un ID unique et le stocke dans localStorage
-        $conversationId = $_POST['conv_id'] ?? $_GET['conv_id'] ?? '';
-        
-        // Si aucun ID n'est fourni, essayer la session PHP (fallback)
-        if (empty($conversationId)) {
-            $conversationId = $_SESSION['instagram_conv_id'] ?? '';
-        }
-        
-        // Si toujours vide, générer un nouveau (dernier recours)
-        // Mais normalement le JavaScript devrait toujours envoyer un ID
-        if (empty($conversationId)) {
-            $conversationId = bin2hex(random_bytes(16)); // 32 caractères hexadécimaux
-            $_SESSION['instagram_conv_id'] = $conversationId;
-        }
-        
-        // Création des instances MVC
         $view = new MelinaChatView();
         $model = new InstagramModel();
         
-        // ========================================
-        // RÉCUPÉRATION DES DONNÉES VIA LE MODÈLE
-        // ========================================
         $melinaInfo = $model->getMelinaProfile();
-        $melinaInfo['status'] = 'En ligne'; // Ajout du statut pour le chat
+        $melinaInfo['status'] = 'En ligne';
         
-        // Pour le GET, on affiche juste un tableau vide
-        // Le JavaScript chargera les vrais messages via AJAX avec le bon conversationId
-        $chatMessages = [];
-        
-        // ========================================
-        // GÉNÉRATION DU HTML POUR LE HEADER DU CHAT
-        // ========================================
         $view->addTemplateKey('MELINA_AVATAR', $melinaInfo['avatar']);
         $view->addTemplateKey('MELINA_DISPLAY_NAME', $melinaInfo['display_name']);
         $view->addTemplateKey('MELINA_STATUS', $melinaInfo['status']);
-
-        // ========================================
-        // GÉNÉRATION DU HTML POUR LES MESSAGES
-        // ========================================
-        $messagesHtml = '';
-        foreach($chatMessages as $message) {
-            $senderClass = ($message['type'] === 'sent') ? 'sent' : 'received';
-            $messagesHtml .= '
-            <div class="message ' . $senderClass . '">
-                <div class="message-content">
-                    <p>' . htmlspecialchars($message['content']) . '</p>
-                    <span class="time">' . $message['time'] . '</span>
-                </div>
-            </div>';
-        }
-        
-        // Passage des données à la vue
-        $view->addTemplateKey('MESSAGES', $messagesHtml);
+        $view->addTemplateKey('MESSAGES', '');
         
         $view->render();
     }
     
     function postMethod(){
-        // Démarrer la session si elle n'est pas déjà démarrée
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
         
-        // Vérifier si c'est une requête AJAX
         $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && 
                   strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
         
         $model = new InstagramModel();
         $response = ['success' => false, 'message' => ''];
         
-        // Récupérer l'ID de conversation depuis POST (OBLIGATOIRE)
         $conversationId = $_POST['conv_id'] ?? '';
         
-        // Si pas d'ID, erreur
         if (empty($conversationId)) {
             $response['message'] = 'ID de conversation manquant';
             if ($isAjax) {
@@ -99,7 +50,6 @@ class MelinaChat extends AbstractController
             exit;
         }
         
-        // Vérifier si c'est une demande de chargement des messages
         $action = $_POST['action'] ?? $_GET['action'] ?? '';
         if ($action === 'load') {
             $messages = $model->getMelinaChatMessages($conversationId);
@@ -112,9 +62,7 @@ class MelinaChat extends AbstractController
             return;
         }
         
-        // Sinon, c'est un envoi de message
-        $messageContent = $_POST['message'] ?? '';
-        $messageContent = trim($messageContent);
+        $messageContent = trim($_POST['message'] ?? '');
         
         if (empty($messageContent)) {
             $response['message'] = 'Le message ne peut pas être vide';
@@ -125,17 +73,10 @@ class MelinaChat extends AbstractController
             }
         }
         
-        // Debug : logger l'ID de conversation utilisé
-        error_log("Sauvegarde message avec conversationId: " . $conversationId);
-        
         // Sauvegarder le message de l'utilisateur pour cette conversation
         $saved = $model->saveMessage('sent', $messageContent, $conversationId);
         
-        // Debug : logger le résultat
-        error_log("Résultat sauvegarde message: " . ($saved ? 'succès' : 'échec'));
-        
         if ($saved) {
-            // Générer une réponse automatique de Melina
             $responses = [
                 "C'est super ! 😊",
                 "J'adore ça ! ✨",
@@ -150,12 +91,9 @@ class MelinaChat extends AbstractController
             ];
             $melinaResponse = $responses[array_rand($responses)];
             
-            // Sauvegarder la réponse de Melina pour cette conversation
             $model->saveMessage('received', $melinaResponse, $conversationId);
             
-            // Retourner l'ID de conversation dans la réponse
             $response['conv_id'] = $conversationId;
-            
             $response['success'] = true;
             $response['userMessage'] = [
                 'type' => 'sent',
@@ -177,7 +115,6 @@ class MelinaChat extends AbstractController
             return;
         }
         
-        // Si ce n'est pas AJAX, rediriger vers la page du chat
         header('Location: /instagram/melina/chat');
         exit;
     }
