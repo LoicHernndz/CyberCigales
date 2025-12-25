@@ -11,6 +11,21 @@
  * - Scroll automatique vers les nouveaux messages
  */
 
+// Générer un ID unique pour cette conversation (unique par navigateur, persistant)
+// Utiliser localStorage pour que l'ID persiste après fermeture
+// Tous les onglets du même navigateur partageront le même ID (et donc les mêmes messages)
+// Chaque navigateur différent (Chrome, Firefox, etc.) aura son propre ID
+let conversationId = localStorage.getItem('instagram_conv_id');
+
+if (!conversationId) {
+    // Générer un ID unique (32 caractères hexadécimaux)
+    conversationId = Array.from(crypto.getRandomValues(new Uint8Array(16)))
+        .map(b => b.toString(16).padStart(2, '0'))
+        .join('');
+    // Stocker dans localStorage (persiste après fermeture)
+    localStorage.setItem('instagram_conv_id', conversationId);
+}
+
 // Attendre que le DOM soit chargé
 document.addEventListener('DOMContentLoaded', function() {
     // Récupération des éléments du DOM
@@ -56,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Envoyer le message au serveur via AJAX
             const formData = new FormData();
             formData.append('message', message);
+            formData.append('conv_id', conversationId); // Envoyer l'ID de conversation unique
             
             fetch(window.location.pathname, {
                 method: 'POST',

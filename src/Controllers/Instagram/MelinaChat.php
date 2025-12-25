@@ -8,6 +8,20 @@ use Controllers\AbstractController;
 class MelinaChat extends AbstractController
 {
     function getMethod(){
+        // Démarrer la session si elle n'est pas déjà démarrée
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        
+        // Récupérer l'ID de conversation depuis POST (envoyé par JavaScript) ou GET
+        // Le JavaScript génère un ID unique par onglet dans sessionStorage
+        $conversationId = $_POST['conv_id'] ?? $_GET['conv_id'] ?? '';
+        
+        // Si aucun ID n'est fourni, générer un nouveau (fallback)
+        if (empty($conversationId)) {
+            $conversationId = bin2hex(random_bytes(16)); // 32 caractères hexadécimaux
+        }
+        
         // Création des instances MVC
         $view = new MelinaChatView();
         $model = new InstagramModel();
@@ -18,7 +32,11 @@ class MelinaChat extends AbstractController
         $melinaInfo = $model->getMelinaProfile();
         $melinaInfo['status'] = 'En ligne'; // Ajout du statut pour le chat
         
-        $chatMessages = $model->getMelinaChatMessages();
+        // Récupérer les messages pour cette conversation unique
+        $chatMessages = $model->getMelinaChatMessages($conversationId);
+        
+        // Passer l'ID de conversation à la vue pour qu'il soit dans l'URL
+        $view->addTemplateKey('CONVERSATION_ID', $conversationId);
         
         // ========================================
         // GÉNÉRATION DU HTML POUR LE HEADER DU CHAT
@@ -49,6 +67,11 @@ class MelinaChat extends AbstractController
     }
     
     function postMethod(){
+        // Démarrer la session si elle n'est pas déjà démarrée
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        
         // Vérifier si c'est une requête AJAX
         $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && 
                   strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
@@ -60,6 +83,15 @@ class MelinaChat extends AbstractController
         $messageContent = $_POST['message'] ?? '';
         $messageContent = trim($messageContent);
         
+        // Récupérer l'ID de conversation depuis POST ou session
+        $conversationId = $_POST['conv_id'] ?? $_SESSION['instagram_conv_id'] ?? '';
+        
+        if (empty($conversationId)) {
+            // Générer un nouvel ID si aucun n'existe
+            $conversationId = bin2hex(random_bytes(16));
+            $_SESSION['instagram_conv_id'] = $conversationId;
+        }
+        
         if (empty($messageContent)) {
             $response['message'] = 'Le message ne peut pas être vide';
             if ($isAjax) {
@@ -69,8 +101,8 @@ class MelinaChat extends AbstractController
             }
         }
         
-        // Sauvegarder le message de l'utilisateur
-        $saved = $model->saveMessage('sent', $messageContent);
+        // Sauvegarder le message de l'utilisateur pour cette conversation
+        $saved = $model->saveMessage('sent', $messageContent, $conversationId);
         
         if ($saved) {
             // Générer une réponse automatique de Melina
@@ -88,8 +120,11 @@ class MelinaChat extends AbstractController
             ];
             $melinaResponse = $responses[array_rand($responses)];
             
-            // Sauvegarder la réponse de Melina
-            $model->saveMessage('received', $melinaResponse);
+            // Sauvegarder la réponse de Melina pour cette conversation
+            $model->saveMessage('received', $melinaResponse, $conversationId);
+            
+            // Retourner l'ID de conversation dans la réponse
+            $response['conv_id'] = $conversationId;
             
             $response['success'] = true;
             $response['userMessage'] = [

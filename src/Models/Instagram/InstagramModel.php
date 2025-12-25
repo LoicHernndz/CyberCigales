@@ -184,15 +184,22 @@ class InstagramModel
     }
     
     /**
-     * Récupère les messages du chat avec Melina depuis la base de données
+     * Récupère les messages du chat avec Melina depuis la base de données pour la session actuelle
      * 
+     * @param string $sessionId ID de la session PHP
      * @return array Messages du chat
      */
-    public function getMelinaChatMessages(): array
+    public function getMelinaChatMessages(string $sessionId = ''): array
     {
         try {
-            // Récupérer tous les messages triés par date de création
-            $this->db->query('SELECT type, content, created_at FROM instagram_messages ORDER BY created_at ASC');
+            // S'assurer qu'on a un session_id
+            if (empty($sessionId)) {
+                $sessionId = session_id();
+            }
+            
+            // Récupérer les messages de cette session uniquement, triés par date de création
+            $this->db->query('SELECT type, content, created_at FROM instagram_messages WHERE session_id = :session_id ORDER BY created_at ASC');
+            $this->db->bind(':session_id', $sessionId);
             $results = $this->db->resultSet();
             
             $messages = [];
@@ -206,10 +213,10 @@ class InstagramModel
                 ];
             }
             
-            // Si aucun message en base, initialiser avec les messages par défaut
+            // Si aucun message pour cette session, initialiser avec les messages par défaut
             if (empty($messages)) {
-                $this->initializeDefaultMessages();
-                return $this->getMelinaChatMessages(); // Récupérer à nouveau après initialisation
+                $this->initializeDefaultMessages($sessionId);
+                return $this->getMelinaChatMessages($sessionId); // Récupérer à nouveau après initialisation
             }
             
             return $messages;
@@ -221,16 +228,23 @@ class InstagramModel
     }
     
     /**
-     * Sauvegarde un nouveau message dans la base de données
+     * Sauvegarde un nouveau message dans la base de données pour la session actuelle
      * 
      * @param string $type Type de message ('sent' ou 'received')
      * @param string $content Contenu du message
+     * @param string $sessionId ID de la session PHP
      * @return bool True si la sauvegarde a réussi, false sinon
      */
-    public function saveMessage(string $type, string $content): bool
+    public function saveMessage(string $type, string $content, string $sessionId = ''): bool
     {
         try {
-            $this->db->query('INSERT INTO instagram_messages (type, content, created_at) VALUES (:type, :content, NOW())');
+            // S'assurer qu'on a un session_id
+            if (empty($sessionId)) {
+                $sessionId = session_id();
+            }
+            
+            $this->db->query('INSERT INTO instagram_messages (session_id, type, content, created_at) VALUES (:session_id, :type, :content, NOW())');
+            $this->db->bind(':session_id', $sessionId);
             $this->db->bind(':type', $type);
             $this->db->bind(':content', $content);
             return $this->db->execute();
@@ -246,16 +260,30 @@ class InstagramModel
     private function createMessagesTableIfNotExists(): void
     {
         try {
+            // D'abord créer la table de base
             $query = "CREATE TABLE IF NOT EXISTS instagram_messages (
                 id INT AUTO_INCREMENT PRIMARY KEY,
+                session_id VARCHAR(255) NOT NULL,
                 type ENUM('sent', 'received') NOT NULL,
                 content TEXT NOT NULL,
                 created_at DATETIME NOT NULL,
+                INDEX idx_session_id (session_id),
                 INDEX idx_created_at (created_at)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci";
             
-            // Utiliser exec() pour exécuter directement la requête CREATE TABLE
             $this->db->exec($query);
+            
+            // Si la table existe déjà sans session_id, ajouter la colonne
+            try {
+                $alterQuery = "ALTER TABLE instagram_messages ADD COLUMN session_id VARCHAR(255) NOT NULL DEFAULT '' AFTER id";
+                $this->db->exec($alterQuery);
+                
+                // Ajouter l'index après avoir ajouté la colonne
+                $indexQuery = "ALTER TABLE instagram_messages ADD INDEX idx_session_id (session_id)";
+                $this->db->exec($indexQuery);
+            } catch (\Exception $e) {
+                // La colonne existe déjà, on ignore l'erreur
+            }
         } catch (\Exception $e) {
             // Ignorer l'erreur si la table existe déjà
             // error_log("Erreur création table instagram_messages : " . $e->getMessage());
@@ -263,9 +291,11 @@ class InstagramModel
     }
     
     /**
-     * Initialise les messages par défaut dans la base de données
+     * Initialise les messages par défaut dans la base de données pour une session
+     * 
+     * @param string $sessionId ID de la session PHP
      */
-    private function initializeDefaultMessages(): void
+    private function initializeDefaultMessages(string $sessionId): void
     {
         $defaultMessages = [
             ['type' => 'received', 'content' => 'Salut ! Comment ça va ? 😊'],
@@ -275,7 +305,7 @@ class InstagramModel
         ];
         
         foreach ($defaultMessages as $message) {
-            $this->saveMessage($message['type'], $message['content']);
+            $this->saveMessage($message['type'], $message['content'], $sessionId);
         }
     }
     
