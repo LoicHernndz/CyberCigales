@@ -73,6 +73,9 @@ document.addEventListener('DOMContentLoaded', function() {
             formData.append('message', message);
             formData.append('conv_id', conversationId); // Envoyer l'ID de conversation unique
             
+            // Debug : afficher l'ID de conversation envoyé
+            console.log('Envoi message avec conversationId:', conversationId);
+            
             fetch(window.location.pathname, {
                 method: 'POST',
                 body: formData,
@@ -87,6 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return response.json();
             })
             .then(function(data) {
+                console.log('Réponse serveur:', data);
                 if (data.success) {
                     // Le message utilisateur est déjà affiché, on ajoute juste la réponse de Melina
                     if (data.melinaMessage) {
@@ -95,10 +99,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 } else {
                     console.error('Erreur:', data.message || 'Erreur inconnue');
+                    alert('Erreur: ' + (data.message || 'Erreur inconnue'));
                 }
             })
             .catch(function(error) {
                 console.error('Erreur lors de l\'envoi du message:', error);
+                alert('Erreur lors de l\'envoi: ' + error.message);
             });
         }
     }

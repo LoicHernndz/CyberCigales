@@ -243,13 +243,26 @@ class InstagramModel
                 $sessionId = session_id();
             }
             
+            // Vérifier que session_id n'est pas vide
+            if (empty($sessionId)) {
+                error_log("Erreur: session_id vide lors de la sauvegarde du message");
+                return false;
+            }
+            
             $this->db->query('INSERT INTO instagram_messages (session_id, type, content, created_at) VALUES (:session_id, :type, :content, NOW())');
             $this->db->bind(':session_id', $sessionId);
             $this->db->bind(':type', $type);
             $this->db->bind(':content', $content);
-            return $this->db->execute();
+            $result = $this->db->execute();
+            
+            if (!$result) {
+                error_log("Erreur: execute() a retourné false pour la sauvegarde du message");
+            }
+            
+            return $result;
         } catch (\Exception $e) {
             error_log("Erreur sauvegarde message Instagram : " . $e->getMessage());
+            error_log("Stack trace: " . $e->getTraceAsString());
             return false;
         }
     }
@@ -263,7 +276,7 @@ class InstagramModel
             // D'abord créer la table de base
             $query = "CREATE TABLE IF NOT EXISTS instagram_messages (
                 id INT AUTO_INCREMENT PRIMARY KEY,
-                session_id VARCHAR(255) NOT NULL,
+                session_id VARCHAR(255) NOT NULL DEFAULT '',
                 type ENUM('sent', 'received') NOT NULL,
                 content TEXT NOT NULL,
                 created_at DATETIME NOT NULL,
@@ -273,20 +286,40 @@ class InstagramModel
             
             $this->db->exec($query);
             
-            // Si la table existe déjà sans session_id, ajouter la colonne
+            // Vérifier si la colonne session_id existe en interrogeant INFORMATION_SCHEMA
             try {
-                $alterQuery = "ALTER TABLE instagram_messages ADD COLUMN session_id VARCHAR(255) NOT NULL DEFAULT '' AFTER id";
-                $this->db->exec($alterQuery);
+                $checkQuery = "SELECT COUNT(*) as count FROM INFORMATION_SCHEMA.COLUMNS 
+                              WHERE TABLE_SCHEMA = DATABASE() 
+                              AND TABLE_NAME = 'instagram_messages' 
+                              AND COLUMN_NAME = 'session_id'";
+                $this->db->query($checkQuery);
+                $result = $this->db->single();
                 
-                // Ajouter l'index après avoir ajouté la colonne
-                $indexQuery = "ALTER TABLE instagram_messages ADD INDEX idx_session_id (session_id)";
-                $this->db->exec($indexQuery);
+                // Si la colonne n'existe pas (count = 0), l'ajouter
+                if ($result && $result->count == 0) {
+                    $alterQuery = "ALTER TABLE instagram_messages ADD COLUMN session_id VARCHAR(255) NOT NULL DEFAULT '' AFTER id";
+                    $this->db->exec($alterQuery);
+                    
+                    // Ajouter l'index après avoir ajouté la colonne
+                    $indexQuery = "ALTER TABLE instagram_messages ADD INDEX idx_session_id (session_id)";
+                    $this->db->exec($indexQuery);
+                    error_log("Colonne session_id ajoutée à la table instagram_messages");
+                }
             } catch (\Exception $e) {
-                // La colonne existe déjà, on ignore l'erreur
+                // Si la vérification échoue, essayer quand même d'ajouter la colonne
+                try {
+                    $alterQuery = "ALTER TABLE instagram_messages ADD COLUMN session_id VARCHAR(255) NOT NULL DEFAULT '' AFTER id";
+                    $this->db->exec($alterQuery);
+                    $indexQuery = "ALTER TABLE instagram_messages ADD INDEX idx_session_id (session_id)";
+                    $this->db->exec($indexQuery);
+                    error_log("Colonne session_id ajoutée à la table instagram_messages (méthode fallback)");
+                } catch (\Exception $e2) {
+                    // La colonne existe probablement déjà
+                    error_log("Colonne session_id probablement déjà existante: " . $e2->getMessage());
+                }
             }
         } catch (\Exception $e) {
-            // Ignorer l'erreur si la table existe déjà
-            // error_log("Erreur création table instagram_messages : " . $e->getMessage());
+            error_log("Erreur création table instagram_messages : " . $e->getMessage());
         }
     }
     

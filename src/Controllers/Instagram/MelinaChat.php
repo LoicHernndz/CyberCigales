@@ -83,11 +83,16 @@ class MelinaChat extends AbstractController
         $messageContent = $_POST['message'] ?? '';
         $messageContent = trim($messageContent);
         
-        // Récupérer l'ID de conversation depuis POST ou session
-        $conversationId = $_POST['conv_id'] ?? $_SESSION['instagram_conv_id'] ?? '';
+        // Récupérer l'ID de conversation depuis POST
+        $conversationId = $_POST['conv_id'] ?? '';
         
+        // Si pas d'ID dans POST, essayer la session
         if (empty($conversationId)) {
-            // Générer un nouvel ID si aucun n'existe
+            $conversationId = $_SESSION['instagram_conv_id'] ?? '';
+        }
+        
+        // Si toujours vide, générer un nouvel ID
+        if (empty($conversationId)) {
             $conversationId = bin2hex(random_bytes(16));
             $_SESSION['instagram_conv_id'] = $conversationId;
         }
@@ -101,8 +106,14 @@ class MelinaChat extends AbstractController
             }
         }
         
+        // Debug : logger l'ID de conversation utilisé
+        error_log("Sauvegarde message avec conversationId: " . $conversationId);
+        
         // Sauvegarder le message de l'utilisateur pour cette conversation
         $saved = $model->saveMessage('sent', $messageContent, $conversationId);
+        
+        // Debug : logger le résultat
+        error_log("Résultat sauvegarde message: " . ($saved ? 'succès' : 'échec'));
         
         if ($saved) {
             // Générer une réponse automatique de Melina
