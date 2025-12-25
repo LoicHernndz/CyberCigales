@@ -15,15 +15,31 @@
 // Utiliser localStorage pour que l'ID persiste après fermeture
 // Tous les onglets du même navigateur partageront le même ID (et donc les mêmes messages)
 // Chaque navigateur différent (Chrome, Firefox, etc.) aura son propre ID
-let conversationId = localStorage.getItem('instagram_conv_id');
 
-if (!conversationId) {
-    // Générer un ID unique (32 caractères hexadécimaux)
-    conversationId = Array.from(crypto.getRandomValues(new Uint8Array(16)))
-        .map(b => b.toString(16).padStart(2, '0'))
-        .join('');
-    // Stocker dans localStorage (persiste après fermeture)
+// D'abord, vérifier si PHP a fourni un ID de conversation
+let conversationId = null;
+
+// Si INSTAGRAM_CONV_ID est défini globalement (depuis PHP) et n'est pas vide
+if (typeof INSTAGRAM_CONV_ID !== 'undefined' && INSTAGRAM_CONV_ID && INSTAGRAM_CONV_ID !== '') {
+    conversationId = INSTAGRAM_CONV_ID;
+    // Sauvegarder dans localStorage pour la persistance
     localStorage.setItem('instagram_conv_id', conversationId);
+    console.log('Utilisation de l\'ID de conversation fourni par PHP:', conversationId);
+} else {
+    // Sinon, utiliser celui du localStorage ou en générer un nouveau
+    conversationId = localStorage.getItem('instagram_conv_id');
+    
+    if (!conversationId) {
+        // Générer un ID unique (32 caractères hexadécimaux)
+        conversationId = Array.from(crypto.getRandomValues(new Uint8Array(16)))
+            .map(b => b.toString(16).padStart(2, '0'))
+            .join('');
+        // Stocker dans localStorage (persiste après fermeture)
+        localStorage.setItem('instagram_conv_id', conversationId);
+        console.log('Nouvel ID de conversation généré:', conversationId);
+    } else {
+        console.log('Utilisation de l\'ID de conversation depuis localStorage:', conversationId);
+    }
 }
 
 // Attendre que le DOM soit chargé

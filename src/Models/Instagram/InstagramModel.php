@@ -249,13 +249,33 @@ class InstagramModel
                 return false;
             }
             
+            // Log pour debug
+            error_log("Tentative sauvegarde message - type: $type, sessionId: $sessionId, content: " . substr($content, 0, 50));
+            
+            // Vérifier d'abord que la table existe et a la bonne structure
+            $this->createMessagesTableIfNotExists();
+            
+            // Essayer d'insérer le message
+            // Vérifier d'abord que la table existe
+            try {
+                $checkQuery = "SELECT COUNT(*) as count FROM instagram_messages LIMIT 1";
+                $this->db->query($checkQuery);
+                $this->db->execute();
+            } catch (\Exception $e) {
+                error_log("Table instagram_messages n'existe pas, création en cours...");
+                $this->createMessagesTableIfNotExists();
+            }
+            
+            // Maintenant insérer le message
             $this->db->query('INSERT INTO instagram_messages (session_id, type, content, created_at) VALUES (:session_id, :type, :content, NOW())');
             $this->db->bind(':session_id', $sessionId);
             $this->db->bind(':type', $type);
             $this->db->bind(':content', $content);
             $result = $this->db->execute();
             
-            if (!$result) {
+            if ($result) {
+                error_log("Message sauvegardé avec succès - sessionId: $sessionId, type: $type");
+            } else {
                 error_log("Erreur: execute() a retourné false pour la sauvegarde du message");
             }
             
@@ -263,6 +283,7 @@ class InstagramModel
         } catch (\Exception $e) {
             error_log("Erreur sauvegarde message Instagram : " . $e->getMessage());
             error_log("Stack trace: " . $e->getTraceAsString());
+            error_log("Fichier: " . $e->getFile() . " Ligne: " . $e->getLine());
             return false;
         }
     }
