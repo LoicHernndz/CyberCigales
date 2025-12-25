@@ -91,6 +91,15 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Debug : afficher l'ID de conversation envoyé
             console.log('Envoi message avec conversationId:', conversationId);
+            console.log('Type de conversationId:', typeof conversationId);
+            console.log('Longueur conversationId:', conversationId ? conversationId.length : 0);
+            
+            // Vérifier que conversationId est bien défini
+            if (!conversationId || conversationId === '') {
+                console.error('ERREUR: conversationId est vide ou non défini !');
+                alert('Erreur: ID de conversation manquant. Rechargez la page.');
+                return;
+            }
             
             fetch(window.location.pathname, {
                 method: 'POST',

@@ -238,14 +238,14 @@ class InstagramModel
     public function saveMessage(string $type, string $content, string $sessionId = ''): bool
     {
         try {
-            // S'assurer qu'on a un session_id
-            if (empty($sessionId)) {
-                $sessionId = session_id();
-            }
+            // IMPORTANT: Ne PAS utiliser session_id() par défaut !
+            // Le sessionId doit être le conversationId passé depuis le contrôleur
+            // Si sessionId est vide, c'est une erreur, on ne doit pas utiliser session_id()
             
             // Vérifier que session_id n'est pas vide
             if (empty($sessionId)) {
-                error_log("Erreur: session_id vide lors de la sauvegarde du message");
+                error_log("ERREUR CRITIQUE: session_id (conversationId) est vide lors de la sauvegarde du message !");
+                error_log("Type: $type, Content: " . substr($content, 0, 50));
                 return false;
             }
             

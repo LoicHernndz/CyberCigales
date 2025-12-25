@@ -84,17 +84,24 @@ class MelinaChat extends AbstractController
         $messageContent = trim($messageContent);
         
         // Récupérer l'ID de conversation depuis POST
+        // FormData envoie les données dans $_POST, mais vérifions aussi le contenu brut
         $conversationId = $_POST['conv_id'] ?? '';
+        
+        // Debug : vérifier ce qui est reçu
+        error_log("DEBUG POST data: " . print_r($_POST, true));
+        error_log("DEBUG conv_id reçu: " . ($conversationId ?: 'VIDE'));
         
         // Si pas d'ID dans POST, essayer la session
         if (empty($conversationId)) {
             $conversationId = $_SESSION['instagram_conv_id'] ?? '';
+            error_log("DEBUG conv_id depuis session: " . ($conversationId ?: 'VIDE'));
         }
         
         // Si toujours vide, générer un nouvel ID
         if (empty($conversationId)) {
             $conversationId = bin2hex(random_bytes(16));
             $_SESSION['instagram_conv_id'] = $conversationId;
+            error_log("DEBUG Nouveau conv_id généré: " . $conversationId);
         }
         
         if (empty($messageContent)) {
