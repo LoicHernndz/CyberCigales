@@ -84,30 +84,37 @@ class MelinaChat extends AbstractController
         $model = new InstagramModel();
         $response = ['success' => false, 'message' => ''];
         
-        // Récupérer le message depuis POST
-        $messageContent = $_POST['message'] ?? '';
-        $messageContent = trim($messageContent);
-        
-        // Récupérer l'ID de conversation depuis POST
-        // FormData envoie les données dans $_POST, mais vérifions aussi le contenu brut
+        // Récupérer l'ID de conversation depuis POST (OBLIGATOIRE)
         $conversationId = $_POST['conv_id'] ?? '';
         
-        // Debug : vérifier ce qui est reçu
-        error_log("DEBUG POST data: " . print_r($_POST, true));
-        error_log("DEBUG conv_id reçu: " . ($conversationId ?: 'VIDE'));
-        
-        // Si pas d'ID dans POST, essayer la session
+        // Si pas d'ID, erreur
         if (empty($conversationId)) {
-            $conversationId = $_SESSION['instagram_conv_id'] ?? '';
-            error_log("DEBUG conv_id depuis session: " . ($conversationId ?: 'VIDE'));
+            $response['message'] = 'ID de conversation manquant';
+            if ($isAjax) {
+                header('Content-Type: application/json');
+                echo json_encode($response);
+                return;
+            }
+            header('Location: /instagram/melina/chat');
+            exit;
         }
         
-        // Si toujours vide, générer un nouvel ID
-        if (empty($conversationId)) {
-            $conversationId = bin2hex(random_bytes(16));
-            $_SESSION['instagram_conv_id'] = $conversationId;
-            error_log("DEBUG Nouveau conv_id généré: " . $conversationId);
+        // Vérifier si c'est une demande de chargement des messages
+        $action = $_POST['action'] ?? $_GET['action'] ?? '';
+        if ($action === 'load') {
+            $messages = $model->getMelinaChatMessages($conversationId);
+            $response = [
+                'success' => true,
+                'messages' => $messages
+            ];
+            header('Content-Type: application/json');
+            echo json_encode($response);
+            return;
         }
+        
+        // Sinon, c'est un envoi de message
+        $messageContent = $_POST['message'] ?? '';
+        $messageContent = trim($messageContent);
         
         if (empty($messageContent)) {
             $response['message'] = 'Le message ne peut pas être vide';
