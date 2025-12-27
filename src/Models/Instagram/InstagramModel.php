@@ -16,7 +16,6 @@ class InstagramModel
     public function __construct()
     {
         $this->db = new Database();
-        $this->createMessagesTableIfNotExists();
     }
     /**
      * Récupère les données des stories
@@ -184,12 +183,6 @@ class InstagramModel
     }
     
     /**
-     * Récupère les messages du chat avec Melina depuis la base de données pour la session actuelle
-     * 
-     * @param string $sessionId ID de la session PHP
-     * @return array Messages du chat
-     */
-    /**
      * Récupère les messages du chat avec Melina depuis la base de données
      * 
      * @param string $sessionId ID de la conversation (conversationId généré par JavaScript)
@@ -231,14 +224,6 @@ class InstagramModel
     }
     
     /**
-     * Sauvegarde un nouveau message dans la base de données pour la session actuelle
-     * 
-     * @param string $type Type de message ('sent' ou 'received')
-     * @param string $content Contenu du message
-     * @param string $sessionId ID de la session PHP
-     * @return bool True si la sauvegarde a réussi, false sinon
-     */
-    /**
      * Sauvegarde un nouveau message dans la base de données
      * 
      * @param string $type Type de message ('sent' ou 'received')
@@ -254,9 +239,6 @@ class InstagramModel
                 return false;
             }
             
-            // S'assurer que la table existe
-            $this->createMessagesTableIfNotExists();
-            
             // Insérer le message dans la base de données
             $this->db->query('INSERT INTO instagram_messages (session_id, type, content, created_at) VALUES (:session_id, :type, :content, NOW())');
             $this->db->bind(':session_id', $sessionId);
@@ -266,57 +248,6 @@ class InstagramModel
             return $this->db->execute();
         } catch (\Exception $e) {
             return false;
-        }
-    }
-    
-    /**
-     * Crée la table des messages si elle n'existe pas
-     */
-    private function createMessagesTableIfNotExists(): void
-    {
-        try {
-            // D'abord créer la table de base
-            $query = "CREATE TABLE IF NOT EXISTS instagram_messages (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                session_id VARCHAR(255) NOT NULL DEFAULT '',
-                type ENUM('sent', 'received') NOT NULL,
-                content TEXT NOT NULL,
-                created_at DATETIME NOT NULL,
-                INDEX idx_session_id (session_id),
-                INDEX idx_created_at (created_at)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci";
-            
-            $this->db->exec($query);
-            
-            // Vérifier si la colonne session_id existe en interrogeant INFORMATION_SCHEMA
-            try {
-                $checkQuery = "SELECT COUNT(*) as count FROM INFORMATION_SCHEMA.COLUMNS 
-                              WHERE TABLE_SCHEMA = DATABASE() 
-                              AND TABLE_NAME = 'instagram_messages' 
-                              AND COLUMN_NAME = 'session_id'";
-                $this->db->query($checkQuery);
-                $result = $this->db->single();
-                
-                // Si la colonne n'existe pas (count = 0), l'ajouter
-                if ($result && $result->count == 0) {
-                    $alterQuery = "ALTER TABLE instagram_messages ADD COLUMN session_id VARCHAR(255) NOT NULL DEFAULT '' AFTER id";
-                    $this->db->exec($alterQuery);
-                    
-                    $indexQuery = "ALTER TABLE instagram_messages ADD INDEX idx_session_id (session_id)";
-                    $this->db->exec($indexQuery);
-                }
-            } catch (\Exception $e) {
-                try {
-                    $alterQuery = "ALTER TABLE instagram_messages ADD COLUMN session_id VARCHAR(255) NOT NULL DEFAULT '' AFTER id";
-                    $this->db->exec($alterQuery);
-                    $indexQuery = "ALTER TABLE instagram_messages ADD INDEX idx_session_id (session_id)";
-                    $this->db->exec($indexQuery);
-                } catch (\Exception $e2) {
-                    // La colonne existe déjà
-                }
-            }
-        } catch (\Exception $e) {
-            // Table existe déjà
         }
     }
     
