@@ -32,8 +32,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Fermer le modal (sans supprimer de la BDD - le message reste visible)
+    // Fermer le modal et déconnecter (supprimer la ligne de la BDD)
     window.closeSendModal = function() {
+        // Si un destinataire était sélectionné, supprimer la discussion de la BDD
+        if (receiverId && receiverId > 0) {
+            disconnectDiscussion(receiverId);
+        }
+        
         sendModal.style.display = 'none';
         receiverPseudoInput.value = '';
         receiverIdInput.value = '';
@@ -43,6 +48,22 @@ document.addEventListener('DOMContentLoaded', function() {
         sendStatus.style.display = 'none';
         receiverId = null;
     };
+    
+    // Fonction pour déconnecter (supprimer la ligne de la BDD)
+    async function disconnectDiscussion(targetReceiverId) {
+        try {
+            const formData = new FormData();
+            formData.append('action', 'disconnect');
+            formData.append('receiver_id', targetReceiverId);
+            
+            await fetch('/email', {
+                method: 'POST',
+                body: formData
+            });
+        } catch (error) {
+            console.error('Erreur déconnexion:', error);
+        }
+    }
     
     // Fonction pour déconnecter (supprimer la ligne de la BDD)
     async function disconnectDiscussion(targetReceiverId) {
