@@ -1,0 +1,364 @@
+<div class="unilateral-discussion-container">
+    <div class="discussion-header">
+        <h1>Discussion Unilatérale</h1>
+        <p class="subtitle">Mode : <span id="mode-indicator">{{{MODE}}}</span></p>
+    </div>
+
+    <!-- Mode Diffuseur -->
+    <div id="sender-mode" class="discussion-mode" style="display: none;">
+        <div class="sender-panel">
+            <h2>Vous êtes le diffuseur</h2>
+            <p class="info-text">Vos messages seront envoyés au récepteur. Chaque nouveau message remplace le précédent.</p>
+            
+            <div class="receiver-select">
+                <label for="receiver-pseudo-input">Pseudo du récepteur :</label>
+                <div class="search-container">
+                    <input 
+                        type="text" 
+                        id="receiver-pseudo-input" 
+                        name="receiver_pseudo" 
+                        placeholder="Entrez le pseudo du récepteur"
+                        autocomplete="off"
+                    >
+                    <button type="button" id="search-user-btn" class="btn-search">Rechercher</button>
+                </div>
+                <div id="user-search-results" class="search-results" style="display: none;"></div>
+                <input 
+                    type="hidden" 
+                    id="receiver-id-input" 
+                    name="receiver_id" 
+                    value="{{{RECEIVER_ID}}}"
+                >
+                <div id="selected-user-info" class="selected-user-info" style="display: none;">
+                    <p><strong>Utilisateur sélectionné :</strong> <span id="selected-pseudo"></span> (ID: <span id="selected-id"></span>)</p>
+                </div>
+            </div>
+            
+            <div class="message-input-container">
+                <textarea 
+                    id="message-input" 
+                    name="message" 
+                    placeholder="Tapez votre message ici..."
+                    rows="4"
+                    required
+                ></textarea>
+                <button id="send-btn" class="btn-send">Envoyer</button>
+            </div>
+            
+            <div id="sender-status" class="status-message"></div>
+            
+            <button id="disconnect-sender-btn" class="btn-disconnect">Déconnecter</button>
+        </div>
+    </div>
+
+    <!-- Mode Récepteur -->
+    <div id="receiver-mode" class="discussion-mode" style="display: none;">
+        <div class="receiver-panel">
+            <h2>Vous êtes le récepteur</h2>
+            <p class="info-text">Les messages du diffuseur apparaîtront ici automatiquement.</p>
+            
+            <div id="message-display" class="message-display">
+                <div id="message-content-placeholder">
+                    <div class="no-message">
+                        <p>Aucun message reçu pour le moment.</p>
+                        <p class="waiting-text">En attente de messages...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="receiver-status" class="status-message"></div>
+            
+            <button id="refresh-btn" class="btn-refresh">Actualiser</button>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const mode = '{{{MODE}}}';
+    const userId = parseInt('{{{USER_ID}}}');
+    let receiverId = '{{{RECEIVER_ID}}}' ? parseInt('{{{RECEIVER_ID}}}') : null;
+    let pollingInterval = null;
+    
+    // Afficher le bon mode
+    if (mode === 'sender') {
+        document.getElementById('sender-mode').style.display = 'block';
+    } else if (mode === 'receiver') {
+        document.getElementById('receiver-mode').style.display = 'block';
+    }
+    
+    // Mode Diffuseur
+    if (mode === 'sender') {
+        const receiverPseudoInput = document.getElementById('receiver-pseudo-input');
+        const receiverIdInput = document.getElementById('receiver-id-input');
+        const searchUserBtn = document.getElementById('search-user-btn');
+        const searchResults = document.getElementById('user-search-results');
+        const selectedUserInfo = document.getElementById('selected-user-info');
+        const selectedPseudoSpan = document.getElementById('selected-pseudo');
+        const selectedIdSpan = document.getElementById('selected-id');
+        const messageInput = document.getElementById('message-input');
+        const sendBtn = document.getElementById('send-btn');
+        const disconnectBtn = document.getElementById('disconnect-sender-btn');
+        const statusDiv = document.getElementById('sender-status');
+        
+        let searchTimeout = null;
+        
+        // Recherche en temps réel (debounce)
+        receiverPseudoInput.addEventListener('input', function() {
+            const searchTerm = this.value.trim();
+            
+            clearTimeout(searchTimeout);
+            
+            if (searchTerm.length < 2) {
+                searchResults.style.display = 'none';
+                receiverIdInput.value = '';
+                selectedUserInfo.style.display = 'none';
+                receiverId = null;
+                return;
+            }
+            
+            searchTimeout = setTimeout(async function() {
+                try {
+                    const formData = new FormData();
+                    formData.append('action', 'search_users');
+                    formData.append('search', searchTerm);
+                    formData.append('limit', '5');
+                    
+                    const response = await fetch('/unilateral-discussion', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.success && data.data.length > 0) {
+                        displaySearchResults(data.data);
+                    } else {
+                        searchResults.innerHTML = '<p class="no-results">Aucun utilisateur trouvé</p>';
+                        searchResults.style.display = 'block';
+                    }
+                } catch (error) {
+                    console.error('Erreur recherche:', error);
+                }
+            }, 300);
+        });
+        
+        // Recherche manuelle
+        searchUserBtn.addEventListener('click', async function() {
+            const pseudo = receiverPseudoInput.value.trim();
+            
+            if (!pseudo) {
+                statusDiv.textContent = 'Veuillez entrer un pseudo';
+                statusDiv.className = 'status-message error';
+                return;
+            }
+            
+            try {
+                const formData = new FormData();
+                formData.append('action', 'search_user');
+                formData.append('pseudo', pseudo);
+                
+                const response = await fetch('/unilateral-discussion', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (data.success && data.data) {
+                    selectUser(data.data);
+                } else {
+                    statusDiv.textContent = 'Utilisateur non trouvé';
+                    statusDiv.className = 'status-message error';
+                    searchResults.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                statusDiv.textContent = 'Erreur de connexion';
+                statusDiv.className = 'status-message error';
+            }
+        });
+        
+        // Fonction pour afficher les résultats de recherche
+        function displaySearchResults(users) {
+            let html = '<div class="results-list">';
+            users.forEach(user => {
+                html += `
+                    <div class="result-item" data-user-id="${user.id}" data-user-pseudo="${escapeHtml(user.pseudo)}">
+                        <strong>${escapeHtml(user.pseudo)}</strong>
+                        ${user.prenom || user.nom ? `<span class="user-name">${escapeHtml((user.prenom || '') + ' ' + (user.nom || ''))}</span>` : ''}
+                        <span class="user-id">ID: ${user.id}</span>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            searchResults.innerHTML = html;
+            searchResults.style.display = 'block';
+            
+            // Ajouter les event listeners sur les résultats
+            searchResults.querySelectorAll('.result-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const userId = parseInt(this.dataset.userId);
+                    const userPseudo = this.dataset.userPseudo;
+                    selectUser({ id: userId, pseudo: userPseudo });
+                });
+            });
+        }
+        
+        // Fonction pour sélectionner un utilisateur
+        function selectUser(user) {
+            receiverId = user.id;
+            receiverIdInput.value = user.id;
+            receiverPseudoInput.value = user.pseudo;
+            selectedPseudoSpan.textContent = user.pseudo;
+            selectedIdSpan.textContent = user.id;
+            selectedUserInfo.style.display = 'block';
+            searchResults.style.display = 'none';
+            statusDiv.textContent = '';
+        }
+        
+        // Envoi de message
+        sendBtn.addEventListener('click', async function() {
+            const message = messageInput.value.trim();
+            
+            if (!message) {
+                statusDiv.textContent = 'Veuillez entrer un message';
+                statusDiv.className = 'status-message error';
+                return;
+            }
+            
+            if (!receiverId || receiverId <= 0) {
+                statusDiv.textContent = 'Veuillez entrer un ID de récepteur valide';
+                statusDiv.className = 'status-message error';
+                return;
+            }
+            
+            sendBtn.disabled = true;
+            statusDiv.textContent = 'Envoi en cours...';
+            statusDiv.className = 'status-message info';
+            
+            try {
+                const formData = new FormData();
+                formData.append('action', 'send');
+                formData.append('receiver_id', receiverId);
+                formData.append('message', message);
+                
+                const response = await fetch('/unilateral-discussion', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    statusDiv.textContent = 'Message envoyé avec succès !';
+                    statusDiv.className = 'status-message success';
+                    messageInput.value = '';
+                } else {
+                    statusDiv.textContent = 'Erreur : ' + data.message;
+                    statusDiv.className = 'status-message error';
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                statusDiv.textContent = 'Erreur de connexion';
+                statusDiv.className = 'status-message error';
+            } finally {
+                sendBtn.disabled = false;
+            }
+        });
+        
+        // Déconnexion
+        disconnectBtn.addEventListener('click', async function() {
+            if (!receiverId) {
+                return;
+            }
+            
+            try {
+                const formData = new FormData();
+                formData.append('action', 'disconnect');
+                formData.append('receiver_id', receiverId);
+                
+                await fetch('/unilateral-discussion', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                statusDiv.textContent = 'Déconnecté';
+                statusDiv.className = 'status-message info';
+            } catch (error) {
+                console.error('Erreur:', error);
+            }
+        });
+    }
+    
+    // Mode Récepteur
+    if (mode === 'receiver') {
+        const messageDisplay = document.getElementById('message-display');
+        const refreshBtn = document.getElementById('refresh-btn');
+        const statusDiv = document.getElementById('receiver-status');
+        
+        // Fonction pour récupérer les messages
+        async function fetchMessage() {
+            try {
+                const formData = new FormData();
+                formData.append('action', 'receive');
+                
+                const response = await fetch('/unilateral-discussion', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (data.success && data.has_message) {
+                    const msg = data.data;
+                    messageDisplay.innerHTML = `
+                        <div class="message-received">
+                            <div class="message-header">
+                                <span class="sender-name">De : ${escapeHtml(msg.sender_username)} (ID: ${msg.sender_id})</span>
+                                <span class="message-time">${new Date(msg.updated_at).toLocaleString('fr-FR')}</span>
+                            </div>
+                            <div class="message-content">${escapeHtml(msg.message)}</div>
+                        </div>
+                    `;
+                    statusDiv.textContent = '';
+                } else {
+                    messageDisplay.innerHTML = `
+                        <div class="no-message">
+                            <p>Aucun message reçu pour le moment.</p>
+                            <p class="waiting-text">En attente de messages...</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                statusDiv.textContent = 'Erreur de connexion';
+                statusDiv.className = 'status-message error';
+            }
+        }
+        
+        // Actualisation manuelle
+        refreshBtn.addEventListener('click', fetchMessage);
+        
+        // Polling automatique toutes les 2 secondes
+        pollingInterval = setInterval(fetchMessage, 2000);
+        
+        // Récupération initiale
+        fetchMessage();
+    }
+    
+    // Nettoyage lors de la fermeture de la page
+    window.addEventListener('beforeunload', function() {
+        if (pollingInterval) {
+            clearInterval(pollingInterval);
+        }
+    });
+    
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+});
+</script>
+
