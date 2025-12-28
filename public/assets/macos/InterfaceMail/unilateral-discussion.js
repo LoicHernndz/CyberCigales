@@ -230,12 +230,39 @@ document.addEventListener('DOMContentLoaded', function() {
         sendStatus.style.display = 'block';
     }
     
-    // Stocker les messages reçus dans localStorage pour les conserver même après suppression BDD
+    // Stocker les messages reçus dans localStorage (historique par sender_id)
     function saveReceivedMessage(messageData) {
-        if (!messageData || !messageData.sender_id) return;
+        if (!messageData || !messageData.sender_id) return false;
         
-        const storageKey = `unilateral_message_${USER_ID}_${messageData.sender_id}`;
+        const storageKey = `unilateral_messages_${USER_ID}`;
+        let allMessages = [];
+        
+        // Récupérer les messages existants
+        try {
+            const stored = localStorage.getItem(storageKey);
+            if (stored) {
+                allMessages = JSON.parse(stored);
+            }
+        } catch (e) {
+            console.error('Erreur lecture localStorage:', e);
+        }
+        
+        // Créer un ID unique pour ce message (sender_id + timestamp)
+        const messageId = `${messageData.sender_id}_${messageData.updated_at}`;
+        
+        // Vérifier si ce message n'existe pas déjà
+        const exists = allMessages.some(msg => 
+            msg.sender_id === messageData.sender_id && 
+            msg.updated_at === messageData.updated_at
+        );
+        
+        if (exists) {
+            return false; // Message déjà stocké
+        }
+        
+        // Ajouter le nouveau message
         const messageToStore = {
+            id: messageId,
             sender_id: messageData.sender_id,
             sender_username: messageData.sender_username,
             message: messageData.message,
@@ -243,26 +270,103 @@ document.addEventListener('DOMContentLoaded', function() {
             saved_at: new Date().toISOString()
         };
         
-        localStorage.setItem(storageKey, JSON.stringify(messageToStore));
+        allMessages.push(messageToStore);
+        
+        // Garder seulement les 50 derniers messages pour éviter de surcharger
+        if (allMessages.length > 50) {
+            allMessages = allMessages.slice(-50);
+        }
+        
+        // Sauvegarder
+        localStorage.setItem(storageKey, JSON.stringify(allMessages));
+        return true;
     }
     
     // Récupérer les messages stockés depuis localStorage
     function getStoredMessages() {
-        const messages = [];
-        const keys = Object.keys(localStorage);
+        if (!USER_ID) return [];
         
-        keys.forEach(key => {
-            if (key.startsWith(`unilateral_message_${USER_ID}_`)) {
-                try {
-                    const messageData = JSON.parse(localStorage.getItem(key));
-                    messages.push(messageData);
-                } catch (e) {
-                    console.error('Erreur parsing message stocké:', e);
+        const storageKey = `unilateral_messages_${USER_ID}`;
+        try {
+            const stored = localStorage.getItem(storageKey);
+            if (stored) {
+                return JSON.parse(stored);
+            }
+        } catch (e) {
+            console.error('Erreur parsing messages stockés:', e);
+        }
+        return [];
+    }
+    
+    // Ajouter un message à la liste d'emails dynamiquement
+    function addMessageToEmailList(messageData) {
+        const emailList = document.getElementById('email-list-container');
+        if (!emailList) return;
+        
+        // Vérifier si le message n'est pas déjà affiché
+        const messageId = `unilateral_${messageData.sender_id}_${messageData.updated_at}`;
+        const existingMessage = emailList.querySelector(`[data-message-id="${messageId}"]`);
+        if (existingMessage) return; // Déjà affiché
+        
+        const messageEmail = {
+            sender: messageData.sender_username || `Utilisateur #${messageData.sender_id}`,
+            subject: "Message unilatéral",
+            time: new Date(messageData.updated_at).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
+            snippet: messageData.message.substring(0, 50) + (messageData.message.length > 50 ? '...' : ''),
+            content: `<p>${messageData.message.replace(/\n/g, '<br>')}</p>`,
+            is_unilateral: true,
+            sender_id: messageData.sender_id,
+            message_id: messageId
+        };
+        
+        const emailDataJson = escapeHtml(JSON.stringify(messageEmail));
+        const emailItem = document.createElement('li');
+        emailItem.className = 'email-item';
+        emailItem.setAttribute('data-email', emailDataJson);
+        emailItem.setAttribute('data-message-id', messageId);
+        emailItem.innerHTML = `
+            <div class='email-header'>
+                <span class='sender'>${escapeHtml(messageEmail.sender)}</span>
+                <span class='time'>${messageEmail.time}</span>
+            </div>
+            <div class='subject'>${escapeHtml(messageEmail.subject)}</div>
+            <div class='snippet'>${escapeHtml(messageEmail.snippet)}</div>
+        `;
+        
+        // Ajouter l'event listener pour le clic
+        emailItem.addEventListener('click', function() {
+            // Utiliser la fonction updateReadingPane du script.js si elle existe
+            if (typeof updateReadingPane === 'function') {
+                updateReadingPane(messageEmail);
+            } else {
+                // Fallback si la fonction n'existe pas
+                const readingPane = document.getElementById('reading-pane');
+                if (readingPane) {
+                    readingPane.innerHTML = `
+                        <h2>${escapeHtml(messageEmail.subject)}</h2>
+                        <div class="recipient-info">
+                            <strong>De :</strong> ${escapeHtml(messageEmail.sender)} <br>
+                            <strong>À :</strong> noname@noname.com
+                        </div>
+                        <div class="email-content">
+                            ${messageEmail.content}
+                        </div>
+                    `;
                 }
             }
+            
+            // Sélectionner visuellement
+            document.querySelectorAll('.email-item').forEach(item => item.classList.remove('selected'));
+            emailItem.classList.add('selected');
+            emailItem.classList.add('read');
         });
         
-        return messages;
+        // Ajouter en haut de la liste
+        if (emailList.firstChild) {
+            emailList.insertBefore(emailItem, emailList.firstChild);
+        } else {
+            emailList.appendChild(emailItem);
+        }
     }
     
     // Polling pour récupérer les nouveaux messages (toutes les 3 secondes)
@@ -279,10 +383,13 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             if (data.success && data.has_message) {
-                // Sauvegarder le message dans localStorage
-                saveReceivedMessage(data.data);
-                // Recharger la page pour afficher le nouveau message
-                location.reload();
+                // Sauvegarder le message dans localStorage (vérifie les doublons)
+                const wasNew = saveReceivedMessage(data.data);
+                
+                // Si c'est un nouveau message, l'ajouter à la liste
+                if (wasNew) {
+                    addMessageToEmailList(data.data);
+                }
             }
         })
         .catch(error => {

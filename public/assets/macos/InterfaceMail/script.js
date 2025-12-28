@@ -16,47 +16,71 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     const readingPane = document.getElementById('reading-pane');
     
+    // Fonction helper pour échapper HTML (accessible globalement)
+    window.htmlspecialchars = function(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    };
+    
     // Charger les messages stockés depuis localStorage et les ajouter à la liste
     function loadStoredMessages() {
         if (typeof USER_ID === 'undefined' || !USER_ID) return;
         
-        const storedMessages = getStoredMessages();
-        const emailList = document.getElementById('email-list-container');
+        const storageKey = `unilateral_messages_${USER_ID}`;
+        let storedMessages = [];
         
+        try {
+            const stored = localStorage.getItem(storageKey);
+            if (stored) {
+                storedMessages = JSON.parse(stored);
+            }
+        } catch (e) {
+            console.error('Erreur parsing messages stockés:', e);
+            return;
+        }
+        
+        const emailList = document.getElementById('email-list-container');
         if (!emailList) return;
         
+        // Trier par date (plus récent en premier)
+        storedMessages.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+        
         storedMessages.forEach(msg => {
-            // Vérifier si le message n'est pas déjà dans la liste
-            const existingMessage = emailList.querySelector(`[data-message-id="unilateral_${msg.sender_id}"]`);
-            if (existingMessage) return; // Déjà affiché
+            // Créer un ID unique pour ce message
+            const messageId = `unilateral_${msg.sender_id}_${msg.updated_at}`;
+            
+            // Vérifier si le message n'est pas déjà dans la liste (généré par PHP)
+            const existingMessage = emailList.querySelector(`[data-message-id="${messageId}"]`);
+            if (existingMessage) return; // Déjà affiché par PHP
             
             // Créer l'élément email pour le message stocké
             const messageEmail = {
                 sender: msg.sender_username || `Utilisateur #${msg.sender_id}`,
                 subject: "Message unilatéral",
                 time: new Date(msg.updated_at).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
-                snippet: msg.message.substring(0, 50) + '...',
+                snippet: msg.message.substring(0, 50) + (msg.message.length > 50 ? '...' : ''),
                 content: `<p>${msg.message.replace(/\n/g, '<br>')}</p>`,
                 is_unilateral: true,
                 sender_id: msg.sender_id,
-                message_id: `unilateral_${msg.sender_id}`
+                message_id: messageId
             };
             
-            const emailDataJson = htmlspecialchars(JSON.stringify(messageEmail));
+            const emailDataJson = window.htmlspecialchars(JSON.stringify(messageEmail));
             const emailItem = document.createElement('li');
             emailItem.className = 'email-item read';
             emailItem.setAttribute('data-email', emailDataJson);
-            emailItem.setAttribute('data-message-id', `unilateral_${msg.sender_id}`);
+            emailItem.setAttribute('data-message-id', messageId);
             emailItem.innerHTML = `
                 <div class='email-header'>
-                    <span class='sender'>${htmlspecialchars(messageEmail.sender)}</span>
+                    <span class='sender'>${window.htmlspecialchars(messageEmail.sender)}</span>
                     <span class='time'>${messageEmail.time}</span>
                 </div>
-                <div class='subject'>${htmlspecialchars(messageEmail.subject)}</div>
-                <div class='snippet'>${htmlspecialchars(messageEmail.snippet)}</div>
+                <div class='subject'>${window.htmlspecialchars(messageEmail.subject)}</div>
+                <div class='snippet'>${window.htmlspecialchars(messageEmail.snippet)}</div>
             `;
             
-            // Ajouter en haut de la liste (après le premier élément s'il existe)
+            // Ajouter en haut de la liste
             if (emailList.firstChild) {
                 emailList.insertBefore(emailItem, emailList.firstChild);
             } else {
@@ -70,34 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 emailItem.classList.add('selected');
             });
         });
-    }
-    
-    // Fonction helper pour échapper HTML
-    function htmlspecialchars(text) {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    }
-    
-    // Fonction pour récupérer les messages stockés depuis localStorage
-    function getStoredMessages() {
-        if (typeof USER_ID === 'undefined' || !USER_ID) return [];
-        
-        const messages = [];
-        const keys = Object.keys(localStorage);
-        
-        keys.forEach(key => {
-            if (key.startsWith(`unilateral_message_${USER_ID}_`)) {
-                try {
-                    const messageData = JSON.parse(localStorage.getItem(key));
-                    messages.push(messageData);
-                } catch (e) {
-                    console.error('Erreur parsing message stocké:', e);
-                }
-            }
-        });
-        
-        return messages;
     }
     
     // Charger les messages stockés au chargement de la page
