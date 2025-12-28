@@ -248,11 +248,11 @@ class InstagramModel
         
         // Fallback si le JSON n'est pas chargé
         $responses = [
-            "C'est super !",
-            "J'adore ça !",
-            "Merci pour ton message !",
-            "C'est génial !",
-            "Parfait !"
+            "Ah oui, c'est vrai !",
+            "Haha, je vois ce que tu veux dire",
+            "C'est intéressant ça",
+            "Je note, merci pour l'info",
+            "D'accord, je comprends"
         ];
         
         return $responses[array_rand($responses)];

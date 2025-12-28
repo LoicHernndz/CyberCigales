@@ -2,16 +2,16 @@
   "melina": {
     "bot_name": "Melina",
     "default_responses": [
-      "C'est super !",
-      "J'adore ça !",
-      "Merci pour ton message !",
-      "C'est génial !",
-      "Parfait !",
-      "J'aime beaucoup !",
-      "C'est magnifique !",
-      "Excellent !",
-      "Trop cool !",
-      "J'adore !"
+      "Ah oui, c'est vrai !",
+      "Haha, je vois ce que tu veux dire",
+      "C'est intéressant ça",
+      "Je note, merci pour l'info",
+      "D'accord, je comprends",
+      "Ah bon ? Je ne savais pas",
+      "C'est noté, merci",
+      "Intéressant, je vais y réfléchir",
+      "Ok je vois",
+      "Merci pour ton message"
     ],
     "keys": [
       {
