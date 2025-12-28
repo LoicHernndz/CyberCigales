@@ -15,6 +15,93 @@ document.addEventListener('DOMContentLoaded', () => {
      * @type {HTMLElement} Le conteneur du panneau de lecture où le contenu de l'e-mail s'affiche.
      */
     const readingPane = document.getElementById('reading-pane');
+    
+    // Charger les messages stockés depuis localStorage et les ajouter à la liste
+    function loadStoredMessages() {
+        if (typeof USER_ID === 'undefined' || !USER_ID) return;
+        
+        const storedMessages = getStoredMessages();
+        const emailList = document.getElementById('email-list-container');
+        
+        if (!emailList) return;
+        
+        storedMessages.forEach(msg => {
+            // Vérifier si le message n'est pas déjà dans la liste
+            const existingMessage = emailList.querySelector(`[data-message-id="unilateral_${msg.sender_id}"]`);
+            if (existingMessage) return; // Déjà affiché
+            
+            // Créer l'élément email pour le message stocké
+            const messageEmail = {
+                sender: msg.sender_username || `Utilisateur #${msg.sender_id}`,
+                subject: "Message unilatéral",
+                time: new Date(msg.updated_at).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
+                snippet: msg.message.substring(0, 50) + '...',
+                content: `<p>${msg.message.replace(/\n/g, '<br>')}</p>`,
+                is_unilateral: true,
+                sender_id: msg.sender_id,
+                message_id: `unilateral_${msg.sender_id}`
+            };
+            
+            const emailDataJson = htmlspecialchars(JSON.stringify(messageEmail));
+            const emailItem = document.createElement('li');
+            emailItem.className = 'email-item read';
+            emailItem.setAttribute('data-email', emailDataJson);
+            emailItem.setAttribute('data-message-id', `unilateral_${msg.sender_id}`);
+            emailItem.innerHTML = `
+                <div class='email-header'>
+                    <span class='sender'>${htmlspecialchars(messageEmail.sender)}</span>
+                    <span class='time'>${messageEmail.time}</span>
+                </div>
+                <div class='subject'>${htmlspecialchars(messageEmail.subject)}</div>
+                <div class='snippet'>${htmlspecialchars(messageEmail.snippet)}</div>
+            `;
+            
+            // Ajouter en haut de la liste (après le premier élément s'il existe)
+            if (emailList.firstChild) {
+                emailList.insertBefore(emailItem, emailList.firstChild);
+            } else {
+                emailList.appendChild(emailItem);
+            }
+            
+            // Ajouter l'event listener pour le clic
+            emailItem.addEventListener('click', function() {
+                updateReadingPane(messageEmail);
+                document.querySelectorAll('.email-item').forEach(item => item.classList.remove('selected'));
+                emailItem.classList.add('selected');
+            });
+        });
+    }
+    
+    // Fonction helper pour échapper HTML
+    function htmlspecialchars(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+    
+    // Fonction pour récupérer les messages stockés depuis localStorage
+    function getStoredMessages() {
+        if (typeof USER_ID === 'undefined' || !USER_ID) return [];
+        
+        const messages = [];
+        const keys = Object.keys(localStorage);
+        
+        keys.forEach(key => {
+            if (key.startsWith(`unilateral_message_${USER_ID}_`)) {
+                try {
+                    const messageData = JSON.parse(localStorage.getItem(key));
+                    messages.push(messageData);
+                } catch (e) {
+                    console.error('Erreur parsing message stocké:', e);
+                }
+            }
+        });
+        
+        return messages;
+    }
+    
+    // Charger les messages stockés au chargement de la page
+    loadStoredMessages();
 
     /**
      * Met à jour le HTML du panneau de lecture avec les données de l'e-mail fourni.

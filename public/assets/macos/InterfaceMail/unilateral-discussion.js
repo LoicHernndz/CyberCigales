@@ -32,13 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Fermer le modal et déconnecter (supprimer la ligne de la BDD)
+    // Fermer le modal (sans supprimer de la BDD - le message reste visible)
     window.closeSendModal = function() {
-        // Si un destinataire était sélectionné, supprimer la discussion de la BDD
-        if (receiverId && receiverId > 0) {
-            disconnectDiscussion(receiverId);
-        }
-        
         sendModal.style.display = 'none';
         receiverPseudoInput.value = '';
         receiverIdInput.value = '';
@@ -235,6 +230,41 @@ document.addEventListener('DOMContentLoaded', function() {
         sendStatus.style.display = 'block';
     }
     
+    // Stocker les messages reçus dans localStorage pour les conserver même après suppression BDD
+    function saveReceivedMessage(messageData) {
+        if (!messageData || !messageData.sender_id) return;
+        
+        const storageKey = `unilateral_message_${USER_ID}_${messageData.sender_id}`;
+        const messageToStore = {
+            sender_id: messageData.sender_id,
+            sender_username: messageData.sender_username,
+            message: messageData.message,
+            updated_at: messageData.updated_at,
+            saved_at: new Date().toISOString()
+        };
+        
+        localStorage.setItem(storageKey, JSON.stringify(messageToStore));
+    }
+    
+    // Récupérer les messages stockés depuis localStorage
+    function getStoredMessages() {
+        const messages = [];
+        const keys = Object.keys(localStorage);
+        
+        keys.forEach(key => {
+            if (key.startsWith(`unilateral_message_${USER_ID}_`)) {
+                try {
+                    const messageData = JSON.parse(localStorage.getItem(key));
+                    messages.push(messageData);
+                } catch (e) {
+                    console.error('Erreur parsing message stocké:', e);
+                }
+            }
+        });
+        
+        return messages;
+    }
+    
     // Polling pour récupérer les nouveaux messages (toutes les 3 secondes)
     function fetchNewMessages() {
         if (!USER_ID) return;
@@ -249,8 +279,9 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             if (data.success && data.has_message) {
+                // Sauvegarder le message dans localStorage
+                saveReceivedMessage(data.data);
                 // Recharger la page pour afficher le nouveau message
-                // Dans une vraie app, on pourrait mettre à jour dynamiquement
                 location.reload();
             }
         })

@@ -36,7 +36,8 @@ class InterfaceMail extends AbstractController
                 "snippet" => substr($lastMessage['message'], 0, 50) . '...',
                 "content" => "<p>" . nl2br(htmlspecialchars($lastMessage['message'])) . "</p>",
                 "is_unilateral" => true,
-                "sender_id" => $lastMessage['sender_id']
+                "sender_id" => $lastMessage['sender_id'],
+                "message_id" => "unilateral_" . $lastMessage['sender_id'] // ID unique pour localStorage
             ];
             array_unshift($emails, $messageEmail); // Ajouter en premier
         }
