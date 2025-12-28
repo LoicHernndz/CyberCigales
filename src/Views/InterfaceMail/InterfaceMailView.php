@@ -34,10 +34,11 @@ class InterfaceMailView {
      * Cette méthode appelle la logique de rendu principale.
      *
      * @param array $emails Tableau associatif contenant les données des emails.
+     * @param int|null $userId ID de l'utilisateur connecté
      * @return void
      */
-    function render(array $emails = []){
-        $this->renderBody($emails);
+    function render(array $emails = [], ?int $userId = null){
+        $this->renderBody($emails, $userId);
     }
 
     /**
@@ -47,9 +48,10 @@ class InterfaceMailView {
      * par le HTML généré dynamiquement.
      *
      * @param array $emails Liste des emails à afficher.
+     * @param int|null $userId ID de l'utilisateur connecté
      * @return void
      */
-    function renderBody(array $emails = []): void
+    function renderBody(array $emails = [], ?int $userId = null): void
     {
         $templatePath = $this->templatePath();
 
@@ -65,6 +67,9 @@ class InterfaceMailView {
             // Déterminer quel e-mail afficher par défaut dans le panneau de lecture
             $defaultEmailContent = $emails[0] ?? null;
             $template = str_replace('{{ READING_PANE_CONTENT }}', $this->generateReadingPaneHTML($defaultEmailContent), $template);
+            
+            // Ajouter le userId pour le JavaScript
+            $template = str_replace('{{ USER_ID }}', $userId ?? 'null', $template);
 
             echo $template;
         } else {
