@@ -9,11 +9,18 @@ class MelinaChat extends AbstractController
 {
     /**
      * Affiche la page du chat avec Melina
-     * Les messages sont chargés via AJAX par le JavaScript avec le bon conversationId
+     * Les messages sont stockés en session PHP (pas de persistance en BDD)
      */
     function getMethod(){
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
+        }
+        
+        // Initialiser la session de chat si elle n'existe pas
+        if (!isset($_SESSION['melina_chat_messages'])) {
+            $model = new InstagramModel();
+            $_SESSION['melina_chat_messages'] = $model->getDefaultMessages();
+            $_SESSION['melina_chat_found_keys'] = [];
         }
         
         $view = new MelinaChatView();
@@ -27,7 +34,6 @@ class MelinaChat extends AbstractController
         $view->addTemplateKey('MELINA_AVATAR', $melinaInfo['avatar']);
         $view->addTemplateKey('MELINA_DISPLAY_NAME', $melinaInfo['display_name']);
         $view->addTemplateKey('MELINA_STATUS', $melinaInfo['status']);
-        // Les messages seront chargés via AJAX par le JavaScript
         $view->addTemplateKey('MESSAGES', '');
         
         $view->render();
@@ -35,11 +41,18 @@ class MelinaChat extends AbstractController
     
     /**
      * Gère l'envoi de messages et le chargement des messages existants
-     * Reçoit les requêtes AJAX du JavaScript
+     * Utilise la session PHP pour stocker les messages (pas de BDD)
      */
     function postMethod(){
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
+        }
+        
+        // Initialiser la session de chat si elle n'existe pas
+        if (!isset($_SESSION['melina_chat_messages'])) {
+            $model = new InstagramModel();
+            $_SESSION['melina_chat_messages'] = $model->getDefaultMessages();
+            $_SESSION['melina_chat_found_keys'] = [];
         }
         
         // Vérifier si c'est une requête AJAX
@@ -49,27 +62,12 @@ class MelinaChat extends AbstractController
         $model = new InstagramModel();
         $response = ['success' => false, 'message' => ''];
         
-        // Récupérer l'ID de conversation depuis POST (obligatoire)
-        $conversationId = $_POST['conv_id'] ?? '';
-        
-        if (empty($conversationId)) {
-            $response['message'] = 'ID de conversation manquant';
-            if ($isAjax) {
-                header('Content-Type: application/json');
-                echo json_encode($response);
-                return;
-            }
-            header('Location: /instagram/melina/chat');
-            exit;
-        }
-        
         // Vérifier si c'est une demande de chargement des messages
         $action = $_POST['action'] ?? $_GET['action'] ?? '';
         if ($action === 'load') {
-            $messages = $model->getMelinaChatMessages($conversationId);
             $response = [
                 'success' => true,
-                'messages' => $messages
+                'messages' => $_SESSION['melina_chat_messages'] ?? []
             ];
             header('Content-Type: application/json');
             echo json_encode($response);
@@ -86,45 +84,47 @@ class MelinaChat extends AbstractController
                 echo json_encode($response);
                 return;
             }
+            header('Location: /instagram/melina/chat');
+            exit;
         }
         
-        // Sauvegarder le message de l'utilisateur pour cette conversation
-        $saved = $model->saveMessage('sent', $messageContent, $conversationId);
+        // Ajouter le message de l'utilisateur à la session
+        $userMessage = [
+            'type' => 'sent',
+            'content' => $messageContent,
+            'time' => date('H:i')
+        ];
+        $_SESSION['melina_chat_messages'][] = $userMessage;
         
-        if ($saved) {
-            // Générer une réponse automatique de Melina
-            $responses = [
-                "C'est super ! 😊",
-                "J'adore ça ! ✨",
-                "Merci pour ton message ! 💕",
-                "C'est génial ! 🎉",
-                "Parfait ! 👍",
-                "J'aime beaucoup ! 💖",
-                "C'est magnifique ! 🌟",
-                "Excellent ! 👏",
-                "Trop cool ! 🔥",
-                "J'adore ! 😍"
-            ];
-            $melinaResponse = $responses[array_rand($responses)];
-            
-            // Sauvegarder la réponse de Melina pour cette conversation
-            $model->saveMessage('received', $melinaResponse, $conversationId);
-            
-            // Retourner l'ID de conversation et les messages dans la réponse
-            $response['conv_id'] = $conversationId;
-            $response['success'] = true;
-            $response['userMessage'] = [
-                'type' => 'sent',
-                'content' => $messageContent,
-                'time' => date('H:i')
-            ];
-            $response['melinaMessage'] = [
-                'type' => 'received',
-                'content' => $melinaResponse,
-                'time' => date('H:i')
-            ];
+        // Vérifier si le message contient une clé
+        $foundKeys = $_SESSION['melina_chat_found_keys'] ?? [];
+        $keyResult = $model->checkMessageForKeys($messageContent, $foundKeys);
+        
+        if ($keyResult) {
+            // Clé trouvée ! Réponse spéciale
+            $melinaResponse = $keyResult['response'];
+            // Marquer la clé comme trouvée
+            $_SESSION['melina_chat_found_keys'][] = $keyResult['key'];
         } else {
-            $response['message'] = 'Erreur lors de la sauvegarde du message';
+            // Pas de clé, réponse par défaut
+            $melinaResponse = $model->getDefaultResponse();
+        }
+        
+        // Ajouter la réponse de Melina à la session
+        $melinaMessage = [
+            'type' => 'received',
+            'content' => $melinaResponse,
+            'time' => date('H:i')
+        ];
+        $_SESSION['melina_chat_messages'][] = $melinaMessage;
+        
+        // Préparer la réponse JSON
+        $response['success'] = true;
+        $response['userMessage'] = $userMessage;
+        $response['melinaMessage'] = $melinaMessage;
+        if ($keyResult) {
+            $response['keyFound'] = true;
+            $response['foundMessage'] = $keyResult['found_message'];
         }
         
         if ($isAjax) {

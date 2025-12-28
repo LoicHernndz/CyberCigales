@@ -1,18 +1,10 @@
 /**
  * JavaScript pour le chat avec Melina
- * Gestion complète de l'ID de conversation côté client
+ * Les messages sont sauvegardés dans localStorage pour persister après fermeture
  */
 
-// Générer ou récupérer l'ID de conversation unique (32 caractères hexadécimaux)
-// Cet ID est unique par navigateur et persiste dans localStorage
-let conversationId = localStorage.getItem('instagram_conv_id');
-
-if (!conversationId || conversationId.length !== 32) {
-    conversationId = Array.from(crypto.getRandomValues(new Uint8Array(16)))
-        .map(b => b.toString(16).padStart(2, '0'))
-        .join('');
-    localStorage.setItem('instagram_conv_id', conversationId);
-}
+// Clé pour localStorage
+const STORAGE_KEY = 'melina_chat_messages';
 
 // Attendre que le DOM soit chargé
 document.addEventListener('DOMContentLoaded', function() {
@@ -52,12 +44,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // Vérifier que conversationId est valide
-        if (!conversationId || conversationId.length !== 32) {
-            console.error('ID de conversation invalide:', conversationId);
-            return;
-        }
-        
         // Vider le champ de saisie immédiatement
         messageInput.value = '';
         
@@ -68,7 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Envoyer le message au serveur via AJAX
         const formData = new FormData();
         formData.append('message', message);
-        formData.append('conv_id', conversationId);
         
         fetch(window.location.pathname, {
             method: 'POST',
@@ -87,14 +72,64 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.success) {
                 // Le message utilisateur est déjà affiché, on ajoute juste la réponse de Melina
                 if (data.melinaMessage) {
-                    addMelinaMessage(data.melinaMessage.content);
+                    // Utiliser l'heure du serveur si disponible
+                    const melinaTime = data.melinaMessage.time || undefined;
+                    const messageHtml = createMessageHtml(data.melinaMessage.content, 'received', melinaTime);
+                    messagesContainer.insertAdjacentHTML('beforeend', messageHtml);
+                    saveMessagesToStorage();
                     scrollToBottom();
+                    
+                    // Si une clé a été trouvée, afficher un message spécial
+                    if (data.keyFound && data.foundMessage) {
+                        // Notification visuelle que la clé a été trouvée
+                        console.log('🎉 Clé trouvée:', data.foundMessage);
+                    }
                 }
-                }
+            }
         })
         .catch(function(error) {
             // Erreur silencieuse
         });
+    }
+    
+    /**
+     * Sauvegarde les messages dans localStorage
+     */
+    function saveMessagesToStorage() {
+        const messages = [];
+        const messageElements = messagesContainer.querySelectorAll('.message');
+        
+        messageElements.forEach(function(msgEl) {
+            const contentEl = msgEl.querySelector('p');
+            const timeEl = msgEl.querySelector('.time');
+            const type = msgEl.classList.contains('sent') ? 'sent' : 'received';
+            
+            if (contentEl) {
+                messages.push({
+                    type: type,
+                    content: contentEl.textContent.trim(),
+                    time: timeEl ? timeEl.textContent.trim() : new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
+                });
+            }
+        });
+        
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+    }
+    
+    /**
+     * Charge les messages depuis localStorage
+     */
+    function loadMessagesFromStorage() {
+        try {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            if (stored) {
+                const messages = JSON.parse(stored);
+                return messages;
+            }
+        } catch (e) {
+            console.error('Erreur lors du chargement depuis localStorage:', e);
+        }
+        return null;
     }
     
     /**
@@ -103,6 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function addUserMessage(message) {
         const messageHtml = createMessageHtml(message, 'sent');
         messagesContainer.insertAdjacentHTML('beforeend', messageHtml);
+        saveMessagesToStorage();
     }
     
     /**
@@ -111,16 +147,22 @@ document.addEventListener('DOMContentLoaded', function() {
     function addMelinaMessage(message) {
         const messageHtml = createMessageHtml(message, 'received');
         messagesContainer.insertAdjacentHTML('beforeend', messageHtml);
+        saveMessagesToStorage();
     }
     
     /**
      * Crée le HTML pour un message
+     * @param {string} content - Contenu du message
+     * @param {string} type - Type de message ('sent' ou 'received')
+     * @param {string} [time] - Heure du message (optionnel, utilise l'heure actuelle si non fournie)
      */
-    function createMessageHtml(content, type) {
-        const time = new Date().toLocaleTimeString('fr-FR', {
-            hour: '2-digit', 
-            minute: '2-digit'
-        });
+    function createMessageHtml(content, type, time) {
+        if (!time) {
+            time = new Date().toLocaleTimeString('fr-FR', {
+                hour: '2-digit', 
+                minute: '2-digit'
+            });
+        }
         
         return `
             <div class="message ${type}">
@@ -148,15 +190,30 @@ document.addEventListener('DOMContentLoaded', function() {
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
     
-    // Charger les messages existants au chargement de la page
-    loadMessages();
-    
     /**
-     * Charge les messages existants depuis le serveur
+     * Charge les messages existants (priorité à localStorage, puis synchronisation avec le serveur)
      */
     function loadMessages() {
+        // D'abord, charger depuis localStorage pour affichage immédiat
+        const storedMessages = loadMessagesFromStorage();
+        
+        if (storedMessages && storedMessages.length > 0) {
+            // Vider le conteneur de messages
+            messagesContainer.innerHTML = '';
+            
+            // Ajouter tous les messages depuis localStorage
+            storedMessages.forEach(function(msg) {
+                const messageHtml = createMessageHtml(msg.content, msg.type, msg.time);
+                messagesContainer.insertAdjacentHTML('beforeend', messageHtml);
+            });
+            
+            // Sauvegarder après chargement (pour s'assurer que c'est à jour)
+            saveMessagesToStorage();
+            scrollToBottom();
+        }
+        
+        // Ensuite, synchroniser avec le serveur (session PHP)
         const formData = new FormData();
-        formData.append('conv_id', conversationId);
         formData.append('action', 'load');
         
         fetch(window.location.pathname + '?action=load', {
@@ -173,26 +230,39 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(function(data) {
-            if (data.success && data.messages) {
-                // Vider le conteneur de messages
-                messagesContainer.innerHTML = '';
-                
-                // Ajouter tous les messages
-                data.messages.forEach(function(msg) {
-                    if (msg.type === 'sent') {
-                        addUserMessage(msg.content);
-                    } else {
-                        addMelinaMessage(msg.content);
-                    }
-                });
-                
-                scrollToBottom();
+            if (data.success && data.messages && data.messages.length > 0) {
+                // Si le serveur a plus de messages que localStorage, mettre à jour
+                const storedMessages = loadMessagesFromStorage() || [];
+                if (data.messages.length > storedMessages.length) {
+                    // Vider le conteneur
+                    messagesContainer.innerHTML = '';
+                    
+                    // Ajouter tous les messages du serveur
+                    data.messages.forEach(function(msg) {
+                        const messageHtml = createMessageHtml(msg.content, msg.type, msg.time);
+                        messagesContainer.insertAdjacentHTML('beforeend', messageHtml);
+                    });
+                    
+                    // Sauvegarder dans localStorage
+                    saveMessagesToStorage();
+                    scrollToBottom();
+                } else {
+                    // Si le serveur a les mêmes messages, s'assurer que localStorage est à jour
+                    saveMessagesToStorage();
+                }
+            } else if (data.success && data.messages && data.messages.length === 0 && storedMessages && storedMessages.length > 0) {
+                // Si le serveur n'a pas de messages mais localStorage oui, garder localStorage
+                // (cas où la session PHP a expiré mais localStorage a encore les messages)
+                // Ne rien faire, on garde les messages de localStorage
             }
         })
         .catch(function(error) {
-            console.error('Erreur lors du chargement des messages:', error);
+            console.error('Erreur lors de la synchronisation avec le serveur:', error);
+            // En cas d'erreur, on garde les messages de localStorage
         });
     }
     
+    // Charger les messages au chargement de la page
+    loadMessages();
     scrollToBottom();
 });

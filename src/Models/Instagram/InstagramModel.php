@@ -1,22 +1,17 @@
 <?php
 namespace Models\Instagram;
 
-use config\Database;
-
 /**
  * Modèle pour les données Instagram
  * 
  * Ce modèle gère toutes les données statiques et dynamiques
  * pour les pages Instagram (stories, posts, profils, etc.)
+ * 
+ * Le système de chat utilise maintenant un fichier JSON de configuration
+ * avec des clés/énigmes, sans persistance en base de données.
  */
 class InstagramModel
 {
-    private $db;
-    
-    public function __construct()
-    {
-        $this->db = new Database();
-    }
     /**
      * Récupère les données des stories
      * 
@@ -183,95 +178,88 @@ class InstagramModel
     }
     
     /**
-     * Récupère les messages du chat avec Melina depuis la base de données
+     * Charge la configuration des clés depuis le fichier JSON
      * 
-     * @param string $sessionId ID de la conversation (conversationId généré par JavaScript)
-     * @return array Messages du chat triés par date de création
+     * @param string $botName Nom du bot (ex: 'melina')
+     * @return array|null Configuration du bot ou null si erreur
      */
-    public function getMelinaChatMessages(string $sessionId = ''): array
+    private function loadChatKeys(string $botName = 'melina'): ?array
     {
-        try {
-            // Si pas d'ID de conversation, retourner les messages par défaut
-            if (empty($sessionId)) {
-                return $this->getDefaultMessages();
-            }
-            
-            // Récupérer les messages de cette conversation uniquement, triés par date
-            $this->db->query('SELECT type, content, created_at FROM instagram_messages WHERE session_id = :session_id ORDER BY created_at ASC');
-            $this->db->bind(':session_id', $sessionId);
-            $results = $this->db->resultSet();
-            
-            $messages = [];
-            foreach ($results as $row) {
-                $messages[] = [
-                    'type' => $row->type,
-                    'content' => $row->content,
-                    'time' => date('H:i', strtotime($row->created_at))
-                ];
-            }
-            
-            // Si aucun message pour cette conversation, initialiser avec les messages par défaut
-            if (empty($messages)) {
-                $this->initializeDefaultMessages($sessionId);
-                return $this->getMelinaChatMessages($sessionId);
-            }
-            
-            return $messages;
-        } catch (\Exception $e) {
-            // En cas d'erreur, retourner les messages par défaut
-            return $this->getDefaultMessages();
+        $configPath = __DIR__ . '/../../config/chat_keys.json';
+        
+        if (!file_exists($configPath)) {
+            return null;
         }
+        
+        $jsonContent = file_get_contents($configPath);
+        $config = json_decode($jsonContent, true);
+        
+        return $config[$botName] ?? null;
     }
     
     /**
-     * Sauvegarde un nouveau message dans la base de données
+     * Vérifie si le message contient une clé et retourne la réponse appropriée
      * 
-     * @param string $type Type de message ('sent' ou 'received')
-     * @param string $content Contenu du message
-     * @param string $sessionId ID de la conversation (conversationId généré par JavaScript)
-     * @return bool True si la sauvegarde a réussi, false sinon
+     * @param string $message Message de l'utilisateur
+     * @param array $foundKeys Tableau des clés déjà trouvées (pour éviter les doublons)
+     * @return array|null ['key' => string, 'response' => string, 'found_message' => string] ou null si aucune clé trouvée
      */
-    public function saveMessage(string $type, string $content, string $sessionId = ''): bool
+    public function checkMessageForKeys(string $message, array $foundKeys = []): ?array
     {
-        try {
-            // Vérifier que l'ID de conversation est fourni (obligatoire)
-            if (empty($sessionId)) {
-                return false;
-            }
-            
-            // Insérer le message dans la base de données
-            $this->db->query('INSERT INTO instagram_messages (session_id, type, content, created_at) VALUES (:session_id, :type, :content, NOW())');
-            $this->db->bind(':session_id', $sessionId);
-            $this->db->bind(':type', $type);
-            $this->db->bind(':content', $content);
-            
-            return $this->db->execute();
-        } catch (\Exception $e) {
-            return false;
+        $config = $this->loadChatKeys('melina');
+        
+        if (!$config || !isset($config['keys'])) {
+            return null;
         }
+        
+        $messageUpper = strtoupper(trim($message));
+        
+        foreach ($config['keys'] as $keyConfig) {
+            $key = strtoupper(trim($keyConfig['key']));
+            
+            // Vérifier si la clé est dans le message (insensible à la casse)
+            if (strpos($messageUpper, $key) !== false) {
+                // Vérifier si cette clé a déjà été trouvée
+                if (!in_array($key, $foundKeys)) {
+                    return [
+                        'key' => $key,
+                        'response' => $keyConfig['response'],
+                        'found_message' => $keyConfig['found_message'] ?? ''
+                    ];
+                }
+            }
+        }
+        
+        return null;
     }
     
     /**
-     * Initialise les messages par défaut dans la base de données pour une session
+     * Retourne une réponse par défaut aléatoire
      * 
-     * @param string $sessionId ID de la session PHP
+     * @return string Réponse par défaut
      */
-    private function initializeDefaultMessages(string $sessionId): void
+    public function getDefaultResponse(): string
     {
-        $defaultMessages = [
-            ['type' => 'received', 'content' => 'Salut ! Comment ça va ? 😊'],
-            ['type' => 'sent', 'content' => 'Salut Melina ! Ça va super, merci !'],
-            ['type' => 'received', 'content' => 'J\'ai vu tes nouvelles photos, elles sont magnifiques ! 📸'],
-            ['type' => 'sent', 'content' => 'Merci beaucoup ! J\'adore la photographie ✨']
+        $config = $this->loadChatKeys('melina');
+        
+        if ($config && isset($config['default_responses']) && !empty($config['default_responses'])) {
+            return $config['default_responses'][array_rand($config['default_responses'])];
+        }
+        
+        // Fallback si le JSON n'est pas chargé
+        $responses = [
+            "C'est super !",
+            "J'adore ça !",
+            "Merci pour ton message !",
+            "C'est génial !",
+            "Parfait !"
         ];
         
-        foreach ($defaultMessages as $message) {
-            $this->saveMessage($message['type'], $message['content'], $sessionId);
-        }
+        return $responses[array_rand($responses)];
     }
     
     /**
-     * Retourne les messages par défaut (fallback en cas d'erreur)
+     * Retourne les messages par défaut pour l'initialisation du chat
      * 
      * @return array Messages par défaut
      */
@@ -280,7 +268,7 @@ class InstagramModel
         return [
             [
                 'type' => 'received',
-                'content' => 'Salut ! Comment ça va ? 😊',
+                'content' => 'Salut ! Comment ça va ?',
                 'time' => '14:30'
             ],
             [
@@ -290,12 +278,12 @@ class InstagramModel
             ],
             [
                 'type' => 'received',
-                'content' => 'J\'ai vu tes nouvelles photos, elles sont magnifiques ! 📸',
+                'content' => 'J\'ai vu tes nouvelles photos, elles sont magnifiques !',
                 'time' => '14:35'
             ],
             [
                 'type' => 'sent',
-                'content' => 'Merci beaucoup ! J\'adore la photographie ✨',
+                'content' => 'Merci beaucoup ! J\'adore la photographie',
                 'time' => '14:37'
             ]
         ];

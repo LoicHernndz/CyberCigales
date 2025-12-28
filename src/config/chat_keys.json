@@ -1,0 +1,35 @@
+{
+  "melina": {
+    "bot_name": "Melina",
+    "default_responses": [
+      "C'est super !",
+      "J'adore ça !",
+      "Merci pour ton message !",
+      "C'est génial !",
+      "Parfait !",
+      "J'aime beaucoup !",
+      "C'est magnifique !",
+      "Excellent !",
+      "Trop cool !",
+      "J'adore !"
+    ],
+    "keys": [
+      {
+        "key": "MARSEILLE13",
+        "response": "Ah oui ! Tu as trouvé ! C'est bien ça, je suis de Marseille 13 ! Tu es vraiment observateur",
+        "found_message": "Bravo ! Tu as débloqué une information importante sur Melina."
+      },
+      {
+        "key": "cybercigales",
+        "response": "Exactement ! Tu connais notre projet ? C'est génial !",
+        "found_message": "Tu as découvert le lien avec CyberCigales !"
+      },
+      {
+        "key": "MARIAGE",
+        "response": "Clé trouvée ! Tu as découvert quelque chose d'important... Le mariage de Melina est prévu pour le mois prochain ! C'est un secret qu'elle gardait précieusement",
+        "found_message": "Information débloquée : Melina se marie bientôt !"
+      }
+    ]
+  }
+}
+
