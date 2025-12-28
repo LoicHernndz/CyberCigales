@@ -141,43 +141,56 @@ class UserStats
      */
     private function getRgpdStats(int $userId): array
     {
-        // Nombre de questions répondues
-        $this->db->query('SELECT 
-            COUNT(*) as questions_answered,
-            SUM(CASE WHEN est_correcte = 1 THEN 1 ELSE 0 END) as correct_answers,
-            COALESCE(SUM(points_obtenus), 0) as rgpd_score,
-            MAX(answered_at) as last_attempt
-        FROM user_qcm_progress 
-        WHERE user_id = :user_id');
-        
-        $this->db->bind(':user_id', $userId);
-        $stats = $this->db->single();
-        
-        // Nombre total de questions disponibles
-        $this->db->query('SELECT COUNT(*) as total_questions FROM qcm_questions WHERE est_active = 1');
-        $totalQuestions = $this->db->single();
-        
-        $questionsAnswered = (int)($stats->questions_answered ?? 0);
-        $correctAnswers = (int)($stats->correct_answers ?? 0);
-        $totalQuestionsCount = (int)($totalQuestions->total_questions ?? 0);
-        
-        $completion = $totalQuestionsCount > 0 
-            ? round(($questionsAnswered / $totalQuestionsCount) * 100) 
-            : 0;
-        
-        $accuracy = $questionsAnswered > 0 
-            ? round(($correctAnswers / $questionsAnswered) * 100) 
-            : 0;
-        
-        return [
-            'questions_answered' => $questionsAnswered,
-            'correct_answers' => $correctAnswers,
-            'total_questions' => $totalQuestionsCount,
-            'score' => (int)($stats->rgpd_score ?? 0),
-            'completion' => $completion,
-            'accuracy' => $accuracy,
-            'last_attempt' => $stats->last_attempt ?? null
-        ];
+        try {
+            // Nombre de questions répondues
+            $this->db->query('SELECT 
+                COUNT(*) as questions_answered,
+                SUM(CASE WHEN est_correcte = 1 THEN 1 ELSE 0 END) as correct_answers,
+                COALESCE(SUM(points_obtenus), 0) as rgpd_score,
+                MAX(answered_at) as last_attempt
+            FROM user_qcm_progress 
+            WHERE user_id = :user_id');
+            
+            $this->db->bind(':user_id', $userId);
+            $stats = $this->db->single();
+            
+            // Nombre total de questions disponibles
+            $this->db->query('SELECT COUNT(*) as total_questions FROM qcm_questions WHERE est_active = 1');
+            $totalQuestions = $this->db->single();
+            
+            $questionsAnswered = (int)($stats->questions_answered ?? 0);
+            $correctAnswers = (int)($stats->correct_answers ?? 0);
+            $totalQuestionsCount = (int)($totalQuestions->total_questions ?? 0);
+            
+            $completion = $totalQuestionsCount > 0 
+                ? round(($questionsAnswered / $totalQuestionsCount) * 100) 
+                : 0;
+            
+            $accuracy = $questionsAnswered > 0 
+                ? round(($correctAnswers / $questionsAnswered) * 100) 
+                : 0;
+            
+            return [
+                'questions_answered' => $questionsAnswered,
+                'correct_answers' => $correctAnswers,
+                'total_questions' => $totalQuestionsCount,
+                'score' => (int)($stats->rgpd_score ?? 0),
+                'completion' => $completion,
+                'accuracy' => $accuracy,
+                'last_attempt' => $stats->last_attempt ?? null
+            ];
+        } catch (\Exception $e) {
+            // Table user_qcm_progress n'existe pas
+            return [
+                'questions_answered' => 0,
+                'correct_answers' => 0,
+                'total_questions' => 0,
+                'score' => 0,
+                'completion' => 0,
+                'accuracy' => 0,
+                'last_attempt' => null
+            ];
+        }
     }
 
     /**
@@ -333,10 +346,11 @@ class UserStats
         try {
             $this->db->query('SELECT COUNT(*) as count FROM user_qcm_progress WHERE user_id = :user_id');
             $this->db->bind(':user_id', $userId);
-            $rgpdCount = $this->db->single()->count ?? 0;
+            $result = $this->db->single();
+            $rgpdCount = $result->count ?? 0;
             $totalMinutes += $rgpdCount * 2;
         } catch (\Exception $e) {
-            // Table n'existe pas
+            // Table n'existe pas, ignorer
         }
         
         // Temps Cypher Rush (en secondes dans la BDD)

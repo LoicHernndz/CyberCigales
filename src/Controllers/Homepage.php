@@ -22,13 +22,20 @@ class Homepage extends AbstractController
             $userStats = new UserStats();
             $stats = $userStats->getUserStats($userId);
             
-            // Récupération de la progression dans le QCM RGPD
-            $qcmProgress = new UserQcmProgress();
-            $rgpdCompletion = 0;
-            $totalAnswers = $qcmProgress->countTotalAnswers($userId);
-            
-            if ($totalAnswers > 0) {
-                $this->updateUserStatsInView($view, $stats, $qcmProgress, $userId, $userStats);
+            // Récupération de la progression dans le QCM RGPD (si la table existe)
+            try {
+                $qcmProgress = new UserQcmProgress();
+                $totalAnswers = $qcmProgress->countTotalAnswers($userId);
+                
+                if ($totalAnswers > 0) {
+                    $this->updateUserStatsInView($view, $stats, $qcmProgress, $userId, $userStats);
+                } else {
+                    // Mettre à jour avec des valeurs par défaut même si pas de réponses
+                    $this->updateUserStatsInView($view, $stats, null, $userId, $userStats);
+                }
+            } catch (\Exception $e) {
+                // Table user_qcm_progress n'existe pas, mettre à jour avec des valeurs par défaut
+                $this->updateUserStatsInView($view, $stats, null, $userId, $userStats);
             }
         }
         
