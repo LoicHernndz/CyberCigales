@@ -29,6 +29,9 @@ class InterfaceMail extends AbstractController
         // 3. Ajouter le message reçu aux emails si présent
         if ($lastMessage) {
             $senderUsername = $discussionModel->getUsername($lastMessage['sender_id']);
+            // ID unique basé sur sender_id + timestamp pour éviter les doublons
+            $messageId = "unilateral_" . $lastMessage['sender_id'] . "_" . str_replace([' ', ':'], ['_', '-'], $lastMessage['updated_at']);
+            
             $messageEmail = [
                 "sender" => $senderUsername ?? "Utilisateur #" . $lastMessage['sender_id'],
                 "subject" => "Message unilatéral",
@@ -37,7 +40,8 @@ class InterfaceMail extends AbstractController
                 "content" => "<p>" . nl2br(htmlspecialchars($lastMessage['message'])) . "</p>",
                 "is_unilateral" => true,
                 "sender_id" => $lastMessage['sender_id'],
-                "message_id" => "unilateral_" . $lastMessage['sender_id'] // ID unique pour localStorage
+                "message_id" => $messageId,
+                "updated_at" => $lastMessage['updated_at'] // Pour le matching avec localStorage
             ];
             array_unshift($emails, $messageEmail); // Ajouter en premier
         }

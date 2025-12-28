@@ -101,8 +101,11 @@ class InterfaceMailView {
             // Encodage JSON des données pour que le JS puisse les récupérer lors du clic
             $emailDataJson = htmlspecialchars(json_encode($email), ENT_QUOTES, 'UTF-8');
 
+            // Ajouter l'attribut data-message-id si présent pour éviter les doublons
+            $messageIdAttr = isset($email['message_id']) ? " data-message-id='{$email['message_id']}'" : '';
+            
             $html .= "
-                <li class='email-item $isSelected $isRead' data-email='{$emailDataJson}'>
+                <li class='email-item $isSelected $isRead' data-email='{$emailDataJson}'{$messageIdAttr}>
                     <div class='email-header'>
                         <span class='sender'>{$email['sender']}</span>
                         <span class='time'>{$email['time']}</span>
