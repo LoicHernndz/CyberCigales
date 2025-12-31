@@ -109,21 +109,27 @@
                     autocomplete="new-password">
             </div>
 
-            <img src="/captcha" alt="Code Captcha">
-
             <div class="form-group">
-                <label for="captcha_input">
-                    <span class="material-icons"></span>
-                    Captcha
+                <label for="captcha_code">
+                    <span class="material-icons">security</span>
+                    Copiez le code de sécurité
                 </label>
+                <div class="captcha-container">
+                    <a href="/user/signup" aria-label="Rafraîchir le code">
+                        <img src="/captcha?ts={{CAPTCHA_TS}}" alt="Captcha" class="captcha-img" />
+                    </a>
+                    <a class="btn-captcha-refresh" href="/user/signup" aria-label="Rafraîchir le code">
+                        <span class="material-icons">refresh</span>
+                    </a>
+                </div>
                 <input
-                        type="text"
-                        name="captcha_input"
-                        id="captcha_input"
-                        placeholder="Recopier le code de l'image"
-                        required
-                        minlength="8"
-                        autocomplete="captcha_input">
+                    type="text"
+                    name="captcha_code"
+                    id="captcha_code"
+                    placeholder="Recopiez le code affiché"
+                    required
+                    autocomplete="off"
+                    inputmode="latin">
             </div>
 
             <div class="form-checkbox">

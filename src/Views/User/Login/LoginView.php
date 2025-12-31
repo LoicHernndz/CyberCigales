@@ -21,7 +21,8 @@ class LoginView extends AbstractView {
     public function templateKeys() : array {
         return [
             // Message flash stocké dans la session (ex: "Mauvais mot de passe", "Connexion réussie", etc.)
-            self::FLASH_KEY => flash('login')
+            self::FLASH_KEY => flash('login'),
+            'CAPTCHA_TS' => (string) time()
         ];
     }
 }
