@@ -1,0 +1,58 @@
+<div class="frequency-game-container">
+    <header class="game-header">
+        <div class="header-content">
+            <div class="logo-section">
+                <span class="logo-icon">📊</span>
+                <h1 class="game-title">ANALYSE FRÉQUENTIELLE</h1>
+            </div>
+            <div class="player-info">
+                <span class="player-name">👤 {{USERNAME_KEY}}</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="game-area">
+        <div class="start-screen" id="start-screen">
+            <div class="mission-brief">
+                <h2>🎯 MISSION : CASSER LE CODE DE SUBSTITUTION</h2>
+                <p>Le message a été chiffré avec une substitution monoalphabétique aléatoire.</p>
+                <p>Utilisez l'analyse fréquentielle pour retrouver le message original.</p>
+                <p><strong>Indice :</strong> En français, la lettre 'E' est la plus fréquente (~15-17%).</p>
+                <button class="btn-primary" id="btn-start-game">🚀 LANCER L'ANALYSE</button>
+            </div>
+        </div>
+
+        <div class="play-screen" id="play-screen" style="display: none;">
+            
+            <div class="main-workspace">
+                <!-- Zone du texte chiffré et déchiffré -->
+                <div class="text-panel">
+                    <h3>📜 Message Chiffré</h3>
+                    <div id="cipher-text-container" class="text-container"></div>
+                    
+                    <h3>🔓 Votre Déchiffrement</h3>
+                    <div id="plain-text-preview" class="text-container preview"></div>
+                </div>
+
+                <!-- Zone des outils -->
+                <div class="tools-panel">
+                    <h3>🛠️ Tableau de Substitution</h3>
+                    <div class="substitution-grid" id="substitution-grid">
+                        <!-- Will be populated by JS -->
+                    </div>
+                    
+                    <h3>📊 Fréquences (Cipher vs French)</h3>
+                    <div class="frequency-chart" id="frequency-chart">
+                        <!-- Canvas or DOM-based chart -->
+                    </div>
+                    
+                    <div class="actions">
+                        <button class="btn-secondary" id="btn-reset">Réinitialiser</button>
+                        <button class="btn-primary" id="btn-check">✅ Valider</button>
+                    </div>
+                     <div id="feedback-message" class="feedback"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

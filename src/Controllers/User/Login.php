@@ -42,12 +42,23 @@ class Login extends AbstractController
         // Je récupère et nettoie les données du formulaire de connexion
         $data = [
             'name/email' => trim($_POST['name/email']), // Pseudo ou email
-            'password' => trim($_POST['password']) // Mot de passe
+            'password' => trim($_POST['password']), // Mot de passe
+            'captcha_code' => isset($_POST['captcha_code']) ? trim($_POST['captcha_code']) : ''
         ];
 
         // Validation des inputs - je vérifie que tous les champs sont remplis
-        if(empty($data['name/email']) || empty($data['password'])) {
+        if(empty($data['name/email']) || empty($data['password']) || empty($data['captcha_code'])) {
             flash('login', "Veuillez remplir tous les champs");
+            $view = new LoginView();
+            $view->render();
+            exit();
+        }
+
+        // Validation Captcha
+        if (!isset($_SESSION)) { session_start(); }
+        $sessionCaptcha = isset($_SESSION['captcha']) ? $_SESSION['captcha'] : '';
+        if (empty($sessionCaptcha) || strcasecmp($data['captcha_code'], $sessionCaptcha) !== 0) {
+            flash('login', "Captcha invalide. Cliquez sur l'image pour le régénérer et réessayez.");
             $view = new LoginView();
             $view->render();
             exit();

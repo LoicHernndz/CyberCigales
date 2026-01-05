@@ -102,6 +102,10 @@ abstract class AbstractView {
                         <span class="material-icons">school</span>
                         <span>Formations</span>
                     </a>
+                    <a href="/minigames" class="nav-link">
+                        <span class="material-icons">games</span>
+                        <span>Mini jeux</span>
+                    </a>
                     <a href="/user/profil" class="nav-link">
                         <span class="material-icons">person</span>
                         <span>Profil</span>

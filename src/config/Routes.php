@@ -19,7 +19,11 @@ class Routes
         '/user/logout' => 'Controllers\User\Logout',
         '/user/profil' => 'Controllers\User\Profil',
 
+        '/captcha' => 'Controllers\Captcha',
+
         '/cypher-rush' => 'Controllers\Game\CypherRush',
+        '/game/frequency' => 'Controllers\Game\FrequencyGame',
+        '/game/phishing' => 'Controllers\Game\PhishingGame',
 
         '/qcm/rgpd/resultat' => 'Controllers\Qcm\QcmResultat',
         '/qcm/rgpd/feedback' => 'Controllers\Qcm\QcmFeedback',
@@ -45,7 +49,6 @@ class Routes
 
         '/email' => 'Controllers\InterfaceMail\InterfaceMail',
         '/agenda' => 'Controllers\InterfaceAgenda\InterfaceAgenda',
-        '/web'  => 'Controllers\InterfaceWeb\InterfaceWeb',
         ];
 
 }
