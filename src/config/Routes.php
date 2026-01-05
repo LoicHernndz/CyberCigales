@@ -22,6 +22,8 @@ class Routes
         '/captcha' => 'Controllers\Captcha',
 
         '/cypher-rush' => 'Controllers\Game\CypherRush',
+        '/game/frequency' => 'Controllers\Game\FrequencyGame',
+        '/game/phishing' => 'Controllers\Game\PhishingGame',
 
         '/qcm/rgpd/resultat' => 'Controllers\Qcm\QcmResultat',
         '/qcm/rgpd/feedback' => 'Controllers\Qcm\QcmFeedback',
@@ -42,15 +44,11 @@ class Routes
         '/LeconPermutation' => 'Controllers\Lecon\LeconPermutation',
         '/LeconVigenere' => 'Controllers\Lecon\LeconVigenere',
         '/instagram/melina/chat' => 'Controllers\Instagram\MelinaChat',
-        '/instagram/chat/response' => 'helpers\GenerateAnswer',
+        '/LeconHistMdp' => 'Controllers\Lecon\LeconHistMdp',
         '/macos' => 'Controllers\MacOSController',
 
         '/email' => 'Controllers\InterfaceMail\InterfaceMail',
         '/agenda' => 'Controllers\InterfaceAgenda\InterfaceAgenda',
-        '/web'  => 'Controllers\InterfaceWeb\InterfaceWeb',
-
-        '/bash' => 'Controllers\Bash\Bash',
-        '/bash/exec' => 'helpers\BashRequest',
         ];
 
 }
