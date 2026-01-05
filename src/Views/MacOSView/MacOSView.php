@@ -124,73 +124,46 @@ class MacOSView {
     <div id="dock-container" class="dock-container fixed bottom-4 left-1/2 -translate-x-1/2 p-2 rounded-2xl shadow-2xl">
         <ul id="dock-list" class="flex space-x-5">
 
-            <li class="dock-icon w-14 h-14 p-2 bg-white rounded-xl flex items-center justify-center relative group" onclick="openApp(\'Finder\')">
-                <svg class="w-8 h-8 text-blue-700" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-7-8a7 7 0 1114 0 7 7 0 01-14 0z"/>
-                    <path d="M21 21l-4.35-4.35"/>
-                    <path fill-rule="evenodd" d="M13 3a1 1 0 011 1v6a1 1 0 11-2 0V4a1 1 0 011-1z" clip-rule="evenodd"/>
-                </svg>
+            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 rounded-xl flex items-center justify-center relative group" onclick="openApp(\'Finder\')">
+                <img src="/images/macos/logo-du-finder.png">
                 <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Finder</div>
             </li>
 
             <!-- 2. Navigateur (Web) -->
-            <li class="dock-icon w-14 h-14 p-2 bg-white rounded-xl flex items-center justify-center relative group" onclick="openApp(\'Web\')">
-                <svg class="w-8 h-8 text-red-500" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 110-16 8 8 0 010 16zm-3.5-8.5a1 1 0 112 0 1 1 0 01-2 0zm5 0a1 1 0 112 0 1 1 0 01-2 0zm-2.5-4a1 1 0 011-1 4 4 0 014 4h-2a2 2 0 00-2-2 1 1 0 01-1-1z"/>
-                </svg>
+            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 rounded-xl flex items-center justify-center relative group" onclick="openApp(\'Web\')">
+                <img src="/images/macos/safari.png">
                 <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Web</div>
             </li>
 
             <!-- 3. Mail -->
-            <li class="dock-icon w-14 h-14 p-2 bg-red-600 rounded-xl flex items-center justify-center relative group" onclick="openApp(\'Mail\')">
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-2 10a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h14a2 2 0 012 2v10z"/>
-                </svg>
+            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 rounded-xl flex items-center justify-center relative group" onclick="openApp(\'Mail\')">
+                <img src="/images/macos/email.png">
                 <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Mail</div>
             </li>
 
             <!-- 4. Instagram (Messages) -->
-            <li class="dock-icon w-14 h-14 p-2 bg-gradient-to-br from-pink-500 via-red-500 to-yellow-500 rounded-xl flex items-center justify-center relative group" onclick="openApp(\'Instagram\')">
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <rect x="3" y="3" width="18" height="18" rx="5" ry="5"></rect>
-                    <path d="M16 8h.01"></path>
-                    <circle cx="12" cy="12" r="4"></circle>
-                </svg>
+            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 from-pink-500 via-red-500 to-yellow-500 rounded-xl flex items-center justify-center relative group" onclick="openApp(\'Instagram\')">
+                <img src="/images/macos/instagram.png">
                 <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Instagram</div>
-            </li>
-
-            <!-- 5. X (Twitter) -->
-            <li class="dock-icon w-14 h-14 p-2 bg-gray-900 rounded-xl flex items-center justify-center relative group" onclick="openApp(\'X\')">
-                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M18.9 3.1L12 10.2L5.1 3.1H2.5L9.6 10.2L2.5 17.3H5.1L12 10.2L18.9 17.3H21.5L14.4 10.2L21.5 3.1H18.9Z"></path>
-                </svg>
-                <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">X (Twitter)</div>
             </li>
 
             <!-- Séparateur visuel -->
             <li class="w-px h-10 self-center bg-white/20 mx-3"></li>
 
             <!-- 6. Calendrier -->
-            <li class="dock-icon w-14 h-14 p-2 bg-blue-500 rounded-xl flex flex-col items-center justify-center relative group" onclick="openApp(\'Calendrier\')">
-                <div class="text-xs text-white -mb-1">NOV</div>
-                <div class="text-xl font-bold text-white leading-none">03</div>
-                <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Calendrier</div>
+            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 rounded-xl flex flex-col items-center justify-center relative group" onclick="openApp(\'Calendrier\')">
+                <img src="/images/macos/calendar.png">
             </li>
 
             <!-- 7. Terminal -->
-            <li class="dock-icon w-14 h-14 p-2 bg-gray-800 rounded-xl flex items-center justify-center relative group" onclick="openApp(\'Terminal\')">
-                <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                    <path d="M7 10l3 3 3-3M7 14h10"></path>
-                </svg>
+            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 rounded-xl flex items-center justify-center relative group" onclick="openApp(\'Terminal\')">
+                <img src="/images/macos/terminal.png">
                 <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Terminal</div>
             </li>
 
             <!-- 8. Paramètres -->
             <li class="dock-icon w-14 h-14 p-2 bg-gray-400 rounded-xl flex items-center justify-center relative group" onclick="openApp(\'Paramètres\')">
-                <svg class="w-8 h-8 text-gray-800" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 110-16 8 8 0 010 16zm-1-7h2v4h-2zm0-6h2v4h-2z"/>
-                </svg>
+                <img src="/images/macos/ajustement.png">
                 <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Paramètres</div>
             </li>
 
@@ -198,10 +171,8 @@ class MacOSView {
             <li class="w-px h-10 self-center bg-white/20 mx-3"></li>
 
             <!-- 9. Corbeille -->
-            <li class="dock-icon w-14 h-14 p-2 bg-gray-700 rounded-xl flex items-center justify-center relative group" onclick="openApp(\'Corbeille\')">
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6m4-6v6"/>
-                </svg>
+            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 rounded-xl flex items-center justify-center relative group" onclick="openApp(\'Corbeille\')">
+                <img src="/images/macos/poubelle.png">
                 <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Corbeille</div>
             </li>
         </ul>
