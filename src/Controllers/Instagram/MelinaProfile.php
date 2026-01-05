@@ -10,6 +10,9 @@ class MelinaProfile extends AbstractController
 {
     public function getMethod(): void
     {
+        // Vérifier si l'utilisateur est connecté
+        $this->connexionVerify();
+
         // Création des instances MVC
         $view = new MelinaProfileView();
         $model = new InstagramModel();

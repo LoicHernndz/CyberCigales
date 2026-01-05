@@ -8,6 +8,9 @@ use Controllers\AbstractController;
 class MelinaChat extends AbstractController
 {
     function getMethod(){
+        // Vérifier si l'utilisateur est connecté
+        $this->connexionVerify();
+
         // Création des instances MVC
         $view = new MelinaChatView();
         $model = new InstagramModel();

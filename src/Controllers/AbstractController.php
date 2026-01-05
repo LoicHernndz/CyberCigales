@@ -17,6 +17,14 @@ abstract class AbstractController {
         }
     }
 
+    function connexionVerify() {
+        // Vérifier si l'utilisateur est connecté
+        if (!isset($_SESSION['user_id'])) {
+            redirect('/user/login');
+            return;
+        }
+    }
+
     abstract function getMethod();
     function postMethod(){
         echo 'ERREUR 404';
