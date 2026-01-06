@@ -1,188 +1,46 @@
-<div class="data-breach-container">
-    <div class="breach-header">
-        <h1>Vérification de Fuites de Données</h1>
-        <p class="subtitle">Vérifiez si vos informations ont été compromises dans des fuites où l'algorithme de décodage a été divulgué</p>
+<div class="breach-page">
+    <div class="breach-hero">
+        <div class="hero-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+        </div>
+        <h1>Have I Been <span class="highlight">Pwned</span> ?</h1>
+        <p class="tagline">Verifiez si votre adresse email a ete compromise dans une fuite de donnees</p>
     </div>
 
-    <div class="statistics-bar">
-        <div class="stat-item">
-            <div class="stat-number">{{{TOTAL_BREACHES}}}</div>
-            <div class="stat-label">Fuite(s) enregistrée(s)</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">{{{TOTAL_RECORDS}}}</div>
-            <div class="stat-label">Compte(s) compromis</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">{{{BREACHES_WITH_DECODING}}}</div>
-            <div class="stat-label">Avec algorithme divulgué</div>
-        </div>
-    </div>
-
-    <div class="check-form-container">
-        <div class="check-form">
-            <h2>Vérifiez votre email</h2>
-            <p class="form-description">Entrez votre adresse email pour vérifier si elle apparaît dans nos bases de données de fuites</p>
-            
-            <form id="breach-check-form">
-                <div class="input-group">
-                    <input 
-                        type="email" 
-                        id="email-input" 
-                        name="email" 
-                        placeholder="Entrez votre adresse email"
-                        required
-                        autocomplete="off"
-                    >
-                    <button type="submit" class="btn-check">
-                        <span class="btn-text">Vérifier</span>
-                        <span class="btn-loader" style="display: none;">Vérification...</span>
-                    </button>
-                </div>
-            </form>
+    <div class="search-section">
+        <div class="search-box">
+            <input 
+                type="email" 
+                id="email-input" 
+                placeholder="Entrez une adresse email..."
+                autocomplete="off"
+                spellcheck="false"
+            >
+            <button id="search-btn" type="button">
+                <span class="btn-text">Rechercher</span>
+            </button>
         </div>
     </div>
 
-    <div id="result-container" class="result-container" style="display: none;">
-        <div id="result-content"></div>
-    </div>
+    <div id="result-area" class="result-area" aria-live="polite" aria-atomic="true"></div>
 
-    <div class="info-section">
-        <h3>À propos de ces fuites</h3>
-        <p>Ces fuites de données sont particulières car l'algorithme de décodage utilisé pour protéger les mots de passe a été divulgué ou reverse-engineered. Cela signifie que les attaquants ont pu décrypter une grande partie des données volées.</p>
-        
-        <div class="breach-examples">
-            <h4>Exemples de fuites avec algorithmes divulgués :</h4>
-            <ul>
-                <li><strong>LinkedIn 2012</strong> : SHA-1 non salé - 90% des mots de passe décryptés</li>
-                <li><strong>Adobe 2013</strong> : Chiffrement réversible (3DES) - algorithme publié sur forums</li>
-                <li><strong>MySpace 2016</strong> : SHA-1 avec salt faible - reverse-engineered</li>
-                <li><strong>CyberCigales Internal 2024</strong> : César + Vigenère - commit accidentel dans dépôt public</li>
-            </ul>
+    <div class="stats-footer">
+        <div class="stat">
+            <span class="stat-num">847</span>
+            <span class="stat-label">Sites compromis</span>
+        </div>
+        <div class="stat">
+            <span class="stat-num">12.4B</span>
+            <span class="stat-label">Comptes exposes</span>
+        </div>
+        <div class="stat">
+            <span class="stat-num">284</span>
+            <span class="stat-label">Pastes analyses</span>
         </div>
     </div>
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('breach-check-form');
-    const emailInput = document.getElementById('email-input');
-    const resultContainer = document.getElementById('result-container');
-    const resultContent = document.getElementById('result-content');
-    const btnText = document.querySelector('.btn-text');
-    const btnLoader = document.querySelector('.btn-loader');
-    
-    form.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const email = emailInput.value.trim();
-        
-        if (!email) {
-            return;
-        }
-        
-        // Afficher le loader
-        btnText.style.display = 'none';
-        btnLoader.style.display = 'inline';
-        emailInput.disabled = true;
-        resultContainer.style.display = 'none';
-        
-        try {
-            const formData = new FormData();
-            formData.append('email', email);
-            
-            const response = await fetch('/data-breach/check', {
-                method: 'POST',
-                body: formData
-            });
-            
-            const data = await response.json();
-            
-            if (data.success) {
-                displayResult(data.data);
-            } else {
-                alert('Erreur : ' + data.message);
-            }
-        } catch (error) {
-            console.error('Erreur:', error);
-            alert('Une erreur est survenue lors de la vérification');
-        } finally {
-            btnText.style.display = 'inline';
-            btnLoader.style.display = 'none';
-            emailInput.disabled = false;
-        }
-    });
-    
-    function displayResult(result) {
-        resultContainer.style.display = 'block';
-        
-        if (result.compromised) {
-            let html = `
-                <div class="result-alert result-compromised">
-                    <div class="alert-icon">⚠️</div>
-                    <div class="alert-content">
-                        <h3>Oh non — votre email a été compromis !</h3>
-                        <p>Votre adresse email <strong>${escapeHtml(result.email)}</strong> a été trouvée dans <strong>${result.breach_count}</strong> fuite(s) de données où l'algorithme de décodage a été divulgué.</p>
-                    </div>
-                </div>
-                
-                <div class="breaches-list">
-                    <h4>Détails des fuites :</h4>
-            `;
-            
-            result.breaches.forEach(breach => {
-                html += `
-                    <div class="breach-item">
-                        <div class="breach-header-item">
-                            <h5>${escapeHtml(breach.name)}</h5>
-                            <span class="breach-date">${escapeHtml(breach.date)}</span>
-                        </div>
-                        <div class="breach-details">
-                            <p><strong>Enregistrements compromis :</strong> ${escapeHtml(breach.records)}</p>
-                            <p><strong>Algorithme :</strong> ${escapeHtml(breach.algorithm)}</p>
-                            <p><strong>Statut :</strong> <span class="status-badge status-divulged">${escapeHtml(breach.status)}</span></p>
-                            <p class="breach-description">${escapeHtml(breach.description)}</p>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            html += `
-                </div>
-                <div class="recommendations">
-                    <h4>Recommandations :</h4>
-                    <ul>
-                        <li>Changez immédiatement votre mot de passe si vous utilisez encore celui compromis</li>
-                        <li>Activez l'authentification à deux facteurs (2FA) si disponible</li>
-                        <li>Utilisez un gestionnaire de mots de passe pour créer des mots de passe uniques</li>
-                        <li>Surveillez vos comptes pour toute activité suspecte</li>
-                    </ul>
-                </div>
-            `;
-            
-            resultContent.innerHTML = html;
-        } else {
-            resultContent.innerHTML = `
-                <div class="result-alert result-safe">
-                    <div class="alert-icon">✓</div>
-                    <div class="alert-content">
-                        <h3>Bonnes nouvelles — aucun compromis trouvé !</h3>
-                        <p>Votre adresse email <strong>${escapeHtml(result.email)}</strong> n'a pas été trouvée dans nos bases de données de fuites avec algorithmes divulgués.</p>
-                        <p class="note">Note : Cela ne signifie pas que votre email n'a jamais été compromis, seulement qu'il n'apparaît pas dans les fuites que nous suivons.</p>
-                    </div>
-                </div>
-            `;
-        }
-        
-        // Scroll vers le résultat
-        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-    
-    function escapeHtml(text) {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    }
-});
-</script>
-
+<script src="/js/data-breach-check.js"></script>
