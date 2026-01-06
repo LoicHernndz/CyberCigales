@@ -11,6 +11,9 @@
  * - Scroll automatique vers les nouveaux messages
  */
 
+
+let step = 0;
+
 // Attendre que le DOM soit chargé
 document.addEventListener('DOMContentLoaded', function() {
     // Récupération des éléments du DOM
@@ -127,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     async function generateResponse(message) {
         try {
-            let url = "/instagram/chat/response?name=Melina&message=" + message
+            let url = "/instagram/chat/response?name=Melina&step=" + step + "&message=" + message
             const response = await fetch(url);
             if (!response.ok) {
                 throw new Error(`Response status: ${response.status}`);
@@ -135,6 +138,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
             let text = await response.text();
             addMelinaMessage(text);
+            if (text.charAt(text.length - 1) === "1") {
+                ++step;
+            }
+            return text;
 
         } catch (error) {
             console.error(error.message);
