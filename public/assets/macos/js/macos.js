@@ -94,13 +94,23 @@ function createNewWindow(appName) {
     // Définition de la structure de base, du style et de la draggabilité
     windowElement.id = windowId;
     windowElement.className = 'app-window fixed bg-white/70 backdrop-blur-md rounded-xl shadow-2xl overflow-hidden resize transition-shadow duration-300 ring-1 ring-gray-200';
-    windowElement.style.width = '600px';
-    windowElement.style.height = '400px';
+    
+    // Taille personnalisée pour certaines apps
+    let windowWidth = 600;
+    let windowHeight = 400;
+    
+    if (appName === 'Hamming' || appName === 'Instagram') {
+        windowWidth = 900;
+        windowHeight = 700;
+    }
+    
+    windowElement.style.width = `${windowWidth}px`;
+    windowElement.style.height = `${windowHeight}px`;
     windowElement.style.minWidth = '300px';
     windowElement.style.minHeight = '200px';
     // Position de départ aléatoire mais centrée
-    windowElement.style.left = `${(window.innerWidth / 2) - 300 + (Math.random() * 50 - 25)}px`;
-    windowElement.style.top = `${(window.innerHeight / 2) - 200 + (Math.random() * 50 - 25)}px`;
+    windowElement.style.left = `${(window.innerWidth / 2) - (windowWidth / 2) + (Math.random() * 50 - 25)}px`;
+    windowElement.style.top = `${(window.innerHeight / 2) - (windowHeight / 2) + (Math.random() * 50 - 25)}px`;
     windowElement.style.zIndex = '100'; // S'assurer qu'elle est au-dessus du bureau
 
     // Barre de titre de la fenêtre (draggable handle)
@@ -181,6 +191,14 @@ function getContentForApp(appName) {
                     .blinking-cursor { animation: blink 1s step-end infinite; }
                     @keyframes blink { from, to { color: transparent } 50% { color: #48bb78 } }
                 </style>
+            `;
+        case 'Hamming':
+            return `
+                <iframe src="/game/hamming" class="w-full h-full border-0" style="min-height: 500px;"></iframe>
+            `;
+        case 'Instagram':
+            return `
+                <iframe src="/instagram" class="w-full h-full border-0" style="min-height: 600px;"></iframe>
             `;
         default:
             return `<p class="text-lg text-center mt-8">Application "${appName}" lancée avec succès!</p><p class="text-xs text-center mt-2 text-gray-500">Fermez la fenêtre en cliquant sur le bouton rouge.</p>`;

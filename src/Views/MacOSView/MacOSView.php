@@ -262,7 +262,23 @@ class MacOSView {
                 <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Calendrier</div>
             </li>
 
-            <!-- 7. Terminal -->
+            <!-- 7. Hamming (Mini-jeu) -->
+            <li class="dock-icon w-14 h-14 p-2 bg-gradient-to-br from-green-600 to-emerald-800 rounded-xl flex items-center justify-center relative group" onclick="openApp(\'Hamming\')">
+                <svg class="w-9 h-9 text-green-300" fill="currentColor" viewBox="0 0 24 24">
+                    <rect x="2" y="2" width="6" height="6" rx="1" opacity="0.9"/>
+                    <rect x="9" y="2" width="6" height="6" rx="1" opacity="0.7"/>
+                    <rect x="16" y="2" width="6" height="6" rx="1" opacity="0.9"/>
+                    <rect x="2" y="9" width="6" height="6" rx="1" opacity="0.7"/>
+                    <rect x="9" y="9" width="6" height="6" rx="1" fill="#ff4444"/>
+                    <rect x="16" y="9" width="6" height="6" rx="1" opacity="0.7"/>
+                    <rect x="2" y="16" width="6" height="6" rx="1" opacity="0.9"/>
+                    <rect x="9" y="16" width="6" height="6" rx="1" opacity="0.7"/>
+                    <rect x="16" y="16" width="6" height="6" rx="1" opacity="0.9"/>
+                </svg>
+                <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Hamming</div>
+            </li>
+
+            <!-- 9. Terminal -->
             <li class="dock-icon w-14 h-14 p-2 bg-gray-800 rounded-xl flex items-center justify-center relative group" onclick="openApp(\'Terminal\')">
                 <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
@@ -271,7 +287,7 @@ class MacOSView {
                 <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Terminal</div>
             </li>
 
-            <!-- 8. Paramètres -->
+            <!-- 10. Paramètres -->
             <li class="dock-icon w-14 h-14 p-2 bg-gray-400 rounded-xl flex items-center justify-center relative group" onclick="openApp(\'Paramètres\')">
                 <svg class="w-8 h-8 text-gray-800" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 110-16 8 8 0 010 16zm-1-7h2v4h-2zm0-6h2v4h-2z"/>
@@ -282,7 +298,7 @@ class MacOSView {
             <!-- Séparateur visuel -->
             <li class="w-px h-10 self-center bg-white/20 mx-3"></li>
 
-            <!-- 9. Corbeille -->
+            <!-- 11. Corbeille -->
             <li class="dock-icon w-14 h-14 p-2 bg-gray-700 rounded-xl flex items-center justify-center relative group" onclick="openApp(\'Corbeille\')">
                 <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6m4-6v6"/>
