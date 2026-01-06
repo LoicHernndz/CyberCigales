@@ -25,15 +25,13 @@ class MelinaProfile extends AbstractController
         // Génération du HTML pour les posts
         $postsHtml = '';
         foreach($profilePosts as $post) {
-            $pinnedIcon = '';
-            
             $videoIcon = $post['is_video'] ? '<img src="/images/instagram/svgs/videocam-outline.svg" alt="Vidéo" class="ionicon video_icon">' : '';
             
             $postsHtml .= '
             <figure class="figure">
-                ' . $pinnedIcon . $videoIcon . '
+                ' . $videoIcon . '
                 <img loading="lazy" src="' . $post['image'] . '" alt="Post ' . $post['id'] . '" />
-                <figcaption class="access-hidden">' . ($post['type'] === 'pinned' ? 'Pinned Post' : 'Post') . '</figcaption>
+                <figcaption class="access-hidden">Post</figcaption>
             </figure>';
         }
         
