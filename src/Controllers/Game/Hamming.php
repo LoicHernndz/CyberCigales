@@ -79,7 +79,6 @@ class Hamming extends AbstractController
         }
         
         $squareWithError = $_SESSION['hamming_square'];
-        $originalSquare = $_SESSION['hamming_original'];
         $errorPos = $_SESSION['hamming_error_pos'];
         
         // Initialiser le système de progression si nécessaire

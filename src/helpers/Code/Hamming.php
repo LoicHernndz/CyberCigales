@@ -123,37 +123,5 @@ class Hamming
         ];
     }
     
-    /**
-     * Vérifie si une position donnée correspond à l'erreur
-     * 
-     * @param array $squareWithError Le carré avec erreur (3x3)
-     * @param array $originalSquare Le carré original correct (3x3)
-     * @param int $row Ligne cliquée (0-2)
-     * @param int $col Colonne cliquée (0-2)
-     * @return bool True si la position correspond à l'erreur, false sinon
-     */
-    public static function checkErrorPosition(array $squareWithError, array $originalSquare, int $row, int $col): bool
-    {
-        return $squareWithError[$row][$col] != $originalSquare[$row][$col];
-    }
-    
-    /**
-     * Trouve la position de l'erreur en comparant deux carrés
-     * 
-     * @param array $squareWithError Le carré avec erreur (3x3)
-     * @param array $originalSquare Le carré original correct (3x3)
-     * @return array|null Position de l'erreur ['row' => x, 'col' => y] ou null si aucune erreur trouvée
-     */
-    public static function findErrorPosition(array $squareWithError, array $originalSquare): ?array
-    {
-        for ($row = 0; $row < 3; $row++) {
-            for ($col = 0; $col < 3; $col++) {
-                if ($squareWithError[$row][$col] != $originalSquare[$row][$col]) {
-                    return ['row' => $row, 'col' => $col];
-                }
-            }
-        }
-        return null;
-    }
 }
 
