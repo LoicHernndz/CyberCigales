@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             let text = await response.text();
-            addMelinaMessage(text);
+            addMelinaMessage(text.slice(0, -1));
             if (text.charAt(text.length - 1) === "1") {
                 ++step;
             }
@@ -154,6 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // ========================================
     
     // Scroll initial vers le bas pour voir les derniers messages
+    generateResponse("");  // Message initial
     scrollToBottom();
     
     console.log('Chat avec Melina initialisé avec succès');

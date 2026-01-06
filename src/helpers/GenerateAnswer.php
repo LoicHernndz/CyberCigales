@@ -19,7 +19,11 @@ class GenerateAnswer
         $string = file_get_contents($path);
         $json_a = json_decode($string);
 
-        if (str_contains($message, $json_a->$name->$step->{"key"})) {
+        if ($message == "") {
+            echo $json_a->$name->$step->{"message"};
+            echo "0";
+        }
+        else if (isset($json_a->$name->$step->{"key"})  && str_contains($message, $json_a->$name->$step->{"key"})) {
             $next_step = strval((int)($step + 1));
             echo $json_a->$name->$next_step->{"message"};
             echo "1";
