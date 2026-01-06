@@ -1,0 +1,43 @@
+<div class="auth-container">
+    <div class="auth-card hamming-card">
+        <div class="auth-header">
+            <div class="auth-icon">
+                <span class="material-icons">grid_on</span>
+            </div>
+            <h1>Carre de Hamming</h1>
+            <p class="auth-subtitle">Trouvez le bit errone dans le carre 3x3</p>
+        </div>
+
+        {{{FLASH}}}
+
+        <div class="hamming-explanation">
+            <p>Le carre de Hamming est un code correcteur d'erreur. Un bit a ete inverse dans ce carre.</p>
+            <p><strong>Cliquez sur le bit que vous pensez etre errone.</strong></p>
+        </div>
+
+        <div class="hamming-square-container">
+            {{{SQUARE_HTML}}}
+        </div>
+
+        <div class="hamming-help">
+            <h3>Comment trouver l'erreur ?</h3>
+            <ul>
+                <li>Verifiez la parite de chaque ligne</li>
+                <li>Verifiez la parite de chaque colonne</li>
+                <li>L'intersection des lignes/colonnes incorrectes indique l'erreur</li>
+            </ul>
+        </div>
+
+        <div class="hamming-actions">
+            <a href="/code/hamming" class="btn-auth btn-secondary">
+                <span class="material-icons">refresh</span>
+                <span>Nouveau carre</span>
+            </a>
+            <a href="/" class="btn-auth btn-outline">
+                <span class="material-icons">arrow_back</span>
+                <span>Retour</span>
+            </a>
+        </div>
+    </div>
+</div>
+
