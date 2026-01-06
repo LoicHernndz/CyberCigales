@@ -16,69 +16,6 @@ html, body {
     font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
 }
 
-/* Header du jeu - Style MacOS */
-.game-header {
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 0.75rem 1.5rem;
-    flex-shrink: 0;
-}
-
-.header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo-section {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-}
-
-.logo-icon {
-    width: 36px;
-    height: 36px;
-    background: linear-gradient(135deg, #34c759, #30d158);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 8px rgba(52, 199, 89, 0.4);
-}
-
-.logo-icon .material-icons {
-    font-size: 20px;
-    color: #fff;
-}
-
-.game-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #1d1d1f;
-    letter-spacing: -0.02em;
-    margin: 0;
-}
-
-.player-streak {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: #34c759;
-    background: rgba(52, 199, 89, 0.12);
-    padding: 0.4rem 0.8rem;
-    border-radius: 20px;
-}
-
-.player-streak .material-icons {
-    font-size: 18px;
-    color: #ff9500;
-}
-
 /* Dialogue box - Style notification macOS */
 .dialogue-box {
     margin: 1rem;

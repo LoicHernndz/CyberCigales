@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Elements du DOM
     let O_container = document.getElementById('square-container');
-    let O_streakCount = document.getElementById('streak-count');
     let O_streakDisplay = document.getElementById('streak-display');
     let O_progressBar = document.getElementById('progress-bar');
     let O_feedbackSection = document.getElementById('feedback-section');
@@ -207,10 +206,6 @@ document.addEventListener('DOMContentLoaded', function() {
      * Met a jour l'interface
      */
     function updateUI() {
-        if (O_streakCount) {
-            O_streakCount.textContent = I_streak;
-        }
-        
         if (O_streakDisplay) {
             O_streakDisplay.textContent = I_streak + ' / ' + I_target;
         }
