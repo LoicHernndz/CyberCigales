@@ -120,10 +120,6 @@ html, body {
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
 
-.dialogue-content::before {
-    display: none;
-}
-
 .dialogue-content p {
     color: #1d1d1f;
     line-height: 1.5;
@@ -433,19 +429,19 @@ html, body {
 }
 
 /* Scrollbar style macOS */
-.game-area::-webkit-scrollbar {
+::-webkit-scrollbar {
     width: 8px;
 }
 
-.game-area::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
     background: transparent;
 }
 
-.game-area::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     background: rgba(0, 0, 0, 0.2);
     border-radius: 4px;
 }
 
-.game-area::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
     background: rgba(0, 0, 0, 0.3);
 }
