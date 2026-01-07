@@ -1,0 +1,46 @@
+<div class="breach-page">
+    <div class="breach-hero">
+        <div class="hero-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+        </div>
+        <h1>Have I Been <span class="highlight">Pwned</span> ?</h1>
+        <p class="tagline">Verifiez si votre adresse email a ete compromise dans une fuite de donnees</p>
+    </div>
+
+    <div class="search-section">
+        <div class="search-box">
+            <input 
+                type="email" 
+                id="email-input" 
+                placeholder="Entrez une adresse email..."
+                autocomplete="off"
+                spellcheck="false"
+            >
+            <button id="search-btn" type="button">
+                <span class="btn-text">Rechercher</span>
+            </button>
+        </div>
+    </div>
+
+    <div id="result-area" class="result-area" aria-live="polite" aria-atomic="true"></div>
+
+    <div class="stats-footer">
+        <div class="stat">
+            <span class="stat-num">847</span>
+            <span class="stat-label">Sites compromis</span>
+        </div>
+        <div class="stat">
+            <span class="stat-num">12.4B</span>
+            <span class="stat-label">Comptes exposes</span>
+        </div>
+        <div class="stat">
+            <span class="stat-num">284</span>
+            <span class="stat-label">Pastes analyses</span>
+        </div>
+    </div>
+</div>
+
+<script src="/js/data-breach-check.js"></script>

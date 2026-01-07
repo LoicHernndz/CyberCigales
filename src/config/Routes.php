@@ -52,6 +52,8 @@ class Routes
         '/web' => 'Controllers\InterfaceWeb\InterfaceWeb',
         '/bash' => 'Controllers\Bash\Bash',
         '/instagram/chat/response' =>  'helpers\GenerateAnswer',
+        
+        '/data-breach/check' => 'Controllers\DataBreach\DataBreachCheck',
         ];
 
 }
