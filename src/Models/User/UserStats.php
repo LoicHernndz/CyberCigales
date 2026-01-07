@@ -92,24 +92,20 @@ class UserStats
      */
     private function getFirstActivityDate(int $userId): string
     {
+        // Table user_qcm_progress supprimée - utiliser la date d'inscription
         try {
-            // Chercher la première activité dans user_qcm_progress
-            $this->db->query('
-                SELECT MIN(answered_at) as first_date 
-                FROM user_qcm_progress 
-                WHERE user_id = :user_id
-            ');
+            $this->db->query('SELECT date_inscription FROM users WHERE id = :user_id');
             $this->db->bind(':user_id', $userId);
             $result = $this->db->single();
             
-            if ($result && $result->first_date) {
-                return date('d/m/Y', strtotime($result->first_date));
+            if ($result && $result->date_inscription) {
+                return date('d/m/Y', strtotime($result->date_inscription));
             }
         } catch (\Exception $e) {
-            // Table n'existe pas ou erreur
+            // Erreur
         }
         
-        return date('d/m/Y'); // Date du jour si pas d'activité
+        return date('d/m/Y'); // Date du jour si pas d'info
     }
 
     /**
@@ -117,12 +113,9 @@ class UserStats
      */
     private function calculateDaysSinceFirstActivity(int $userId): int
     {
+        // Table user_qcm_progress supprimée - utiliser la date d'inscription
         try {
-            $this->db->query('
-                SELECT DATEDIFF(NOW(), MIN(answered_at)) as days_count 
-                FROM user_qcm_progress 
-                WHERE user_id = :user_id
-            ');
+            $this->db->query('SELECT DATEDIFF(NOW(), date_inscription) as days_count FROM users WHERE id = :user_id');
             $this->db->bind(':user_id', $userId);
             $result = $this->db->single();
             
@@ -130,7 +123,7 @@ class UserStats
                 return (int)$result->days_count;
             }
         } catch (\Exception $e) {
-            // Table n'existe pas ou erreur
+            // Erreur
         }
         
         return 0;
@@ -141,25 +134,22 @@ class UserStats
      */
     private function getRgpdStats(int $userId): array
     {
-        // Nombre de questions répondues
-        $this->db->query('SELECT 
-            COUNT(*) as questions_answered,
-            SUM(CASE WHEN est_correcte = 1 THEN 1 ELSE 0 END) as correct_answers,
-            COALESCE(SUM(points_obtenus), 0) as rgpd_score,
-            MAX(answered_at) as last_attempt
-        FROM user_qcm_progress 
-        WHERE user_id = :user_id');
+        $questionsAnswered = 0;
+        $correctAnswers = 0;
+        $rgpdScore = 0;
+        $lastAttempt = null;
         
-        $this->db->bind(':user_id', $userId);
-        $stats = $this->db->single();
+        // La table user_qcm_progress a été supprimée - retourner des valeurs par défaut
+        // TODO: Réactiver si la table est recréée
         
         // Nombre total de questions disponibles
-        $this->db->query('SELECT COUNT(*) as total_questions FROM qcm_questions WHERE est_active = 1');
-        $totalQuestions = $this->db->single();
-        
-        $questionsAnswered = (int)($stats->questions_answered ?? 0);
-        $correctAnswers = (int)($stats->correct_answers ?? 0);
-        $totalQuestionsCount = (int)($totalQuestions->total_questions ?? 0);
+        try {
+            $this->db->query('SELECT COUNT(*) as total_questions FROM qcm_questions WHERE est_active = 1');
+            $totalQuestions = $this->db->single();
+            $totalQuestionsCount = (int)($totalQuestions->total_questions ?? 0);
+        } catch (\Exception $e) {
+            $totalQuestionsCount = 0;
+        }
         
         $completion = $totalQuestionsCount > 0 
             ? round(($questionsAnswered / $totalQuestionsCount) * 100) 
@@ -173,10 +163,10 @@ class UserStats
             'questions_answered' => $questionsAnswered,
             'correct_answers' => $correctAnswers,
             'total_questions' => $totalQuestionsCount,
-            'score' => (int)($stats->rgpd_score ?? 0),
+            'score' => $rgpdScore,
             'completion' => $completion,
             'accuracy' => $accuracy,
-            'last_attempt' => $stats->last_attempt ?? null
+            'last_attempt' => $lastAttempt
         ];
     }
 
@@ -227,23 +217,7 @@ class UserStats
     {
         $activities = [];
         
-        // Activité QCM
-        try {
-            $this->db->query('SELECT 
-                DATE(answered_at) as date,
-                COUNT(*) as count,
-                "rgpd" as type
-            FROM user_qcm_progress 
-            WHERE user_id = :user_id 
-            AND answered_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)
-            GROUP BY DATE(answered_at)');
-            
-            $this->db->bind(':user_id', $userId);
-            $rgpdActivity = $this->db->resultSet();
-            $activities = array_merge($activities, $rgpdActivity);
-        } catch (\Exception $e) {
-            // Table n'existe pas
-        }
+        // Table user_qcm_progress supprimée - pas d'activité QCM pour l'instant
         
         // Activité Cypher (si la table existe)
         try {
@@ -329,15 +303,7 @@ class UserStats
     {
         $totalMinutes = 0;
         
-        // Temps estimé par question RGPD : 2 minutes
-        try {
-            $this->db->query('SELECT COUNT(*) as count FROM user_qcm_progress WHERE user_id = :user_id');
-            $this->db->bind(':user_id', $userId);
-            $rgpdCount = $this->db->single()->count ?? 0;
-            $totalMinutes += $rgpdCount * 2;
-        } catch (\Exception $e) {
-            // Table n'existe pas
-        }
+        // Table user_qcm_progress supprimée - pas de temps QCM pour l'instant
         
         // Temps Cypher Rush (en secondes dans la BDD)
         try {
