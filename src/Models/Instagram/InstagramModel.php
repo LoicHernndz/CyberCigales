@@ -175,34 +175,109 @@ class InstagramModel
     }
     
     /**
-     * Récupère les messages du chat avec Melina
+     * Récupère les messages du chat avec Melina selon le niveau de progression
      * 
+     * @param int $progressIndex L'indice de progression de l'utilisateur (0, 1, 2...)
      * @return array Messages du chat
      */
-    public function getMelinaChatMessages(): array
+    public function getMelinaChatMessages(int $progressIndex = 0): array
     {
-        return [
-            [
-                'type' => 'received',
-                'content' => 'Salut ! Comment ça va ? 😊',
-                'time' => '14:30'
+        // Messages de base pour chaque niveau de progression
+        $messagesByLevel = [
+            // Niveau 0 : Messages initiaux
+            0 => [
+                [
+                    'type' => 'received',
+                    'content' => 'Salut ! Comment ça va ? 😊',
+                    'time' => '14:30'
+                ],
+                [
+                    'type' => 'sent',
+                    'content' => 'Salut Melina ! Ça va super, merci !',
+                    'time' => '14:32'
+                ],
+                [
+                    'type' => 'received',
+                    'content' => 'J\'ai un secret à te dire... Tu veux le connaître ? 🤫',
+                    'time' => '14:35'
+                ],
+                [
+                    'type' => 'received',
+                    'content' => 'Envoie-moi "abc123" si tu veux savoir...',
+                    'time' => '14:36'
+                ]
             ],
-            [
-                'type' => 'sent',
-                'content' => 'Salut Melina ! Ça va super, merci !',
-                'time' => '14:32'
+            // Niveau 1 : Après première bonne réponse
+            1 => [
+                [
+                    'type' => 'received',
+                    'content' => 'Tu as trouvé le premier code ! 🎉',
+                    'time' => '15:00'
+                ],
+                [
+                    'type' => 'received',
+                    'content' => 'Maintenant, je vais te donner un indice plus difficile...',
+                    'time' => '15:01'
+                ],
+                [
+                    'type' => 'received',
+                    'content' => 'Quel est le mot le plus utilisé mais le plus dangereux en sécurité ? 🔐',
+                    'time' => '15:02'
+                ],
+                [
+                    'type' => 'received',
+                    'content' => 'Indice : C\'est ce que beaucoup de gens utilisent comme clé...',
+                    'time' => '15:03'
+                ]
             ],
-            [
-                'type' => 'received',
-                'content' => 'J\'ai vu tes nouvelles photos, elles sont magnifiques ! 📸',
-                'time' => '14:35'
+            // Niveau 2 : Après deuxième bonne réponse
+            2 => [
+                [
+                    'type' => 'received',
+                    'content' => 'Incroyable ! Tu es vraiment fort(e) ! 💪',
+                    'time' => '16:00'
+                ],
+                [
+                    'type' => 'received',
+                    'content' => 'Dernier défi : Quel est le nom de ce site ? 🦗',
+                    'time' => '16:01'
+                ],
+                [
+                    'type' => 'received',
+                    'content' => 'Trouve le nom et tu auras terminé ma quête !',
+                    'time' => '16:02'
+                ]
             ],
-            [
-                'type' => 'sent',
-                'content' => 'Merci beaucoup ! J\'adore la photographie ✨',
-                'time' => '14:37'
+            // Niveau 3 : Chat complété
+            3 => [
+                [
+                    'type' => 'received',
+                    'content' => '🎊 FÉLICITATIONS ! 🎊',
+                    'time' => '17:00'
+                ],
+                [
+                    'type' => 'received',
+                    'content' => 'Tu as réussi tous mes défis !',
+                    'time' => '17:01'
+                ],
+                [
+                    'type' => 'received',
+                    'content' => 'Tu es maintenant un(e) expert(e) en cybersécurité ! 🏆',
+                    'time' => '17:02'
+                ],
+                [
+                    'type' => 'received',
+                    'content' => 'Continue à apprendre et reste vigilant(e) sur internet ! 💻🔒',
+                    'time' => '17:03'
+                ]
             ]
         ];
+
+        // Retourner les messages du niveau demandé ou le dernier niveau si dépassé
+        $maxLevel = max(array_keys($messagesByLevel));
+        $level = min($progressIndex, $maxLevel);
+        
+        return $messagesByLevel[$level] ?? $messagesByLevel[0];
     }
     
 }

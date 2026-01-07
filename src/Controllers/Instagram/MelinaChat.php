@@ -3,17 +3,30 @@ namespace Controllers\Instagram;
 
 use Views\Instagram\MelinaChatView;
 use Models\Instagram\InstagramModel;
+use Models\Chat\UserChatProgress;
 use Controllers\AbstractController;
 
 class MelinaChat extends AbstractController
 {
     function getMethod(){
-        // Vérifier si l'utilisateur est connecté
-        // $this->connexionVerify();
+        // Démarrer la session si pas déjà fait
+        if (!isset($_SESSION)) {
+            session_start();
+        }
 
         // Création des instances MVC
         $view = new MelinaChatView();
         $model = new InstagramModel();
+        
+        // ========================================
+        // RÉCUPÉRATION DE LA PROGRESSION UTILISATEUR
+        // ========================================
+        $progressIndex = 0; // Par défaut niveau 0
+        
+        if (isset($_SESSION['user_id'])) {
+            $progressModel = new UserChatProgress();
+            $progressIndex = $progressModel->getProgressIndex($_SESSION['user_id'], 'melina');
+        }
         
         // ========================================
         // RÉCUPÉRATION DES DONNÉES VIA LE MODÈLE
@@ -21,7 +34,8 @@ class MelinaChat extends AbstractController
         $melinaInfo = $model->getMelinaProfile();
         $melinaInfo['status'] = 'En ligne'; // Ajout du statut pour le chat
         
-        $chatMessages = $model->getMelinaChatMessages();
+        // Récupérer les messages selon le niveau de progression
+        $chatMessages = $model->getMelinaChatMessages($progressIndex);
         
         // ========================================
         // GÉNÉRATION DU HTML POUR LE HEADER DU CHAT

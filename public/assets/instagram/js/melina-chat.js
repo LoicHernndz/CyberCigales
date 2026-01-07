@@ -9,6 +9,7 @@
  * - Réponses automatiques de Melina
  * - Gestion des événements clavier (Enter)
  * - Scroll automatique vers les nouveaux messages
+ * - Progression dans le chat (rechargement après bonne réponse)
  */
 
 // Attendre que le DOM soit chargé
@@ -55,11 +56,10 @@ document.addEventListener('DOMContentLoaded', function() {
             // Scroll vers le bas
             scrollToBottom();
 
-            // Simuler une réponse de Melina après 2 secondes
+            // Envoyer au serveur et attendre la réponse
             setTimeout(() => {
-                const response = generateResponse(message);
-                scrollToBottom();
-            }, 2000);
+                generateResponse(message);
+            }, 1000);
         }
     }
     
@@ -79,6 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function addMelinaMessage(message) {
         const messageHtml = createMessageHtml(message, 'received');
         messagesContainer.insertAdjacentHTML('beforeend', messageHtml);
+        scrollToBottom();
     }
     
     /**
@@ -122,23 +123,37 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     /**
-     * Retourne une réponse aléatoire de Melina
-     * @returns {string} Une réponse aléatoire
+     * Envoie le message au serveur et traite la réponse
+     * @param {string} message - Le message envoyé par l'utilisateur
      */
     async function generateResponse(message) {
         try {
-            let url = "/instagram/chat/response?name=Melina&message=" + message
+            let url = "/instagram/chat/response?name=melina&message=" + encodeURIComponent(message);
             const response = await fetch(url);
+            
             if (!response.ok) {
                 throw new Error(`Response status: ${response.status}`);
             }
 
-            let text = await response.text();
-            addMelinaMessage(text);
+            const data = await response.json();
+            
+            // Afficher le message de réponse
+            addMelinaMessage(data.message);
+            
+            // Si la progression a changé, recharger la page après un délai
+            if (data.progress === true) {
+                setTimeout(() => {
+                    // Afficher un message avant le rechargement
+                    addMelinaMessage("La conversation va se mettre à jour...");
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500);
+                }, 2000);
+            }
 
         } catch (error) {
-            console.error(error.message);
-            return "?!";
+            console.error('Erreur:', error.message);
+            addMelinaMessage("Oops, une erreur s'est produite... 😅");
         }
     }
     

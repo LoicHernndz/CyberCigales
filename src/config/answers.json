@@ -1,1 +1,7 @@
-{"Melina":"abc123"}
+{
+    "melina": {
+        "0": "abc123",
+        "1": "motdepasse",
+        "2": "cybercigales"
+    }
+}
