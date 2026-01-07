@@ -1,1 +1,18 @@
-{"Melina":"abc123"}
+{
+  "Melina": {
+    "0": {
+      "message": "Essaye abc123",
+      "responses": ["Non", "Nan", "non"],
+      "key": "abc123"
+    },
+    "1": {
+      "message": "Maintenant 1234",
+      "responses": ["Non", "Nan", "non"],
+      "key": "1234"
+    },
+    "2": {
+      "message": "Merci",
+      "responses": ["C'est fini"]
+    }
+  }
+}
