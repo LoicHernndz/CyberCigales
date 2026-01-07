@@ -24,12 +24,9 @@ class Homepage extends AbstractController
             
             // Récupération de la progression dans le QCM RGPD
             $qcmProgress = new UserQcmProgress();
-            $rgpdCompletion = 0;
-            $totalAnswers = $qcmProgress->countTotalAnswers($userId);
             
-            if ($totalAnswers > 0) {
-                $this->updateUserStatsInView($view, $stats, $qcmProgress, $userId, $userStats);
-            }
+            // Mise à jour des statistiques dans la vue
+            $this->updateUserStatsInView($view, $stats, $qcmProgress, $userId, $userStats);
         }
         
         // Affichage de la page d'accueil
