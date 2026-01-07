@@ -3,7 +3,6 @@ namespace Controllers;
 
 use Models\User\User;
 use Models\User\UserStats;
-use Models\UserQcmProgress;
 use Views\Homepage\HomepageView;
 
 class Homepage extends AbstractController
@@ -22,14 +21,7 @@ class Homepage extends AbstractController
             $userStats = new UserStats();
             $stats = $userStats->getUserStats($userId);
             
-            // Récupération de la progression dans le QCM RGPD
-            $qcmProgress = new UserQcmProgress();
-            $rgpdCompletion = 0;
-            $totalAnswers = $qcmProgress->countTotalAnswers($userId);
-            
-            if ($totalAnswers > 0) {
-                $this->updateUserStatsInView($view, $stats, $qcmProgress, $userId, $userStats);
-            }
+            $this->updateUserStatsInView($view, $stats, $userId, $userStats);
         }
         
         // Affichage de la page d'accueil
@@ -37,10 +29,10 @@ class Homepage extends AbstractController
     }
     
     // Méthode pour mettre à jour les statistiques dans la vue
-    private function updateUserStatsInView($view, $stats, $qcmProgress, $userId, UserStats $userStats) {
+    private function updateUserStatsInView($view, $stats, $userId, UserStats $userStats) {
         // Modules complétés
         $modulesCompleted = 0;
-        if ($stats['rgpd']['completion'] >= 100) $modulesCompleted++;
+        if (isset($stats['rgpd']) && $stats['rgpd']['completion'] >= 100) $modulesCompleted++;
         if ($stats['cypher']['games_played'] > 0) $modulesCompleted++;
         
         // Points gagnés
@@ -55,8 +47,8 @@ class Homepage extends AbstractController
             $learningTime += $minutes[1];
         }
         
-        // RGPD progression
-        $rgpdCompletion = $stats['rgpd']['completion'];
+        // RGPD progression (mise à 0 car supprimé)
+        $rgpdCompletion = 0;
         
         // Cypher Rush progression
         $cypherCompletion = $stats['cypher']['games_played'] > 0 ? 100 : 0;
@@ -84,4 +76,3 @@ class Homepage extends AbstractController
         return $chemin === "/" && $method === "GET";
     }
 }
-
