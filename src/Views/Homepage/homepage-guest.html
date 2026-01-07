@@ -1,8 +1,8 @@
 <link rel="stylesheet" href="/styles/landing.css">
 
 <!-- Hero Section -->
-<section class="hero">
-    <div class="hero-content">
+<section class="formations-section">
+    <div class="section-container">
         <div class="hero-badge">
             <span class="material-icons">security</span>
             <span>Plateforme Officielle</span>
@@ -22,20 +22,6 @@
             </a>
         </div>
     </div>
-    <div class="hero-illustration">
-        <div class="floating-card card-1">
-            <span class="material-icons">verified_user</span>
-            <p>RGPD</p>
-        </div>
-        <div class="floating-card card-2">
-            <span class="material-icons">vpn_key</span>
-            <p>Cryptographie</p>
-        </div>
-        <div class="floating-card card-3">
-            <span class="material-icons">phishing</span>
-            <p>Phishing</p>
-        </div>
-    </div>
 </section>
 
 <!-- Concept Section -->
@@ -46,29 +32,30 @@
             <h2>Un apprentissage ludique et immersif</h2>
             <p>Transformez votre façon d'apprendre la cybersécurité grâce à notre méthodologie unique</p>
         </div>
+
         <div class="concept-grid">
             <div class="concept-card">
                 <div class="concept-icon">
                     <span class="material-icons">sports_esports</span>
                 </div>
                 <h3>Gamification</h3>
-                <p>Des mini-jeux captivants et des défis progressifs qui rendent l'apprentissage addictif et stimulant.</p>
+                <p>Nous vous proposons d'apprendre aux travers de minis jeux interactifs...</p>
             </div>
-            <div class="concept-card">
-                <div class="concept-icon">
-                    <span class="material-icons">trending_up</span>
-                </div>
-                <h3>Progression personnalisée</h3>
-                <p>Avancez à votre rythme avec un parcours adapté à votre niveau et à vos objectifs d'apprentissage.</p>
-            </div>
-            <div class="concept-card">
-                <div class="concept-icon">
-                    <span class="material-icons">workspace_premium</span>
-                </div>
-                <h3>Certifications & Badges</h3>
-                <p>Gagnez des badges de compétences et suivez votre progression vers la maîtrise totale.</p>
+
+            <div class="concept-buttons">
+                <a href="/macos" class="btn-cta">
+                    <span>Notre Escape Game</span>
+                    <span class="material-icons">arrow_forward</span>
+                </a>
+
+                <a href="/minigames" class="btn-cta">
+                    <span>Nos mini-jeux</span>
+                    <span class="material-icons">arrow_forward</span>
+                </a>
             </div>
         </div>
+
+
     </div>
 </section>
 
@@ -77,8 +64,8 @@
     <div class="section-container">
         <div class="section-header">
             <span class="section-badge">Nos Modules</span>
-            <h2>Parcours de formation complets</h2>
-            <p>Développez vos compétences à travers des modules interactifs conçus par des experts</p>
+            <h2>Nos différentes leçons</h2>
+            <p>Développez vos compétences à travers des modules d'apprentissages conçus par des experts</p>
         </div>
         <div class="formations-grid">
             <!-- RGPD Module - Active -->
@@ -114,79 +101,146 @@
                 </div>
             </div>
 
-            <!-- Cypher Rush - Coming Soon -->
-            <div class="formation-card coming">
+            <!-- Chiffrement César - Active -->
+            <div class="formation-card active">
                 <div class="formation-badge">
                     <span class="material-icons">vpn_key</span>
                 </div>
-                <h3>Cypher Rush</h3>
-                <p>Plongez dans l'univers fascinant de la cryptographie et apprenez à déchiffrer des messages codés.</p>
+                <h3>Chiffrement César</h3>
+                <p>Plongez dans l'univers fascinant de la cryptographie et apprenez à déchiffrer des messages codés avec le chiffement César.</p>
                 <ul class="formation-features">
                     <li>
-                        <span class="material-icons">lock</span>
+                        <span class="material-icons">check_circle</span>
                         <span>Bases de la cryptographie</span>
                     </li>
                     <li>
-                        <span class="material-icons">lock</span>
+                        <span class="material-icons">check_circle</span>
                         <span>Algorithmes de chiffrement</span>
                     </li>
                     <li>
-                        <span class="material-icons">lock</span>
-                        <span>Défis pratiques</span>
+                        <span class="material-icons">check_circle</span>
+                        <span>Utile pour notre escape game</span>
                     </li>
                 </ul>
-                <span class="coming-soon-badge">Bientôt disponible</span>
+                <div class="formation-meta">
+                    <div class="meta-item">
+                        <span class="material-icons">schedule</span>
+                        <span>10-15 min</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="material-icons">signal_cellular_alt</span>
+                        <span>Intermédiaire</span>
+                    </div>
+                </div>
             </div>
 
-            <!-- Password Fortress - Coming Soon -->
-            <div class="formation-card coming">
+            <!-- Chiffrement Vigenère - Active -->
+            <div class="formation-card active">
                 <div class="formation-badge">
-                    <span class="material-icons">lock_open</span>
+                    <span class="material-icons">vpn_key</span>
                 </div>
-                <h3>Password Fortress</h3>
-                <p>Maîtrisez l'art de créer et gérer des mots de passe robustes et sécurisés pour protéger vos comptes.</p>
+                <h3>Chiffrement Vigenère</h3>
+                <p>Plongez dans l'univers fascinant de la cryptographie et apprenez à déchiffrer des messages codés avec le chiffement Vigenère.</p>
                 <ul class="formation-features">
                     <li>
-                        <span class="material-icons">lock</span>
-                        <span>Création de mots de passe forts</span>
+                        <span class="material-icons">check_circle</span>
+                        <span>Bases de la cryptographie</span>
                     </li>
                     <li>
-                        <span class="material-icons">lock</span>
-                        <span>Gestionnaires de mots de passe</span>
+                        <span class="material-icons">check_circle</span>
+                        <span>Algorithmes de chiffrement</span>
                     </li>
                     <li>
-                        <span class="material-icons">lock</span>
-                        <span>Authentification à deux facteurs</span>
+                        <span class="material-icons">check_circle</span>
+                        <span>Utile pour notre escape game</span>
                     </li>
                 </ul>
-                <span class="coming-soon-badge">Bientôt disponible</span>
+                <div class="formation-meta">
+                    <div class="meta-item">
+                        <span class="material-icons">schedule</span>
+                        <span>10-15 min</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="material-icons">signal_cellular_alt</span>
+                        <span>Intermédiaire</span>
+                    </div>
+                </div>
             </div>
 
-            <!-- Phishing Detective - Coming Soon -->
-            <div class="formation-card coming">
+            <!-- Chiffrement par permutation - Active -->
+            <div class="formation-card active">
                 <div class="formation-badge">
-                    <span class="material-icons">phishing</span>
+                    <span class="material-icons">vpn_key</span>
                 </div>
-                <h3>Phishing Detective</h3>
-                <p>Développez votre œil d'expert pour identifier et déjouer les tentatives de phishing sophistiquées.</p>
+                <h3>Chiffrement par permutation</h3>
+                <p>Plongez dans l'univers fascinant de la cryptographie et apprenez à déchiffrer des messages codés avec le chiffement par permutation.</p>
                 <ul class="formation-features">
                     <li>
-                        <span class="material-icons">lock</span>
-                        <span>Reconnaître les signaux d'alerte</span>
+                        <span class="material-icons">check_circle</span>
+                        <span>Bases de la cryptographie</span>
                     </li>
                     <li>
-                        <span class="material-icons">lock</span>
-                        <span>Analyser des emails suspects</span>
+                        <span class="material-icons">check_circle</span>
+                        <span>Algorithmes de chiffrement</span>
                     </li>
                     <li>
-                        <span class="material-icons">lock</span>
-                        <span>Se protéger efficacement</span>
+                        <span class="material-icons">check_circle</span>
+                        <span>Utile pour notre escape game</span>
                     </li>
                 </ul>
-                <span class="coming-soon-badge">Bientôt disponible</span>
+                <div class="formation-meta">
+                    <div class="meta-item">
+                        <span class="material-icons">schedule</span>
+                        <span>10-15 min</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="material-icons">signal_cellular_alt</span>
+                        <span>Intermédiaire</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</section>
+
+<section id="games" class="concept-section">
+    <div class="section-container">
+        <div class="section-header">
+            <span class="section-badge">Nos mini-jeux</span>
+            <h2>Découvrez la cryptographie en vous amusant</h2>
+            <p>Voici nos différents mini-jeux</p>
+        </div>
+
+        <div class="concept-grid">
+
+            <!-- carré de hamming -->
+            <div class="concept-card">
+                <div class="concept-icon">
+                    <span class="material-icons">sports_esports</span>
+                </div>
+                <h3>Hamming square</h3>
+                <p>Trouvez l'erreur dans le carré de Hamming</p>
+            </div>
+
+            <!-- Attacke de fréquence -->
+            <div class="concept-card">
+                <div class="concept-icon">
+                    <span class="material-icons">bar_chart</span>
+                </div>
+                <h3>Frequency Game</h3>
+                <p>Déchiffrez le message codé grâce aux règles du langage.</p>
+            </div>
+
+            <!-- Jeux de fiching-->
+            <div class="concept-card">
+                <div class="concept-icon">
+                    <span class="material-icons">phishing</span>
+                </div>
+                <h3>Phishing Detective</h3>
+                <p>Analysez les mails qui vous sont envoyés pour déceler les arnaques des vrais emails.</p>
+            </div>
+
+        </div> </div>
 </section>
 
 <!-- Team Section -->
@@ -200,7 +254,7 @@
         <div class="team-content">
             <div class="team-description">
                 <p>
-                    <strong>CyberCigales</strong> est né de la volonté de démocratiser l'apprentissage de la cybersécurité auprès des étudiants. Dans un monde où les menaces numériques sont omniprésentes, nous croyons que chacun doit avoir accès aux connaissances essentielles pour se protéger.
+                    <strong>CyberCigales</strong> est né de la volonté de démocratiser l'apprentissage de la cybersécurité auprès des étudiantes. Dans un monde où les menaces numériques sont omniprésentes, nous croyons que chacun doit avoir accès aux connaissances essentielles pour se protéger.
                 </p>
                 <p>
                     Notre équipe réunit des experts en sécurité informatique, des pédagogues passionnés et des développeurs créatifs. Ensemble, nous avons conçu une plateforme qui allie rigueur technique et approche ludique pour rendre l'apprentissage de la cybersécurité accessible, engageant et efficace.

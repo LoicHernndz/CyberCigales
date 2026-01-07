@@ -7,7 +7,7 @@ use Views\Bash\BashView;
 
 class Bash extends AbstractController
 {
-    public function getMethod()
+    public function getMethod(): void
     {
         $view = new BashView();
         $view->render();

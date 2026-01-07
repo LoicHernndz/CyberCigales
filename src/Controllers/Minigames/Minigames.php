@@ -1,8 +1,9 @@
 <?php
 
-namespace Controllers;
+namespace Controllers\Minigames;
 
 use Views\Minigames\MinigamesView;
+use Controllers\AbstractController;
 
 class Minigames extends AbstractController {
 
