@@ -154,11 +154,6 @@ class User{
 
     public function deleteProfil(int $userId)
     {
-
-        $this->db->query('DELETE FROM user_enigmes WHERE user_id = :id');
-        $this->db->bind(':id', $userId);
-        $this->db->execute();
-
         $this->db->query('DELETE FROM users WHERE id = :id');
         $this->db->bind(':id', $userId);
         return $this->db->execute();
