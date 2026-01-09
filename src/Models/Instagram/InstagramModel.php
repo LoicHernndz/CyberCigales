@@ -21,7 +21,7 @@ class InstagramModel
                 'username' => 'mel_133',
                 'avatar' => '/images/instagram/faux-profil-amie-hacke/melina_photo_selfie_salon.png',
                 'is_yours' => false,
-                'profile_url' => '/instagram/melina',
+                'profile_url' => '/instagram/user/mel_133',
                 'is_unseen' => true
             ],
             [
@@ -308,92 +308,6 @@ class InstagramModel
     }
     
     /**
-     * Récupère les données du profil de Melina
-     * 
-     * @return array Données du profil
-     */
-    public function getMelinaProfile(): array
-    {
-        return [
-            'username' => 'mel_133',
-            'display_name' => 'Melina',
-            'avatar' => '/images/instagram/faux-profil-amie-hacke/melina_photo_selfie_salon.png',
-            'posts_count' => '3',
-            'followers_count' => '89.2K',
-            'following_count' => '1,156',
-            'bio' => '✨ Fashion & Lifestyle ✨\n📸 Photographer\n🎨 Creative soul\n📍 Paris, France\n MARSEILLE 13\n\n#fashion #lifestyle #photography #paris #creative',
-            'website' => 'cybercigales.fr',
-            'verified' => true
-        ];
-    }
-    
-    /**
-     * Récupère les posts du profil de Melina
-     * 
-     * @return array Posts du profil
-     */
-    public function getMelinaPosts(): array
-    {
-        return [
-            [
-                'id' => 1,
-                'image' => '/images/instagram/tyler-delgado-A1kXxn2KVCM-unsplash 2.jpg',
-                'type' => 'pinned',
-                'is_video' => false,
-                'likes' => rand(150, 2500),
-                'comments' => rand(5, 50)
-            ],
-            [
-                'id' => 2,
-                'image' => '/images/instagram/steve-doig-FaMBWkmvPyY-unsplash.jpg',
-                'type' => 'normal',
-                'is_video' => false,
-                'likes' => rand(150, 2500),
-                'comments' => rand(5, 50)
-            ],
-            [
-                'id' => 3,
-                'image' => '/images/instagram/faux-profil-amie-hacke/melina_photo_miroir_2.png',
-                'type' => 'normal',
-                'is_video' => false,
-                'likes' => rand(150, 2500),
-                'comments' => rand(5, 50)
-            ]
-        ];
-    }
-    
-    /**
-     * Récupère les messages du chat avec Melina
-     * 
-     * @return array Messages du chat
-     */
-    public function getMelinaChatMessages(): array
-    {
-        return [
-            [
-                'type' => 'received',
-                'content' => 'Salut ! Comment ça va ? 😊',
-                'time' => '14:30'
-            ],
-            [
-                'type' => 'sent',
-                'content' => 'Salut Melina ! Ça va super, merci !',
-                'time' => '14:32'
-            ],
-            [
-                'type' => 'received',
-                'content' => 'J\'ai vu tes nouvelles photos, elles sont magnifiques ! 📸',
-                'time' => '14:35'
-            ],
-            [
-                'type' => 'sent',
-                'content' => 'Merci beaucoup ! J\'adore la photographie ✨',
-                'time' => '14:37'
-            ]
-        ];
-    }
-    
-    /**
      * Base de données de tous les profils utilisateurs
      * 
      * @return array Tableau associatif des profils par username
@@ -577,6 +491,22 @@ class InstagramModel
                     ['id' => 3, 'image' => '/images/instagram/aliona-gumeniuk-jeAjT87nbjM-unsplash.jpg', 'type' => 'normal', 'is_video' => false],
                 ]
             ],
+            'mel_133' => [
+                'username' => 'mel_133',
+                'display_name' => 'Melina',
+                'avatar' => '/images/instagram/faux-profil-amie-hacke/melina_photo_selfie_salon.png',
+                'posts_count' => '3',
+                'followers_count' => '89.2K',
+                'following_count' => '1,156',
+                'bio' => "✨ Fashion & Lifestyle ✨\n📸 Photographer\n🎨 Creative soul\n📍 Paris, France\nMARSEILLE 13\n\n#fashion #lifestyle #photography #paris #creative",
+                'website' => 'cybercigales.fr',
+                'verified' => true,
+                'posts' => [
+                    ['id' => 1, 'image' => '/images/instagram/tyler-delgado-A1kXxn2KVCM-unsplash 2.jpg', 'type' => 'normal', 'is_video' => false],
+                    ['id' => 2, 'image' => '/images/instagram/steve-doig-FaMBWkmvPyY-unsplash.jpg', 'type' => 'normal', 'is_video' => false],
+                    ['id' => 3, 'image' => '/images/instagram/faux-profil-amie-hacke/melina_photo_miroir_2.png', 'type' => 'normal', 'is_video' => false],
+                ]
+            ],
         ];
     }
     
@@ -666,6 +596,12 @@ class InstagramModel
                 ['type' => 'sent', 'content' => 'Super ! C\'est quoi le thème ?', 'time' => '14:10'],
                 ['type' => 'received', 'content' => 'Cuisine méditerranéenne revisitée', 'time' => '14:11'],
                 ['type' => 'received', 'content' => 'Je t\'envoie un exemplaire dédicacé ? 💝', 'time' => '14:12'],
+            ],
+            'mel_133' => [
+                ['type' => 'received', 'content' => 'Salut ! Comment ça va ? 😊', 'time' => '14:30'],
+                ['type' => 'sent', 'content' => 'Salut Melina ! Ça va super, merci !', 'time' => '14:32'],
+                ['type' => 'received', 'content' => 'J\'ai vu tes nouvelles photos, elles sont magnifiques ! 📸', 'time' => '14:35'],
+                ['type' => 'sent', 'content' => 'Merci beaucoup ! J\'adore la photographie ✨', 'time' => '14:37'],
             ],
         ];
         
