@@ -54,6 +54,7 @@ class Routes
         '/instagram/chat/response' =>  'helpers\GenerateAnswer',
         '/minigames' => 'Controllers\Minigames\Minigames',
         '/hamming-square' => 'Controllers\HammingSquare\HammingSquare',
+        '/outils' => 'Controllers\Code\AllCodePage\AllCodePage',
         ];
 
 }
