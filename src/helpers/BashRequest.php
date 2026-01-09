@@ -20,6 +20,8 @@ class BashRequest
         $command = $args[0];
         if (in_array($command, $allowed)) {
             self::$command($env, $args, $path);
+        } else {
+            echo '{"path":"' . $path . '","output":"Commande inconnue."}';
         }
     }
 

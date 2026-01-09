@@ -17,11 +17,7 @@ async function generateOutput(input) {
         }
 
         let result = await response.json();
-
-        console.log(result);
-
         document.getElementById("output").innerHTML += "<br>" + result.output;
-        console.log(this.responseText);
         path = result.path;
     } catch (error) {
         console.error(error.message);

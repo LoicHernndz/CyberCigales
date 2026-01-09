@@ -53,6 +53,7 @@ class Routes
         '/agenda' => 'Controllers\InterfaceAgenda\InterfaceAgenda',
         '/web' => 'Controllers\InterfaceWeb\InterfaceWeb',
         '/bash' => 'Controllers\Bash\Bash',
+        '/bash/exec' => 'helpers\BashRequest',
         '/instagram/chat/response' =>  'helpers\GenerateAnswer',
         '/minigames' => 'Controllers\Minigames\Minigames',
         '/hamming-square' => 'Controllers\HammingSquare\HammingSquare',
