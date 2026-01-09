@@ -1,9 +1,9 @@
 <?php
 
-namespace Controllers\Qcm;
+namespace Controllers\Lecon;
 
 use Controllers\AbstractController;
-use Views\Qcm\RgpdPresentation\RgpdPresentationView;
+use Views\Lecon\RgpdPresentation\RgpdPresentationView;
 
 /**
  * Contrôleur pour afficher la page de présentation du RGPD
@@ -20,12 +20,6 @@ class RgpdPresentation extends AbstractController
         if (!isset($_SESSION['user_id'])) {
             flash('qcm', 'Vous devez être connecté pour accéder au contenu RGPD.', 'form-message form-message-red');
             redirect('/user/login');
-        }
-        
-        // Vérifier si l'utilisateur veut accéder directement au QCM
-        if (isset($_GET['direct']) && $_GET['direct'] === '1') {
-            redirect('/qcm/rgpd');
-            return;
         }
 
         // Afficher la vue

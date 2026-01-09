@@ -2,7 +2,7 @@
 
 namespace Controllers\Lecon;
 
-use Views\LeconChiffrement\LeconPermutationView;
+use Views\Lecon\LeconPermutation\LeconPermutationView;
 use Controllers\AbstractController;
 
 class LeconPermutation extends AbstractController {

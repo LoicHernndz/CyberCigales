@@ -25,10 +25,7 @@ class Routes
         '/game/frequency' => 'Controllers\Game\FrequencyGame',
         '/game/phishing' => 'Controllers\Game\PhishingGame',
 
-        '/qcm/rgpd/resultat' => 'Controllers\Qcm\QcmResultat',
-        '/qcm/rgpd/feedback' => 'Controllers\Qcm\QcmFeedback',
-        '/qcm/rgpd' => 'Controllers\Qcm\QcmRgpd',
-        '/qcm/rgpd/presentation' => 'Controllers\Qcm\RgpdPresentation',
+
 
         '/code/chiffrement-cesar' => 'Controllers\Code\Cesar\EncryptCesar',
         '/code/dechiffrement-cesar' => 'Controllers\Code\Cesar\DecryptCesar',
@@ -40,12 +37,16 @@ class Routes
         '/instagram' => 'Controllers\Instagram\Instagram',
         '/instagram/melina' => 'Controllers\Instagram\MelinaProfile',
         '/instagram/melina/chat' => 'Controllers\Instagram\MelinaChat',
+        '/instagram/melina/chat' => 'Controllers\Instagram\MelinaChat',
+
+        '/macos' => 'Controllers\MacOSController',
+
+        '/lecon' => 'Controllers\Lecon\AllLessonPage',
+        '/LeconHistMdp' => 'Controllers\Lecon\LeconHistMdp',
         '/LeconCesar' => 'Controllers\Lecon\LeconCesar',
         '/LeconPermutation' => 'Controllers\Lecon\LeconPermutation',
         '/LeconVigenere' => 'Controllers\Lecon\LeconVigenere',
-        '/instagram/melina/chat' => 'Controllers\Instagram\MelinaChat',
-        '/LeconHistMdp' => 'Controllers\Lecon\LeconHistMdp',
-        '/macos' => 'Controllers\MacOSController',
+        '/lecon-rgpd' => 'Controllers\Lecon\RgpdPresentation',
 
         '/email' => 'Controllers\InterfaceMail\InterfaceMail',
         '/agenda' => 'Controllers\InterfaceAgenda\InterfaceAgenda',

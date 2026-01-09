@@ -1,6 +1,6 @@
 <?php
 
-namespace Views\Qcm\RgpdPresentation;
+namespace Views\Lecon\RgpdPresentation;
 
 use Views\AbstractView;
 

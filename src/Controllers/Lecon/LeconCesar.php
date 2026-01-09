@@ -2,7 +2,7 @@
 
 namespace Controllers\Lecon;
 
-use Views\LeconChiffrement\LeconCesarView;
+use Views\Lecon\LeconCesar\LeconCesarView;
 use Controllers\AbstractController;
 
 class LeconCesar extends AbstractController {

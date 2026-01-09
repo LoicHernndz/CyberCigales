@@ -1,13 +1,13 @@
 <?php
 
-namespace Views\LeconChiffrement;
+namespace Views\Lecon\LeconPermutation;
 
 use Views\AbstractView;
 
-class LeconVigenereView extends AbstractView {
+class LeconPermutationView extends AbstractView {
 
     // Chemin du fichier HTML associé à la page des mentions légales
-    private const TEMPLATE_HTML = __DIR__ . '/LeconVigenere.html';
+    private const TEMPLATE_HTML = __DIR__ . '/LeconPermutation.html';
 
     // Méthode qui retourne le chemin du template HTML à afficher
     public function templatePath() : string {

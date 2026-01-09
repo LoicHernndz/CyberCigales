@@ -98,7 +98,7 @@ abstract class AbstractView {
                 <nav class="main-nav">
             ';
         if(isset($_SESSION['user_id'])) :
-            echo '<a href="/" class="nav-link">
+            echo '<a href="/lecon" class="nav-link">
                         <span class="material-icons">school</span>
                         <span>Formations</span>
                     </a>
