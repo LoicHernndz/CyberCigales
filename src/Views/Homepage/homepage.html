@@ -38,44 +38,6 @@
         </div>
         
         <div class="mission-cards">
-            <div class="mission-card mission-active">
-                <div class="mission-badge">
-                    <span class="material-icons">verified_user</span>
-                </div>
-                <div class="mission-image">
-                    <img src="/images/RGPD-UE.jpg" alt="Formation RGPD">
-                </div>
-                <div class="mission-content">
-                    <h3>Formation RGPD</h3>
-                    <p class="mission-description">
-                        Maîtrisez la protection des données personnelles et les obligations légales du RGPD
-                    </p>
-                    <div class="mission-progress">
-                        <div class="progress-label">
-                            <span>Progression</span>
-                            <span>{{RGPD_COMPLETION}}%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: {{RGPD_COMPLETION}}%"></div>
-                        </div>
-                    </div>
-                    <div class="mission-meta">
-                        <span class="meta-item">
-                            <span class="material-icons">schedule</span>
-                            10-15 min
-                        </span>
-                        <span class="meta-item">
-                            <span class="material-icons">signal_cellular_alt</span>
-                            Intermédiaire
-                        </span>
-                    </div>
-                    <a href="/qcm/rgpd/presentation" class="btn-mission">
-                        <span>Commencer</span>
-                        <span class="material-icons">arrow_forward</span>
-                    </a>
-                </div>
-            </div>
-
             <div class="mission-card">
                 <div class="mission-badge">
                     <span class="material-icons">vpn_key</span>
@@ -174,15 +136,11 @@
 
     <!-- Achievements Section - Nouvelle section -->
     <div class="achievements-section">
-        <h3>Vos réalisations <span class="badge-count">{{UNLOCKED_BADGES}}/6</span></h3>
+        <h3>Vos réalisations <span class="badge-count">{{UNLOCKED_BADGES}}/5</span></h3>
         <div class="achievements-grid">
-            <div class="achievement-badge {{RGPD_COMPLETION >= 100 ? '' : 'locked'}}">
+            <div class="achievement-badge {{TOTAL_POINTS > 0 ? '' : 'locked'}}">
                 <span class="material-icons">school</span>
-                <p>Premier QCM réussi</p>
-            </div>
-            <div class="achievement-badge {{RGPD_COMPLETION >= 100 ? '' : 'locked'}}">
-                <span class="material-icons">verified</span>
-                <p>Expert RGPD</p>
+                <p>Première activité réussie</p>
             </div>
             <div class="achievement-badge {{CYPHER_COMPLETION >= 100 ? '' : 'locked'}}">
                 <span class="material-icons">code</span>

@@ -25,11 +25,6 @@ class Routes
         '/game/frequency' => 'Controllers\Game\FrequencyGame',
         '/game/phishing' => 'Controllers\Game\PhishingGame',
 
-        '/qcm/rgpd/resultat' => 'Controllers\Qcm\QcmResultat',
-        '/qcm/rgpd/feedback' => 'Controllers\Qcm\QcmFeedback',
-        '/qcm/rgpd' => 'Controllers\Qcm\QcmRgpd',
-        '/qcm/rgpd/presentation' => 'Controllers\Qcm\RgpdPresentation',
-
         '/code/chiffrement-cesar' => 'Controllers\Code\Cesar\EncryptCesar',
         '/code/dechiffrement-cesar' => 'Controllers\Code\Cesar\DecryptCesar',
         '/code/chiffrement-vigenere' => 'Controllers\Code\Vigenere\EncryptVigenere',

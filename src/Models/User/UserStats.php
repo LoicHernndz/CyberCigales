@@ -24,9 +24,6 @@ class UserStats
         // Statistiques générales
         $generalStats = $this->getGeneralStats($userId);
         
-        // Statistiques QCM RGPD
-        $rgpdStats = $this->getRgpdStats($userId);
-        
         // Statistiques Cypher Rush
         $cypherStats = $this->getCypherStats($userId);
         
@@ -38,7 +35,6 @@ class UserStats
         
         return [
             'general' => $generalStats,
-            'rgpd' => $rgpdStats,
             'cypher' => $cypherStats,
             'activity' => $recentActivity,
             'progression' => $progression
@@ -56,7 +52,8 @@ class UserStats
             nom,
             pseudo,
             email,
-            COALESCE(score, 0) as total_score
+            COALESCE(score, 0) as total_score,
+            date_inscription
         FROM users 
         WHERE id = :user_id');
         
@@ -70,9 +67,14 @@ class UserStats
         // Calculer le temps total passé (approximatif basé sur l'activité)
         $totalTime = $this->calculateTotalTime($userId);
         
-        // Calculer la date d'inscription approximative basée sur la première activité
-        $membreDepuis = $this->getFirstActivityDate($userId);
-        $joursDepuis = $this->calculateDaysSinceFirstActivity($userId);
+        $membreDepuis = $user->date_inscription ? date('d/m/Y', strtotime($user->date_inscription)) : date('d/m/Y');
+        
+        // Calculer les jours depuis l'inscription
+        $joursDepuis = 0;
+        if ($user->date_inscription) {
+            $diff = time() - strtotime($user->date_inscription);
+            $joursDepuis = floor($diff / (60 * 60 * 24));
+        }
         
         return [
             'id' => $user->id,
@@ -84,99 +86,6 @@ class UserStats
             'membre_depuis' => $membreDepuis,
             'jours_membre' => $joursDepuis,
             'total_time' => $totalTime
-        ];
-    }
-
-    /**
-     * Récupère la date de première activité de l'utilisateur
-     */
-    private function getFirstActivityDate(int $userId): string
-    {
-        try {
-            // Chercher la première activité dans user_qcm_progress
-            $this->db->query('
-                SELECT MIN(answered_at) as first_date 
-                FROM user_qcm_progress 
-                WHERE user_id = :user_id
-            ');
-            $this->db->bind(':user_id', $userId);
-            $result = $this->db->single();
-            
-            if ($result && $result->first_date) {
-                return date('d/m/Y', strtotime($result->first_date));
-            }
-        } catch (\Exception $e) {
-            // Table n'existe pas ou erreur
-        }
-        
-        return date('d/m/Y'); // Date du jour si pas d'activité
-    }
-
-    /**
-     * Calcule le nombre de jours depuis la première activité
-     */
-    private function calculateDaysSinceFirstActivity(int $userId): int
-    {
-        try {
-            $this->db->query('
-                SELECT DATEDIFF(NOW(), MIN(answered_at)) as days_count 
-                FROM user_qcm_progress 
-                WHERE user_id = :user_id
-            ');
-            $this->db->bind(':user_id', $userId);
-            $result = $this->db->single();
-            
-            if ($result && $result->days_count) {
-                return (int)$result->days_count;
-            }
-        } catch (\Exception $e) {
-            // Table n'existe pas ou erreur
-        }
-        
-        return 0;
-    }
-
-    /**
-     * Statistiques RGPD
-     */
-    private function getRgpdStats(int $userId): array
-    {
-        // Nombre de questions répondues
-        $this->db->query('SELECT 
-            COUNT(*) as questions_answered,
-            SUM(CASE WHEN est_correcte = 1 THEN 1 ELSE 0 END) as correct_answers,
-            COALESCE(SUM(points_obtenus), 0) as rgpd_score,
-            MAX(answered_at) as last_attempt
-        FROM user_qcm_progress 
-        WHERE user_id = :user_id');
-        
-        $this->db->bind(':user_id', $userId);
-        $stats = $this->db->single();
-        
-        // Nombre total de questions disponibles
-        $this->db->query('SELECT COUNT(*) as total_questions FROM qcm_questions WHERE est_active = 1');
-        $totalQuestions = $this->db->single();
-        
-        $questionsAnswered = (int)($stats->questions_answered ?? 0);
-        $correctAnswers = (int)($stats->correct_answers ?? 0);
-        $totalQuestionsCount = (int)($totalQuestions->total_questions ?? 0);
-        
-        $completion = $totalQuestionsCount > 0 
-            ? round(($questionsAnswered / $totalQuestionsCount) * 100) 
-            : 0;
-        
-        $accuracy = $questionsAnswered > 0 
-            ? round(($correctAnswers / $questionsAnswered) * 100) 
-            : 0;
-        
-        return [
-            'questions_answered' => $questionsAnswered,
-            'correct_answers' => $correctAnswers,
-            'total_questions' => $totalQuestionsCount,
-            'score' => (int)($stats->rgpd_score ?? 0),
-            'completion' => $completion,
-            'accuracy' => $accuracy,
-            'last_attempt' => $stats->last_attempt ?? null
         ];
     }
 
@@ -208,7 +117,6 @@ class UserStats
                 'last_played' => $stats->last_played ?? null
             ];
         } catch (\Exception $e) {
-            // Table cypher_scores n'existe pas encore
             return [
                 'games_played' => 0,
                 'best_score' => 0,
@@ -226,24 +134,6 @@ class UserStats
     private function getRecentActivity(int $userId): array
     {
         $activities = [];
-        
-        // Activité QCM
-        try {
-            $this->db->query('SELECT 
-                DATE(answered_at) as date,
-                COUNT(*) as count,
-                "rgpd" as type
-            FROM user_qcm_progress 
-            WHERE user_id = :user_id 
-            AND answered_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)
-            GROUP BY DATE(answered_at)');
-            
-            $this->db->bind(':user_id', $userId);
-            $rgpdActivity = $this->db->resultSet();
-            $activities = array_merge($activities, $rgpdActivity);
-        } catch (\Exception $e) {
-            // Table n'existe pas
-        }
         
         // Activité Cypher (si la table existe)
         try {
@@ -269,7 +159,6 @@ class UserStats
             $date = date('Y-m-d', strtotime("-$i days"));
             $dates[$date] = [
                 'date' => date('d/m', strtotime($date)),
-                'rgpd' => 0,
                 'cypher' => 0,
                 'total' => 0
             ];
@@ -291,16 +180,9 @@ class UserStats
      */
     private function getProgression(int $userId): array
     {
-        $rgpdStats = $this->getRgpdStats($userId);
         $cypherStats = $this->getCypherStats($userId);
         
         return [
-            'rgpd' => [
-                'name' => 'Formation RGPD',
-                'completion' => $rgpdStats['completion'],
-                'score' => $rgpdStats['score'],
-                'status' => $rgpdStats['completion'] >= 100 ? 'completed' : 'in_progress'
-            ],
             'cypher' => [
                 'name' => 'Cypher Rush',
                 'completion' => $cypherStats['games_played'] > 0 ? 100 : 0,
@@ -328,16 +210,6 @@ class UserStats
     private function calculateTotalTime(int $userId): string
     {
         $totalMinutes = 0;
-        
-        // Temps estimé par question RGPD : 2 minutes
-        try {
-            $this->db->query('SELECT COUNT(*) as count FROM user_qcm_progress WHERE user_id = :user_id');
-            $this->db->bind(':user_id', $userId);
-            $rgpdCount = $this->db->single()->count ?? 0;
-            $totalMinutes += $rgpdCount * 2;
-        } catch (\Exception $e) {
-            // Table n'existe pas
-        }
         
         // Temps Cypher Rush (en secondes dans la BDD)
         try {
@@ -374,17 +246,6 @@ class UserStats
                 'name' => 'Premier Pas',
                 'icon' => 'emoji_events',
                 'description' => 'Première activité complétée',
-                'unlocked' => true
-            ];
-        }
-        
-        // Badge Expert RGPD
-        if ($stats['rgpd']['completion'] >= 100 && $stats['rgpd']['accuracy'] >= 80) {
-            $badges[] = [
-                'id' => 'rgpd_expert',
-                'name' => 'Expert RGPD',
-                'icon' => 'verified_user',
-                'description' => '100% du QCM RGPD avec 80% de bonnes réponses',
                 'unlocked' => true
             ];
         }
@@ -437,4 +298,3 @@ class UserStats
         ];
     }
 }
-
