@@ -51,6 +51,7 @@ class Routes
         '/agenda' => 'Controllers\InterfaceAgenda\InterfaceAgenda',
         '/web' => 'Controllers\InterfaceWeb\InterfaceWeb',
         '/bash' => 'Controllers\Bash\Bash',
+        '/bash/exec' => 'Controllers\Bash\BashExec',
         '/instagram/chat/response' =>  'helpers\GenerateAnswer',
         ];
 
