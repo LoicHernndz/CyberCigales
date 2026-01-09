@@ -24,6 +24,7 @@ class Routes
         '/cypher-rush' => 'Controllers\Game\CypherRush',
         '/game/frequency' => 'Controllers\Game\FrequencyGame',
         '/game/phishing' => 'Controllers\Game\PhishingGame',
+        '/game/hamming' => 'Controllers\Game\Hamming',
 
 
 
