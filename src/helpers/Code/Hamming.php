@@ -50,8 +50,8 @@ class Hamming
         // p4 : parité de la colonne 2 (d2 + d4)
         $p4 = ($d2 + $d4) % 2;
         
-        // p5 : parité diagonale (d1 + d4)
-        $p5 = ($d1 + $d4) % 2;
+        // p5 : parité carré (d1 + d2 + d3 + d4)
+        $p5 = ($p1 + $p2) % 2;
         
         return [
             [$d1, $d2, $p1],
