@@ -11,6 +11,9 @@
  * - Scroll automatique vers les nouveaux messages
  */
 
+
+let step = 0;
+
 // Attendre que le DOM soit chargé
 document.addEventListener('DOMContentLoaded', function() {
     // Récupération des éléments du DOM
@@ -127,14 +130,18 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     async function generateResponse(message) {
         try {
-            let url = "/instagram/chat/response?name=Melina&message=" + message
+            let url = "/instagram/chat/response?name=Melina&step=" + step + "&message=" + message
             const response = await fetch(url);
             if (!response.ok) {
                 throw new Error(`Response status: ${response.status}`);
             }
 
             let text = await response.text();
-            addMelinaMessage(text);
+            addMelinaMessage(text.slice(0, -1));
+            if (text.charAt(text.length - 1) === "1") {
+                ++step;
+            }
+            return text;
 
         } catch (error) {
             console.error(error.message);
@@ -147,6 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // ========================================
     
     // Scroll initial vers le bas pour voir les derniers messages
+    generateResponse("");  // Message initial
     scrollToBottom();
     
     console.log('Chat avec Melina initialisé avec succès');

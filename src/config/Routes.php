@@ -55,6 +55,8 @@ class Routes
         '/minigames' => 'Controllers\Minigames\Minigames',
         '/hamming-square' => 'Controllers\HammingSquare\HammingSquare',
         '/outils' => 'Controllers\Code\AllCodePage\AllCodePage',
+
+        '/data-breach/check' => 'Controllers\DataBreach\DataBreachCheck',
         ];
 
 }
