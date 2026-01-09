@@ -1,0 +1,82 @@
+<link rel="stylesheet" href="/styles/hamming-game.css">
+
+<div class="hamming-game-container">
+    <!-- Zone de dialogue -->
+    <div class="dialogue-box">
+        <div class="character-avatar">
+            <span class="material-icons">smart_toy</span>
+            <span class="character-name">Cyba</span>
+        </div>
+        <div class="dialogue-content">
+            <p id="dialogue-text">
+                Un bit a ete corrompu dans ce carre de Hamming ! 
+                Utilise les regles de parite pour trouver l'erreur. 
+                Clique sur le bit que tu penses etre errone.
+            </p>
+        </div>
+    </div>
+
+    <!-- Zone de jeu principale -->
+    <div class="game-area">
+        <!-- Stats du jeu -->
+        <div class="game-stats">
+            <div class="stat-item">
+                <span class="stat-label">
+                    <span class="material-icons">emoji_events</span>
+                    Serie
+                </span>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+                </div>
+                <span class="stat-value" id="streak-display">0 / 5</span>
+            </div>
+        </div>
+
+        <!-- Le carre de Hamming -->
+        <div class="square-section">
+            <h3>
+                <span class="material-icons">error_outline</span>
+                Trouve le bit errone
+            </h3>
+            <div class="square-wrapper">
+                <div class="hamming-grid" id="square-container">
+                    <!-- Les cellules seront generees par JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Feedback -->
+        <div class="feedback-section" id="feedback-section" style="display: none;">
+            <div class="feedback-content" id="feedback-content">
+                <!-- Message de feedback -->
+            </div>
+        </div>
+
+        <!-- Aide -->
+        <div class="help-section">
+            <button class="btn-help" id="btn-toggle-help">
+                <span class="material-icons">help_outline</span>
+                <span>Comment jouer ?</span>
+            </button>
+            <div class="help-content" id="help-content" style="display: none;">
+                <h4>Regles du carre de Hamming</h4>
+                <p>Le carre 3x3 contient :</p>
+                <ul>
+                    <li><strong>4 bits de donnees</strong> (en haut a gauche)</li>
+                    <li><strong>5 bits de parite</strong> (derniere ligne et colonne)</li>
+                </ul>
+                <p>Pour trouver l'erreur :</p>
+                <ol>
+                    <li>Verifie chaque ligne : la somme doit etre paire</li>
+                    <li>Verifie chaque colonne : la somme doit etre paire</li>
+                    <li>L'intersection des lignes/colonnes incorrectes = l'erreur !</li>
+                </ol>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="application/json" id="square-data">{{{SQUARE_JSON}}}</script>
+<script type="application/json" id="game-data">{{{GAME_DATA}}}</script>
+<script src="/js/hamming-game.js"></script>

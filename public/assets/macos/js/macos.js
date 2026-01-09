@@ -94,8 +94,18 @@ function createNewWindow(appName) {
     // Définition de la structure de base, du style et de la draggabilité
     windowElement.id = windowId;
     windowElement.className = 'app-window fixed bg-white/70 backdrop-blur-md rounded-xl shadow-2xl overflow-hidden resize transition-shadow duration-300 ring-1 ring-gray-200';
-    windowElement.style.width = '800px';
-    windowElement.style.height = '500px';
+
+    // Taille personnalisée pour certaines apps
+    let windowWidth = 600;
+    let windowHeight = 400;
+
+    if (appName === 'Hamming' || appName === 'Instagram') {
+        windowWidth = 900;
+        windowHeight = 700;
+    }
+
+    windowElement.style.width = `${windowWidth}px`;
+    windowElement.style.height = `${windowHeight}px`;
     windowElement.style.minWidth = '300px';
     windowElement.style.minHeight = '200px';
     // Position de départ aléatoire mais centrée
@@ -115,6 +125,7 @@ function createNewWindow(appName) {
         </div>
         <div id="${appName}-content" class="window-content overflow-y-auto h-[calc(100%-33px)] text-gray-700">
         </div>
+        <!-- Poignée de redimensionnement (dans le coin inférieur droit) -->
         <div class="resize-handle absolute bottom-0 right-0 w-3 h-3 cursor-nwse-resize"></div>
     `;
 
@@ -154,6 +165,9 @@ function getContentForApp(appName) {
             break;
         case 'Terminal':
             document.getElementById(`${appName}-content`).innerHTML = `<iframe src='/bash'></iframe>`;
+            break;
+        case 'Hamming':
+            document.getElementById(`${appName}-content`).innerHTML = `<iframe src='/game/hamming'></iframe>`;
             break;
         case 'Instagram':
             document.getElementById(`${appName}-content`).innerHTML =  `<iframe src='/instagram'></iframe>`
@@ -332,7 +346,6 @@ function makeDraggable(windowElement) {
 
         let newX = e.clientX - offsetX;
         let newY = e.clientY - offsetY;
-        console.log(newX, newY);
 
         // Limiter le mouvement (optionnel, mais améliore l'UX)
         newX = Math.max(0, Math.min(newX, window.innerWidth - windowElement.offsetWidth));

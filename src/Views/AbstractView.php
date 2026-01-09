@@ -14,8 +14,14 @@ abstract class AbstractView {
         $template = file_get_contents($this->templatePath());
 
         foreach($this->templateKeys() as $key => $value){
+            // Convertir en string pour éviter les problèmes de type
+            $value = (string)$value;
+            // Remplacer toutes les occurrences de la clé
             $template = str_replace("{{{$key}}}", $value, $template);
         }
+        
+        // Nettoyer les accolades orphelines qui pourraient rester (sécurité)
+        $template = preg_replace('/\{\{\{[A-Z_]+\}\}\}/', '', $template);
 
         echo $template ;
     }

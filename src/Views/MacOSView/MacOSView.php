@@ -166,6 +166,22 @@ class MacOSView {
                 <img src="/images/macos/ajustement.png">
                 <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Paramètres</div>
             </li>
+            
+            <!-- 9. Hamming (Mini-jeu) -->
+            <li class="dock-icon w-14 h-14 p-2 bg-gradient-to-br from-green-600 to-emerald-800 rounded-xl flex items-center justify-center relative group" onclick="openApp(\'Hamming\')">
+                <svg class="w-9 h-9 text-green-300" fill="currentColor" viewBox="0 0 24 24">
+                    <rect x="2" y="2" width="6" height="6" rx="1" opacity="0.9"/>
+                    <rect x="9" y="2" width="6" height="6" rx="1" opacity="0.7"/>
+                    <rect x="16" y="2" width="6" height="6" rx="1" opacity="0.9"/>
+                    <rect x="2" y="9" width="6" height="6" rx="1" opacity="0.7"/>
+                    <rect x="9" y="9" width="6" height="6" rx="1" fill="#ff4444"/>
+                    <rect x="16" y="9" width="6" height="6" rx="1" opacity="0.7"/>
+                    <rect x="2" y="16" width="6" height="6" rx="1" opacity="0.9"/>
+                    <rect x="9" y="16" width="6" height="6" rx="1" opacity="0.7"/>
+                    <rect x="16" y="16" width="6" height="6" rx="1" opacity="0.9"/>
+                </svg>
+                <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Hamming</div>
+            </li>
 
             <!-- Séparateur visuel -->
             <li class="w-px h-10 self-center bg-white/20 mx-3"></li>
