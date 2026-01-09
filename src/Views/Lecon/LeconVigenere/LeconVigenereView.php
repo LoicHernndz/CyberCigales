@@ -1,13 +1,13 @@
 <?php
 
-namespace Views\LeconChiffrement;
+namespace Views\Lecon\LeconVigenere;
 
 use Views\AbstractView;
 
-class LeconCesarView extends AbstractView {
+class LeconVigenereView extends AbstractView {
 
     // Chemin du fichier HTML associé à la page des mentions légales
-    private const TEMPLATE_HTML = __DIR__ . '/LeconCesar.html';
+    private const TEMPLATE_HTML = __DIR__ . '/LeconVigenere.html';
 
     // Méthode qui retourne le chemin du template HTML à afficher
     public function templatePath() : string {

@@ -2,7 +2,7 @@
 
 namespace Controllers\Lecon;
 
-use Views\LeconChiffrement\LeconHistMdpView;
+use Views\Lecon\LeconHistMdp\LeconHistMdpView;
 use Controllers\AbstractController;
 
 class LeconHistMdp extends AbstractController {

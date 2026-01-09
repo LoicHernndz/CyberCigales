@@ -2,7 +2,7 @@
 
 namespace Controllers\Lecon;
 
-use Views\LeconChiffrement\LeconVigenereView;
+use Views\Lecon\LeconVigenere\LeconVigenereView;
 use Controllers\AbstractController;
 
 class LeconVigenere extends AbstractController {
