@@ -167,6 +167,14 @@ class MacOSView {
                 <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Paramètres</div>
             </li>
 
+            <!-- 9. Permutation -->
+            <li class="dock-icon w-14 h-14 p-2 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-xl flex items-center justify-center relative group" onclick="openApp(\'Permutation\')">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                </svg>
+                <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Permutation</div>
+            </li>
+
             <!-- Séparateur visuel -->
             <li class="w-px h-10 self-center bg-white/20 mx-3"></li>
 

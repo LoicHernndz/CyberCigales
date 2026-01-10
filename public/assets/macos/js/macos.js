@@ -213,8 +213,16 @@ function createNewWindow(appName) {
     // Définition de la structure de base, du style et de la draggabilité
     windowElement.id = windowId;
     windowElement.className = 'app-window fixed bg-white/70 backdrop-blur-md rounded-xl shadow-2xl overflow-hidden resize transition-shadow duration-300 ring-1 ring-gray-200';
-    windowElement.style.width = '800px';
-    windowElement.style.height = '500px';
+    
+    // Tailles par défaut ajustées par application
+    if (appName === 'Permutation') {
+        windowElement.style.width = '650px';
+        windowElement.style.height = '600px';
+    } else {
+        windowElement.style.width = '800px';
+        windowElement.style.height = '500px';
+    }
+    
     windowElement.style.minWidth = '300px';
     windowElement.style.minHeight = '200px';
     // Position de départ aléatoire mais centrée
@@ -277,6 +285,9 @@ function getContentForApp(appName) {
             break;
         case 'Instagram':
             document.getElementById(`${appName}-content`).innerHTML =  `<iframe src='/instagram'></iframe>`
+            break;
+        case 'Permutation':
+            document.getElementById(`${appName}-content`).innerHTML = `<iframe src='/macos/permutation' style="width:100%; height:100%; border:none;"></iframe>`;
             break;
         case 'Calendrier':
             document.getElementById(`${appName}-content`).innerHTML =  `<iframe src='/agenda'></iframe>`

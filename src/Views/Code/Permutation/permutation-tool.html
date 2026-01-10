@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Permutation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+            background: #f5f5f7;
+            padding: 20px;
+            overflow-y: auto;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+            border: 0.5px solid rgba(255, 255, 255, 0.3);
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 28px;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #6e6e73;
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        textarea,
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 15px;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Mono', monospace;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.95);
+            transition: all 0.2s ease;
+            color: #1d1d1f;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Mono', monospace;
+        }
+
+        textarea:focus,
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #007aff;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 12px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        button {
+            flex: 1;
+            padding: 13px 20px;
+            font-size: 15px;
+            font-weight: 500;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            letter-spacing: -0.2px;
+        }
+
+        .btn-encrypt {
+            background: linear-gradient(180deg, #007aff 0%, #0051d5 100%);
+            color: white;
+            box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
+        }
+
+        .btn-encrypt:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.4);
+        }
+
+        .btn-encrypt:active {
+            transform: translateY(0);
+        }
+
+        .btn-decrypt {
+            background: rgba(0, 0, 0, 0.05);
+            color: #007aff;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .btn-decrypt:hover {
+            background: rgba(0, 0, 0, 0.08);
+            border-color: rgba(0, 0, 0, 0.12);
+        }
+
+        .result-box {
+            margin-top: 24px;
+            padding: 16px;
+            background: rgba(245, 245, 247, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            display: none;
+        }
+
+        .result-box.show {
+            display: block;
+        }
+
+        .result-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #6e6e73;
+            margin-bottom: 10px;
+            letter-spacing: 0.3px;
+        }
+
+        .result-text {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Mono', monospace;
+            font-size: 14px;
+            color: #1d1d1f;
+            word-break: break-all;
+            padding: 14px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .copy-btn {
+            margin-top: 12px;
+            padding: 8px 16px;
+            font-size: 13px;
+            background: #34c759;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .copy-btn:hover {
+            background: #30b350;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(52, 199, 89, 0.3);
+        }
+
+        /* Scrollbar MacOS style */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 10px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.25);
+            background-clip: padding-box;
+        }
+
+        /* Section En savoir plus - Style MacOS */
+        .info-section {
+            background: rgba(0, 122, 255, 0.04);
+            backdrop-filter: blur(10px);
+            border-radius: 14px;
+            padding: 16px 18px;
+            margin-bottom: 28px;
+            border: 1px solid rgba(0, 122, 255, 0.1);
+        }
+
+        .info-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .info-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #007aff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: -0.2px;
+        }
+
+        .info-icon {
+            font-size: 18px;
+            color: #007aff;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 600;
+        }
+
+        .info-icon.open {
+            transform: rotate(180deg);
+        }
+
+        .info-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .info-content.show {
+            max-height: 1200px;
+            overflow-y: auto;
+        }
+
+        .info-text {
+            margin-top: 16px;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #1d1d1f;
+        }
+
+        .info-text p {
+            margin-bottom: 12px;
+        }
+
+        .info-text strong {
+            font-weight: 600;
+            color: #1d1d1f;
+        }
+
+        .example-box {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 14px;
+            margin: 12px 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Mono', monospace;
+            font-size: 13px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .example-step {
+            margin: 8px 0;
+            color: #1d1d1f;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            color: #007aff;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Permutation</h1>
+
+    <!-- Section En savoir plus -->
+    <div class="info-section">
+        <div class="info-header" onclick="I_toggleInfo()">
+            <div class="info-title">
+                <span>Comment ça marche ?</span>
+            </div>
+            <span class="info-icon" id="info-icon">▼</span>
+        </div>
+        <div class="info-content" id="info-content">
+            <div class="info-text">
+                <p><strong>Le chiffrement par permutation</strong> (ou transposition) réorganise les lettres d'un message en les plaçant dans une grille, puis en les lisant dans un ordre différent défini par une clé.</p>
+                
+                <p><strong>Exemple de chiffrement :</strong></p>
+                <div class="example-box">
+                    <div class="example-step">1. Message : <span class="highlight">BONJOUR</span></div>
+                    <div class="example-step">2. Clé : <span class="highlight">CLE</span></div>
+                    <div class="example-step">3. On écrit le message sous la clé :</div>
+                    <div class="example-step" style="margin-left: 20px;">
+                        C  L  E<br>
+                        B  O  N<br>
+                        J  O  U<br>
+                        R  _  _
+                    </div>
+                    <div class="example-step">4. On classe la clé par ordre alphabétique :</div>
+                    <div class="example-step" style="margin-left: 20px;">
+                        <span class="highlight">C(0)  E(1)  L(2)</span>
+                    </div>
+                    <div class="example-step">5. On lit les colonnes dans cet ordre :</div>
+                    <div class="example-step" style="margin-left: 20px;">
+                        Colonne C : <span class="highlight">B J R</span><br>
+                        Colonne E : <span class="highlight">N U _</span><br>
+                        Colonne L : <span class="highlight">O O _</span>
+                    </div>
+                    <div class="example-step">Résultat : <span class="highlight">bjrnu_oo_</span></div>
+                </div>
+                
+                <p><strong>Exemple de déchiffrement :</strong></p>
+                <div class="example-box">
+                    <div class="example-step">1. Message chiffré : <span class="highlight">bjrnu_oo_</span></div>
+                    <div class="example-step">2. Clé : <span class="highlight">CLE</span></div>
+                    <div class="example-step">3. On reconstitue les colonnes dans l'ordre de la clé classée :</div>
+                    <div class="example-step" style="margin-left: 20px;">
+                        C(0) : bjr<br>
+                        E(1) : nu_<br>
+                        L(2) : oo_
+                    </div>
+                    <div class="example-step">4. On replace les colonnes selon la clé d'origine :</div>
+                    <div class="example-step" style="margin-left: 20px;">
+                        C  L  E<br>
+                        B  O  N<br>
+                        J  O  U<br>
+                        R  _  _
+                    </div>
+                    <div class="example-step">5. On lit ligne par ligne :</div>
+                    <div class="example-step">Résultat : <span class="highlight">BONJOUR</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Message</label>
+        <textarea id="text-input" placeholder="Entrez votre texte..."></textarea>
+    </div>
+
+    <div class="input-row">
+        <div class="form-group">
+            <label>Clé (mot)</label>
+            <input type="text" id="key-input" placeholder="Ex: SECRET">
+        </div>
+        <div class="form-group">
+            <label>Espace</label>
+            <input type="text" id="space-input" value="_" maxlength="1">
+        </div>
+    </div>
+
+    <div class="button-group">
+        <button class="btn-encrypt" onclick="I_processAction('encrypt')">Chiffrer</button>
+        <button class="btn-decrypt" onclick="I_processAction('decrypt')">Déchiffrer</button>
+    </div>
+
+    <div class="result-box" id="result-container">
+        <div class="result-label">Résultat</div>
+        <div class="result-text" id="result-text"></div>
+        <button class="copy-btn" onclick="I_copyResult()">Copier</button>
+    </div>
+</div>
+
+<script>
+    const S_textInput = document.getElementById('text-input');
+    const S_keyInput = document.getElementById('key-input');
+    const S_spaceInput = document.getElementById('space-input');
+    const S_resultContainer = document.getElementById('result-container');
+    const S_resultText = document.getElementById('result-text');
+
+    async function I_processAction(action) {
+        const O_text = S_textInput.value;
+        const O_key = S_keyInput.value;
+        const O_spaceChar = S_spaceInput.value;
+
+        if (!O_text || !O_key) {
+            alert('Veuillez remplir le texte et la clé.');
+            return;
+        }
+
+        try {
+            const O_formData = new FormData();
+            O_formData.append('action', action);
+            O_formData.append('text', O_text);
+            O_formData.append('key', O_key);
+            O_formData.append('space_char', O_spaceChar);
+
+            const O_response = await fetch(window.location.href, {
+                method: 'POST',
+                body: O_formData
+            });
+
+            if (!O_response.ok) {
+                const O_errorText = await O_response.text();
+                console.error('Erreur serveur:', O_errorText);
+                alert('Erreur serveur (' + O_response.status + ')');
+                return;
+            }
+
+            const O_data = await O_response.json();
+
+            if (O_data.success) {
+                S_resultText.textContent = O_data.result;
+                S_resultContainer.classList.add('show');
+            } else {
+                alert(O_data.message || 'Une erreur est survenue');
+                console.error('Détails:', O_data);
+            }
+        } catch (O_error) {
+            console.error('Erreur fetch:', O_error);
+            alert('Erreur de connexion au serveur');
+        }
+    }
+
+    function I_copyResult() {
+        const O_text = S_resultText.textContent;
+        navigator.clipboard.writeText(O_text).then(function() {
+            alert('Copié dans le presse-papier !');
+        }, function() {
+            alert('Erreur lors de la copie');
+        });
+    }
+
+    function I_toggleInfo() {
+        const S_content = document.getElementById('info-content');
+        const S_icon = document.getElementById('info-icon');
+        
+        S_content.classList.toggle('show');
+        S_icon.classList.toggle('open');
+    }
+</script>
+
+</body>
+</html>
+

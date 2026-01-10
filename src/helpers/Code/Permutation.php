@@ -13,7 +13,7 @@ class Permutation extends AbstractCode
         $text = self::cleanText($text);
 
         $n_rows = ceil(strlen($text) / $n_columns);
-        $text .= str_repeat(mb_strtolower($space_char), $n_columns * $n_rows - strlen($text));
+        $text .= str_repeat(\mb_strtolower($space_char), $n_columns * $n_rows - strlen($text));
         $order = self::getOrderFromKey($key);
 
         $code = "";
@@ -41,7 +41,7 @@ class Permutation extends AbstractCode
             $current_pos = $order[$i%$n_columns] * $n_rows + floor($i/$n_columns);   // Formule pour lire de haut en bas plutôt que de gauche à droite
             $code .= $text[$current_pos];
         }
-        var_dump($code, $text);
+
         return $code;
 
     }
