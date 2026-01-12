@@ -30,6 +30,20 @@ class GenerateAnswer
         $string = file_get_contents($path);
         $json_a = json_decode($string);
 
+        // Vérifier si l'utilisateur existe dans le JSON
+        if (!isset($json_a->$name)) {
+            echo "Utilisateur non trouvé";
+            echo "0";
+            return;
+        }
+
+        // Vérifier si l'étape existe pour cet utilisateur
+        if (!isset($json_a->$name->$step)) {
+            echo "Étape non trouvée";
+            echo "0";
+            return;
+        }
+
         // Si le message est vide, renvoyer le message de l'étape actuelle
         if ($message == "") {
             echo $json_a->$name->$step->{"message"};
@@ -38,6 +52,14 @@ class GenerateAnswer
         // Si l'étape a une clé et que le message contient cette clé
         else if (isset($json_a->$name->$step->{"key"}) && str_contains($message, $json_a->$name->$step->{"key"})) {
             $next_step = strval((int)($step + 1));
+            
+            // Vérifier si l'étape suivante existe
+            if (!isset($json_a->$name->$next_step)) {
+                echo "Conversation terminée";
+                echo "0";
+                return;
+            }
+            
             echo $json_a->$name->$next_step->{"message"};
             echo "1";
             
