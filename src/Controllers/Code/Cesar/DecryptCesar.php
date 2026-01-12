@@ -4,10 +4,19 @@ namespace Controllers\Code\Cesar;
 use Controllers\AbstractController;
 use Views\Code\Cesar\DecodeCesarView;
 
+/**
+ * Contrôleur pour l'interface de déchiffrement César
+ * 
+ * Gère l'affichage et le traitement du formulaire de déchiffrement César.
+ */
 class DecryptCesar extends AbstractController
 {
 
-    // Méthode principale exécutée lorsque la route "/user/profil" est appelée en GET
+    /**
+     * Affiche la page de déchiffrement César
+     * 
+     * @return void
+     */
     function getMethod(){
 
         // Créer une instance de la vue CodePermutationView
@@ -17,6 +26,14 @@ class DecryptCesar extends AbstractController
         $view->render();
     }
 
+    /**
+     * Traite la soumission du formulaire de déchiffrement César
+     * 
+     * Récupère le texte chiffré, le décalage et le résultat attendu depuis le formulaire,
+     * puis vérifie si le déchiffrement est correct.
+     * 
+     * @return void
+     */
     function postMethod(){
         // Récupère les variables de chiffrement depuis le formulaire
         $texte = $_POST['word-cesar'];

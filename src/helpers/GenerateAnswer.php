@@ -2,8 +2,21 @@
 
 namespace helpers;
 
+/**
+ * Générateur de réponses contextuelles
+ * 
+ * Charge les réponses depuis answers.json et retourne la réponse appropriée
+ * en fonction du nom, de l'étape et du message de l'utilisateur.
+ */
 class GenerateAnswer
 {
+    /**
+     * Point d'entrée pour traiter les requêtes de génération de réponses
+     * 
+     * Récupère les paramètres de la requête et appelle generate().
+     * 
+     * @return void
+     */
     public function control()
     {
         $name = $_REQUEST["name"];
@@ -12,6 +25,19 @@ class GenerateAnswer
 
         $this->generate($name, $step, $message);
     }
+    
+    /**
+     * Génère une réponse contextuelle depuis answers.json
+     * 
+     * Si le message est vide, retourne le message de l'étape actuelle.
+     * Si le message contient la clé attendue, passe à l'étape suivante.
+     * Sinon, retourne une réponse aléatoire parmi les réponses disponibles.
+     * 
+     * @param string $name Le nom du contexte (ex: nom d'un exercice)
+     * @param string $step L'étape actuelle
+     * @param string $message Le message de l'utilisateur
+     * @return void Affiche la réponse suivie d'un indicateur (0 ou 1)
+     */
     private function generate($name, $step, $message): void
     {
         $path = __DIR__ . '/../config/answers.json';

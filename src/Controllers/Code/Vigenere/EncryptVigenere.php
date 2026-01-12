@@ -5,13 +5,31 @@ namespace Controllers\Code\Vigenere;
 use Controllers\AbstractController;
 use Views\Code\Vigenere\CodeVigenereView;
 
+/**
+ * Contrôleur pour l'interface de chiffrement Vigenère
+ * 
+ * Gère l'affichage et le traitement du formulaire de chiffrement Vigenère.
+ */
 class EncryptVigenere extends AbstractController
 {
+    /**
+     * Affiche la page de chiffrement Vigenère
+     * 
+     * @return void
+     */
     public function getMethod(){
         $view = new CodeVigenereView();
         $view->render();
     }
 
+    /**
+     * Traite la soumission du formulaire de chiffrement Vigenère
+     * 
+     * Récupère le texte, la clé et le résultat attendu depuis le formulaire,
+     * puis vérifie si le chiffrement est correct.
+     * 
+     * @return void
+     */
     public function postMethod(){
         // Récupère les variables de chiffrement depuis le formulaire
         $texte = $_POST['word-vigenere'];

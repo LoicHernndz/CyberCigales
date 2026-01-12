@@ -5,10 +5,19 @@ namespace Controllers\Code\Permutation;
 use Controllers\AbstractController;
 use Views\Code\Permutation\CodePermutationView;
 
+/**
+ * Contrôleur pour l'interface de chiffrement par permutation
+ * 
+ * Gère l'affichage et le traitement du formulaire de chiffrement par permutation.
+ */
 class EncryptPermutation extends AbstractController
 {
 
-    // Méthode principale exécutée lorsque la route "/user/profil" est appelée en GET
+    /**
+     * Affiche la page de chiffrement par permutation
+     * 
+     * @return void
+     */
     function getMethod(){
 
         // Créer une instance de la vue CodePermutationView
@@ -18,6 +27,14 @@ class EncryptPermutation extends AbstractController
         $view->render();
     }
 
+    /**
+     * Traite la soumission du formulaire de chiffrement par permutation
+     * 
+     * Récupère le texte, la clé, le caractère d'espace et le résultat attendu,
+     * puis vérifie si le chiffrement est correct.
+     * 
+     * @return void
+     */
     function postMethod(){
         // Récupère les variables de chiffrement depuis le formulaire
         $texte = $_POST['word-permutation'];
