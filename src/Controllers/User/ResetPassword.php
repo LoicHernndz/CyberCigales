@@ -9,12 +9,23 @@ use Models\User\User;
 use PHPMailer\src\PHPMailer;
 use Views\User\ResetPassword\ResetPasswordView;
 
+/**
+ * Contrôleur de réinitialisation de mot de passe
+ * 
+ * Gère la demande de réinitialisation de mot de passe par email.
+ * Génère un token sécurisé et envoie un email avec lien de réinitialisation.
+ */
 class ResetPassword extends AbstractController
 {
     private ResetPasswords $resetModel;
     private User $userModel;
     private PHPMailer $mail;
 
+    /**
+     * Affiche le formulaire de demande de réinitialisation
+     * 
+     * @return void
+     */
     public function getMethod()
     {
         // Création d’une instance de la vue "ResetPasswordView"
@@ -23,6 +34,14 @@ class ResetPassword extends AbstractController
         $view->render();
     }
 
+    /**
+     * Traite la demande de réinitialisation de mot de passe
+     * 
+     * Génère un token unique, l'enregistre en base de données
+     * et envoie un email avec le lien de réinitialisation.
+     * 
+     * @return void
+     */
     public function postMethod()
     {
         $this->resetModel = new ResetPasswords;

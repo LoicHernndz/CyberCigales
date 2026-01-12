@@ -7,8 +7,20 @@ use Views\Homepage\HomepageView;
 use Models\User\User;
 use Views\User\DeleteProfil\DeleteProfilView;
 
+/**
+ * Contrôleur de suppression de compte utilisateur
+ * 
+ * Gère la suppression définitive du compte utilisateur et de toutes ses données.
+ */
 class DeleteProfil extends AbstractController
 {
+    /**
+     * Affiche la page de confirmation de suppression
+     * 
+     * Redirige vers login si l'utilisateur n'est pas connecté.
+     * 
+     * @return void
+     */
     function getMethod()
     {
         // Vérifier si l'utilisateur est connecté
@@ -23,6 +35,14 @@ class DeleteProfil extends AbstractController
         $view->render();
     }
 
+    /**
+     * Exécute la suppression du compte utilisateur
+     * 
+     * Supprime le compte en base de données, détruit la session
+     * et redirige vers la page d'accueil.
+     * 
+     * @return void
+     */
     function postMethod()
     {
         $userModel = new User();

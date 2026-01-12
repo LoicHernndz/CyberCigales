@@ -8,14 +8,25 @@ use Models\User\User;
 use PHPMailer\src\PHPMailer;
 use Views\User\CreateNewPassword\CreateNewPasswordView;
 
+/**
+ * Contrôleur de création d'un nouveau mot de passe
+ * 
+ * Gère la création d'un nouveau mot de passe après une demande de réinitialisation.
+ * Valide le token de réinitialisation et met à jour le mot de passe en base.
+ */
 class CreateNewPassword extends AbstractController
 {
-    // Propriétés privées pour les modèles et PHPMailer
     private $resetModel;
     private $userModel;
     private $mail;
 
-    // Méthode principale exécutée lorsque la route correspondante est appelée
+    /**
+     * Affiche le formulaire de création de nouveau mot de passe
+     * 
+     * Valide les paramètres selector et validator reçus par URL.
+     * 
+     * @return void
+     */
     function getMethod(){
         // Vérifie si les paramètres "selector" et "validator" sont absents de l’URL
         if(empty($_GET['selector']) || empty($_GET['validator'])) {
@@ -39,7 +50,14 @@ class CreateNewPassword extends AbstractController
         }
     }
 
-    // Traite le formulaire de création d’un nouveau mot de passe
+    /**
+     * Traite la soumission du formulaire de nouveau mot de passe
+     * 
+     * Valide le token, vérifie les mots de passe saisis,
+     * hashe et enregistre le nouveau mot de passe en base.
+     * 
+     * @return void
+     */
     public function postMethod()
     {
         // Modèle pour la table des réinitialisations de mots de passe

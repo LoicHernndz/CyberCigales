@@ -4,11 +4,21 @@ use Controllers\AbstractController;
 use Models\User\User;
 use Views\User\Login\LoginView;
 
+/**
+ * Contrôleur d'authentification utilisateur
+ * 
+ * Gère l'affichage du formulaire de connexion et le traitement de l'authentification
+ * avec validation CAPTCHA et vérification des credentials.
+ */
 class Login extends AbstractController
 {
     private User $userModel;
 
-    // Le constructeur qui se lance automatiquement dès que je crée un objet Logout
+    /**
+     * Constructeur - Initialise le modèle User
+     * 
+     * @return void
+     */
     public function __construct() {
         // Je crée une instance de ma classe User pour pouvoir faire des opérations en BDD
         // Maintenant je peux utiliser $this->userModel partout dans ma classe pour :
@@ -19,12 +29,26 @@ class Login extends AbstractController
         $this->userModel = new User;
     }
 
+    /**
+     * Affiche le formulaire de connexion
+     * 
+     * @return void
+     */
     function getMethod(){
         // On crée une instance de la vue "LoginView"
         $view = new LoginView();
         // On affiche le contenu de la page de connexion (formulaire login)
         $view->render();
     }
+    
+    /**
+     * Crée une session utilisateur après authentification réussie
+     * 
+     * Enregistre les données utilisateur en session et redirige vers la page d'accueil.
+     * 
+     * @param object $user Objet utilisateur avec id, email, pseudo
+     * @return void
+     */
     public function createUserSession($user): void
     {
         // Je crée des variables de session avec les infos de l'utilisateur
@@ -34,6 +58,15 @@ class Login extends AbstractController
         // Je redirige vers la page d'accueil ou le tableau de bord
         redirect("/");
     }
+    
+    /**
+     * Traite la soumission du formulaire de connexion
+     * 
+     * Valide les données, vérifie le CAPTCHA, authentifie l'utilisateur
+     * et crée une session en cas de succès.
+     * 
+     * @return void
+     */
     function postMethod(): void
     {
         // Je nettoie TOUTES les données POST en une seule fois

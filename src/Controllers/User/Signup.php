@@ -4,11 +4,21 @@ use Controllers\AbstractController;
 use Models\User\User;
 use Views\User\Signup\SignupView;
 
+/**
+ * Contrôleur d'inscription utilisateur
+ * 
+ * Gère l'enregistrement d'un nouvel utilisateur avec validation complète des données,
+ * vérification d'unicité (email/pseudo) et hashage sécurisé du mot de passe.
+ */
 class Signup extends AbstractController
 {
     private User $userModel;
 
-    // Le constructeur qui se lance automatiquement dès que je crée un objet Logout
+    /**
+     * Constructeur - Initialise le modèle User
+     * 
+     * @return void
+     */
     public function __construct() {
         // Je crée une instance de ma classe User pour pouvoir faire des opérations en BDD
         // Maintenant je peux utiliser $this->userModel partout dans ma classe pour :
@@ -19,12 +29,26 @@ class Signup extends AbstractController
         $this->userModel = new User;
     }
 
+    /**
+     * Affiche le formulaire d'inscription
+     * 
+     * @return void
+     */
     function getMethod(){
         // Création d’une instance de la vue d’inscription
         $view = new SignupView();
         // Affichage de la page (formulaire d’inscription)
         $view->render();
     }
+    
+    /**
+     * Traite la soumission du formulaire d'inscription
+     * 
+     * Valide toutes les données (format email, longueur mot de passe, unicité pseudo/email),
+     * vérifie le CAPTCHA, hashe le mot de passe et crée l'utilisateur en base de données.
+     * 
+     * @return void
+     */
     function postMethod(){
         // Je nettoie TOUTES les données POST en une seule fois
         // FILTER_SANITIZE_STRING va :
