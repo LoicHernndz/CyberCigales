@@ -2,17 +2,25 @@
 
 namespace Views\MacOSView;
 
-class MacOSView {
+/**
+ * Vue de l'interface MacOS simulée
+ * 
+ * Affiche une interface desktop macOS avec dock, barre de menu et fenêtres.
+ */
+class MacOSView
+{
 
     // Chemin du fichier HTML associé à la vue d’inscription
     private const TEMPLATE_HTML = __DIR__ . '/home.html';
 
     // Méthode qui renvoie le chemin du template HTML à utiliser pour cette vue
-    public function templatePath() : string {
+    public function templatePath(): string
+    {
         return self::TEMPLATE_HTML;
     }
 
-    function render(){
+    function render()
+    {
         $this->renderHeader();
         $this->renderBody();
         $this->renderFooter();
@@ -28,11 +36,11 @@ class MacOSView {
 
             // Remplacement des clés (si utilisées dans home.html)
             $keys = method_exists($this, 'templateKeys') ? $this->templateKeys() : [];
-            foreach($keys as $key => $value){
+            foreach ($keys as $key => $value) {
                 $template = str_replace("{{{$key}}}", $value, $template);
             }
 
-            echo $template ;
+            echo $template;
         } else {
             // Contenu par défaut si le template n'existe pas, agissant comme le fond d'écran
             echo '
@@ -44,7 +52,8 @@ class MacOSView {
     }
 
     // Fonction fictive pour éviter une erreur si elle est appelée par renderBody()
-    function templateKeys() : array {
+    function templateKeys(): array
+    {
         return [];
     }
 

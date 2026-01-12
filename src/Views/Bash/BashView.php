@@ -4,6 +4,11 @@ namespace Views\Bash;
 
 use Views\AbstractView;
 
+/**
+ * Vue du terminal Bash simulé
+ * 
+ * Affiche l'interface de terminal en ligne de commande.
+ */
 class BashView extends AbstractView
 {
     // Chemin du fichier HTML associé à la page des mentions légales
@@ -22,5 +27,8 @@ class BashView extends AbstractView
         return [];
     }
 
-    public function render() { parent::renderBody(); }
+    public function render()
+    {
+        parent::renderBody();
+    }
 }
