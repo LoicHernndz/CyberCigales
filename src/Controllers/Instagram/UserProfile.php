@@ -13,6 +13,10 @@ class UserProfile extends AbstractController
 {
     public function getMethod(): void
     {
+
+        // Vérifier si l'utilisateur est connecté
+        $this->connexionVerify();
+
         // Récupérer le username depuis l'URL
         $uri = $_SERVER['REQUEST_URI'];
         $parts = explode('/', trim($uri, '/'));

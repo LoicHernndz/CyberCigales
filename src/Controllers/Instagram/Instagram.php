@@ -26,7 +26,7 @@ class Instagram extends AbstractController
     function getMethod(){
 
         // Vérifier si l'utilisateur est connecté
-        // $this->connexionVerify();
+        $this->connexionVerify();
 
         // Création des instances MVC
         $view = new InstagramView();

@@ -11,6 +11,10 @@ use Controllers\AbstractController;
 class UserChat extends AbstractController
 {
     function getMethod(){
+
+        // Vérifier si l'utilisateur est connecté
+        $this->connexionVerify();
+
         // Récupérer le username depuis l'URL
         // URL format: /instagram/user/{username}/chat
         $uri = $_SERVER['REQUEST_URI'];
