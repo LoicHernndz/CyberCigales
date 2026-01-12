@@ -159,11 +159,9 @@
             }
         });
 
-        // Bouton annuler
+        // Bouton annuler - retour à la page d'accueil
         cancelButton.addEventListener('click', () => {
-            passwordInput.value = '';
-            errorMessage.classList.remove('show');
-            passwordInput.focus();
+            window.location.href = '/';
         });
 
         // Focus automatique sur le champ
