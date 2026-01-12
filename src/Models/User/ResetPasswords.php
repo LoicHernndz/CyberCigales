@@ -4,33 +4,43 @@ namespace Models\User;
 
 use config\Database;
 
-class ResetPasswords {
-    // Propriété privée contenant l’instance de la base de données
+/**
+ * Modèle de gestion des tokens de réinitialisation de mot de passe
+ * 
+ * Gère les opérations CRUD sur la table pwdreset pour les demandes de réinitialisation.
+ */
+class ResetPasswords
+{
+    /** @var Database Instance de connexion à la base de données */
     private Database $db;
 
-    // Constructeur : initialise la connexion à la base de données
+    /**
+     * Constructeur - Initialise la connexion à la base de données
+     */
     public function __construct()
     {
         $this->db = new Database;
     }
 
     // 🔹 Méthode : supprime les anciens tokens de réinitialisation associés à un e-mail
-    public function deleteEmail($email){
+    public function deleteEmail($email)
+    {
         // Prépare la requête SQL pour supprimer un enregistrement selon l’adresse e-mail
         $this->db->query('DELETE FROM pwdreset WHERE pwdResetEmail = :email');
         // Lie la valeur du paramètre :email
         $this->db->bind(':email', $email);
 
         // Exécute la requête et retourne true si elle réussit, false sinon
-        if($this->db->execute()){
+        if ($this->db->execute()) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
     // 🔹 Méthode : insère un nouveau token de réinitialisation dans la table "pwdreset"
-    public function insertToken($email, $selector, $hashedToken, $expires){
+    public function insertToken($email, $selector, $hashedToken, $expires)
+    {
         // Prépare la requête SQL d’insertion
         $this->db->query('INSERT INTO pwdreset (pwdResetEmail, pwdResetSelector, pwdResetToken, 
         pwdResetExpires) VALUES (:email, :selector, :token, :expires)');
@@ -41,15 +51,16 @@ class ResetPasswords {
         $this->db->bind(':expires', $expires);
 
         // Exécute la requête et retourne true si tout s’est bien passé
-        if($this->db->execute()){
+        if ($this->db->execute()) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
     // 🔹 Méthode : récupère un token valide pour un utilisateur donné
-    public function resetPassword($selector, $currentDate){
+    public function resetPassword($selector, $currentDate)
+    {
         // Prépare une requête SQL pour trouver un token correspondant au selector
         // et dont la date d’expiration est encore valide
         $this->db->query('SELECT * FROM pwdreset WHERE pwdResetSelector = :selector AND 
@@ -62,9 +73,9 @@ class ResetPasswords {
         $row = $this->db->single();
 
         // Si une ligne est trouvée, la retourne, sinon retourne false
-        if($row){
+        if ($row) {
             return $row;
-        }else{
+        } else {
             return false;
         }
     }
