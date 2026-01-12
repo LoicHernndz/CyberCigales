@@ -87,15 +87,15 @@ class GenerateAnswer
         // Mapping des identifiants Instagram vers les vrais noms
         $mapping = [
             'mel_133' => 'Melina',
-            'soph_456' => 'Sophie',
-            'luc_789' => 'Lucas',
-            'em_321' => 'Emma',
-            'tom_654' => 'Thomas',
-            'cam_987' => 'Camille',
-            'alex_246' => 'Alexandre',
-            'jul_135' => 'Julie',
-            'ant_864' => 'Antoine',
-            'mar_579' => 'Marie'
+            'alex_photo' => 'Alexandre',
+            'anna_food' => 'Sophie',
+            'annie_nature' => 'Emma',
+            'brooke_kitchen' => 'Julie',
+            'christiann_bake' => 'Camille',
+            'leo_creative' => 'Lucas',
+            'diliara_style' => 'Marie',
+            'corina_pets' => 'Thomas',
+            'mike_coffee' => 'Antoine'
         ];
 
         // Si l'identifiant est dans le mapping, retourner le vrai nom
