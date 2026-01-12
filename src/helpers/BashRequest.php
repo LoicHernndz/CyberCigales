@@ -4,9 +4,21 @@
 namespace helpers;
 use Models\Bash\Bash;
 
+/**
+ * Gestionnaire de requêtes pour les commandes Bash
+ * 
+ * Traite les requêtes AJAX pour exécuter des commandes bash (ls, pwd, cd, cat, clear, help) dans l'environnement simulé.
+ */
 class BashRequest
 {
 
+    /**
+     * Point d'entrée pour traiter les requêtes de commandes bash
+     * 
+     * Récupère l'input, le chemin et exécute la commande autorisée.
+     * 
+     * @return void
+     */
     public function control()
     {
         $env = new Bash();
@@ -35,6 +47,14 @@ class BashRequest
         }
     }
 
+    /**
+     * Exécute la commande ls (liste le contenu d'un répertoire)
+     * 
+     * @param Bash $env L'environnement bash
+     * @param array $args Les arguments de la commande
+     * @param string $path Le chemin actuel
+     * @return array Le résultat de la commande avec path et output
+     */
     private function ls($env, $args, $path)
     {
         $dir = $env->find(explode("/", trim($path, "/")));
@@ -68,6 +88,14 @@ class BashRequest
         ];
     }
 
+    /**
+     * Exécute la commande cd (change de répertoire)
+     * 
+     * @param Bash $env L'environnement bash
+     * @param array $args Les arguments de la commande
+     * @param string $path Le chemin actuel
+     * @return array Le nouveau chemin après changement de répertoire
+     */
     private function cd($env, $args, $path)
     {
         if (count($args) < 2) return ["path" => $path, "output" => ""];
@@ -94,6 +122,14 @@ class BashRequest
         return ["path" => $path, "output" => "bash: cd: $target: Aucun dossier de ce type"];
     }
 
+    /**
+     * Exécute la commande cat (affiche le contenu d'un fichier)
+     * 
+     * @param Bash $env L'environnement bash
+     * @param array $args Les arguments de la commande
+     * @param string $path Le chemin actuel
+     * @return array Le contenu du fichier
+     */
     private function cat($env, $args, $path)
     {
         if (count($args) < 2) return ["path" => $path, "output" => "cat: argument manquant"];
@@ -109,15 +145,41 @@ class BashRequest
         return ["path" => $path, "output" => "cat: $target: Aucun fichier de ce type"];
     }
 
+    /**
+     * Exécute la commande pwd (affiche le répertoire de travail actuel)
+     * 
+     * Retourne le chemin actuel.
+     * 
+     * @param Bash $env L'environnement bash
+     * @param array $args Les arguments de la commande
+     * @param string $path Le chemin actuel
+     * @return array Le chemin actuel
+     */
     private function pwd($env, $args, $path)
     {
         return ["path" => $path, "output" => $path];
     }
 
+    /**
+     * Exécute la commande clear (efface l'écran du terminal)
+     * 
+     * @param Bash $env L'environnement bash
+     * @param array $args Les arguments de la commande
+     * @param string $path Le chemin actuel
+     * @return array Signal pour effacer l'écran
+     */
     private function clear($env, $args, $path) {
         return ["path" => $path, "output" => "@CLEAR"];
     }
 
+    /**
+     * Exécute la commande help (affiche l'aide des commandes disponibles)
+     * 
+     * @param Bash $env L'environnement bash
+     * @param array $args Les arguments de la commande
+     * @param string $path Le chemin actuel
+     * @return array La liste des commandes disponibles
+     */
     private function help($env, $args, $path)
     {
         $output = "Commandes disponibles :<br>";
@@ -129,6 +191,14 @@ class BashRequest
         return ["path" => $path, "output" => $output];
     }
 
+    /**
+     * Commande spéciale sudo_access (donne un indice pour trouver les fichiers cachés)
+     * 
+     * @param Bash $env L'environnement bash
+     * @param array $args Les arguments de la commande
+     * @param string $path Le chemin actuel
+     * @return array Message d'accès administrateur avec indice
+     */
     private function sudo_access($env, $args, $path)
     {
         return [

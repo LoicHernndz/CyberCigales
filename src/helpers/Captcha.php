@@ -2,8 +2,21 @@
 // helpers/Captcha.php
 namespace helpers;
 
+/**
+ * Générateur de CAPTCHA SVG
+ * 
+ * Crée un code visuel à 5 chiffres stocké en session pour la validation de formulaires.
+ */
 class Captcha
 {
+    /**
+     * Génère et affiche un CAPTCHA au format SVG
+     * 
+     * Crée un code aléatoire à 5 chiffres, le stocke en session,
+     * et génère une image SVG affichant ce code.
+     * 
+     * @return void Affiche directement l'image SVG et termine le script
+     */
     public function captchaGeneration()
     {
         if (session_status() === PHP_SESSION_NONE) {

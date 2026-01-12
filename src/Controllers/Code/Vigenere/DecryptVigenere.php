@@ -4,13 +4,31 @@ namespace Controllers\Code\Vigenere;
 use Views\Code\Vigenere\CodeVigenereView;
 use Views\Code\Vigenere\DecodeVigenereView;
 
+/**
+ * Contrôleur pour l'interface de déchiffrement Vigenère
+ * 
+ * Gère l'affichage et le traitement du formulaire de déchiffrement Vigenère.
+ */
 class DecryptVigenere extends EncryptVigenere
 {
+    /**
+     * Affiche la page de déchiffrement Vigenère
+     * 
+     * @return void
+     */
     public function getMethod(){
         $view = new DecodeVigenereView();
         $view->render();
     }
 
+    /**
+     * Traite la soumission du formulaire de déchiffrement Vigenère
+     * 
+     * Récupère le texte chiffré, la clé et le résultat attendu depuis le formulaire,
+     * puis vérifie si le déchiffrement est correct.
+     * 
+     * @return void
+     */
     public function postMethod(){
         // Récupère les variables de chiffrement depuis le formulaire
         $texte = $_POST['word-vigenere'];

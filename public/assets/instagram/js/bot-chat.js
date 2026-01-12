@@ -11,8 +11,6 @@
  * - Scroll automatique vers les nouveaux messages
  */
 
-
-let step = 0;   // A tout refresh, la memoire du bot est reinitialise (on utilisera bdd pour leur donner une mémoire
 let username = window.location.href.toString().split("/")[5]
 
 // Attendre que le DOM soit chargé
@@ -131,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     async function generateResponse(message) {
         try {
-            let url = "/instagram/chat/response?name=" + username + "&step=" + step + "&message=" + message
+            let url = "/instagram/chat/response?name=" + username + "&message=" + message
             const response = await fetch(url);
             if (!response.ok) {
                 throw new Error(`Response status: ${response.status}`);
@@ -139,9 +137,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             let text = await response.text();
 
-            if (text.length>0) addBotMessage(text.slice(0, -1));
+            if (text.length>0) addBotMessage(text);
 
-            if (text.charAt(text.length - 1) === "1") ++step;
             return text;
 
         } catch (error) {

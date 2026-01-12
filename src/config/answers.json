@@ -1,5 +1,5 @@
 {
-  "mel_133": {
+  "Melina": {
     "0": {
       "message": "Essaye abc123",
       "responses": ["Non", "Nan", "non"],
@@ -13,6 +13,150 @@
     "2": {
       "message": "Merci",
       "responses": ["C'est fini"]
+    }
+  },
+  "Sophie": {
+    "0": {
+      "message": "Salut ! J'ai besoin d'aide. Tu peux deviner mon mot de passe ? C'est 'soleil2024'",
+      "responses": ["Désolé, je ne peux pas t'aider", "Non", "C'est pas mon problème"],
+      "key": "soleil2024"
+    },
+    "1": {
+      "message": "Super merci ! Maintenant j'ai un code secret : 9876",
+      "responses": ["Je ne sais pas", "Aucune idée", "Non"],
+      "key": "9876"
+    },
+    "2": {
+      "message": "Génial ! Tu es le meilleur !",
+      "responses": ["De rien", "Pas de problème"]
+    }
+  },
+  "Lucas": {
+    "0": {
+      "message": "Hé, tu peux m'aider ? J'ai oublié mon code PIN... Ah oui, c'est 4567",
+      "responses": ["Non", "Je peux pas", "Désolé"],
+      "key": "4567"
+    },
+    "1": {
+      "message": "Merci ! Maintenant je dois entrer 'azerty123'",
+      "responses": ["Non", "Nan", "Je sais pas"],
+      "key": "azerty123"
+    },
+    "2": {
+      "message": "Parfait ! Merci beaucoup !",
+      "responses": ["Avec plaisir", "De rien"]
+    }
+  },
+  "Emma": {
+    "0": {
+      "message": "Coucou ! J'ai un problème avec mon compte. Le mot de passe est 'password123'",
+      "responses": ["Je ne peux pas t'aider", "Non", "Désolé"],
+      "key": "password123"
+    },
+    "1": {
+      "message": "Top ! Maintenant il me faut le code 'secret2024'",
+      "responses": ["Non", "Je sais pas", "Aucune idée"],
+      "key": "secret2024"
+    },
+    "2": {
+      "message": "Merci infiniment !",
+      "responses": ["De rien", "Pas de souci"]
+    }
+  },
+  "Thomas": {
+    "0": {
+      "message": "Yo ! Tu connais le code WiFi ? C'est 'wifi2024'",
+      "responses": ["Non", "Nan", "Je connais pas"],
+      "key": "wifi2024"
+    },
+    "1": {
+      "message": "Cool ! Maintenant j'ai besoin du code admin : 'admin123'",
+      "responses": ["Non", "Je sais pas", "Aucune idée"],
+      "key": "admin123"
+    },
+    "2": {
+      "message": "Excellent ! Tu gères !",
+      "responses": ["Merci", "De rien"]
+    }
+  },
+  "Camille": {
+    "0": {
+      "message": "Salut ! J'ai un petit souci avec mon email. Le mot de passe c'est 'email2024'",
+      "responses": ["Je peux pas t'aider", "Non", "Désolé"],
+      "key": "email2024"
+    },
+    "1": {
+      "message": "Merci ! Maintenant j'ai besoin du code de vérification : '7890'",
+      "responses": ["Non", "Je ne sais pas", "Aucune idée"],
+      "key": "7890"
+    },
+    "2": {
+      "message": "Super ! Problème résolu !",
+      "responses": ["Content de t'aider", "De rien"]
+    }
+  },
+  "Alexandre": {
+    "0": {
+      "message": "Hey ! Tu peux m'aider ? Mon code de sécurité est 'secure456'",
+      "responses": ["Non", "Je ne peux pas", "Désolé"],
+      "key": "secure456"
+    },
+    "1": {
+      "message": "Génial ! Maintenant le code PIN : '3141'",
+      "responses": ["Non", "Nan", "Je sais pas"],
+      "key": "3141"
+    },
+    "2": {
+      "message": "Parfait ! Merci beaucoup !",
+      "responses": ["Pas de problème", "Avec plaisir"]
+    }
+  },
+  "Julie": {
+    "0": {
+      "message": "Coucou ! J'ai besoin d'accéder à mon compte. Le mot de passe est 'julie2024'",
+      "responses": ["Je ne peux pas t'aider", "Non", "Désolé"],
+      "key": "julie2024"
+    },
+    "1": {
+      "message": "Top ! Il me faut aussi le code : 'secret789'",
+      "responses": ["Non", "Je sais pas", "Aucune idée"],
+      "key": "secret789"
+    },
+    "2": {
+      "message": "C'est parfait ! Merci !",
+      "responses": ["De rien", "Pas de souci"]
+    }
+  },
+  "Antoine": {
+    "0": {
+      "message": "Salut ! Tu peux deviner mon mot de passe ? C'est 'antoine123'",
+      "responses": ["Non", "Nan", "Je ne peux pas"],
+      "key": "antoine123"
+    },
+    "1": {
+      "message": "Super ! Et le code d'accès : 'access2024'",
+      "responses": ["Non", "Je sais pas", "Désolé"],
+      "key": "access2024"
+    },
+    "2": {
+      "message": "Excellent travail !",
+      "responses": ["Merci", "De rien"]
+    }
+  },
+  "Marie": {
+    "0": {
+      "message": "Bonjour ! J'ai oublié mon code... Ah oui, c'est 'marie456'",
+      "responses": ["Je ne peux pas t'aider", "Non", "Désolé"],
+      "key": "marie456"
+    },
+    "1": {
+      "message": "Merci ! Maintenant le code secret : '2468'",
+      "responses": ["Non", "Nan", "Aucune idée"],
+      "key": "2468"
+    },
+    "2": {
+      "message": "Tu es génial ! Merci !",
+      "responses": ["Pas de problème", "De rien"]
     }
   }
 }
