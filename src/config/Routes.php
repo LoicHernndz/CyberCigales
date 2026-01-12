@@ -36,9 +36,6 @@ class Routes
         '/code/dechiffrement-permutation' => 'Controllers\Code\Permutation\DecryptPermutation',
 
         '/instagram' => 'Controllers\Instagram\Instagram',
-        '/instagram/melina' => 'Controllers\Instagram\MelinaProfile',
-        '/instagram/melina/chat' => 'Controllers\Instagram\MelinaChat',
-        '/instagram/melina/chat' => 'Controllers\Instagram\MelinaChat',
 
         '/macos' => 'Controllers\MacOSController',
 

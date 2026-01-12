@@ -8,7 +8,25 @@ use config\Routes;
 // Recupere la requete actuelle en ignorant les parametres passes
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 
+// ========================================
+// ROUTES DYNAMIQUES INSTAGRAM
+// ========================================
+// Routes pour les profils utilisateurs Instagram: /instagram/user/{username}
+if (preg_match('#^/instagram/user/([^/]+)/chat$#', $uri)) {
+    $controller = new Controllers\Instagram\UserChat();
+    $controller->control();
+    exit();
+}
 
+if (preg_match('#^/instagram/user/([^/]+)$#', $uri)) {
+    $controller = new Controllers\Instagram\UserProfile();
+    $controller->control();
+    exit();
+}
+
+// ========================================
+// ROUTES STATIQUES
+// ========================================
 //  On cherche a quel controleur correspond la requete actuelle
 foreach (Routes::$routes as $key => $value) {
     if($key == $uri){

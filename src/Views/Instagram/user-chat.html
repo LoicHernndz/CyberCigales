@@ -3,29 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat avec Melina</title>
+    <title>Chat avec {{USER_DISPLAY_NAME}}</title>
     <link rel="stylesheet" href="/assets/instagram/css/instagram-mobile.css">
     <link rel="stylesheet" href="/assets/instagram/css/melina-chat.css">
     <link rel="stylesheet" href="/assets/instagram/css/svg-icons.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
-        <script src="/assets/instagram/js/melina-chat.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    <script src="/assets/instagram/js/melina-chat.js"></script>
 </head>
 <body>
     <div class="chat-container">
         <!-- Header du chat -->
         <header class="chat-header">
             <div class="chat-header-content">
-                <button class="back-btn" onclick="window.location.href='/instagram/melina'">
+                <button class="back-btn" onclick="window.location.href='{{PROFILE_URL}}'">
                     <img src="/images/instagram/svgs/chevron-back-outline.svg" alt="Retour" class="icon">
                 </button>
                 <div class="chat-user-info">
                     <div class="user-avatar">
-                        <img src="/images/instagram/faux-profil-amie-hacke/melina_photo_selfie_salon.png" alt="Melina">
+                        <img src="{{USER_AVATAR}}" alt="{{USER_DISPLAY_NAME}}">
                     </div>
                     <div class="user-details">
-                        <h3>Melina</h3>
-                        <p>@mel_133</p>
-                        <span class="status">En ligne</span>
+                        <h3>{{USER_DISPLAY_NAME}}</h3>
+                        <p>@{{USER_USERNAME}}</p>
+                        <span class="status">{{USER_STATUS}}</span>
                     </div>
                 </div>
                 <div class="chat-actions">
@@ -62,3 +62,4 @@
 
 </body>
 </html>
+
