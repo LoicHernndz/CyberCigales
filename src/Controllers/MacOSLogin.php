@@ -34,12 +34,14 @@ class MacOSLogin extends AbstractController
     }
 
     /**
-     * Gère la connexion (POST)
+     * Gère la connexion et déconnexion (POST)
      */
     public function postMethod(): void
     {
-        // Vérifier que c'est une demande de connexion
-        if (isset($_POST['action']) && $_POST['action'] === 'login') {
+        $action = $_POST['action'] ?? '';
+
+        // Gestion de la connexion
+        if ($action === 'login') {
             $password = $_POST['password'] ?? '';
             $correctPassword = 'cybersecurite';
 
@@ -55,7 +57,14 @@ class MacOSLogin extends AbstractController
                 http_response_code(401);
                 echo json_encode(['success' => false, 'message' => 'Mot de passe incorrect']);
             }
-        } else {
+        }
+        // Gestion de la déconnexion
+        else if ($action === 'logout') {
+            self::logout();
+            http_response_code(200);
+            echo json_encode(['success' => true]);
+        }
+        else {
             http_response_code(400);
             echo json_encode(['error' => 'Requête invalide']);
         }
@@ -104,11 +113,19 @@ class MacOSLogin extends AbstractController
     }
 
     /**
-     * Déconnecte l'utilisateur
+     * Déconnecte l'utilisateur (sans redirection, pour les appels AJAX)
      */
     public static function logout(): void
     {
         unset($_SESSION['macos_logged_in']);
+    }
+
+    /**
+     * Déconnecte l'utilisateur et redirige vers la page de connexion
+     */
+    public static function logoutAndRedirect(): void
+    {
+        self::logout();
         header('Location: /macos-login');
         exit;
     }

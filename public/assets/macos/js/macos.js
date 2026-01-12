@@ -453,6 +453,37 @@ window.addEventListener('load', () => {
     // openApp('Finder');
 });
 
+/**
+ * Éteindre le Mac - Déconnecte l'utilisateur et retourne sur le site CyberCigales
+ */
+async function shutdownMac() {
+    // Masquer le menu
+    document.getElementById('apple-menu-dropdown').classList.add('hidden');
+    
+    // Animation d'extinction (fade out)
+    document.body.style.transition = 'opacity 0.8s ease-out';
+    document.body.style.opacity = '0';
+    
+    // Attendre la fin de l'animation
+    await new Promise(resolve => setTimeout(resolve, 800));
+    
+    // Déconnecter la session macOS côté serveur
+    try {
+        await fetch('/macos-login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'action=logout'
+        });
+    } catch (error) {
+        console.error('Erreur lors de la déconnexion:', error);
+    }
+    
+    // Rediriger vers le dashboard ou l'accueil
+    window.location.href = '/dashboard';
+}
+
 // Exporter les fonctions pour qu'elles soient accessibles depuis le HTML (comme openApp)
 window.openApp = openApp;
 window.closeApp = closeApp;
@@ -460,3 +491,4 @@ window.minimizeApp = minimizeApp;
 window.maximizeApp = maximizeApp;
 window.toggleAppleMenu = toggleAppleMenu;
 window.toggleFileMenu = toggleFileMenu;
+window.shutdownMac = shutdownMac;
