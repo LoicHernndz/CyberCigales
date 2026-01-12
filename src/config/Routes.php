@@ -47,7 +47,6 @@ class Routes
         '/instagram/melina/chat' => 'Controllers\Instagram\MelinaChat',
         '/LeconHistMdp' => 'Controllers\Lecon\LeconHistMdp',
         '/macos' => 'Controllers\MacOSController',
-        '/macos/permutation' => 'Controllers\Code\Permutation\PermutationTool',
 
         '/email' => 'Controllers\InterfaceMail\InterfaceMail',
         '/agenda' => 'Controllers\InterfaceAgenda\InterfaceAgenda',
