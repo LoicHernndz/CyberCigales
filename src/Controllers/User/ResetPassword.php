@@ -67,7 +67,7 @@ class ResetPassword extends AbstractController
         // Création du token de réinitialisation
         $selector = bin2hex(random_bytes(8));
         $token = random_bytes(32);
-        $url = "https://cybercigales.fr/user/new-password?selector=" . $selector . "&validator=" . bin2hex($token);
+        $url = "https://benahmed.alwaysdata.net/user/new-password?selector=" . $selector . "&validator=" . bin2hex($token);
         $expires = strval((int)(date("U")) + 1800);
 
         if (!$this->resetModel->deleteEmail($usersEmail)) {
