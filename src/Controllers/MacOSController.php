@@ -15,6 +15,17 @@ class MacOSController
 
     public function getMethod()
     {
+        // DEBUG: Vérifier l'état de la session
+        // Décommenter pour débugger
+        // echo "Session: "; var_dump($_SESSION); exit;
+        
+        // Vérifier si l'utilisateur est connecté
+        if (!MacOSLogin::isLoggedIn()) {
+            // Rediriger vers la page de connexion
+            header('Location: /macos-login');
+            exit;
+        }
+
         $view = new MacOSView();
         $view->render();
     }

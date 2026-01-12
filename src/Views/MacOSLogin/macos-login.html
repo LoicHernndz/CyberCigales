@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion</title>
+    <link rel="stylesheet" href="/styles/macos-login.css">
+</head>
+<body class="macos-login">
+    <!-- Barre de menu macOS -->
+    <div class="macos-menubar">
+        <div class="macos-menubar-time">
+            <span class="macos-menubar-icon">⚡</span>
+            <span class="macos-menubar-icon">◉</span>
+            <span id="current-time"></span>
+        </div>
+    </div>
+
+    <!-- Container de connexion -->
+    <div class="login-container">
+        <!-- Avatar utilisateur -->
+        <img src="/images/instagram/annie-spratt-e92dhXE8PUg-unsplash.jpg" alt="Avatar" class="user-avatar">
+        
+        <!-- Nom d'utilisateur -->
+        <div class="user-name">Élève</div>
+        
+        <!-- Champ de mot de passe -->
+        <div class="password-container" id="passwordContainer">
+            <input 
+                type="password" 
+                class="password-input" 
+                id="passwordInput"
+                placeholder="Entrer le mot de passe"
+                autofocus
+            >
+            <div class="loading-spinner"></div>
+        </div>
+        
+        <!-- Message d'erreur -->
+        <div class="error-message" id="errorMessage">
+            Mot de passe incorrect
+        </div>
+        
+        <!-- Bouton annuler -->
+        <div class="cancel-button" id="cancelButton">
+            <div class="cancel-icon">✕</div>
+            <div class="cancel-text">Annuler</div>
+        </div>
+    </div>
+
+    <!-- Bouton d'aide -->
+    <div class="help-button" title="Besoin d'aide ?">
+        <span style="font-size: 16px; font-weight: bold;">?</span>
+    </div>
+
+    <script>
+        // Afficher l'heure actuelle
+        function updateTime() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('current-time').textContent = `${hours}:${minutes}`;
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        // Gestion de la connexion
+        const passwordInput = document.getElementById('passwordInput');
+        const passwordContainer = document.getElementById('passwordContainer');
+        const errorMessage = document.getElementById('errorMessage');
+        const cancelButton = document.getElementById('cancelButton');
+
+        // Mot de passe correct
+        const CORRECT_PASSWORD = 'cybersecurite';
+        let attemptCount = 0;
+
+        passwordInput.addEventListener('keypress', async (e) => {
+            if (e.key === 'Enter') {
+                const password = passwordInput.value;
+                
+                if (password === '') {
+                    return;
+                }
+
+                // Afficher le spinner de chargement
+                passwordContainer.classList.add('loading');
+                
+                // Vérifier le mot de passe localement d'abord
+                await new Promise(resolve => setTimeout(resolve, 400));
+
+                if (password === CORRECT_PASSWORD) {
+                    // Mot de passe correct - enregistrer dans la session PHP
+                    try {
+                        const response = await fetch('/macos-login', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: 'action=login&password=' + encodeURIComponent(password)
+                        });
+
+                        passwordContainer.classList.remove('loading');
+                        
+                        if (response.ok) {
+                            passwordInput.style.background = 'rgba(100, 255, 100, 0.3)';
+                            
+                            // Redirection après une courte animation
+                            setTimeout(() => {
+                                window.location.href = '/macos';
+                            }, 500);
+                        } else {
+                            throw new Error('Erreur serveur');
+                        }
+                    } catch (error) {
+                        console.error('Erreur:', error);
+                        passwordContainer.classList.remove('loading');
+                        errorMessage.textContent = 'Erreur de connexion au serveur';
+                        errorMessage.classList.add('show');
+                    }
+                } else {
+                    // Mot de passe incorrect
+                    attemptCount++;
+                    
+                    // Animation de secousse
+                    passwordInput.classList.add('shake');
+                    errorMessage.classList.add('show');
+                    
+                    // Vibration si disponible
+                    if (navigator.vibrate) {
+                        navigator.vibrate(200);
+                    }
+                    
+                    setTimeout(() => {
+                        passwordInput.classList.remove('shake');
+                    }, 500);
+                    
+                    // Effacer le champ
+                    passwordInput.value = '';
+                    
+                    // Cacher le message d'erreur après 3 secondes
+                    setTimeout(() => {
+                        errorMessage.classList.remove('show');
+                    }, 3000);
+
+                    // Si trop de tentatives
+                    if (attemptCount >= 3) {
+                        errorMessage.textContent = 'Trop de tentatives. Réessayez dans 30 secondes.';
+                        passwordInput.disabled = true;
+                        
+                        setTimeout(() => {
+                            passwordInput.disabled = false;
+                            attemptCount = 0;
+                            errorMessage.textContent = 'Mot de passe incorrect';
+                            errorMessage.classList.remove('show');
+                            passwordInput.focus();
+                        }, 30000);
+                    }
+                }
+            }
+        });
+
+        // Bouton annuler
+        cancelButton.addEventListener('click', () => {
+            passwordInput.value = '';
+            errorMessage.classList.remove('show');
+            passwordInput.focus();
+        });
+
+        // Focus automatique sur le champ
+        passwordInput.focus();
+    </script>
+</body>
+</html>
+

@@ -38,6 +38,7 @@ class Routes
 
         '/instagram' => 'Controllers\Instagram\Instagram',
 
+        '/macos-login' => 'Controllers\MacOSLogin',
         '/macos' => 'Controllers\MacOSController',
 
         '/lecon' => 'Controllers\Lecon\AllLessonPage',
