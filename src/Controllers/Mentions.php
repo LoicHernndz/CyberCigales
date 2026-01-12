@@ -3,9 +3,18 @@ namespace Controllers;
 
 use Views\Mentions\MentionsView;
 
+/**
+ * Contrôleur de la page des mentions légales
+ * 
+ * Affiche les mentions légales et informations légales du site.
+ */
 class Mentions extends AbstractController
 {
-    // Méthode principale exécutée quand la route correspond à ce contrôleur
+    /**
+     * Affiche la page des mentions légales
+     * 
+     * @return void
+     */
     function getMethod(){
         // Création d’une instance de la vue "MentionsView"
         $view = new MentionsView();

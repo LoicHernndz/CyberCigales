@@ -3,9 +3,18 @@ namespace Controllers;
 
 use Views\SitePlan\SitePlanView;
 
+/**
+ * Contrôleur du plan du site
+ * 
+ * Affiche une vue d'ensemble de la structure et navigation du site.
+ */
 class SitePlan extends AbstractController
 {
-    // Méthode principale exécutée lorsque la route correspond à ce contrôleur
+    /**
+     * Affiche la page du plan du site
+     * 
+     * @return void
+     */
     function getMethod(){
         // Création d’une instance de la vue "SitePlanView"
         $view = new SitePlanView();
