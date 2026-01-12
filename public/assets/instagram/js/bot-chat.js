@@ -1,18 +1,19 @@
 /**
- * JavaScript pour le chat avec Melina
+ * JavaScript pour le chat avec un bot
  * 
  * Basé sur le projet IG Grid Profile de Angela Holden
  * Repository: https://github.com/angelajholden/ig-grid-profile
  * 
  * Fonctionnalités :
  * - Envoi de messages en temps réel
- * - Réponses automatiques de Melina
+ * - Réponses automatiques du bot
  * - Gestion des événements clavier (Enter)
  * - Scroll automatique vers les nouveaux messages
  */
 
 
-let step = 0;
+let step = 0;   // A tout refresh, la memoire du bot est reinitialise (on utilisera bdd pour leur donner une mémoire
+let username = window.location.href.toString().split("/")[5]
 
 // Attendre que le DOM soit chargé
 document.addEventListener('DOMContentLoaded', function() {
@@ -58,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Scroll vers le bas
             scrollToBottom();
 
-            // Simuler une réponse de Melina après 2 secondes
+            // Simuler une réponse du bot après 2 secondes
             setTimeout(() => {
                 const response = generateResponse(message);
                 scrollToBottom();
@@ -76,10 +77,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     /**
-     * Ajoute un message de Melina à l'interface
+     * Ajoute un message du bot à l'interface
      * @param {string} message - Le message à afficher
      */
-    function addMelinaMessage(message) {
+    function addBotMessage(message) {
         const messageHtml = createMessageHtml(message, 'received');
         messagesContainer.insertAdjacentHTML('beforeend', messageHtml);
     }
@@ -125,22 +126,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     /**
-     * Retourne une réponse aléatoire de Melina
+     * Retourne une réponse aléatoire du bot
      * @returns {string} Une réponse aléatoire
      */
     async function generateResponse(message) {
         try {
-            let url = "/instagram/chat/response?name=Melina&step=" + step + "&message=" + message
+            let url = "/instagram/chat/response?name=" + username + "&step=" + step + "&message=" + message
             const response = await fetch(url);
             if (!response.ok) {
                 throw new Error(`Response status: ${response.status}`);
             }
 
             let text = await response.text();
-            addMelinaMessage(text.slice(0, -1));
-            if (text.charAt(text.length - 1) === "1") {
-                ++step;
-            }
+
+            if (text.length>0) addBotMessage(text.slice(0, -1));
+
+            if (text.charAt(text.length - 1) === "1") ++step;
             return text;
 
         } catch (error) {
@@ -157,5 +158,5 @@ document.addEventListener('DOMContentLoaded', function() {
     generateResponse("");  // Message initial
     scrollToBottom();
     
-    console.log('Chat avec Melina initialisé avec succès');
+    console.log('Chat initialisé avec succès');
 });

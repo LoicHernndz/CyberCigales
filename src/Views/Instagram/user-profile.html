@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Melina (@mel_133) - Instagram Profile</title>
+    <title>{{DISPLAY_NAME}} (@{{USERNAME}}) - Instagram Profile</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
@@ -19,9 +19,9 @@
                 <img src="/images/instagram/svgs/chevron-back-outline.svg" alt="Retour" class="ionicon">
             </button>
             <h1 class="primary_header">
-                mel_133
-                <span class="access-hidden">Verified</span>
-                <img src="/images/instagram/svgs/shield-checkmark.svg" alt="Vérifié" class="ionicon verified">
+                {{USERNAME}}
+                <span class="access-hidden">Profile</span>
+                {{VERIFIED_ICON}}
             </h1>
         </div>
         <div class="header_right">
@@ -39,21 +39,21 @@
         <!-- Section profil avec avatar et stats -->
         <div class="profile">
             <figure class="figure">
-                <img loading="lazy" src="/images/instagram/faux-profil-amie-hacke/melina_photo_selfie_salon.png?v=3" alt="Melina profile" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" />
+                <img loading="lazy" src="{{AVATAR}}" alt="{{DISPLAY_NAME}} profile" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" />
             </figure>
             <div class="profile_meta">
-                <div class="name">Melina</div>
+                <div class="name">{{DISPLAY_NAME}}</div>
                 <div class="meta_count-container">
                     <div class="meta_count">
-                        <div class="count">3</div>
+                        <div class="count">{{POSTS_COUNT}}</div>
                         <div class="type">publications</div>
                     </div>
                     <div class="meta_count">
-                        <div class="count">89.2K</div>
+                        <div class="count">{{FOLLOWERS_COUNT}}</div>
                         <div class="type">abonnés</div>
                     </div>
                     <div class="meta_count">
-                        <div class="count">1,156</div>
+                        <div class="count">{{FOLLOWING_COUNT}}</div>
                         <div class="type">abonnements</div>
                     </div>
                 </div>
@@ -67,27 +67,27 @@
         <div class="followed_by">
             <div class="followed_profiles">
                 <figure class="figure">
-                    <img loading="lazy" src="/images/instagram/alexander-schimmeck-2zJhA9RSkys-unsplash.jpg" alt="fashion_paris" />
+                    <img loading="lazy" src="/images/instagram/alexander-schimmeck-2zJhA9RSkys-unsplash.jpg" alt="alex_photo" />
                 </figure>
                 <figure class="figure">
-                    <img loading="lazy" src="/images/instagram/anna-bratiychuk-IeNoBmJ011g-unsplash.jpg" alt="style_blogger" />
+                    <img loading="lazy" src="/images/instagram/anna-bratiychuk-IeNoBmJ011g-unsplash.jpg" alt="anna_food" />
                 </figure>
                 <figure class="figure">
-                    <img loading="lazy" src="/images/instagram/annie-spratt-e92dhXE8PUg-unsplash.jpg" alt="annie_nature" />
+                    <img loading="lazy" src="/images/instagram/faux-profil-amie-hacke/melina_photo_selfie_salon.png" alt="mel_133" />
                 </figure>
             </div>
             <p>
                 Suivi par
-                <span class="bold">fashion_paris, style_blogger</span>
+                <span class="bold">alex_photo, anna_food</span>
                 et
-                <span class="bold">15 autres</span>
+                <span class="bold">12 autres</span>
             </p>
         </div>
         
         <!-- Boutons d'action -->
         <div class="ctas">
             <button class="button" type="button">Suivre</button>
-            <button class="button" type="button" onclick="window.location.href='/instagram/melina/chat'">Message</button>
+            <button class="button" type="button" onclick="window.location.href='{{CHAT_URL}}'">Message</button>
             <button class="button" type="button">Email</button>
             <button class="button" aria-label="Ajouter au profil" type="button">
                 <img src="/images/instagram/svgs/person-add-outline.svg" alt="Ajouter" class="ionicon">
@@ -132,9 +132,10 @@
         </button>
         <button class="tab_button" aria-label="Profil utilisateur actuel" type="button">
             <figure class="figure">
-                <img src="/images/instagram/faux-profil-amie-hacke/melina_photo_selfie_salon.png?v=3" alt="Profil Melina" />
+                <img src="{{AVATAR}}" alt="Profil {{USERNAME}}" />
             </figure>
         </button>
     </footer>
 </body>
 </html>
+
