@@ -2,8 +2,19 @@
 
 namespace config;
 
+/**
+ * Configuration des routes de l'application
+ * 
+ * Associe les URLs aux contrôleurs correspondants.
+ * Format : 'chemin URL' => 'Namespace\Classe'
+ */
 class Routes
 {
+    /**
+     * Table de routage URL vers contrôleur
+     * 
+     * @var array<string, string>
+     */
     static public array $routes = [
         '/' => 'Controllers\Homepage',
         '/plan' => 'Controllers\SitePlan',
@@ -52,12 +63,12 @@ class Routes
         '/web' => 'Controllers\InterfaceWeb\InterfaceWeb',
         '/bash' => 'Controllers\Bash\Bash',
         '/bash/exec' => 'helpers\BashRequest',
-        '/instagram/chat/response' =>  'helpers\GenerateAnswer',
+        '/instagram/chat/response' => 'helpers\GenerateAnswer',
         '/minigames' => 'Controllers\Minigames\Minigames',
         '/hamming-square' => 'Controllers\HammingSquare\HammingSquare',
         '/outils' => 'Controllers\Code\AllCodePage\AllCodePage',
 
         '/data-breach/check' => 'Controllers\DataBreach\DataBreachCheck',
-        ];
+    ];
 
 }

@@ -7,42 +7,59 @@ use Models\Instagram\InstagramModel;
 use Controllers\AbstractController;
 
 /**
- * Contrôleur pour afficher le profil d'un utilisateur Instagram générique
+ * Contrôleur pour afficher le profil d'un utilisateur Instagram
+ * 
+ * Clés transmises à la vue :
+ * - USERNAME : Nom d'utilisateur (@username)
+ * - DISPLAY_NAME : Nom affiché
+ * - AVATAR : URL de l'avatar
+ * - POSTS_COUNT, FOLLOWERS_COUNT, FOLLOWING_COUNT : Statistiques du profil
+ * - VERIFIED_ICON : Icône de vérification si compte vérifié
+ * - PROFILE_INFO : HTML des informations du profil (bio, site web)
+ * - POSTS : HTML de la grille de posts
+ * - CHAT_URL : Lien vers le chat
  */
 class UserProfile extends AbstractController
 {
+    /**
+     * Affiche le profil d'un utilisateur Instagram
+     * 
+     * Récupère le username depuis l'URL et charge les données du profil.
+     * 
+     * @return void
+     */
     public function getMethod(): void
     {
         // Récupérer le username depuis l'URL
         $uri = $_SERVER['REQUEST_URI'];
         $parts = explode('/', trim($uri, '/'));
         $username = end($parts);
-        
+
         // Supprimer les paramètres GET si présents
         if (strpos($username, '?') !== false) {
             $username = explode('?', $username)[0];
         }
-        
+
         // Création des instances MVC
         $view = new UserProfileView();
         $model = new InstagramModel();
-        
+
         // Récupération du profil
         $profileData = $model->getUserProfile($username);
-        
+
         // Si le profil n'existe pas, rediriger vers la page Instagram
         if ($profileData === null) {
             header('Location: /instagram');
             exit;
         }
-        
+
         // Génération du HTML pour les posts
         $postsHtml = '';
-        foreach($profileData['posts'] as $post) {
-            $videoIcon = isset($post['is_video']) && $post['is_video'] 
-                ? '<img src="/images/instagram/svgs/videocam-outline.svg" alt="Vidéo" class="ionicon video_icon">' 
+        foreach ($profileData['posts'] as $post) {
+            $videoIcon = isset($post['is_video']) && $post['is_video']
+                ? '<img src="/images/instagram/svgs/videocam-outline.svg" alt="Vidéo" class="ionicon video_icon">'
                 : '';
-            
+
             $postsHtml .= '
             <figure class="figure">
                 ' . $videoIcon . '
@@ -50,14 +67,14 @@ class UserProfile extends AbstractController
                 <figcaption class="access-hidden">Post</figcaption>
             </figure>';
         }
-        
+
         // Génération du HTML pour les informations du profil
         $profileInfoHtml = '
         <div class="profile-info">
             <h2 class="profile-name">' . htmlspecialchars($profileData['display_name']) . '</h2>
             <div class="profile-bio">
                 <p>' . nl2br(htmlspecialchars($profileData['bio'])) . '</p>';
-        
+
         if (!empty($profileData['website'])) {
             $profileInfoHtml .= '
                 <p>
@@ -67,14 +84,14 @@ class UserProfile extends AbstractController
                     </a>
                 </p>';
         }
-        
+
         $profileInfoHtml .= '
             </div>
         </div>';
 
         // Icône de vérification
-        $verifiedIcon = $profileData['verified'] 
-            ? '<img src="/images/instagram/svgs/shield-checkmark.svg" alt="Vérifié" class="ionicon verified">' 
+        $verifiedIcon = $profileData['verified']
+            ? '<img src="/images/instagram/svgs/shield-checkmark.svg" alt="Vérifié" class="ionicon verified">'
             : '';
 
         // Passage des données à la vue
@@ -88,10 +105,10 @@ class UserProfile extends AbstractController
         $view->addTemplateKey('PROFILE_INFO', $profileInfoHtml);
         $view->addTemplateKey('POSTS', $postsHtml);
         $view->addTemplateKey('CHAT_URL', '/instagram/user/' . urlencode($username) . '/chat');
-        
+
         $view->render();
     }
-    
+
     public function support(string $method): bool
     {
         return $method === 'GET';

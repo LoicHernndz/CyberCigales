@@ -1,9 +1,22 @@
 <?php
 
-//  Autochargement des classes du projet (NECESSAIRE AU MVC)
+/**
+ * Autochargement des classes du projet (PSR-4)
+ * 
+ * Enregistre un autoloader qui convertit les namespaces en chemins de fichiers.
+ */
 namespace config;
+
 class Autoloader
 {
+    /**
+     * Enregistre l'autoloader SPL
+     * 
+     * Convertit les namespaces en chemins de fichiers et charge automatiquement
+     * les classes depuis le répertoire src/.
+     * 
+     * @return void
+     */
     public static function register()
     {
         spl_autoload_register(function ($class) {
