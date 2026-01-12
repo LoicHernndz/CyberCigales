@@ -16,19 +16,19 @@ class GenerateAnswer
     public function control()
     {
         $name = $_REQUEST["name"];
-        $step = $_REQUEST["step"];
         $message = $_REQUEST["message"];
         $userId = $_SESSION['user_id'] ?? null; // Récupère l'ID utilisateur de la session
 
-        $this->generate($name, $step, $message, $userId);
+        $this->generate($name, $message, $userId);
     }
 
-    private function generate($name, $step, $message, $userId): void
+    private function generate($name, $message, $userId): void
     {
         // Charger les données depuis answers.json
         $path = __DIR__ . '/../config/answers.json';
         $string = file_get_contents($path);
         $json_a = json_decode($string);
+        $step = $this->getProgress($userId, $name);
 
         // Mapper les identifiants Instagram vers les vrais noms
         $realName = $this->mapUsernameToRealName($name);
@@ -36,21 +36,18 @@ class GenerateAnswer
         // Vérifier si l'utilisateur existe dans le JSON
         if (!isset($json_a->$realName)) {
             echo "Utilisateur non trouvé";
-            echo "0";
             return;
         }
 
         // Vérifier si l'étape existe pour cet utilisateur
         if (!isset($json_a->$realName->$step)) {
             echo "Étape non trouvée";
-            echo "0";
             return;
         }
 
         // Si le message est vide, renvoyer le message de l'étape actuelle
         if ($message == "") {
             echo $json_a->$realName->$step->{"message"};
-            echo "0";
         }
         // Si l'étape a une clé et que le message contient cette clé
         else if (isset($json_a->$realName->$step->{"key"}) && str_contains($message, $json_a->$realName->$step->{"key"})) {
@@ -59,12 +56,10 @@ class GenerateAnswer
             // Vérifier si l'étape suivante existe
             if (!isset($json_a->$realName->$next_step)) {
                 echo "Conversation terminée";
-                echo "0";
                 return;
             }
             
             echo $json_a->$realName->$next_step->{"message"};
-            echo "1";
             
             // Sauvegarder la progression dans la BDD si l'utilisateur est connecté
             if ($userId) {
@@ -75,7 +70,6 @@ class GenerateAnswer
         else {
             $responses = $json_a->$realName->$step->{"responses"};
             echo $responses[array_rand($responses)];
-            echo "0";
         }
     }
 

@@ -58,7 +58,7 @@ class MacOSView {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dock Dynamique et Esthétique</title>
+    <title>MacOS Personnel</title>
 
     <!-- Chargement de Tailwind CSS (via CDN) pour le style -->
     <script src="https://cdn.tailwindcss.com"></script>
