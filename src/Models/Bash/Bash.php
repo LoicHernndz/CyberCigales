@@ -4,6 +4,11 @@ namespace Models\Bash;
 
 use Exception;
 
+/**
+ * Modèle de l'environnement Bash simulé
+ * 
+ * Crée une arborescence de fichiers virtuelle pour le terminal simulé.
+ */
 class Bash
 {
     private array $commandHistory;
@@ -13,6 +18,8 @@ class Bash
 
 
     /**
+     * Constructeur - Initialise l'arborescence de fichiers virtuelle
+     * 
      * @throws Exception
      */
     public function __construct()

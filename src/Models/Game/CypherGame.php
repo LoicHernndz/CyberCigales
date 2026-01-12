@@ -4,10 +4,18 @@ namespace Models\Game;
 use config\Database;
 use PDO;
 
+/**
+ * Modèle du jeu CypherRush
+ * 
+ * Gère la génération de challenges de déchiffrement et la sauvegarde des scores.
+ */
 class CypherGame
 {
     private $db;
     
+    /**
+     * Constructeur - Initialise la base de données
+     */
     public function __construct() {
         $this->db = Database::getInstance()->getConnection();
     }

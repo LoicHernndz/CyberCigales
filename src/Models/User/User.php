@@ -3,10 +3,17 @@
 namespace Models\User;
 use config\Database;
 
+/**
+ * Modèle utilisateur
+ * 
+ * Gère toutes les opérations CRUD sur les utilisateurs (inscription, connexion, mise à jour profil, scores).
+ */
 class User{
     private $db;
 
-    // Le constructeur qui se lance automatiquement quand je crée un objet User
+    /**
+     * Constructeur - Initialise la connexion à la base de données
+     */
     public function __construct()
     {
         // Je crée une instance de ma classe Database pour pouvoir faire des requêtes
