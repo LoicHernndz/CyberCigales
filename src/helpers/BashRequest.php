@@ -22,7 +22,7 @@ class BashRequest
         $args = explode(" ", trim($input));
         $command = $args[0];
 
-        $allowed = ["pwd", "ls", "cd", "cat", "help", "sudo_access"];
+        $allowed = ["pwd", "ls", "cd", "cat", "clear", "help", "sudo_access"];
 
         if (in_array($command, $allowed)) {
             $result = $this->$command($env, $args, $path);
@@ -49,13 +49,16 @@ class BashRequest
         foreach ($children as $file) {
             // ÉNIGME: On ne montre pas les fichiers cachés (commençant par .) dans l'UI
             // Mais ils seront présents dans le JSON brut si on regarde l'onglet Network !
-            if (strpos($file->getName(), '.') === 0) {
+            if (str_starts_with($file->getName(), '.')) {
                 $hiddenFiles[] = $file->getName();
                 continue;
             }
 
             $colorClass = ($file->getType() === "dir") ? "dir" : "file";
-            $output .= "<span class='$colorClass'>" . htmlspecialchars($file->getName()) . "</span>  ";
+            $output .= "<span class='$colorClass'>" . htmlspecialchars($file->getName()) .
+                str_repeat("&nbsp", ((strlen(htmlspecialchars($file->getName())) % 4==0) ? 4 : strlen(htmlspecialchars($file->getName())) % 4))
+                 . "</span>  ";
+
         }
 
         return [
@@ -109,6 +112,10 @@ class BashRequest
     private function pwd($env, $args, $path)
     {
         return ["path" => $path, "output" => $path];
+    }
+
+    private function clear($env, $args, $path) {
+        return ["path" => $path, "output" => "@CLEAR"];
     }
 
     private function help($env, $args, $path)

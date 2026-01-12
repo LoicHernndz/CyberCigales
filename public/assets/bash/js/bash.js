@@ -17,10 +17,17 @@ async function generateOutput(input) {
         }
 
         let result = await response.json();
-        document.getElementById("output").innerHTML += "<br>" + result.output;
+
         path = result.path;
+        document.getElementById("output").innerHTML += input;
+
+        if (result.output.length === 0) document.getElementById("output").innerHTML += "<br>" + path.split("/").pop() + "> ";
+        else if (result.output === "@CLEAR") document.getElementById("output").innerHTML = path.split("/").pop() + "> ";   // Outputs speciaux
+        else document.getElementById("output").innerHTML += "<br>" + result.output + "<br>" + path.split("/").pop() + "> ";
+
     } catch (error) {
         console.error(error.message);
     }
-
 }
+
+document.getElementById("output").innerHTML = path.split("/").pop() + "> ";
