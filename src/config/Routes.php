@@ -34,11 +34,9 @@ class Routes
         '/code/dechiffrement-vigenere' => 'Controllers\Code\Vigenere\DecryptVigenere',
         '/code/chiffrement-permutation' => 'Controllers\Code\Permutation\EncryptPermutation',
         '/code/dechiffrement-permutation' => 'Controllers\Code\Permutation\DecryptPermutation',
+        '/code/outil-permutation' => 'Controllers\Code\Permutation\PermutationDecryptTool',
 
         '/instagram' => 'Controllers\Instagram\Instagram',
-        '/instagram/melina' => 'Controllers\Instagram\MelinaProfile',
-        '/instagram/melina/chat' => 'Controllers\Instagram\MelinaChat',
-        '/instagram/melina/chat' => 'Controllers\Instagram\MelinaChat',
 
         '/macos' => 'Controllers\MacOSController',
 

@@ -5,7 +5,7 @@ namespace helpers\Code;
 abstract class AbstractCode
 {
     protected static function cleanText($text){
-        $text = mb_strtolower($text);
+        $text = \mb_strtolower($text);
         $remplacements = [
             'é' => 'e',
             'è' => 'e',

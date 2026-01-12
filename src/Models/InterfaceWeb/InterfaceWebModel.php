@@ -44,7 +44,48 @@ class InterfaceWebModel
         'google.com' => '
             <div style="text-align: center; margin-top: 100px;">
                 <h1 style="color: #4285F4; font-size: 5rem; margin:0;">Google</h1>
-                <input type="text" style="margin-top:20px; padding: 10px; width: 400px; border-radius: 20px; border: 1px solid #dfe1e5;">
+                <input type="text" placeholder="Rechercher..." style="margin-top:20px; padding: 10px; width: 400px; border-radius: 20px; border: 1px solid #dfe1e5;">
+                <div style="margin-top: 20px;">
+                    <button style="padding: 10px 20px; border: 1px solid #f8f9fa; background: #f8f9fa; border-radius: 4px; cursor: pointer;">Recherche Google</button>
+                    <!-- INDICE INSPECTER : TODO: Désactiver l\'accès temporaire vers dev.cybercigales.fr -->
+                </div>
+            </div>',
+
+        'dev.cybercigales.fr' => '
+            <div style="max-width: 400px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; font-family: sans-serif; background: white;">
+                <h2 style="text-align: center; color: #d32f2f;">PANNEAU D\'ADMINISTRATION</h2>
+                <p style="font-size: 14px; color: #666; text-align: center;">Accès réservé au personnel de maintenance.</p>
+                <div style="margin-top: 20px;">
+                    <label style="display: block; margin-bottom: 5px;">Utilisateur</label>
+                    <input type="text" value="admin" disabled style="width: 100%; padding: 8px; box-sizing: border-box; background: #eee;">
+                </div>
+                <div style="margin-top: 15px;">
+                    <label style="display: block; margin-bottom: 5px;">Code d\'accès</label>
+                    <input type="password" value="********" disabled style="width: 100%; padding: 8px; box-sizing: border-box; background: #eee;">
+                </div>
+                <div style="margin-top: 25px;">
+                    <button id="admin-unlock-btn" disabled style="width: 100%; padding: 12px; background: #2196f3; color: white; border: none; border-radius: 4px; cursor: not-allowed; opacity: 0.6; font-weight: bold;">
+                        DÉVERROUILLER LE SYSTÈME
+                    </button>
+                    <p id="unlock-message" style="display:none; color: green; font-weight: bold; margin-top: 10px; text-align: center;">Accès déverrouillé ! Regardez votre console (F12) pour le code final.</p>
+                </div>
+                <script>
+                    (function() {
+                        const btn = document.getElementById("admin-unlock-btn");
+                        const msg = document.getElementById("unlock-message");
+                        
+                        btn.addEventListener("click", function() {
+                            if (!btn.hasAttribute("disabled")) {
+                                msg.style.display = "block";
+                                console.log("%c [ADMIN] Accès accordé ! ", "background: #222; color: #bada55; font-size: 20px;");
+                                console.log("Le mot de passe secret pour le terminal est : BASH_MASTER_2026");
+                                alert("Système déverrouillé. Le code a été envoyé dans les logs administrateur (Console).");
+                            } else {
+                                alert("Bouton désactivé. Seul un administrateur peut modifier les attributs de la page.");
+                            }
+                        });
+                    })();
+                </script>
             </div>'
     ];
 

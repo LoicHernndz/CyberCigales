@@ -19,7 +19,10 @@ class GenerateAnswer
         $string = file_get_contents($path);
         $json_a = json_decode($string);
 
-        if ($message == "") {
+        if (!isset($json_a->$name)){
+            echo "";
+        }
+        else if ($message == "") {
             echo $json_a->$name->$step->{"message"};
             echo "0";
         }

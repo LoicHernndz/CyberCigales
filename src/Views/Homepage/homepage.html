@@ -6,158 +6,67 @@
         <p class="hero-subtitle">Développez vos compétences en cybersécurité</p>
     </div>
 
-    <!-- Stats Banner - Nouvelle section -->
-    <div class="stats-banner">
-        <div class="stat-box">
-            <div class="stat-icon">
-                <span class="material-icons">emoji_events</span>
-            </div>
-            <div class="stat-number">{{MODULES_COMPLETED}}</div>
-            <div class="stat-label">Modules complétés</div>
-        </div>
-        <div class="stat-box">
-            <div class="stat-icon">
-                <span class="material-icons">military_tech</span>
-            </div>
-            <div class="stat-number">{{TOTAL_POINTS}}</div>
-            <div class="stat-label">Points gagnés</div>
-        </div>
-        <div class="stat-box">
-            <div class="stat-icon">
-                <span class="material-icons">timer</span>
-            </div>
-            <div class="stat-number">{{LEARNING_TIME}}</div>
-            <div class="stat-label">Minutes d'apprentissage</div>
-        </div>
-    </div>
-
-    <div class="game-dashboard">
-        <div class="dashboard-header">
-            <h2>Formations disponibles</h2>
-            <p class="dashboard-subtitle">Choisissez votre parcours d'apprentissage</p>
-        </div>
-        
-        <div class="mission-cards">
-            <div class="mission-card">
-                <div class="mission-badge">
-                    <span class="material-icons">vpn_key</span>
-                </div>
-                <div class="mission-image">
-                    <img src="/images/cadenas-binaire-22632253.webp" alt="Cypher Rush">
-                </div>
-                <div class="mission-content">
-                    <h3>Cypher Rush</h3>
-                    <p class="mission-description">
-                        Déchiffrez des messages cryptés et découvrez les bases de la cryptographie
-                    </p>
-                    <div class="mission-progress">
-                        <div class="progress-label">
-                            <span>Progression</span>
-                            <span>{{CYPHER_COMPLETION}}%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: {{CYPHER_COMPLETION}}%"></div>
-                        </div>
-                    </div>
-                    <div class="mission-meta">
-                        <span class="meta-item">
-                            <span class="material-icons">schedule</span>
-                            5-8 min
-                        </span>
-                        <span class="meta-item">
-                            <span class="material-icons">signal_cellular_alt</span>
-                            Intermédiaire
-                        </span>
-                    </div>
-                    <a href="/cypher-rush" class="btn-mission">
-                        <span>Commencer</span>
-                        <span class="material-icons">arrow_forward</span>
-                    </a>
-                </div>
+    <section id="concept" class="concept-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-badge">L'Escape Game</span>
+                <h2>Un apprentissage ludique et immersif</h2>
+                <p>Transformez votre façon d'apprendre la cybersécurité grâce à notre méthodologie unique</p>
             </div>
 
-            <div class="mission-card mission-locked">
-                <div class="mission-badge locked">
-                    <span class="material-icons">lock</span>
-                </div>
-                <div class="mission-image">
-                    <img src="/images/password.jpg" alt="Password Fortress">
-                </div>
-                <div class="mission-content">
-                    <h3>Password Fortress</h3>
-                    <p class="mission-description">
-                        Apprenez à créer des mots de passe robustes et sécurisés
-                    </p>
-                    <div class="mission-meta">
-                        <span class="meta-item">
-                            <span class="material-icons">schedule</span>
-                            4-6 min
-                        </span>
-                        <span class="meta-item">
-                            <span class="material-icons">signal_cellular_alt</span>
-                            Débutant
-                        </span>
+            <div class="concept-grid">
+                <a href="/macos" class="concept-card">
+                    <div class="concept-icon">
+                        <span class="material-icons">sports_esports</span>
                     </div>
-                    <button class="btn-mission disabled" disabled>
-                        <span>Bientôt disponible</span>
-                    </button>
-                </div>
-            </div>
+                    <h3>Notre Escape Game</h3>
+                    <p>Mettez en pratique toutes les connaissances que vous avez au travers de cet escape game interactif et ludique.</p>
 
-            <div class="mission-card mission-locked">
-                <div class="mission-badge locked">
-                    <span class="material-icons">lock</span>
-                </div>
-                <div class="mission-image">
-                    <img src="/images/hook.webp" alt="Phishing Detective">
-                </div>
-                <div class="mission-content">
-                    <h3>Phishing Detective</h3>
-                    <p class="mission-description">
-                        Identifiez les tentatives de phishing et protégez-vous contre les arnaques
-                    </p>
-                    <div class="mission-meta">
-                        <span class="meta-item">
-                            <span class="material-icons">schedule</span>
-                            5-7 min
-                        </span>
-                        <span class="meta-item">
-                            <span class="material-icons">signal_cellular_alt</span>
-                            Intermédiaire
-                        </span>
+                    <span class="btn-card-action">
+                    <span>Lancer l'escape game</span>
+                    <span class="material-icons">play_arrow</span>
+                </span>
+                </a>
+
+                <a href="/outils" class="concept-card">
+                    <div class="concept-icon">
+                        <span class="material-icons">build</span>
                     </div>
-                    <button class="btn-mission disabled" disabled>
-                        <span>Bientôt disponible</span>
-                    </button>
-                </div>
+                    <h3>Nos Outils</h3>
+                    <p>Vérifiez vos messages cryptés grâce à nos systèmes de décryptage multi-protocoles.</p>
+
+                    <span class="btn-card-action">
+                    <span>Accéder aux outils</span>
+                    <span class="material-icons">arrow_forward</span>
+                </span>
+                </a>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Achievements Section - Nouvelle section -->
-    <div class="achievements-section">
-        <h3>Vos réalisations <span class="badge-count">{{UNLOCKED_BADGES}}/5</span></h3>
-        <div class="achievements-grid">
-            <div class="achievement-badge {{TOTAL_POINTS > 0 ? '' : 'locked'}}">
-                <span class="material-icons">school</span>
-                <p>Première activité réussie</p>
+
+    <section id="traditionnel" class="concept-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-badge">Nos leçons</span>
+                <h2>Un apprentissage plus traditionnel</h2>
+                <p>Si vous préférez une approche plus classique avec des leçon interactive. N'hésitez pas à suivre nos formations.</p>
             </div>
-            <div class="achievement-badge {{CYPHER_COMPLETION >= 100 ? '' : 'locked'}}">
-                <span class="material-icons">code</span>
-                <p>Cryptographe</p>
-            </div>
-            <div class="achievement-badge locked">
-                <span class="material-icons">security</span>
-                <p>Gardien des mots de passe</p>
-            </div>
-            <div class="achievement-badge locked">
-                <span class="material-icons">gpp_good</span>
-                <p>Chasseur de phishing</p>
-            </div>
-            <div class="achievement-badge locked">
-                <span class="material-icons">stars</span>
-                <p>Cyberdéfenseur</p>
+
+            <div class="concept-grid">
+                <a href="/lecon" class="concept-card">
+                    <div class="concept-icon">
+                        <span class="material-icons">school</span>
+                    </div>
+                    <h3>Notre Formations</h3>
+                    <p>Apprennez de nouvelles compétences grâce à nos leçons sur différents systèmes de cryptage et de décryptage.</p>
+
+                    <span class="btn-card-action">
+                    <span>Commencer à apprendre</span>
+                    <span class="material-icons">play_arrow</span>
+                </span>
+                </a>
             </div>
         </div>
-    </div>
+    </section>
 </div>
