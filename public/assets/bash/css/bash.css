@@ -1,27 +1,90 @@
-/* Forcer le terminal à utiliser un style de curseur de texte */
+:root {
+    --bg-color: #1e1e1e;
+    --text-color: #d4d4d4;
+    --accent-blue: #569cd6;
+    --accent-green: #6a9955;
+    --caret-color: #aeafad;
+    --selection-bg: #264f78;
+    --font-stack: 'Fira Code', 'Courier New', monospace;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-stack);
+    font-size: 16px;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+}
+
 #terminal-wrapper {
     cursor: text;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    padding: 12px;
+    box-sizing: border-box;
 }
-/* Ajuster la hauteur de la zone de contenu pour le terminal */
+
 #app-window-terminal .window-content {
-    height: calc(100% - 33px); /* 100% - hauteur de la barre de titre */
-    padding: 0; /* Pas de padding pour un look plein écran de la console */
-}
-.file { color: #ffffff; }
-.dir { color: #5BBAFF; }
-
-html {
-    background: black;
-    color: white;
+    height: 100%;
+    overflow-y: auto;
+    width: 100%;
 }
 
-body, p {
-    padding: 0;
-    margin: 0;
+#output {
+    white-space: pre-wrap;
+    word-break: break-all;
+    line-height: 1.5;
 }
 
 #input {
-    background: black;
-    color: white;
+    background: transparent;
     border: none;
+    outline: none;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    width: 60%;
+    caret-color: var(--caret-color);
+}
+
+.file {
+    color: var(--text-color);
+}
+
+.dir {
+    color: var(--accent-blue);
+    font-weight: 500;
+}
+
+.executable {
+    color: var(--accent-green);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #424242;
+    border-radius: 5px;
+    border: 2px solid var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #4f4f4f;
+}
+
+::selection {
+    background: var(--selection-bg);
 }
