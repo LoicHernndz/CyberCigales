@@ -30,15 +30,18 @@ class GenerateAnswer
         $string = file_get_contents($path);
         $json_a = json_decode($string);
 
+        // Mapper les identifiants Instagram vers les vrais noms
+        $realName = $this->mapUsernameToRealName($name);
+
         // Vérifier si l'utilisateur existe dans le JSON
-        if (!isset($json_a->$name)) {
+        if (!isset($json_a->$realName)) {
             echo "Utilisateur non trouvé";
             echo "0";
             return;
         }
 
         // Vérifier si l'étape existe pour cet utilisateur
-        if (!isset($json_a->$name->$step)) {
+        if (!isset($json_a->$realName->$step)) {
             echo "Étape non trouvée";
             echo "0";
             return;
@@ -46,21 +49,21 @@ class GenerateAnswer
 
         // Si le message est vide, renvoyer le message de l'étape actuelle
         if ($message == "") {
-            echo $json_a->$name->$step->{"message"};
+            echo $json_a->$realName->$step->{"message"};
             echo "0";
         }
         // Si l'étape a une clé et que le message contient cette clé
-        else if (isset($json_a->$name->$step->{"key"}) && str_contains($message, $json_a->$name->$step->{"key"})) {
+        else if (isset($json_a->$realName->$step->{"key"}) && str_contains($message, $json_a->$realName->$step->{"key"})) {
             $next_step = strval((int)($step + 1));
             
             // Vérifier si l'étape suivante existe
-            if (!isset($json_a->$name->$next_step)) {
+            if (!isset($json_a->$realName->$next_step)) {
                 echo "Conversation terminée";
                 echo "0";
                 return;
             }
             
-            echo $json_a->$name->$next_step->{"message"};
+            echo $json_a->$realName->$next_step->{"message"};
             echo "1";
             
             // Sauvegarder la progression dans la BDD si l'utilisateur est connecté
@@ -70,10 +73,34 @@ class GenerateAnswer
         } 
         // Sinon, renvoyer une réponse aléatoire
         else {
-            $responses = $json_a->$name->$step->{"responses"};
+            $responses = $json_a->$realName->$step->{"responses"};
             echo $responses[array_rand($responses)];
             echo "0";
         }
+    }
+
+    /**
+     * Mappe les identifiants Instagram vers les vrais noms dans answers.json
+     */
+    private function mapUsernameToRealName($username): string
+    {
+        // Mapping des identifiants Instagram vers les vrais noms
+        $mapping = [
+            'mel_133' => 'Melina',
+            'soph_456' => 'Sophie',
+            'luc_789' => 'Lucas',
+            'em_321' => 'Emma',
+            'tom_654' => 'Thomas',
+            'cam_987' => 'Camille',
+            'alex_246' => 'Alexandre',
+            'jul_135' => 'Julie',
+            'ant_864' => 'Antoine',
+            'mar_579' => 'Marie'
+        ];
+
+        // Si l'identifiant est dans le mapping, retourner le vrai nom
+        // Sinon, retourner l'identifiant tel quel (peut-être que c'est déjà le bon nom)
+        return $mapping[$username] ?? $username;
     }
 
     /**
