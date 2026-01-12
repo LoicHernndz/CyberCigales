@@ -1,15 +1,3 @@
-/* Style CSS intégré pour l'animation du curseur */
-.blinking-cursor {
-    animation: blink 1s step-end infinite;
-    display: inline-block;
-    vertical-align: middle;
-    margin-left: 2px;
-    margin-right: -4px;
-}
-@keyframes blink {
-    from, to { opacity: 0 }
-    50% { opacity: 1 }
-}
 /* Forcer le terminal à utiliser un style de curseur de texte */
 #terminal-wrapper {
     cursor: text;
@@ -36,5 +24,4 @@ body, p {
     background: black;
     color: white;
     border: none;
-    width: 100%;
 }
