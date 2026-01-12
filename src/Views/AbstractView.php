@@ -186,7 +186,19 @@ abstract class AbstractView {
         echo ' CyberCigales. Tous droits réservés.</p>
                 </div>
             </footer>
-            <!-- Script header-effects.js supprimé car non utilisé -->
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    const toggleButton = document.querySelector(".mobile-menu-toggle");
+                    const nav = document.querySelector(".main-nav");
+
+                    if (toggleButton && nav) {
+                        toggleButton.addEventListener("click", function() {
+                            nav.classList.toggle("active");
+                            toggleButton.classList.toggle("active");
+                        });
+                    }
+                });
+            </script>
         </body>
     </html>';
     }

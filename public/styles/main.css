@@ -635,7 +635,33 @@ body::before {
 }
 
 @media (max-width: 900px) {
-    .main-nav { display: none; }
+    .main-nav {
+        display: none;
+    }
+    .main-nav.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(10, 14, 39, 0.98);
+        padding: 1rem;
+        border-bottom: 2px solid var(--color-primary);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        backdrop-filter: blur(20px);
+        z-index: 999;
+        animation: slideIn 0.3s ease-out;
+    }
+
+    /* Style des liens dans le menu mobile */
+    .main-nav.active .nav-link {
+        width: 100%;
+        justify-content: flex-start;
+        padding: 1rem;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
     .mobile-menu-toggle { display: block; }
     .footer-container { grid-template-columns: 1fr 1fr; }
 }
