@@ -1,29 +1,32 @@
-<link rel="stylesheet" href="/styles/lesson-nav.css">
+<div class="single-lesson-container">
+    <div class="lesson-nav-top">
+        <a href="/lecon"><span class="material-icons">arrow_back</span> Retour aux leçons</a>
+        <span>/ Chiffrement de Vigenère</span>
+    </div>
 
-<div class="lesson-container">
-    <header>
-        <h1>Leçon : Chiffrement de Vigenère</h1>
-        <p>Apprends à utiliser le chiffrement polyalphabétique de Vigenère, combinant théorie, exemples et exercices — style cyber-néon.</p>
-    </header>
+    <h1>Chiffrement de Vigenère</h1>
+    <p class="intro-text">Le chiffrement polyalphabétique "indéchiffrable" pendant des siècles.</p>
 
     <section>
         <h2>1) Origine historique</h2>
-        <p>Inventé par Blaise de Vigenère au XVIe siècle, ce chiffrement améliore le César en utilisant une clé répétée pour décaler les lettres selon plusieurs alphabets.</p>
-        <div class="box">Exemple : texte « BONJOUR » avec clé « CLE » → « DQPLQVS ».</div>
+        <p>Inventé au XVIe siècle, ce chiffrement améliore le César en utilisant une clé répétée pour décaler les lettres selon plusieurs alphabets.</p>
+        <div class="lesson-example-box">
+            <strong>Exemple :</strong> Texte « BONJOUR » avec clé « CLE » → « DQPLQVS ».
+        </div>
     </section>
 
     <section>
         <h2>2) Principe mathématique</h2>
         <p>Chaque lettre du texte clair est décalée selon la lettre correspondante de la clé :</p>
-        <pre>C_i = (P_i + K_i) mod 26</pre>
+        <div class="code-block">C_i = (P_i + K_i) mod 26</div>
         <p>Pour déchiffrer :</p>
-        <pre>P_i = (C_i - K_i) mod 26</pre>
-        <p>où P_i est la position de la lettre claire, C_i celle de la lettre chiffrée, et K_i la position de la lettre de la clé répétée.</p>
+        <div class="code-block">P_i = (C_i - K_i) mod 26</div>
     </section>
 
     <section>
-        <h2>3) Implémentation en pseudo-code</h2>
-        <pre>// Entrées : texte, clé
+        <h2>3) Implémentation</h2>
+        <pre class="code-block">
+// Entrées : texte, clé
 texte = texte.upper()
 clé = clé.upper()
 résultat = ""
@@ -34,26 +37,25 @@ for i de 0 à len(texte)-1 :
     C = (P + K) % 26
     résultat += chr(ord('A') + C)
   sinon :
-    résultat += texte[i]
-</pre>
+    résultat += texte[i]</pre>
     </section>
 
     <section>
         <h2>4) Cryptanalyse</h2>
-        <p>La répétition de la clé crée des motifs détectables. L'attaque de Kasiski ou l'analyse de fréquence étendue permettent de retrouver la longueur de la clé.</p>
-        <div class="box">
-            Étapes :
-            <ol>
-                <li>Identifier les répétitions de séquences dans le texte chiffré.</li>
-                <li>Mesurer les distances pour déduire la longueur probable de la clé.</li>
-                <li>Découper le texte en sous-textes et appliquer l'analyse de fréquence.</li>
+        <p>La répétition de la clé crée des motifs détectables (Attaque de Kasiski).</p>
+        <div class="lesson-example-box">
+            <strong>Méthode :</strong>
+            <ol style="margin-left: 1.5rem;">
+                <li>Identifier les répétitions de séquences.</li>
+                <li>Mesurer les distances pour déduire la longueur de la clé.</li>
+                <li>Appliquer l'analyse de fréquence sur les sous-textes.</li>
             </ol>
         </div>
     </section>
 
     <section>
         <h2>5) Exercices</h2>
-        <div class="exercise">
+        <div class="exercise-list">
             <ol>
                 <li>Chiffre « SALUT » avec clé « ABC ».</li>
                 <li>Déchiffre « DQPLQVS » avec clé « CLE ».</li>
@@ -62,14 +64,7 @@ for i de 0 à len(texte)-1 :
         </div>
     </section>
 
-    <section>
-        <h2>6) Variantes</h2>
-        <ul>
-            <li><strong>Vigenère classique</strong> — clé répétée.</li>
-            <li><strong>Vernam</strong> — clé aléatoire, sécurité parfaite.</li>
-            <li><strong>Auto-clé</strong> — la clé est prolongée par le texte clair.</li>
-        </ul>
-    </section>
+    <div style="text-align: center; margin-top: 3rem;">
+        <a href="/lecon" class="btn-primary">Retour aux leçons</a>
+    </div>
 </div>
-
-<script src="/js/lesson-nav.js"></script>

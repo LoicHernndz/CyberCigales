@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="/styles/auth.css">
-
 <div class="auth-container auth-container-large">
     <div class="auth-card">
         <div class="auth-header">
@@ -13,35 +11,35 @@
         {{FLASH_MESSAGE}}
 
         <form method="post" action="/user/edit" class="auth-form">
-            <div class="form-row">
-                <div class="form-group">
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <div class="form-group" style="flex: 1;">
                     <label for="prenom">
                         <span class="material-icons">badge</span>
                         Prénom
                     </label>
-                    <input 
-                        type="text" 
-                        name="prenom" 
-                        id="prenom"
-                        placeholder="Votre prénom"
-                        value="{{PRENOM_KEY}}"
-                        required
-                        autocomplete="given-name">
+                    <input
+                            type="text"
+                            name="prenom"
+                            id="prenom"
+                            placeholder="Votre prénom"
+                            value="{{PRENOM_KEY}}"
+                            required
+                            autocomplete="given-name">
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" style="flex: 1;">
                     <label for="nom">
                         <span class="material-icons">badge</span>
                         Nom
                     </label>
-                    <input 
-                        type="text" 
-                        name="nom" 
-                        id="nom"
-                        placeholder="Votre nom"
-                        value="{{NOM_KEY}}"
-                        required
-                        autocomplete="family-name">
+                    <input
+                            type="text"
+                            name="nom"
+                            id="nom"
+                            placeholder="Votre nom"
+                            value="{{NOM_KEY}}"
+                            required
+                            autocomplete="family-name">
                 </div>
             </div>
 
@@ -50,14 +48,14 @@
                     <span class="material-icons">alternate_email</span>
                     Pseudo
                 </label>
-                <input 
-                    type="text" 
-                    name="pseudo" 
-                    id="pseudo"
-                    placeholder="Votre pseudo"
-                    value="{{PSEUDO_KEY}}"
-                    required
-                    autocomplete="username">
+                <input
+                        type="text"
+                        name="pseudo"
+                        id="pseudo"
+                        placeholder="Votre pseudo"
+                        value="{{PSEUDO_KEY}}"
+                        required
+                        autocomplete="username">
                 <p class="input-helper">
                     <span class="material-icons">info</span>
                     Votre pseudo sera visible par les autres utilisateurs
@@ -69,14 +67,14 @@
                     <span class="material-icons">email</span>
                     Adresse e-mail
                 </label>
-                <input 
-                    type="email" 
-                    name="email" 
-                    id="email"
-                    placeholder="votre.email@exemple.com"
-                    value="{{EMAIL_KEY}}"
-                    required
-                    autocomplete="email">
+                <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        placeholder="votre.email@exemple.com"
+                        value="{{EMAIL_KEY}}"
+                        required
+                        autocomplete="email">
                 <p class="input-helper">
                     <span class="material-icons">info</span>
                     Utilisée pour la connexion et la récupération de mot de passe
@@ -88,13 +86,13 @@
                 <p>Pour modifier votre mot de passe, utilisez la <a href="/user/reset-password">page de réinitialisation</a></p>
             </div>
 
-            <div class="form-actions">
-                <button type="submit" name="submit" class="btn-auth btn-primary">
+            <div class="form-actions" style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;">
+                <button type="submit" name="submit" class="btn-auth" style="flex: 2;">
                     <span class="material-icons">save</span>
                     <span>Enregistrer les modifications</span>
                 </button>
-                
-                <a href="/user/profil" class="btn-auth btn-secondary">
+
+                <a href="/user/profil" class="btn-auth btn-secondary" style="flex: 1; text-align: center; justify-content: center;">
                     <span class="material-icons">close</span>
                     <span>Annuler</span>
                 </a>
@@ -117,7 +115,7 @@
                     </div>
                     <span class="material-icons arrow">arrow_forward</span>
                 </a>
-                
+
                 <div class="security-item disabled">
                     <span class="material-icons">phonelink_lock</span>
                     <div>
@@ -126,7 +124,7 @@
                     </div>
                     <span class="material-icons arrow">lock</span>
                 </div>
-                
+
                 <div class="security-item disabled">
                     <span class="material-icons">devices</span>
                     <div>
@@ -138,16 +136,16 @@
             </div>
         </div>
 
-
         <input type="hidden" name="user_id" value="{{ID_KEY}}">
+
         <div class="danger-zone">
             <div class="danger-icon">
                 <span class="material-icons">warning</span>
             </div>
             <h3>Zone dangereuse</h3>
-            <p>La suppression de compte est définitive. Vous ne pourrez pas récuprérer les données que vous supprimez !</p>
+            <p>La suppression de compte est définitive. Vous ne pourrez pas récupérer les données que vous supprimez !</p>
             <form method="post" action="/user/delete">
-                <button class="btn-danger" onclick="return(confirm('Etes-vous sûr de vouloir supprimer?'));">
+                <button class="btn-danger" onclick="return(confirm('Êtes-vous sûr de vouloir supprimer votre compte définitivement ?'));">
                     <span class="material-icons">delete_forever</span>
                     <span>Supprimer mon compte</span>
                 </button>
@@ -155,259 +153,3 @@
         </div>
     </div>
 </div>
-
-<style>
-/* Styles supplémentaires pour la page edit-profil */
-.input-helper {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.5);
-    margin-top: 0.5rem;
-}
-
-.input-helper .material-icons {
-    font-size: 16px;
-}
-
-.info-box {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1.25rem;
-    background: rgba(0, 255, 255, 0.08);
-    border: 1px solid rgba(0, 255, 255, 0.3);
-    border-radius: 12px;
-    margin: 1rem 0;
-}
-
-.info-box .material-icons {
-    font-size: 24px;
-    color: #00ffff;
-}
-
-.info-box p {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.8);
-    margin: 0;
-}
-
-.info-box a {
-    color: #00ffff;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.info-box a:hover {
-    text-decoration: underline;
-}
-
-.form-actions {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-.btn-secondary {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1.5px solid rgba(255, 255, 255, 0.2);
-    color: #fff !important;
-}
-
-.btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.4);
-}
-
-.btn-secondary .material-icons {
-    color: #fff !important;
-}
-
-/* Section sécurité */
-.security-section {
-    margin-top: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-
-.security-card {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
-    border: 1.5px solid rgba(255, 255, 255, 0.12);
-    border-radius: 20px;
-    padding: 2.5rem;
-    backdrop-filter: blur(20px);
-}
-
-.security-icon {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, rgba(0, 255, 255, 0.2) 0%, rgba(0, 255, 255, 0.1) 100%);
-    border: 2px solid rgba(0, 255, 255, 0.4);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-}
-
-.security-icon .material-icons {
-    font-size: 32px;
-    color: #00ffff;
-}
-
-.security-card h3 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #fff;
-    margin: 0 0 1.5rem 0;
-}
-
-.security-items {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.security-item {
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    padding: 1.25rem;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-    text-decoration: none;
-    color: inherit;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-.security-item:not(.disabled):hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(0, 255, 255, 0.3);
-    transform: translateX(6px);
-}
-
-.security-item.disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-.security-item > .material-icons:first-child {
-    font-size: 28px;
-    color: rgba(0, 255, 255, 0.7);
-}
-
-.security-item > div {
-    flex-grow: 1;
-}
-
-.security-item h4 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.05rem;
-    font-weight: 600;
-    color: #fff;
-    margin: 0 0 0.25rem 0;
-}
-
-.security-item p {
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.6);
-    margin: 0;
-}
-
-.security-item .arrow {
-    font-size: 20px;
-    color: rgba(255, 255, 255, 0.4);
-    transition: transform 0.3s ease;
-}
-
-.security-item:not(.disabled):hover .arrow {
-    transform: translateX(4px);
-}
-
-/* Danger Zone */
-.danger-zone {
-    background: linear-gradient(135deg, rgba(255, 0, 64, 0.1) 0%, rgba(255, 0, 64, 0.05) 100%);
-    border: 1.5px solid rgba(255, 0, 64, 0.3);
-    border-radius: 20px;
-    padding: 2.5rem;
-    backdrop-filter: blur(20px);
-}
-
-.danger-icon {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, rgba(255, 0, 64, 0.2) 0%, rgba(255, 0, 64, 0.1) 100%);
-    border: 2px solid rgba(255, 0, 64, 0.4);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-}
-
-.danger-icon .material-icons {
-    font-size: 32px;
-    color: #ff0040;
-}
-
-.danger-zone h3 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #fff;
-    margin: 0 0 1rem 0;
-}
-
-.danger-zone > p {
-    font-size: 0.95rem;
-    color: rgba(255, 255, 255, 0.7);
-    margin: 0 0 1.5rem 0;
-}
-
-.btn-danger {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    width: 100%;
-    padding: 1.15rem 2rem;
-    background: rgba(255, 0, 64, 0.1);
-    border: 1.5px solid rgba(255, 0, 64, 0.4);
-    border-radius: 12px;
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.05rem;
-    font-weight: 600;
-    color: #ff0040;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn-danger:hover {
-    background: rgba(255, 0, 64, 0.2);
-    border-color: rgba(255, 0, 64, 0.6);
-}
-
-.btn-danger .material-icons {
-    font-size: 22px;
-}
-
-@media (max-width: 768px) {
-    .form-actions {
-        flex-direction: column;
-    }
-    
-    .form-actions .btn-auth {
-        width: 100%;
-    }
-    
-    .security-card, .danger-zone {
-        padding: 2rem 1.5rem;
-    }
-}
-</style>
-

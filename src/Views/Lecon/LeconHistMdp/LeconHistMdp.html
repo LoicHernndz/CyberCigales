@@ -1,60 +1,69 @@
-<link rel="stylesheet" href="/styles/lesson-nav.css">
+<div class="single-lesson-container">
+    <div class="lesson-nav-top">
+        <a href="/lecon"><span class="material-icons">arrow_back</span> Retour aux leçons</a>
+        <span>/ Histoire des Mots de Passe</span>
+    </div>
 
-<div class="lesson-container">
-    <header>
-        <h1>Leçon : Histoire des mots de passe</h1>
-        <p>Explore comment les mots de passe sont nés, ont évolué et continuent de protéger nos données — ambiance cyber-néon garantie.</p>
-    </header>
+    <h1>Histoire des mots de passe</h1>
+    <p class="intro-text">Explore comment les mots de passe sont nés, ont évolué et continuent de protéger nos données.</p>
 
     <section>
         <h2>1) Origines anciennes</h2>
-        <p>Les premiers "mots de passe" remontent à l'Antiquité. Les soldats romains utilisaient des phrases secrètes pour s'identifier. Dans l'Égypte antique, des rituels religieux exigeaient des formules secrètes pour accéder à certains textes.</p>
-        <div class="box">Exemple : Soldats romains échangeant « <strong>Signum?</strong> » → réponse correcte nécessaire pour passer.</div>
+        <p>Les premiers "mots de passe" remontent à l'Antiquité. Les soldats romains utilisaient des phrases secrètes pour s'identifier.</p>
+        <div class="lesson-example-box">
+            Exemple : Soldats romains échangeant « <strong>Signum?</strong> » → réponse correcte nécessaire pour passer.
+        </div>
     </section>
 
     <section>
         <h2>2) Apparition dans l'informatique</h2>
-        <p>Les mots de passe informatiques apparaissent dans les années 1960 avec le système Compatible Time-Sharing System (CTSS) du MIT. Chaque utilisateur devait entrer un mot de passe pour accéder à son espace personnel.</p>
-        <div class="box">Fait historique : en 1962, l'un des premiers vols de mots de passe se produit lorsque les fichiers sont imprimés par erreur et récupérés par des chercheurs.</div>
+        <p>Les mots de passe informatiques apparaissent dans les années 1960 avec le système CTSS du MIT.</p>
+        <div class="lesson-example-box">
+            <strong>Fait historique :</strong> En 1962, l'un des premiers vols de mots de passe se produit lorsque les fichiers sont imprimés par erreur.
+        </div>
     </section>
 
     <section>
         <h2>3) Évolution vers la sécurité moderne</h2>
         <p>Au fil du temps, la nécessité de renforcer la sécurité a conduit à l'apparition :</p>
-        <ul>
-            <li>du hachage des mots de passe (UNIX, 1970),</li>
-            <li>des politiques strictes (longueur, complexité),</li>
-            <li>des gestionnaires de mots de passe,</li>
-            <li>et de l'authentification multi-facteurs (MFA).</li>
+        <ul style="padding-left: 1.5rem; color: rgba(255,255,255,0.8);">
+            <li>Du hachage des mots de passe (UNIX, 1970)</li>
+            <li>Des politiques strictes (longueur, complexité)</li>
+            <li>Des gestionnaires de mots de passe</li>
+            <li>De l'authentification multi-facteurs (MFA)</li>
         </ul>
     </section>
 
     <section>
         <h2>4) Problèmes et attaques</h2>
-        <p>Les mots de passe peuvent être compromis par :</p>
-        <ol>
-            <li>Attaques par dictionnaire</li>
-            <li>Brute force</li>
-            <li>Phishing / ingénierie sociale</li>
-            <li>Fuites de bases de données</li>
-        </ol>
-        <div class="box">Exemple : réutiliser le même mot de passe sur plusieurs sites → risque maximal en cas de fuite.</div>
+        <p>Les mots de passe peuvent être compromis par diverses méthodes.</p>
+        <div class="exercise-list">
+            <ol>
+                <li>Attaques par dictionnaire</li>
+                <li>Brute force</li>
+                <li>Phishing / Ingénierie sociale</li>
+                <li>Fuites de bases de données</li>
+            </ol>
+        </div>
+        <div class="lesson-example-box">
+            <strong>Danger :</strong> Réutiliser le même mot de passe sur plusieurs sites = risque maximal.
+        </div>
     </section>
 
     <section>
         <h2>5) Recommandations modernes</h2>
-        <pre>
-✅ Au moins 12 caractères
-✅ Mélanger lettres, chiffres, symboles
-✅ Un mot de passe unique par service
-✅ Activer l'authentification à deux facteurs
-✅ Utiliser un gestionnaire de mots de passe
-        </pre>
+        <div class="code-block" style="line-height: 1.8;">
+            ✅ Au moins 12 caractères<br>
+            ✅ Mélanger lettres, chiffres, symboles<br>
+            ✅ Un mot de passe unique par service<br>
+            ✅ Activer l'authentification à deux facteurs<br>
+            ✅ Utiliser un gestionnaire de mots de passe
+        </div>
     </section>
 
     <section>
         <h2>6) Exercices</h2>
-        <div class="exercise">
+        <div class="exercise-list">
             <ol>
                 <li>Explique pourquoi « 123456 » est un mauvais mot de passe.</li>
                 <li>Propose un mot de passe robuste basé sur une phrase secrète.</li>
@@ -65,14 +74,15 @@
 
     <section>
         <h2>7) Futur des mots de passe</h2>
-        <p>Les mots de passe sont petit à petit remplacés par :</p>
-        <ul>
+        <p>Vers un monde sans mot de passe ("Passwordless") :</p>
+        <ul style="padding-left: 1.5rem; color: rgba(255,255,255,0.8);">
             <li>Biométrie (empreintes, reconnaissance faciale)</li>
             <li>Clés de sécurité (FIDO2, passkeys)</li>
-            <li>Authentification contextuelle (analyse comportementale)</li>
+            <li>Authentification contextuelle</li>
         </ul>
-        <div class="box">Objectif : un monde <strong>sans mots de passe</strong>, mais plus sécurisé.</div>
     </section>
-</div>
 
-<script src="/js/lesson-nav.js"></script>
+    <div style="text-align: center; margin-top: 3rem;">
+        <a href="/lecon" class="btn-primary">Retour aux leçons</a>
+    </div>
+</div>

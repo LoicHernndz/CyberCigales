@@ -1,16 +1,52 @@
-<div class="site-map">
-    <h1 class="header">Plan du site</h1>
-    <ul>
-        <li><a href="/">Page principale</a></li>
+<div class="site-plan-container">
+    <h1>Plan du site</h1>
+
+    <ul class="sitemap-list">
         <li>
-            Utilisateur
-            <ul>
-                <li><a href="/user/login">Connexion</a></li>
-                <li><a href="/user/signup">Inscription</a></li>
-                <li><a href="/user/reset-password">Mot de passe oublié</a></li>
+            <a href="/">
+                <span class="material-icons">home</span> Page principale
+            </a>
+        </li>
+
+        <li>
+            <a href="#">
+                <span class="material-icons">person</span> Espace Utilisateur
+            </a>
+            <ul class="sitemap-sublist">
+                <li>
+                    <a href="/user/login">
+                        <span class="material-icons">login</span> Connexion
+                    </a>
+                </li>
+                <li>
+                    <a href="/user/signup">
+                        <span class="material-icons">person_add</span> Inscription
+                    </a>
+                </li>
+                <li>
+                    <a href="/user/reset-password">
+                        <span class="material-icons">lock_reset</span> Mot de passe oublié
+                    </a>
+                </li>
             </ul>
         </li>
-        <li><a href="/mentions">Mentions légales</a></li>
-        <li><a href="/plan">Plan du site</a></li>
+
+        <li>
+            <a href="#">
+                <span class="material-icons">info</span> Informations
+            </a>
+            <ul class="sitemap-sublist">
+                <li>
+                    <a href="/mentions">
+                        <span class="material-icons">gavel</span> Mentions légales
+                    </a>
+                </li>
+                <li>
+                    <a href="/plan">
+                        <span class="material-icons">map</span> Plan du site
+                    </a>
+                </li>
+            </ul>
+        </li>
     </ul>
 </div>

@@ -65,12 +65,7 @@ abstract class AbstractView {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="/styles/immersive-utils.css?v=5" type="text/css">
-        <link rel="stylesheet" href="/styles/main.css?v=5" type="text/css">
-        <link rel="stylesheet" href="/styles/header.css?v=5" type="text/css">
-        <link rel="stylesheet" href="/styles/auth.css?v=5" type="text/css">
-        <link rel="stylesheet" href="/styles/landing.css?v=5" type="text/css">
-        <link rel="stylesheet" href="/styles/rgpd-presentation.css?v=5" type="text/css">
+        <link rel="stylesheet" href="/styles/main.css?v=6" type="text/css">
         <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
         <link rel="shortcut icon" href="/images/favicon.svg">
         <link rel="apple-touch-icon" href="/images/favicon.svg">
@@ -107,6 +102,10 @@ abstract class AbstractView {
             echo '<a href="/lecon" class="nav-link">
                         <span class="material-icons">school</span>
                         <span>Formations</span>
+                    </a>
+                    <a href="/outils" class="nav-link">
+                        <span class="material-icons">build</span>
+                        <span>Outils</span>
                     </a>
                     <a href="/minigames" class="nav-link">
                         <span class="material-icons">games</span>

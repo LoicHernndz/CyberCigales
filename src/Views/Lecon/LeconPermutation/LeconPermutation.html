@@ -1,40 +1,43 @@
-<link rel="stylesheet" href="/styles/lesson-nav.css">
+<div class="single-lesson-container">
+    <div class="lesson-nav-top">
+        <a href="/lecon"><span class="material-icons">arrow_back</span> Retour aux leçons</a>
+        <span>/ Code de Permutation</span>
+    </div>
 
-<div class="lesson-container">
-    <header>
-        <h1>Leçon : Code de permutation</h1>
-        <p>Découvre le chiffrement par permutation : réarrangement des lettres pour coder un message — style cyber-néon.</p>
-    </header>
+    <h1>Code de Permutation</h1>
+    <p class="intro-text">Découvre le chiffrement par permutation : réarrangement des lettres pour coder un message.</p>
 
     <section>
         <h2>1) Principe</h2>
         <p>Le code de permutation consiste à réordonner les lettres d’un message selon une permutation fixe ou une clé spécifique.</p>
-        <div class="box">Exemple : texte « ABCD » avec permutation [3,1,4,2] → « BDAC ».</div>
+        <div class="lesson-example-box">
+            <strong>Exemple :</strong> Texte « ABCD » avec permutation [3,1,4,2] → « BDAC ».
+        </div>
     </section>
 
     <section>
         <h2>2) Mathématique</h2>
         <p>Si P est le texte clair et π la permutation, alors :</p>
-        <pre>C_i = P_{π(i)}</pre>
+        <div class="code-block">C_i = P_{π(i)}</div>
         <p>Pour déchiffrer, il faut appliquer l’inverse de la permutation :</p>
-        <pre>P_i = C_{π^{-1}(i)}</pre>
+        <div class="code-block">P_i = C_{π^{-1}(i)}</div>
     </section>
 
     <section>
-        <h2>3) Implémentation en pseudo-code</h2>
-        <pre>// Entrées : texte, permutation π
+        <h2>3) Implémentation</h2>
+        <pre class="code-block">
+// Entrées : texte, permutation π
 résultat = ""
 pour i de 0 à len(texte)-1 :
-  résultat += texte[π[i]]
-</pre>
+  résultat += texte[π[i]]</pre>
     </section>
 
     <section>
         <h2>4) Cryptanalyse</h2>
-        <p>Le texte chiffré contient les mêmes lettres que le texte clair. Les permutations simples sont vulnérables à la recherche exhaustive si le texte est court.</p>
-        <div class="box">
-            Étapes :
-            <ol>
+        <p>Le texte chiffré contient les mêmes lettres que le texte clair (anagramme). Les permutations simples sont vulnérables à la recherche exhaustive.</p>
+        <div class="lesson-example-box">
+            <strong>Stratégie :</strong>
+            <ol style="margin-left: 1.5rem;">
                 <li>Analyser les lettres répétées.</li>
                 <li>Essayer toutes les permutations possibles pour trouver le texte clair.</li>
             </ol>
@@ -43,7 +46,7 @@ pour i de 0 à len(texte)-1 :
 
     <section>
         <h2>5) Exercices</h2>
-        <div class="exercise">
+        <div class="exercise-list">
             <ol>
                 <li>Applique la permutation [2,3,1] au texte « CAT ».</li>
                 <li>Déchiffre « BADC » avec permutation [2,4,1,3].</li>
@@ -54,12 +57,14 @@ pour i de 0 à len(texte)-1 :
 
     <section>
         <h2>6) Variantes</h2>
-        <ul>
-            <li><strong>Permutation simple</strong> — réarrangement direct des lettres.</li>
-            <li><strong>Permutation par blocs</strong> — diviser le texte en blocs puis permuter.</li>
-            <li><strong>Permutation combinée</strong> — avec substitution pour plus de sécurité.</li>
+        <ul style="list-style: none; padding-left: 0;">
+            <li style="margin-bottom: 0.5rem;"><span class="material-icons" style="font-size: 16px; color: #00ff41; vertical-align: middle;">chevron_right</span> Permutation simple</li>
+            <li style="margin-bottom: 0.5rem;"><span class="material-icons" style="font-size: 16px; color: #00ff41; vertical-align: middle;">chevron_right</span> Permutation par blocs</li>
+            <li><span class="material-icons" style="font-size: 16px; color: #00ff41; vertical-align: middle;">chevron_right</span> Permutation combinée</li>
         </ul>
     </section>
-</div>
 
-<script src="/js/lesson-nav.js"></script>
+    <div style="text-align: center; margin-top: 3rem;">
+        <a href="/lecon" class="btn-primary">Retour aux leçons</a>
+    </div>
+</div>

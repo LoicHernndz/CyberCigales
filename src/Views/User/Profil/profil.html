@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="/styles/profil.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
 <div class="profil-container">
@@ -17,132 +16,36 @@
                     Membre depuis le {{MEMBRE_DEPUIS}}
                 </p>
             </div>
-            <div class="user-rank">
-                <div class="rank-badge">
-                    <span class="material-icons">workspace_premium</span>
-                    <span class="rank-number">#{{GLOBAL_RANK}}</span>
-                </div>
-                <p class="rank-text">Top {{PERCENTILE}}%</p>
-            </div>
         </div>
     </div>
-
-    <!-- Stats Grid principale -->
-    <div class="stats-grid-main">
-        <div class="stat-card stat-card-primary">
-            <div class="stat-icon stat-icon-primary">
-                <span class="material-icons">star</span>
-            </div>
-            <div class="stat-content">
-                <h3>Score Total</h3>
-                <p class="stat-number">{{SCORE_KEY}}</p>
-                <p class="stat-label">points accumulés</p>
-            </div>
-        </div>
-
-        <div class="stat-card stat-card-success">
-            <div class="stat-icon stat-icon-success">
-                <span class="material-icons">emoji_events</span>
-            </div>
-            <div class="stat-content">
-                <h3>Badges</h3>
-                <p class="stat-number">{{BADGES_KEY}}</p>
-                <p class="stat-label">débloqués</p>
-            </div>
-        </div>
-
-        <div class="stat-card stat-card-info">
-            <div class="stat-icon stat-icon-info">
-                <span class="material-icons">schedule</span>
-            </div>
-            <div class="stat-content">
-                <h3>Temps passé</h3>
-                <p class="stat-number">{{TIME_KEY}}</p>
-                <p class="stat-label">d'apprentissage</p>
-            </div>
-        </div>
-
-        <div class="stat-card stat-card-warning">
-            <div class="stat-icon stat-icon-warning">
-                <span class="material-icons">people</span>
-            </div>
-            <div class="stat-content">
-                <h3>Classement</h3>
-                <p class="stat-number">{{GLOBAL_RANK}}/{{TOTAL_USERS}}</p>
-                <p class="stat-label">utilisateurs</p>
-            </div>
-        </div>
     </div>
 
     <!-- Grille principale : Graphiques + Détails -->
     <div class="content-grid-profil">
-        <!-- Colonne gauche : Graphiques -->
-        <div class="left-column">
-            <!-- Graphique d'activité récente -->
-            <div class="chart-card">
-                <div class="card-header-chart">
-                    <div class="card-icon-header">
-                        <span class="material-icons">show_chart</span>
-                    </div>
-                    <div>
-                        <h2>Activité récente</h2>
-                        <p class="card-subtitle">Vos derniers 7 jours</p>
-                    </div>
+        <!-- Actions rapides -->
+        <div class="quick-actions-card">
+            <div class="card-header-profil">
+                <div class="card-icon-header">
+                    <span class="material-icons">flash_on</span>
                 </div>
-                <div class="chart-container">
-                    <canvas id="activityChart"></canvas>
-                </div>
+                <h2>Actions rapides</h2>
             </div>
-
-            <!-- Graphique de progression par module -->
-            <div class="chart-card">
-                <div class="card-header-chart">
-                    <div class="card-icon-header">
-                        <span class="material-icons">donut_large</span>
-                    </div>
-                    <div>
-                        <h2>Progression par module</h2>
-                        <p class="card-subtitle">Taux de complétion</p>
-                    </div>
-                </div>
-                <div class="chart-container chart-container-small">
-                    <canvas id="progressionChart"></canvas>
-                </div>
-            </div>
-
-            <!-- Statistiques RGPD détaillées -->
-            <div class="stats-detailed-card">
-                <div class="card-header-stats">
-                    <div class="card-icon-header">
-                        <span class="material-icons">verified_user</span>
-                    </div>
-                    <h2>Formation RGPD</h2>
-                </div>
-                <div class="progress-section">
-                    <div class="progress-info">
-                        <span class="progress-label">Progression</span>
-                        <span class="progress-value">{{RGPD_PROGRESS}}%</span>
-                    </div>
-                    <div class="progress-bar-custom">
-                        <div class="progress-fill-custom" style="width: {{RGPD_PROGRESS}}%"></div>
-                    </div>
-                </div>
-                <div class="stats-details-grid">
-                    {{RGPD_STATS_HTML}}
-                </div>
-            </div>
-
-            <!-- Statistiques Cypher Rush détaillées -->
-            <div class="stats-detailed-card">
-                <div class="card-header-stats">
-                    <div class="card-icon-header">
-                        <span class="material-icons">vpn_key</span>
-                    </div>
-                    <h2>Cypher Rush</h2>
-                </div>
-                <div class="stats-details-grid">
-                    {{CYPHER_STATS_HTML}}
-                </div>
+            <div class="actions-list">
+                <a href="/lecon" class="action-button">
+                    <span class="material-icons">school</span>
+                    <span>Voir toutes les formations</span>
+                    <span class="material-icons action-arrow">arrow_forward</span>
+                </a>
+                <a href="/minigames" class="action-button">
+                    <span class="material-icons">dashboard</span>
+                    <span>Voir tous les mini-jeux</span>
+                    <span class="material-icons action-arrow">arrow_forward</span>
+                </a>
+                <a href="/user/reset-password" class="action-button">
+                    <span class="material-icons">lock_reset</span>
+                    <span>Changer mon mot de passe</span>
+                    <span class="material-icons action-arrow">arrow_forward</span>
+                </a>
             </div>
         </div>
 
@@ -194,45 +97,6 @@
                 </div>
             </div>
 
-            <!-- Badges débloqués -->
-            <div class="badges-card">
-                <div class="card-header-profil">
-                    <div class="card-icon-header">
-                        <span class="material-icons">workspace_premium</span>
-                    </div>
-                    <h2>Mes Badges</h2>
-                </div>
-                <div class="badges-grid">
-                    {{BADGES_HTML}}
-                </div>
-            </div>
-
-            <!-- Actions rapides -->
-            <div class="quick-actions-card">
-                <div class="card-header-profil">
-                    <div class="card-icon-header">
-                        <span class="material-icons">flash_on</span>
-                    </div>
-                    <h2>Actions rapides</h2>
-                </div>
-                <div class="actions-list">
-                    <a href="/qcm/rgpd/presentation" class="action-button">
-                        <span class="material-icons">school</span>
-                        <span>Continuer la formation RGPD</span>
-                        <span class="material-icons action-arrow">arrow_forward</span>
-                    </a>
-                    <a href="/" class="action-button">
-                        <span class="material-icons">dashboard</span>
-                        <span>Voir toutes les formations</span>
-                        <span class="material-icons action-arrow">arrow_forward</span>
-                    </a>
-                    <a href="/user/reset-password" class="action-button">
-                        <span class="material-icons">lock_reset</span>
-                        <span>Changer mon mot de passe</span>
-                        <span class="material-icons action-arrow">arrow_forward</span>
-                    </a>
-                </div>
-            </div>
         </div>
     </div>
 </div>
