@@ -4,6 +4,12 @@ namespace Controllers\Game;
 use Controllers\AbstractController;
 use Views\Game\FrequencyGame\FrequencyGameView;
 
+/**
+ * Contrôleur du jeu d'analyse fréquentielle
+ * 
+ * Jeu éducatif de cryptanalyse par analyse de fréquences.
+ * Génère un texte chiffré par substitution et challenge l'utilisateur à le déchiffrer.
+ */
 class FrequencyGame extends AbstractController
 {
     private array $texts = [
@@ -14,6 +20,13 @@ class FrequencyGame extends AbstractController
         "LE CHIFFREMENT DE CESAR EST L'UN DES PLUS ANCIENS ET DES PLUS SIMPLES SYSTEMES DE CHIFFREMENT."
     ];
 
+    /**
+     * Affiche la page du jeu d'analyse fréquentielle
+     * 
+     * Redirige vers login si l'utilisateur n'est pas connecté.
+     * 
+     * @return void
+     */
     function getMethod(){
         if (!isset($_SESSION['user_id'])) {
             header('Location: /user/login');
