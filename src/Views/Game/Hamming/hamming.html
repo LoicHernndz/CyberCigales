@@ -9,8 +9,8 @@
         </div>
         <div class="dialogue-content">
             <p id="dialogue-text">
-                Un bit a ete corrompu dans ce carre de Hamming ! 
-                Utilise les regles de parite pour trouver l'erreur. 
+                Un bit a ete corrompu dans ce carre de Hamming !
+                Utilise les regles de parite pour trouver l'erreur.
                 Clique sur le bit que tu penses etre errone.
             </p>
         </div>
@@ -60,17 +60,17 @@
             </button>
             <div class="help-content" id="help-content" style="display: none;">
                 <h4>Regles du carre de Hamming</h4>
-                <p>Le carre 3x3 contient :</p>
-                <ul>
-                    <li><strong>4 bits de donnees</strong> (en haut a gauche)</li>
-                    <li><strong>5 bits de parite</strong> (derniere ligne et colonne)</li>
-                </ul>
-                <p>Pour trouver l'erreur :</p>
+                <p>Pour trouver le bit errone :</p>
                 <ol>
-                    <li>Verifie chaque ligne : la somme doit etre paire</li>
-                    <li>Verifie chaque colonne : la somme doit etre paire</li>
-                    <li>L'intersection des lignes/colonnes incorrectes = l'erreur !</li>
+                    <li><strong>Compte le nombre de "1"</strong> dans chaque ligne</li>
+                    <li><strong>Compte le nombre de "1"</strong> dans chaque colonne</li>
+                    <li>Si le total de "1" est <strong>pair</strong> = ✅ correct</li>
+                    <li>Si le total de "1" est <strong>impair</strong> = ❌ erreur sur cette ligne/colonne</li>
+                    <li><strong>L'intersection</strong> de la ligne et de la colonne incorrectes indique le bit errone !
+                    </li>
                 </ol>
+                <img src="/images/hamming-explication.jpg" alt="Exemple de detection d'erreur dans un carre de Hamming"
+                    class="help-image" style="max-width: 100%; margin-top: 15px; border-radius: 8px;">
             </div>
         </div>
 
