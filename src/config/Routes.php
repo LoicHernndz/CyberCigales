@@ -26,8 +26,6 @@ class Routes
         '/game/phishing' => 'Controllers\Game\PhishingGame',
         '/game/hamming' => 'Controllers\Game\Hamming',
 
-
-
         '/code/chiffrement-cesar' => 'Controllers\Code\Cesar\EncryptCesar',
         '/code/dechiffrement-cesar' => 'Controllers\Code\Cesar\DecryptCesar',
         '/code/chiffrement-vigenere' => 'Controllers\Code\Vigenere\EncryptVigenere',
@@ -54,7 +52,6 @@ class Routes
         '/bash/exec' => 'helpers\BashRequest',
         '/instagram/chat/response' =>  'helpers\GenerateAnswer',
         '/minigames' => 'Controllers\Minigames\Minigames',
-        '/hamming-square' => 'Controllers\HammingSquare\HammingSquare',
         '/outils' => 'Controllers\Code\AllCodePage\AllCodePage',
 
         '/data-breach/check' => 'Controllers\DataBreach\DataBreachCheck',

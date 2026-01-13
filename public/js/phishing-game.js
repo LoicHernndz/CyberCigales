@@ -121,7 +121,6 @@ const PhishingGame = (function() {
     // DOM Elements
     const els = {
         score: document.getElementById('score'),
-        progressBar: document.getElementById('progress-bar'),
         subjectBar: document.getElementById('fake-subject-bar'),
         emailFrom: document.getElementById('email-from'),
         emailTo: document.getElementById('email-to'),
@@ -160,7 +159,6 @@ const PhishingGame = (function() {
         
         // Update UI
         els.score.textContent = score;
-        els.progressBar.style.width = `${(index / scenarios.length) * 100}%`;
         els.subjectBar.textContent = scenario.subject;
         els.emailFrom.textContent = scenario.from;
         els.emailTo.textContent = scenario.to;
@@ -213,9 +211,6 @@ const PhishingGame = (function() {
         els.gameArea.style.display = 'none';
         els.endScreen.classList.remove('hidden');
         els.finalScore.textContent = score;
-        
-        // Final progress bar
-        els.progressBar.style.width = '100%';
     }
 
     return {
