@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,66 +9,262 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <link rel="stylesheet" href="/assets/macos/InterfaceMail/style.css">
+    <style>
+        /* Styles spécifiques au jeu de Phishing intégrés ici */
+        .toolbar-game-controls {
+            margin-left: auto;
+            /* Pousser à droite */
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn-game-action {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--color-border);
+            background: white;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 13px;
+            color: var(--color-text-dark);
+        }
+
+        .btn-game-action:hover {
+            background-color: #f0f0f0;
+        }
+
+        .btn-phishing {
+            color: #d70015;
+            border-color: #d70015;
+        }
+
+        .btn-phishing:hover {
+            background-color: #fff0f0;
+        }
+
+        .btn-safe {
+            color: #28cd41;
+            border-color: #28cd41;
+        }
+
+        .btn-safe:hover {
+            background-color: #f0fff4;
+        }
+
+        .score-display {
+            font-weight: 600;
+            color: var(--color-text-dark);
+            background: var(--color-bg-dark);
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal.hidden {
+            display: none;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .feedback-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .feedback-icon.correct {
+            color: #28cd41;
+        }
+
+        .feedback-icon.incorrect {
+            color: #d70015;
+        }
+
+        .btn-next {
+            margin-top: 20px;
+            background: #007aff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .btn-next:hover {
+            background: #0062cc;
+        }
+
+        /* End Screen */
+        .end-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 50;
+        }
+
+        .end-screen.hidden {
+            display: none;
+        }
+
+        /* Fake CSS pour le contenu des mails de phishing */
+        .email-cta-button {
+            display: inline-block;
+            background: #007aff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .email-cta-button.urgent {
+            background: #d70015;
+        }
+
+        .fake-link {
+            color: #007aff;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .email-signature {
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
 </head>
+
 <body>
 
-<div class="mail-window">
+    <div class="mail-window">
 
-    <div class="toolbar">
-        <div class="toolbar-group">
-            <button class="active-btn" title="Nouveau message"><i class="fas fa-envelope"></i></button>
-        </div>
-        <div class="toolbar-group">
-            <button title="Supprimer"><i class="fas fa-trash-alt"></i></button>
-            <button title="Archiver"><i class="fas fa-archive"></i></button>
-            <button title="Marquer comme lu/non lu"><i class="fas fa-flag"></i></button>
-            <button title="Déplacer"><i class="fas fa-folder-open"></i></button>
-        </div>
-        <div class="toolbar-group">
-            <button title="Répondre"><i class="fas fa-reply"></i></button>
-            <button title="Répondre à tous"><i class="fas fa-reply-all"></i></button>
-            <button title="Transférer"><i class="fas fa-share"></i></button>
-        </div>
-    </div>
-
-    <div class="content-area">
-
-        <div class="sidebar">
-            <div class="mailbox-title">Mailboxes</div>
-            <ul class="mailbox-list">
-                <li class="active-mailbox" data-mailbox="inbox"><div class="icon-label"><i class="fas fa-inbox"></i> Inbox</div> <span class="count">21</span></li>
-                <li data-mailbox="flagged"><div class="icon-label"><i class="fas fa-flag"></i> Flagged</div> <span class="count">18</span></li>
-                <li data-mailbox="drafts"><div class="icon-label"><i class="fas fa-file-alt"></i> Drafts</div> <span class="count">1</span></li>
-                <li data-mailbox="sent"><div class="icon-label"><i class="fas fa-paper-plane"></i> Sent</div></li>
-                <li data-mailbox="junk"><div class="icon-label"><i class="fas fa-trash-alt"></i> Junk</div></li>
-                <li data-mailbox="trash"><div class="icon-label"><i class="fas fa-trash-alt"></i> Trash</div> <span class="count">109</span></li>
-            </ul>
-
-            <div class="separator"></div>
-
-            <div class="mailbox-title">Smart Mailboxes</div>
-            <ul class="mailbox-list">
-                <li data-mailbox="today"><div class="icon-label"><i class="fas fa-sun"></i> Today</div></li>
-            </ul>
-        </div>
-
-        <div class="email-list-column">
-            <div class="sort-bar">
-                Sorted by <strong>Date</strong> <i class="fas fa-caret-down"></i>
+        <div class="toolbar">
+            <div class="toolbar-group">
+                <button title="Nouveau message"><i class="fas fa-envelope"></i></button>
+                <button title="Supprimer"><i class="fas fa-trash-alt"></i></button>
+                <button title="Archiver"><i class="fas fa-archive"></i></button>
             </div>
-            <ul id="email-list-container" class="email-list">
-                {{ EMAIL_LIST }}
-            </ul>
+
+            <!-- Contrôles du Jeu -->
+            <div class="toolbar-game-controls">
+                <div class="score-display">Score: <span id="game-score">0</span>/5</div>
+                <button id="btn-mark-safe" class="btn-game-action btn-safe">
+                    <i class="fas fa-shield-alt"></i> Légitime
+                </button>
+                <button id="btn-report-phishing" class="btn-game-action btn-phishing">
+                    <i class="fas fa-exclamation-triangle"></i> Phishing
+                </button>
+            </div>
         </div>
 
-        <div id="reading-pane" class="reading-pane">
-            {{ READING_PANE_CONTENT }}
+        <div class="content-area">
+
+            <div class="sidebar">
+                <div class="mailbox-title">Mailboxes</div>
+                <ul class="mailbox-list">
+                    <li class="active-mailbox" data-mailbox="inbox">
+                        <div class="icon-label"><i class="fas fa-inbox"></i> Inbox</div> <span class="count"
+                            id="inbox-count">5</span>
+                    </li>
+                    <li data-mailbox="flagged">
+                        <div class="icon-label"><i class="fas fa-flag"></i> Flagged</div>
+                    </li>
+                    <li data-mailbox="drafts">
+                        <div class="icon-label"><i class="fas fa-file-alt"></i> Drafts</div>
+                    </li>
+                    <li data-mailbox="sent">
+                        <div class="icon-label"><i class="fas fa-paper-plane"></i> Sent</div>
+                    </li>
+                    <li data-mailbox="junk">
+                        <div class="icon-label"><i class="fas fa-times-circle"></i> Junk</div>
+                    </li>
+                    <li data-mailbox="trash">
+                        <div class="icon-label"><i class="fas fa-trash-alt"></i> Trash</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="email-list-column">
+                <div class="sort-bar">
+                    Sorted by <strong>Date</strong> <i class="fas fa-caret-down"></i>
+                </div>
+                <ul id="email-list-container" class="email-list">
+                    <!-- Rempli par le JS -->
+                </ul>
+            </div>
+
+            <div id="reading-pane" class="reading-pane">
+                <div class="placeholder">Sélectionnez un email pour le lire...</div>
+            </div>
+
         </div>
 
+        <!-- Modal de Feedback -->
+        <div id="feedback-modal" class="modal hidden">
+            <div class="modal-content">
+                <i id="feedback-icon" class="fas fa-check-circle feedback-icon"></i>
+                <h2 id="feedback-title">Résultat</h2>
+                <p id="feedback-message">Explication...</p>
+                <button class="btn-next" id="btn-next-scenario">
+                    Message Suivant <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Écran de fin -->
+        <div id="end-screen" class="end-screen hidden">
+            <!-- <i class="fas fa-trophy" style="font-size: 64px; color: #ffd700; margin-bottom: 20px;"></i> -->
+            <h2>Session Terminée</h2>
+            <p style="font-size: 18px; margin: 10px 0;">Votre vigilance a payé.</p>
+            <p class="score-display" style="font-size: 24px;">Score Final : <span id="final-score">0</span>/5</p>
+
+            <div id="game-clue-container" style="display:none; width: 100%; max-width: 400px;"></div>
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn-next" style="background-color: #5856d6;" id="btn-continue-game">Continuer</button>
+            </div>
+        </div>
     </div>
-</div>
 
-<script src="/assets/macos/InterfaceMail/script.js"></script>
+    <script src="/js/mail-game.js"></script>
 
 </body>
+
 </html>
