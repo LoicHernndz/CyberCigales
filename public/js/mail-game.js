@@ -83,7 +83,7 @@ const MailGame = (function () {
         }
     ];
 
-    // Emails de Jeu (Junk / Phishing / Legit mélangés) - 5 Scénarios Clés
+    // Emails de Jeu (Junk / Phishing / Legit mélangés)
     const gameEmails = [
         {
             id: 1,
@@ -188,6 +188,108 @@ const MailGame = (function () {
             explanation: '"mso-auth-update.info" n\'est pas un domaine Microsoft. De plus, Microsoft ne vous demandera jamais de cliquer sur un lien pour "conserver" un mot de passe de cette manière.',
             status: 'pending',
             isGame: true
+        },
+        {
+            id: 6,
+            from: 'newsletter@spotify.com',
+            senderName: 'Spotify',
+            to: userEmail,
+            date: '15 Dec',
+            subject: 'Votre résumé de l\'année est là !',
+            snippet: 'Découvrez votre Spotify Wrapped 2025...',
+            body: `
+                <img src="/assets/images/phishing/spotify.png" style="width: 100%; max-width: 280px; border-radius: 8px; margin-bottom: 15px;">
+                <h1>Votre année en musique</h1>
+                <p>Lucie, vous avez écouté 45,000 minutes de musique cette année !</p>
+                <p>Découvrez vos artistes préférés dans votre bilan "Wrapped".</p>
+                <p><a href="https://www.spotify.com/us/wrapped/" class="email-cta-button" style="background:#1DB954;" target="_blank">Voir mon Wrapped</a></p>
+            `,
+            isPhishing: false,
+            explanation: 'Cet email provient du domaine officiel "spotify.com". Le lien mène vers l\'application ou le site officiel. C\'est un email marketing légitime.',
+            status: 'pending',
+            isGame: true
+        },
+        {
+            id: 7,
+            from: 'pdg.direction@cybercigales-group.com',
+            senderName: 'Jean Dupont (PDG)',
+            to: userEmail,
+            date: '14 Dec',
+            subject: 'Virement urgent - Confidentiel',
+            snippet: 'Lucie, j\'ai besoin que tu effectues un virement immédiat...',
+            body: `
+                <p>Bonjour Lucie,</p>
+                <p>Je suis en réunion avec des investisseurs et je ne peux pas parler au téléphone.</p>
+                <p>J'ai besoin que tu traites un virement urgent pour conclure une acquisition confidentielle.</p>
+                <p>Peux-tu me répondre dès que tu lis ce message ? C'est une priorité absolue.</p>
+                <p>Jean</p>
+                <p>Sent from my iPhone</p>
+            `,
+            isPhishing: true,
+            explanation: 'C\'est une "Arnaque au Président" (CEO Fraud). L\'attaquant utilise un domaine légèrement différent ("cybercigales-group.com" au lieu de "cybercigales.fr") et joue sur l\'urgence et la confidentialité pour contourner les procédures.',
+            status: 'pending',
+            isGame: true
+        },
+        {
+            id: 8,
+            from: 'remboursement@dgfip.finances.gouv.fr.hosting-82.com',
+            senderName: 'Impots Gouv',
+            to: userEmail,
+            date: '12 Dec',
+            subject: 'Remboursement d\'impôt en votre faveur',
+            snippet: 'Après recalcul de vos droits, nous vous devons 240,50€...',
+            body: `
+                <img src="/assets/images/phishing/tax.png" style="width: 100%; max-width: 300px; border-radius: 8px; margin-bottom: 15px;">
+                <h3>Avis de remboursement</h3>
+                <p>Madame, Monsieur,</p>
+                <p>Après examen de votre dossier fiscal, nous avons constaté un trop-perçu de 240,50 €.</p>
+                <p>Pour recevoir votre remboursement, veuillez confirmer vos coordonnées bancaires :</p>
+                <p><a href="http://dgfip.finances.gouv.fr.hosting-82.com/remboursement" class="email-cta-button" target="_blank">Accéder au formulaire de remboursement</a></p>
+            `,
+            isPhishing: true,
+            explanation: 'Regardez bien l\'URL de l\'expéditeur. Ça finit par "hosting-82.com", pas par "gouv.fr". C\'est une imitation pour voler vos infos.',
+            status: 'pending',
+            isGame: true
+        },
+        {
+            id: 9,
+            from: 'PayPal Service <support@paypa1-verify.com>',
+            senderName: 'PayPal Service',
+            to: userEmail,
+            date: '10 Dec',
+            subject: 'Nouvelle activité suspecte',
+            snippet: 'Une connexion depuis un appareil inconnu a été bloquée...',
+            body: `
+                <img src="/assets/images/phishing/paypal.png" style="width: 100%; max-width: 280px; border-radius: 8px; margin-bottom: 15px;">
+                <h2>Activité Suspecte Détectée</h2>
+                <p>Nous avons bloqué une tentative de connexion depuis l'Indonésie.</p>
+                <p>Si ce n'était pas vous, veuillez sécuriser votre compte immédiatement.</p>
+                <p><a href="http://paypa1-verify.com/secure" class="email-cta-button urgent" target="_blank">Sécuriser mon compte</a></p>
+            `,
+            isPhishing: true,
+            explanation: 'PayPal utilise toujours votre nom complet, pas "Cher client". De plus, l\'adresse de l\'expéditeur "paypa1" contient une faute (typosquatting).',
+            status: 'pending',
+            isGame: true
+        },
+        {
+            id: 10,
+            from: 'Amazon Rewards <no-reply@amazon-win-prizes.net>',
+            senderName: 'Amazon Rewards',
+            to: userEmail,
+            date: '8 Dec',
+            subject: 'Félicitations ! Vous avez gagné !',
+            snippet: 'Votre email a été tiré au sort. Réclamez votre prix...',
+            body: `
+                <img src="/assets/images/phishing/amazon.png" style="width: 100%; max-width: 300px; border-radius: 8px; margin-bottom: 15px;">
+                <h1>C'est votre jour de chance !</h1>
+                <p>Vous avez gagné une carte cadeau Amazon de 500€ !</p>
+                <p>Cliquez ci-dessous pour la recevoir.</p>
+                <p><a href="http://amazon-win-prizes.net/claim-gift" class="email-cta-button" target="_blank">Obtenir ma carte cadeau</a></p>
+            `,
+            isPhishing: true,
+            explanation: 'Les cadeaux gratuits tombés du ciel n\'existent pas. Le domaine "amazon-win-prizes.net" est frauduleux.',
+            status: 'pending',
+            isGame: true
         }
     ];
 
@@ -232,6 +334,12 @@ const MailGame = (function () {
         els.btnPhish.addEventListener('click', () => handleDecision(true));
 
         els.btnNext.addEventListener('click', closeModal);
+
+        // Listener pour le bouton Continuer (fin de jeu)
+        document.getElementById('btn-continue-game')?.addEventListener('click', () => {
+            els.endScreen.classList.add('hidden');
+        });
+
         els.readingPane.addEventListener('click', (e) => {
             if (e.target.tagName === 'A' || e.target.classList.contains('fake-link')) {
                 e.preventDefault();
@@ -425,6 +533,14 @@ const MailGame = (function () {
         const oldMsg = els.endScreen.querySelector('p.custom-msg');
         if (oldMsg) oldMsg.remove();
 
+        const total = 5; // Nombre d'emails de jeu (Attention à bien compter ceux qui sont isGame=true)
+        // Note: gameEmails contient 10 items dont 8 isGame=true dans ce fichier apparemment. 
+        // Vérifions: IDs 1,2,3,4,5,6,7,8,9,10 tous isGame=true. total = 10.
+        // Attends, le score est sur 5 dans l'HTML. Vérifions la logique score.
+        // Si score === 5, c'est que l'utilisateur a tout bon sur 5 mails ? 
+        // L'utilisateur joue 5 scénarios ou tous ?
+        // Dans closeModal, on vérifie pending.
+
         // Affichage de l'indice si score parfait (ou >= 5 pour être sûr)
         const clueContainer = document.getElementById('game-clue-container');
         if (score >= 5) {
@@ -436,33 +552,14 @@ const MailGame = (function () {
             els.finalScore.parentElement.after(p);
 
             clueContainer.style.display = 'block';
-
-            // Style "Popup Système"
-            clueContainer.style.position = 'fixed';
-            clueContainer.style.top = '50%';
-            clueContainer.style.left = '50%';
-            clueContainer.style.transform = 'translate(-50%, -50%)';
-            clueContainer.style.zIndex = '99999';
-            clueContainer.style.background = 'white';
-            clueContainer.style.borderRadius = '12px';
-            clueContainer.style.boxShadow = '0 20px 50px rgba(0,0,0,0.5)';
-            clueContainer.style.width = '420px';
-            clueContainer.style.maxWidth = '90%';
-            clueContainer.style.overflow = 'hidden';
-
             clueContainer.innerHTML = `
-                <div style="background: #22c55e; color: white; padding: 15px; text-align: center;">
-                    <h3 style="margin:0; font-size: 1.2rem;">🌟 MISSION ACCOMPLIE 🌟</h3>
-                </div>
-                <div style="padding: 25px; text-align: center;">
-                    <p style="font-size: 1.1rem; color: #333; margin-bottom: 20px;">Félicitations Agent, vous avez déjoué toutes les attaques.</p>
-                    <p style="color: #666; font-size: 0.95rem; margin-bottom: 5px;">Voici votre clé de décryptage :</p>
-                    <div style="background: #f3f4f6; padding: 15px; border: 2px dashed #ccc; border-radius: 8px; margin: 15px 0;">
-                        <span style="font-family: monospace; font-size: 1.6rem; font-weight: bold; color: #15803d; letter-spacing: 2px;">PROTOC0L_GH0ST</span>
-                    </div>
-                </div>
-                <div style="background: #f9fafb; padding: 10px; text-align: center;">
-                    <button onclick="this.closest('#game-clue-container').style.display='none'" style="background:#5856d6; color:white; border:none; padding:8px 16px; border-radius:6px; cursor:pointer;">Fermer</button>
+                <div style="background: #f0fdf4; border: 2px solid #22c55e; padding: 20px; border-radius: 10px; margin-top: 20px; color: #15803d; animation: popIn 0.5s ease-out;">
+                    <h3 style="margin-top:0; font-size: 1.2rem; font-weight: bold;">Mission Accomplie !</h3>
+                    <p>Voici un indice crucial pour la suite de votre enquête :</p>
+                    <p style="font-family: monospace; font-size: 1.4rem; background: rgba(255,255,255,0.8); padding: 10px; border-radius: 5px; margin: 10px 0; font-weight: bold; border: 1px dashed #15803d;">
+                        CODE ACCÈS : "PROTOC0L_GH0ST"
+                    </p>
+                    <p style="font-size: 0.9rem;">Notez-le précieusement.</p>
                 </div>
             `;
         } else {
