@@ -99,7 +99,7 @@ function createNewWindow(appName) {
     let windowWidth = 600;
     let windowHeight = 400;
 
-    if (appName === 'Hamming' || appName === 'Instagram') {
+    if (appName === 'Hamming' || appName === 'Instagram' || appName === 'Frequence') {
         windowWidth = 900;
         windowHeight = 700;
     }
@@ -158,10 +158,10 @@ function getContentForApp(appName) {
             `;
             break;
         case 'Web':
-            document.getElementById(`${appName}-content`).innerHTML =  `<iframe src='/web'></iframe>`
+            document.getElementById(`${appName}-content`).innerHTML = `<iframe src='/web'></iframe>`
             break;
         case 'Mail':
-            document.getElementById(`${appName}-content`).innerHTML =  `<iframe src='/email'></iframe>`
+            document.getElementById(`${appName}-content`).innerHTML = `<iframe src='/email'></iframe>`
             break;
         case 'Terminal':
             document.getElementById(`${appName}-content`).innerHTML = `<iframe src='/bash'></iframe>`;
@@ -169,11 +169,14 @@ function getContentForApp(appName) {
         case 'Hamming':
             document.getElementById(`${appName}-content`).innerHTML = `<iframe src='/game/hamming'></iframe>`;
             break;
+        case 'Frequence':
+            document.getElementById(`${appName}-content`).innerHTML = `<iframe src='/game/frequency'></iframe>`;
+            break;
         case 'Instagram':
-            document.getElementById(`${appName}-content`).innerHTML =  `<iframe src='/instagram'></iframe>`
+            document.getElementById(`${appName}-content`).innerHTML = `<iframe src='/instagram'></iframe>`
             break;
         case 'Calendrier':
-            document.getElementById(`${appName}-content`).innerHTML =  `<iframe src='/agenda'></iframe>`
+            document.getElementById(`${appName}-content`).innerHTML = `<iframe src='/agenda'></iframe>`
             break;
         default:
             return `<p class="text-lg text-center mt-8">Application "${appName}" lancée avec succès!</p><p class="text-xs text-center mt-2 text-gray-500">Fermez la fenêtre en cliquant sur le bouton rouge.</p>`;
@@ -362,8 +365,8 @@ function makeDraggable(windowElement) {
         document.removeEventListener('mouseup', stopDrag);
     };
 
-    titleBar.addEventListener('mousedown', function(e) {
-        if (e.button === 0) {startDrag(e);}
+    titleBar.addEventListener('mousedown', function (e) {
+        if (e.button === 0) { startDrag(e); }
     });
 }
 

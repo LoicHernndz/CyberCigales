@@ -1,29 +1,45 @@
+/**
+ * ANALYSE FREQUENTIELLE - Mini-Jeu Style macOS
+ * CyberCigales Escape Game
+ */
+
 document.addEventListener('DOMContentLoaded', () => {
-    const btnStart = document.getElementById('btn-start-game');
+    // Elements du DOM
     const startScreen = document.getElementById('start-screen');
     const playScreen = document.getElementById('play-screen');
-    const cipherTextContainer = document.getElementById('cipher-text-container');
-    const plainTextPreview = document.getElementById('plain-text-preview');
-    const substitutionGrid = document.getElementById('substitution-grid');
-    const frequencyChart = document.getElementById('frequency-chart');
+    const endScreen = document.getElementById('end-screen');
+
+    const btnStart = document.getElementById('btn-start-game');
     const btnCheck = document.getElementById('btn-check');
     const btnReset = document.getElementById('btn-reset');
-    const feedbackMessage = document.getElementById('feedback-message');
+    const btnHelp = document.getElementById('btn-toggle-help');
+    const helpContent = document.getElementById('help-content');
 
-    let currentEncryptedText = "";
-    let userMappings = {}; 
+    const cipherContainer = document.getElementById('cipher-text-container');
+    const previewContainer = document.getElementById('preview-text-container');
+    const feedbackSection = document.getElementById('feedback-section');
+    const feedbackContent = document.getElementById('feedback-content');
+    const dialogueText = document.getElementById('dialogue-text');
 
-    // Standard French Frequencies (approx order)
-    const frenchFreqOrder = ['E', 'A', 'S', 'I', 'N', 'T', 'R', 'L', 'U', 'O', 'D', 'C', 'P', 'M', 'V', 'Q', 'F', 'B', 'G', 'H', 'J', 'X', 'Y', 'Z', 'K', 'W'];
+    // Etat du jeu
+    let encryptedText = "";
+    let userSubstitutions = {};
 
-    btnStart.addEventListener('click', startGame);
-    btnCheck.addEventListener('click', checkSolution);
-    btnReset.addEventListener('click', () => {
-        userMappings = {};
-        renderSubstitutionGrid();
-        updatePreview();
-    });
+    // Initialisation
+    if (btnStart) btnStart.addEventListener('click', startGame);
+    if (btnCheck) btnCheck.addEventListener('click', checkSolution);
+    if (btnReset) btnReset.addEventListener('click', resetSubstitutions);
+    if (btnHelp) btnHelp.addEventListener('click', toggleHelp);
 
+    function toggleHelp() {
+        if (helpContent.style.display === 'none') {
+            helpContent.style.display = 'block';
+        } else {
+            helpContent.style.display = 'none';
+        }
+    }
+
+    // Demarrage du jeu
     function startGame() {
         const formData = new FormData();
         formData.append('action', 'start_game');
@@ -32,124 +48,165 @@ document.addEventListener('DOMContentLoaded', () => {
             method: 'POST',
             body: formData
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                currentEncryptedText = data.encrypted_text;
-                startScreen.style.display = 'none';
-                playScreen.style.display = 'block';
-                
-                // Initialize mappings
-                userMappings = {};
-                
-                renderGame();
-            }
-        });
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    encryptedText = data.encrypted_text;
+
+                    startScreen.style.display = 'none';
+                    playScreen.style.display = 'block';
+
+                    userSubstitutions = {};
+
+                    renderCipherText();
+                    updatePreview();
+
+                    if (dialogueText) {
+                        dialogueText.textContent = "Analyse le message chiffre ! Clique sur une lettre pour definir sa correspondance.";
+                    }
+                }
+            })
+            .catch(err => {
+                console.error('Erreur au demarrage:', err);
+                alert('Erreur de connexion au serveur');
+            });
     }
 
-    function renderGame() {
-        cipherTextContainer.textContent = currentEncryptedText;
-        analyzeFrequencies();
-        renderSubstitutionGrid();
+    // Rendu du texte chiffre
+    function renderCipherText() {
+        if (!cipherContainer) return;
+        cipherContainer.innerHTML = '';
+
+        for (let i = 0; i < encryptedText.length; i++) {
+            const char = encryptedText[i];
+            const span = document.createElement('span');
+            span.textContent = char;
+
+            if (/[A-Z]/.test(char)) {
+                span.className = 'cipher-letter';
+                if (userSubstitutions[char]) {
+                    span.classList.add('substituted');
+                }
+                span.addEventListener('click', () => openSubstitutionModal(char));
+            }
+
+            cipherContainer.appendChild(span);
+        }
+    }
+
+    // Modal de substitution
+    function openSubstitutionModal(cipherLetter) {
+        const currentValue = userSubstitutions[cipherLetter] || '';
+        const newValue = prompt(
+            `La lettre "${cipherLetter}" correspond a quelle lettre ?\n(Laissez vide pour effacer)`,
+            currentValue
+        );
+
+        if (newValue === null) return;
+
+        if (newValue === '') {
+            delete userSubstitutions[cipherLetter];
+        } else {
+            const upperValue = newValue.toUpperCase().charAt(0);
+            if (/[A-Z]/.test(upperValue)) {
+                userSubstitutions[cipherLetter] = upperValue;
+            }
+        }
+
+        renderCipherText();
         updatePreview();
     }
 
-    function analyzeFrequencies() {
-        const counts = {};
-        let total = 0;
-        
-        for (let char of currentEncryptedText) {
-            if (/[A-Z]/.test(char)) {
-                counts[char] = (counts[char] || 0) + 1;
-                total++;
-            }
-        }
-
-        const sortedChars = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
-        
-        let html = '';
-        sortedChars.forEach(char => {
-            const pct = ((counts[char] / total) * 100).toFixed(1);
-            html += `
-                <div class="freq-row">
-                    <span class="freq-label">${char}</span>
-                    <div class="freq-bar" style="width: ${pct * 3}px;"></div>
-                    <span>${pct}%</span>
-                </div>
-            `;
-        });
-        
-        // Add hint about French frequencies
-        html += '<hr><p style="font-size:0.7em">Ordre FR: ' + frenchFreqOrder.join(' ') + '</p>';
-        
-        frequencyChart.innerHTML = html;
-    }
-
-    function renderSubstitutionGrid() {
-        // Get unique chars from text
-        const chars = [...new Set(currentEncryptedText.split(''))].filter(c => /[A-Z]/.test(c)).sort();
-        
-        substitutionGrid.innerHTML = '';
-        chars.forEach(char => {
-            const pair = document.createElement('div');
-            pair.className = 'sub-pair';
-            
-            const label = document.createElement('label');
-            label.textContent = char;
-            
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.maxLength = 1;
-            input.value = userMappings[char] || '';
-            input.dataset.char = char;
-            
-            input.addEventListener('input', (e) => {
-                const val = e.target.value.toUpperCase();
-                userMappings[char] = val;
-                e.target.value = val;
-                updatePreview();
-            });
-
-            pair.appendChild(label);
-            pair.appendChild(input);
-            substitutionGrid.appendChild(pair);
-        });
-    }
-
+    // Apercu du dechiffrement
     function updatePreview() {
-        let result = '';
-        for (let char of currentEncryptedText) {
-            if (userMappings[char]) {
-                result += userMappings[char];
-            } else if (/[A-Z]/.test(char)) {
-                result += '_'; // Placeholder
+        if (!previewContainer) return;
+        previewContainer.innerHTML = '';
+
+        for (let i = 0; i < encryptedText.length; i++) {
+            const char = encryptedText[i];
+            const span = document.createElement('span');
+
+            if (/[A-Z]/.test(char)) {
+                span.className = 'preview-letter';
+                if (userSubstitutions[char]) {
+                    span.textContent = userSubstitutions[char];
+                } else {
+                    span.textContent = '_';
+                    span.classList.add('missing');
+                }
             } else {
-                result += char; // Spaces, punctuation
+                span.textContent = char;
             }
+
+            previewContainer.appendChild(span);
         }
-        plainTextPreview.textContent = result;
     }
 
+    // Reinitialisation
+    function resetSubstitutions() {
+        if (confirm('Reinitialiser toutes les substitutions ?')) {
+            userSubstitutions = {};
+            renderCipherText();
+            updatePreview();
+            showFeedback("Reinitialise !", 'success');
+        }
+    }
+
+    // Validation de la solution
     function checkSolution() {
-        const currentSolution = plainTextPreview.textContent;
-        
+        let userSolution = '';
+        for (let char of encryptedText) {
+            if (/[A-Z]/.test(char)) {
+                userSolution += userSubstitutions[char] || '_';
+            } else {
+                userSolution += char;
+            }
+        }
+
         const formData = new FormData();
         formData.append('action', 'check_solution');
-        formData.append('solution', currentSolution);
+        formData.append('solution', userSolution);
 
         fetch('/game/frequency', {
             method: 'POST',
             body: formData
         })
-        .then(response => response.json())
-        .then(data => {
-            feedbackMessage.textContent = data.message;
-            if (data.correct) {
-                feedbackMessage.style.color = 'green';
-                plainTextPreview.style.backgroundColor = '#ccffcc';
-            } else {
-                feedbackMessage.style.color = 'red';
-            }
-        });
+            .then(response => response.json())
+            .then(data => {
+                if (data.correct) {
+                    showVictory(userSolution);
+                } else {
+                    showFeedback(data.message || "Ce n'est pas correct. Continue !", 'error');
+                }
+            })
+            .catch(err => {
+                console.error('Erreur:', err);
+                showFeedback("Erreur de connexion", 'error');
+            });
+    }
+
+    // Affichage du feedback
+    function showFeedback(message, type) {
+        if (!feedbackSection || !feedbackContent) return;
+        feedbackSection.style.display = 'block';
+        feedbackContent.textContent = message;
+        feedbackContent.className = 'feedback-content ' + type;
+
+        setTimeout(() => {
+            feedbackSection.style.display = 'none';
+        }, 3000);
+    }
+
+    // Ecran de victoire
+    function showVictory(decryptedText) {
+        if (playScreen) playScreen.style.display = 'none';
+        if (endScreen) endScreen.style.display = 'block';
+
+        const finalMessageEl = document.getElementById('final-message');
+        if (finalMessageEl) finalMessageEl.textContent = decryptedText;
+
+        if (dialogueText) {
+            dialogueText.textContent = "Bravo ! Tu as decrypte le message secret !";
+        }
     }
 });
