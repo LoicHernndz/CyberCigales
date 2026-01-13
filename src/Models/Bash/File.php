@@ -6,7 +6,11 @@ use Exception;
 use Exceptions\bash\CommandCallingException;
 use Exceptions\bash\InvalidPathException;
 
-
+/**
+ * Modèle de fichier/dossier pour l'environnement Bash simulé
+ * 
+ * Représente un fichier ou dossier dans l'arborescence virtuelle.
+ */
 class File
 {
     private File|null $prev;

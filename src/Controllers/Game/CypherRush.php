@@ -5,9 +5,21 @@ use Controllers\AbstractController;
 use Models\Game\CypherGame;
 use Views\Game\CypherRush\CypherRushView;
 
+/**
+ * Contrôleur du jeu CypherRush
+ * 
+ * Mini-jeu éducatif de déchiffrement contre la montre.
+ * Gère la génération de challenges, la vérification des réponses et le score.
+ */
 class CypherRush extends AbstractController
 {
-    // Méthode principale appelée lorsque la route correspond à ce contrôleur
+    /**
+     * Affiche la page du jeu CypherRush
+     * 
+     * Redirige vers login si l'utilisateur n'est pas connecté.
+     * 
+     * @return void
+     */
     function getMethod(){
         // Vérifier si l'utilisateur est connecté
         if (!isset($_SESSION['user_id'])) {

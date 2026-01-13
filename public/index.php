@@ -1,4 +1,13 @@
 <?php
+/**
+ * Point d'entrée de l'application CyberCigales
+ * 
+ * Ce fichier gère le routage principal de l'application.
+ * Il charge l'autoloader, gère les routes dynamiques (Instagram)
+ * et les routes statiques définies dans Routes.php.
+ * 
+ * @package CyberCigales
+ */
 
 include "../src/config/Autoloader.php";
 include "../src/helpers/session_helper.php";
@@ -29,7 +38,7 @@ if (preg_match('#^/instagram/user/([^/]+)$#', $uri)) {
 // ========================================
 //  On cherche a quel controleur correspond la requete actuelle
 foreach (Routes::$routes as $key => $value) {
-    if($key == $uri){
+    if ($key == $uri) {
         $controller = new $value();
         $controller->control();  //  Execute l'action du controller (afficher une page et/ou actions)
         exit();
@@ -37,6 +46,7 @@ foreach (Routes::$routes as $key => $value) {
 }
 
 //  Securite : Si l'url ne correspond a aucune page / methode implemente -> ERREUR 404
-    $controller = new Controllers\Error404\Error404();
-    $controller->control();;
-    exit();
+$controller = new Controllers\Error404\Error404();
+$controller->control();
+;
+exit();

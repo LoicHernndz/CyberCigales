@@ -5,9 +5,21 @@ use Controllers\AbstractController;
 use Models\User\UserStats;
 use Views\User\Profil\ProfilView;
 
+/**
+ * Contrôleur d'affichage du profil utilisateur
+ * 
+ * Affiche les statistiques de jeux, badges obtenus et classement de l'utilisateur connecté.
+ */
 class Profil extends AbstractController
 {
-    // Méthode principale exécutée lorsque la route "/user/profil" est appelée en GET
+    /**
+     * Affiche la page de profil avec les statistiques utilisateur
+     * 
+     * Récupère et affiche les stats de jeux, badges et rang de l'utilisateur.
+     * Redirige vers login si l'utilisateur n'est pas connecté.
+     * 
+     * @return void
+     */
     function getMethod(){
         // Vérifier si l'utilisateur est connecté
         if (!isset($_SESSION['user_id'])) {
@@ -40,7 +52,13 @@ class Profil extends AbstractController
         $view->render();
     }
 
-    // Méthode permettant de déterminer si ce contrôleur doit être utilisé
+    /**
+     * Détermine si ce contrôleur doit gérer la requête
+     * 
+     * @param string $chemin L'URL demandée
+     * @param string $method La méthode HTTP
+     * @return bool True si la route correspond à /user/profil en GET
+     */
     static function support(string $chemin, string $method) : bool{
         // Ce contrôleur s'active uniquement si :
         // - le chemin de l'URL est "/user/profil"

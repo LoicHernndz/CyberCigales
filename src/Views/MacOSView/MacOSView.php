@@ -2,6 +2,11 @@
 
 namespace Views\MacOSView;
 
+/**
+ * Vue de l'interface MacOS simulée
+ *
+ * Affiche une interface desktop macOS avec dock, barre de menu et fenêtres.
+ */
 class MacOSView
 {
 

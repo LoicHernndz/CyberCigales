@@ -5,10 +5,21 @@ use Models\User\User;
 use Models\User\UserStats;
 use Views\Homepage\HomepageView;
 
+/**
+ * Contrôleur de la page d'accueil
+ * 
+ * Affiche la page d'accueil avec statistiques personnalisées pour les utilisateurs connectés.
+ */
 class Homepage extends AbstractController
 {
-    // Méthode principale appelée lorsque la route correspond à ce contrôleur
 
+    /**
+     * Affiche la page d'accueil
+     * 
+     * Récupère et affiche les statistiques de l'utilisateur s'il est connecté.
+     * 
+     * @return void
+     */
     function getMethod(){
         // Création d'une instance de la vue "HomepageView"
         $view = new HomepageView();

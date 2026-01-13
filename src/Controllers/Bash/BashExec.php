@@ -10,6 +10,13 @@ use helpers\BashRequest;
  */
 class BashExec extends AbstractController
 {
+    /**
+     * Traite les requêtes de commandes Bash
+     * 
+     * Délègue le traitement au helper BashRequest.
+     * 
+     * @return void
+     */
     public function getMethod(): void
     {
         $helper = new BashRequest();

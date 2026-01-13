@@ -6,8 +6,21 @@ use Controllers\AbstractController;
 use Models\User\User;
 use Views\User\EditProfil\EditProfilView;
 
+/**
+ * Contrôleur de modification de profil utilisateur
+ * 
+ * Gère la modification des informations personnelles de l'utilisateur
+ * (prénom, nom, pseudo, email) avec validation d'unicité.
+ */
 class EditProfil extends AbstractController
 {
+    /**
+     * Affiche le formulaire de modification de profil
+     * 
+     * Redirige vers login si l'utilisateur n'est pas connecté.
+     * 
+     * @return void
+     */
     function getMethod()
     {
         // Vérifier si l'utilisateur est connecté
@@ -22,6 +35,14 @@ class EditProfil extends AbstractController
         $view->render();
     }
 
+    /**
+     * Traite la soumission du formulaire de modification
+     * 
+     * Valide les données, vérifie l'unicité du pseudo/email et met à jour le profil.
+     * Met à jour la session avec les nouvelles informations.
+     * 
+     * @return void
+     */
     function postMethod()
     {
         // Vérifier si l'utilisateur est connecté
