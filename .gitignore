@@ -550,3 +550,5 @@ $RECYCLE.BIN/
 .idea
 src/PHPMailer/
 database/
+
+docs/api/
