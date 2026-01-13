@@ -32,7 +32,7 @@ PHPMailer est ensuite chargé automatiquement grâce à l’autoload de Composer
 
 <pre><code>require 'vendor/autoload.php';</code></pre>
 
-⚠️ Le dossier <code>vendor/</code> n’est pas versionné et doit être généré via Composer.
+ATTENTION Le dossier <code>vendor/</code> n’est pas versionné et doit être généré via Composer.
 
 ## Documentation (PHPDoc)
 Le code du projet est documenté à l’aide de **PHPDoc** afin de faciliter la compréhension du code et la maintenance.
