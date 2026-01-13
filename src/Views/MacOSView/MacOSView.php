@@ -2,17 +2,20 @@
 
 namespace Views\MacOSView;
 
-class MacOSView {
+class MacOSView
+{
 
     // Chemin du fichier HTML associé à la vue d’inscription
     private const TEMPLATE_HTML = __DIR__ . '/home.html';
 
     // Méthode qui renvoie le chemin du template HTML à utiliser pour cette vue
-    public function templatePath() : string {
+    public function templatePath(): string
+    {
         return self::TEMPLATE_HTML;
     }
 
-    function render(){
+    function render()
+    {
         $this->renderHeader();
         $this->renderBody();
         $this->renderFooter();
@@ -28,11 +31,11 @@ class MacOSView {
 
             // Remplacement des clés (si utilisées dans home.html)
             $keys = method_exists($this, 'templateKeys') ? $this->templateKeys() : [];
-            foreach($keys as $key => $value){
+            foreach ($keys as $key => $value) {
                 $template = str_replace("{{{$key}}}", $value, $template);
             }
 
-            echo $template ;
+            echo $template;
         } else {
             // Contenu par défaut si le template n'existe pas, agissant comme le fond d'écran
             echo '
@@ -44,7 +47,8 @@ class MacOSView {
     }
 
     // Fonction fictive pour éviter une erreur si elle est appelée par renderBody()
-    function templateKeys() : array {
+    function templateKeys(): array
+    {
         return [];
     }
 
@@ -183,7 +187,18 @@ class MacOSView {
                 <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Hamming</div>
             </li>
 
-            <!-- Séparateur visuel -->
+            <!-- 10. Frequence (Mini-jeu) -->
+            <li class="dock-icon w-14 h-14 p-2 bg-gradient-to-br from-blue-600 to-indigo-800 rounded-xl flex items-center justify-center relative group" onclick="openApp(\'Frequence\')">
+                <svg class="w-9 h-9 text-blue-200" fill="currentColor" viewBox="0 0 24 24">
+                    <rect x="2" y="14" width="4" height="8" rx="1"/>
+                    <rect x="8" y="10" width="4" height="12" rx="1"/>
+                    <rect x="14" y="6" width="4" height="16" rx="1"/>
+                    <rect x="20" y="2" width="4" height="20" rx="1" opacity="0.7"/>
+                </svg>
+                <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Frequence</div>
+            </li>
+
+            <!-- Separateur visuel -->
             <li class="w-px h-10 self-center bg-white/20 mx-3"></li>
 
             <!-- 9. Corbeille -->
