@@ -255,7 +255,11 @@
             <h2>Session Terminée !</h2>
             <p style="font-size: 18px; margin: 10px 0;">Votre vigilance a payé.</p>
             <p class="score-display" style="font-size: 24px;">Score Final : <span id="final-score">0</span>/5</p>
-            <button class="btn-next" onclick="location.reload()">Recommencer</button>
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn-next" onclick="location.reload()">Recommencer</button>
+                <button class="btn-next" style="background-color: #5856d6;"
+                    onclick="window.location.href='/minigames'">Retour aux Mini-jeux</button>
+            </div>
         </div>
     </div>
 
