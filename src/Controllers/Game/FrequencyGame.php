@@ -95,8 +95,7 @@ class FrequencyGame extends AbstractController
     /**
      * Démarre une nouvelle partie
      * 
-     * Choisit un texte aléatoire et le chiffre avec une substitution
-     * monoalphabétique aléatoire.
+     * Choisit un texte aléatoire et le chiffre avec un chiffrement César (décalage).
      * 
      * @return void
      */
@@ -105,27 +104,26 @@ class FrequencyGame extends AbstractController
         // Choisir un texte aléatoire
         $originalText = $this->texts[array_rand($this->texts)];
 
-        // Générer un alphabet de substitution aléatoire
-        $alphabet = range('A', 'Z');
-        $shuffled = $alphabet;
-        shuffle($shuffled);
-        $key = array_combine($alphabet, $shuffled);
+        // Générer un décalage aléatoire (entre 1 et 25)
+        $shift = rand(1, 25);
 
-        // Chiffrer le texte
-        $encryptedText = '';
-        foreach (str_split($originalText) as $char) {
-            if (ctype_upper($char)) {
-                $encryptedText .= $key[$char];
-            } else {
-                // Garder les espaces, apostrophes, etc.
-                $encryptedText .= $char;
-            }
+        // Chiffrer le texte avec César
+        // On utilise la classe helper Cesar qui gère déjà la conservation des espaces/ponctuation
+        $encryptedText = \helpers\Code\Cesar::encrypt($originalText, $shift);
+
+        // Générer la "clé" (mapping) pour compatibilité avec le reste de la logique
+        // Pour César, A -> A+shift, B -> B+shift, etc.
+        $alphabet = range('A', 'Z');
+        $key = [];
+        foreach ($alphabet as $letter) {
+            $key[$letter] = \helpers\Code\Cesar::encrypt($letter, $shift);
         }
 
         // Stocker la solution en session
         $_SESSION['freq_game_solution'] = $originalText;
         $_SESSION['freq_game_encrypted'] = $encryptedText;
-        $_SESSION['freq_game_key'] = $key;
+        $_SESSION['freq_game_key'] = $key; // Le mapping A=>X, B=>Y...
+        $_SESSION['freq_game_shift'] = $shift; // On garde aussi le décalage, utile pour debug/hint
         $_SESSION['freq_game_start'] = time();
         $_SESSION['freq_game_hints'] = 0;
 
