@@ -11,19 +11,17 @@
     <div
         style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2rem; padding: 1rem 1.5rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; font-size: 0.9rem;">
         <span><span style="color: #00c8ff; font-weight: 700;">■</span> Message clair</span>
-        <span><span style="color: #ffaa00; font-weight: 700;">■</span> Clé / Permutation</span>
-        <span><span style="color: #ff6b9d; font-weight: 700;">■</span> Message chiffré</span>
+        <span><span style="color: #ff4444; font-weight: 700;">■</span> Clé / Permutation</span>
+        <span><span style="color: #b06cff; font-weight: 700;">■</span> Message chiffré</span>
     </div>
 
     <section>
         <h2>1. Principe du chiffrement par permutation</h2>
-        <p>Le chiffrement par permutation consiste à changer l'ordre des lettres d'un <span
-                style="color: #00c8ff; font-weight: 600;">message</span>.</p>
+        <p>Le chiffrement par permutation consiste à changer l'ordre des lettres d'un message.</p>
         <ul>
             <li>Les lettres ne sont pas modifiées,</li>
             <li>seule leur position change,</li>
-            <li>l'ordre est déterminé par une <span style="color: #ffaa00; font-weight: 600;">clé</span>, ici un mot.
-            </li>
+            <li>l'ordre est déterminé par une clé, ici un mot.</li>
         </ul>
     </section>
 
@@ -31,24 +29,23 @@
         <h2>2. La clé : un mot</h2>
         <p>Dans ce type de chiffrement :</p>
         <ul>
-            <li>la <span style="color: #ffaa00; font-weight: 600;">clé</span> est un mot-clé,</li>
-            <li>ce mot est transformé en <span style="color: #ffaa00; font-weight: 600;">permutation numérique</span>,
-            </li>
+            <li>la clé est un mot-clé,</li>
+            <li>ce mot est transformé en permutation numérique,</li>
             <li>cette permutation est ensuite utilisée pour réorganiser les lettres.</li>
         </ul>
     </section>
 
     <section>
         <h2>3. Transformer un mot en permutation</h2>
-        <p><span style="color: #ffaa00; font-weight: 600;">Mot-clé :</span> CLE</p>
+        <p><span style="color: #ff4444; font-weight: 600;">Mot-clé :</span> CLE</p>
 
         <h3 style="margin-top: 1.5rem;">Étape 1 : classer les lettres par ordre alphabétique</h3>
         <table style="margin: 1rem auto; border-collapse: collapse;">
             <tr>
-                <th style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">Lettre</th>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">C</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">L</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">E</td>
+                <th style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">Lettre</th>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">C</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">L</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">E</td>
             </tr>
             <tr>
                 <th style="border: 1px solid #ddd; padding: 8px;">Ordre alphabétique</th>
@@ -67,29 +64,29 @@
         <h3 style="margin-top: 1.5rem;">Étape 2 : attribuer à chaque lettre son rang</h3>
         <table style="margin: 1rem auto; border-collapse: collapse;">
             <tr>
-                <th style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">Lettre du mot</th>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">C</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">L</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">E</td>
+                <th style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">Lettre du mot</th>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">C</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">L</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">E</td>
             </tr>
             <tr>
-                <th style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">Rang</th>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">1</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">3</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">2</td>
+                <th style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">Rang</th>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">1</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">3</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">2</td>
             </tr>
         </table>
 
         <div class="lesson-example-box">
-            <p><span style="color: #ffaa00; font-weight: 600;">Clé de permutation obtenue :</span> 1 – 3 – 2</p>
+            <p><span style="color: #ff4444; font-weight: 600;">Clé de permutation obtenue :</span> 1 – 3 – 2</p>
         </div>
     </section>
 
     <section>
         <h2>4. Exemple de chiffrement</h2>
         <p><span style="color: #00c8ff; font-weight: 600;">Message clair :</span> BON</p>
-        <p><span style="color: #ffaa00; font-weight: 600;">Clé (mot) :</span> CLE</p>
-        <p><span style="color: #ffaa00; font-weight: 600;">Permutation :</span> 1 – 3 – 2</p>
+        <p><span style="color: #ff4444; font-weight: 600;">Clé (mot) :</span> CLE</p>
+        <p><span style="color: #ff4444; font-weight: 600;">Permutation :</span> 1 – 3 – 2</p>
 
         <h3 style="margin-top: 1.5rem;">Chiffrement pas à pas</h3>
         <table style="margin: 1rem auto; border-collapse: collapse;">
@@ -106,30 +103,29 @@
                 <td style="border: 1px solid #ddd; padding: 8px; color: #00c8ff;">N</td>
             </tr>
             <tr>
-                <th style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">Nouvelle position</th>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">1</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">3</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">2</td>
+                <th style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">Nouvelle position</th>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">1</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">3</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">2</td>
             </tr>
             <tr>
-                <th style="border: 1px solid #ddd; padding: 8px; color: #ff6b9d;">Résultat</th>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ff6b9d;">B</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ff6b9d;">N</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ff6b9d;">O</td>
+                <th style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">Résultat</th>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">B</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">N</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">O</td>
             </tr>
         </table>
 
         <div class="lesson-example-box">
-            <p><span style="color: #ff6b9d; font-weight: 600;">Message chiffré :</span> BNO</p>
+            <p><span style="color: #b06cff; font-weight: 600;">Message chiffré :</span> BNO</p>
         </div>
     </section>
 
     <section>
         <h2>5. Exemple de déchiffrement</h2>
-        <p><span style="color: #ff6b9d; font-weight: 600;">Message chiffré :</span> BNO</p>
-        <p><span style="color: #ffaa00; font-weight: 600;">Clé :</span> CLE</p>
-        <p>On utilise la même <span style="color: #ffaa00; font-weight: 600;">permutation</span> pour remettre les
-            lettres dans l'ordre.</p>
+        <p><span style="color: #b06cff; font-weight: 600;">Message chiffré :</span> BNO</p>
+        <p><span style="color: #ff4444; font-weight: 600;">Clé :</span> CLE</p>
+        <p>On utilise la même permutation pour remettre les lettres dans l'ordre.</p>
 
         <div class="lesson-example-box">
             <p><span style="color: #00c8ff; font-weight: 600;">Résultat :</span> BON</p>
@@ -142,7 +138,7 @@
             <p><strong>Limites</strong></p>
             <ul style="margin-left: 1.5rem;">
                 <li>Les lettres restent les mêmes → analyse par fréquence possible</li>
-                <li><span style="color: #ffaa00; font-weight: 600;">Clé</span> courte → facile à deviner</li>
+                <li>Clé courte → facile à deviner</li>
                 <li>Peu sécurisé seul</li>
             </ul>
         </div>
@@ -152,9 +148,9 @@
     <section>
         <h2>7. Essayez par vous-même !</h2>
         <p>Maintenant que vous maîtrisez le principe, plus besoin de tout calculer à la main. Nous avons créé un outil
-            interactif qui vous permet de <span style="color: #ff6b9d; font-weight: 600;">chiffrer</span> et <span
+            interactif qui vous permet de <span style="color: #b06cff; font-weight: 600;">chiffrer</span> et <span
                 style="color: #00c8ff; font-weight: 600;">déchiffrer</span> un message par permutation en quelques
-            clics, à partir d'une <span style="color: #ffaa00; font-weight: 600;">clé</span> de votre choix.</p>
+            clics, à partir d'une <span style="color: #ff4444; font-weight: 600;">clé</span> de votre choix.</p>
         <div style="text-align: center; margin-top: 2rem;">
             <a href="/code/chiffrement-permutation" class="btn-primary"
                 style="display: inline-flex; align-items: center; gap: 0.75rem;">

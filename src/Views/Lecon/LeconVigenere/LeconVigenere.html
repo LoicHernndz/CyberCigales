@@ -11,8 +11,8 @@
     <div
         style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2rem; padding: 1rem 1.5rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; font-size: 0.9rem;">
         <span><span style="color: #00c8ff; font-weight: 700;">■</span> Message clair</span>
-        <span><span style="color: #ffaa00; font-weight: 700;">■</span> Clé</span>
-        <span><span style="color: #ff6b9d; font-weight: 700;">■</span> Message chiffré</span>
+        <span><span style="color: #ff4444; font-weight: 700;">■</span> Clé</span>
+        <span><span style="color: #b06cff; font-weight: 700;">■</span> Message chiffré</span>
     </div>
 
     <section>
@@ -33,9 +33,9 @@
         <p>Le chiffrement de Vigenère utilise :</p>
         <ul>
             <li>un <span style="color: #00c8ff; font-weight: 600;">message clair</span> (le message à protéger),</li>
-            <li>une <span style="color: #ffaa00; font-weight: 600;">clé secrète</span> (un mot),</li>
+            <li>une <span style="color: #ff4444; font-weight: 600;">clé secrète</span> (un mot),</li>
             <li>un décalage différent pour chaque lettre, grâce à la <span
-                    style="color: #ffaa00; font-weight: 600;">clé</span>.</li>
+                    style="color: #ff4444; font-weight: 600;">clé</span>.</li>
         </ul>
         <div class="lesson-example-box">
             <p><strong>À noter :</strong> Contrairement au chiffrement de César (qui utilise toujours le même décalage),
@@ -45,14 +45,14 @@
 
     <section>
         <h2>3. Comment fonctionne la clé ?</h2>
-        <p>La <span style="color: #ffaa00; font-weight: 600;">clé</span> est un mot que l'on répète autant de fois que
+        <p>La <span style="color: #ff4444; font-weight: 600;">clé</span> est un mot que l'on répète autant de fois que
             nécessaire pour couvrir tout le message.</p>
         <div class="lesson-example-box">
             <strong>Exemple :</strong>
             <p><span style="color: #00c8ff; font-weight: 600;">Message :</span> BONJOUR</p>
-            <p><span style="color: #ffaa00; font-weight: 600;">Clé :</span> CLE</p>
-            <p><span style="color: #ffaa00; font-weight: 600;">On répète la clé :</span> CLECLEC</p>
-            <p>Chaque lettre de la <span style="color: #ffaa00; font-weight: 600;">clé</span> indique combien on décale
+            <p><span style="color: #ff4444; font-weight: 600;">Clé :</span> CLE</p>
+            <p><span style="color: #ff4444; font-weight: 600;">On répète la clé :</span> CLECLEC</p>
+            <p>Chaque lettre de la <span style="color: #ff4444; font-weight: 600;">clé</span> indique combien on décale
                 la lettre du <span style="color: #00c8ff; font-weight: 600;">message</span>.</p>
         </div>
     </section>
@@ -89,7 +89,7 @@
         <div class="lesson-example-box">
             <strong>Exemple complet</strong>
             <p><span style="color: #00c8ff; font-weight: 600;">Message :</span> BONJOUR</p>
-            <p><span style="color: #ffaa00; font-weight: 600;">Clé répétée :</span> CLECLEC</p>
+            <p><span style="color: #ff4444; font-weight: 600;">Clé répétée :</span> CLECLEC</p>
             <table style="margin: 1rem auto; border-collapse: collapse;">
                 <tr>
                     <th style="border: 1px solid #ddd; padding: 8px; color: #00c8ff;">Message</th>
@@ -112,17 +112,17 @@
                     <td style="border: 1px solid #ddd; padding: 8px;">17</td>
                 </tr>
                 <tr>
-                    <th style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">Clé</th>
-                    <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">C</td>
-                    <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">L</td>
-                    <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">E</td>
-                    <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">C</td>
-                    <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">L</td>
-                    <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">E</td>
-                    <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">C</td>
+                    <th style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">Clé</th>
+                    <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">C</td>
+                    <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">L</td>
+                    <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">E</td>
+                    <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">C</td>
+                    <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">L</td>
+                    <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">E</td>
+                    <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">C</td>
                 </tr>
                 <tr>
-                    <th style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">Valeur</th>
+                    <th style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">Valeur</th>
                     <td style="border: 1px solid #ddd; padding: 8px;">2</td>
                     <td style="border: 1px solid #ddd; padding: 8px;">11</td>
                     <td style="border: 1px solid #ddd; padding: 8px;">4</td>
@@ -142,17 +142,17 @@
                     <td style="border: 1px solid #ddd; padding: 8px;">17+2</td>
                 </tr>
                 <tr>
-                    <th style="border: 1px solid #ddd; padding: 8px; color: #ff6b9d;">Résultat</th>
-                    <td style="border: 1px solid #ddd; padding: 8px; color: #ff6b9d;">D</td>
-                    <td style="border: 1px solid #ddd; padding: 8px; color: #ff6b9d;">Z</td>
-                    <td style="border: 1px solid #ddd; padding: 8px; color: #ff6b9d;">R</td>
-                    <td style="border: 1px solid #ddd; padding: 8px; color: #ff6b9d;">L</td>
-                    <td style="border: 1px solid #ddd; padding: 8px; color: #ff6b9d;">Z</td>
-                    <td style="border: 1px solid #ddd; padding: 8px; color: #ff6b9d;">Y</td>
-                    <td style="border: 1px solid #ddd; padding: 8px; color: #ff6b9d;">T</td>
+                    <th style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">Résultat</th>
+                    <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">D</td>
+                    <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">Z</td>
+                    <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">R</td>
+                    <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">L</td>
+                    <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">Z</td>
+                    <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">Y</td>
+                    <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">T</td>
                 </tr>
             </table>
-            <p><span style="color: #ff6b9d; font-weight: 600;">Message chiffré :</span> DZR LZYT</p>
+            <p><span style="color: #b06cff; font-weight: 600;">Message chiffré :</span> DZR LZYT</p>
         </div>
     </section>
 
@@ -160,32 +160,32 @@
         <h2>6. Déchiffrer un message de Vigenère</h2>
 
         <h3 style="margin-top: 1.5rem;">Exemple de déchiffrement</h3>
-        <p><span style="color: #ff6b9d; font-weight: 600;">Message chiffré :</span> DZR LZYT</p>
-        <p><span style="color: #ffaa00; font-weight: 600;">Clé :</span> CLE</p>
+        <p><span style="color: #b06cff; font-weight: 600;">Message chiffré :</span> DZR LZYT</p>
+        <p><span style="color: #ff4444; font-weight: 600;">Clé :</span> CLE</p>
 
         <h4 style="margin-top: 1.5rem;">1. Répéter la clé</h4>
-        <p>On répète la <span style="color: #ffaa00; font-weight: 600;">clé</span> pour qu'elle ait la même longueur que
-            le <span style="color: #ff6b9d; font-weight: 600;">message chiffré</span> (sans les espaces) :</p>
+        <p>On répète la <span style="color: #ff4444; font-weight: 600;">clé</span> pour qu'elle ait la même longueur que
+            le <span style="color: #b06cff; font-weight: 600;">message chiffré</span> (sans les espaces) :</p>
         <table style="margin: 1rem auto; border-collapse: collapse;">
             <tr>
-                <th style="border: 1px solid #ddd; padding: 8px; color: #ff6b9d;">Message chiffré :</th>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ff6b9d;">D</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ff6b9d;">Z</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ff6b9d;">R</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ff6b9d;">L</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ff6b9d;">Z</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ff6b9d;">Y</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ff6b9d;">T</td>
+                <th style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">Message chiffré :</th>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">D</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">Z</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">R</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">L</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">Z</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">Y</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">T</td>
             </tr>
             <tr>
-                <th style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">Clé répétée :</th>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">C</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">L</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">E</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">C</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">L</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">E</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">C</td>
+                <th style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">Clé répétée :</th>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">C</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">L</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">E</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">C</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">L</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">E</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">C</td>
             </tr>
         </table>
 
@@ -216,20 +216,20 @@
         <h4 style="margin-top: 1.5rem;">3. Déchiffrement étape par étape</h4>
         <div class="lesson-example-box">
             <p><strong>Cette fois, on fait l'opération inverse :</strong> <span
-                    style="color: #ff6b9d; font-weight: 600;">lettre chiffrée</span> − <span
-                    style="color: #ffaa00; font-weight: 600;">lettre de la clé</span></p>
+                    style="color: #b06cff; font-weight: 600;">lettre chiffrée</span> − <span
+                    style="color: #ff4444; font-weight: 600;">lettre de la clé</span></p>
         </div>
 
         <table style="margin: 1rem auto; border-collapse: collapse;">
             <tr>
-                <th style="border: 1px solid #ddd; padding: 8px; color: #ff6b9d;">Chiffré</th>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ff6b9d;">D</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ff6b9d;">Z</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ff6b9d;">R</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ff6b9d;">L</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ff6b9d;">Z</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ff6b9d;">Y</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ff6b9d;">T</td>
+                <th style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">Chiffré</th>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">D</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">Z</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">R</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">L</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">Z</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">Y</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">T</td>
             </tr>
             <tr>
                 <th style="border: 1px solid #ddd; padding: 8px;">Valeur</th>
@@ -242,17 +242,17 @@
                 <td style="border: 1px solid #ddd; padding: 8px;">19</td>
             </tr>
             <tr>
-                <th style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">Clé</th>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">C</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">L</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">E</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">C</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">L</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">E</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">C</td>
+                <th style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">Clé</th>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">C</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">L</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">E</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">C</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">L</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">E</td>
+                <td style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">C</td>
             </tr>
             <tr>
-                <th style="border: 1px solid #ddd; padding: 8px; color: #ffaa00;">Valeur</th>
+                <th style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">Valeur</th>
                 <td style="border: 1px solid #ddd; padding: 8px;">2</td>
                 <td style="border: 1px solid #ddd; padding: 8px;">11</td>
                 <td style="border: 1px solid #ddd; padding: 8px;">4</td>
@@ -314,13 +314,13 @@
             <ul style="margin-left: 1.5rem;">
                 <li>le décalage change à chaque lettre,</li>
                 <li>plus résistant que le chiffrement de César,</li>
-                <li>difficile à casser sans la <span style="color: #ffaa00; font-weight: 600;">clé</span>.</li>
+                <li>difficile à casser sans la <span style="color: #ff4444; font-weight: 600;">clé</span>.</li>
             </ul>
         </div>
         <div class="lesson-example-box" style="margin-top: 1rem;">
             <p><strong>Limites :</strong></p>
             <ul style="margin-left: 1.5rem;">
-                <li>si la <span style="color: #ffaa00; font-weight: 600;">clé</span> est courte et répétée souvent, elle
+                <li>si la <span style="color: #ff4444; font-weight: 600;">clé</span> est courte et répétée souvent, elle
                     peut être retrouvée,</li>
                 <li>aujourd'hui, il n'est plus assez sécurisé pour protéger des données sensibles.</li>
             </ul>
