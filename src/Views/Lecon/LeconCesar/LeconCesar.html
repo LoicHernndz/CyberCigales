@@ -4,79 +4,368 @@
         <span>/ Chiffrement de César</span>
     </div>
 
-    <h1>Le Chiffrement de César</h1>
-    <p class="intro-text">Découvre le fonctionnement du chiffrement de César à travers théorie, histoire et exemples pratiques.</p>
+    <h1>Le chiffrement de César</h1>
+    <p class="intro-text">Le chiffrement le plus simple à comprendre</p>
 
     <section>
-        <h2>1) Origine historique</h2>
-        <p>Jules César utilisait ce système pour envoyer des messages codés à ses généraux : chaque lettre était décalée d’un nombre fixe, souvent k = 3.</p>
-        <div class="lesson-example-box">
-            <strong>Exemple :</strong> « RENDEZ-VOUS DEMAIN » devient « UHQGHC-YRXV GHPDLQ » pour k = 3.
-        </div>
+        <h2>1. À quoi sert le chiffrement ?</h2>
+        <p>Le chiffrement permet de cacher un message afin qu'il ne soit lisible que par les personnes autorisées.</p>
+        <p>Le chiffrement de César est l'un des plus anciens chiffrements connus.</p>
+        <p>Il consiste à décaler chaque lettre du message d'un nombre fixe de positions dans l'alphabet.</p>
     </section>
 
     <section>
-        <h2>2) Principe mathématique</h2>
-        <p>Chaque lettre est remplacée par la lettre décalée de k positions dans l’alphabet :</p>
-        <div class="code-block">C = (P + k) mod 26</div>
-        <p>Pour déchiffrer :</p>
-        <div class="code-block">P = (C - k) mod 26</div>
-        <p>Où <strong>P</strong> est la position de la lettre claire et <strong>C</strong> celle de la lettre chiffrée.</p>
-    </section>
-
-    <section>
-        <h2>3) Implémentation</h2>
-        <pre class="code-block">
-// Entrées : texte, clé k
-pour chaque caractère ch dans texte :
-  si ch est une lettre :
-    pos = ord(ch) - ord('A')
-    pos2 = (pos + k) % 26
-    résultat += chr(ord('A') + pos2)
-  sinon :
-    résultat += ch</pre>
-    </section>
-
-    <section>
-        <h2>4) Cryptanalyse</h2>
-        <p>Le chiffrement de César conserve les fréquences des lettres. Cette propriété permet une attaque par <strong>analyse de fréquence</strong>.</p>
-        <div class="lesson-example-box">
-            Étapes :
-            <ol style="margin-left: 1.5rem;">
-                <li>Mesurer la fréquence des lettres du texte chiffré.</li>
-                <li>Comparer avec la distribution normale du français.</li>
-                <li>En déduire la clé probable k.</li>
-            </ol>
-        </div>
-
-        <div class="frequency-grid">
-            <div class="freq-cell">A: 9.4%</div><div class="freq-cell">B: 1.0%</div>
-            <div class="freq-cell">C: 2.6%</div><div class="freq-cell">D: 3.4%</div>
-            <div class="freq-cell">E: 15.9%</div><div class="freq-cell">F: 1.0%</div>
-            <div class="freq-cell">G: 1.0%</div><div class="freq-cell">H: 0.8%</div>
-            <div class="freq-cell">I: 8.4%</div><div class="freq-cell">J: 0.9%</div>
-            <div class="freq-cell">L: 5.3%</div><div class="freq-cell">M: 3.2%</div>
-        </div>
-    </section>
-
-    <section>
-        <h2>5) Exercices</h2>
-        <div class="exercise-list">
-            <ol>
-                <li>Chiffre « HELLO » avec k = 3 → « KHOOR ».</li>
-                <li>Déchiffre « FRZDUG » avec k = 3.</li>
-                <li>Teste tous les k possibles pour casser le message « ERQMRXU ».</li>
-            </ol>
-        </div>
-    </section>
-
-    <section>
-        <h2>6) Variantes</h2>
-        <ul style="list-style-type: none; padding-left: 0;">
-            <li style="margin-bottom: 0.5rem;"><span class="material-icons" style="font-size: 16px; color: #00ff41; vertical-align: middle;">chevron_right</span> <strong>ROT13</strong> — décalage de 13, auto-inverse.</li>
-            <li style="margin-bottom: 0.5rem;"><span class="material-icons" style="font-size: 16px; color: #00ff41; vertical-align: middle;">chevron_right</span> <strong>Vigenère</strong> — clé répétée, polyalphabétique.</li>
-            <li><span class="material-icons" style="font-size: 16px; color: #00ff41; vertical-align: middle;">chevron_right</span> <strong>Vernam</strong> — clé aléatoire, sécurité parfaite.</li>
+        <h2>2. Le principe du chiffrement de César</h2>
+        <p>On choisit :</p>
+        <ul>
+            <li>un message clair,</li>
+            <li>un décalage (un nombre).</li>
         </ul>
+        <div class="lesson-example-box">
+            <p><strong>À noter :</strong> Toutes les lettres du message sont décalées du même nombre.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2>3. Associer les lettres à des nombres</h2>
+        <table style="margin: 1rem auto; border-collapse: collapse;">
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">Lettre</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">A</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">B</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">C</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">D</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">E</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">...</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Z</th>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">Nombre</th>
+                <td style="border: 1px solid #ddd; padding: 8px;">0</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">1</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">2</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">3</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">4</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">...</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">25</td>
+            </tr>
+        </table>
+    </section>
+
+    <section>
+        <h2>4. Exemple de chiffrement (pas à pas)</h2>
+        <p><strong>Message clair :</strong> BONJOUR</p>
+        <p><strong>Décalage choisi :</strong> +3</p>
+        
+        <h3 style="margin-top: 1.5rem;">Calcul lettre par lettre</h3>
+        <table style="margin: 1rem auto; border-collapse: collapse;">
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">Message</th>
+                <td style="border: 1px solid #ddd; padding: 8px;">B</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">O</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">N</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">J</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">O</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">U</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">R</td>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">Valeur</th>
+                <td style="border: 1px solid #ddd; padding: 8px;">1</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">14</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">13</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">9</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">14</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">20</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">17</td>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">+3</th>
+                <td style="border: 1px solid #ddd; padding: 8px;">4</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">17</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">16</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">12</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">17</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">23</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">20</td>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">Résultat</th>
+                <td style="border: 1px solid #ddd; padding: 8px;">E</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">R</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">Q</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">M</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">R</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">X</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">U</td>
+            </tr>
+        </table>
+        
+        <div class="lesson-example-box">
+            <p><strong>Message chiffré :</strong> ERQMRXU</p>
+        </div>
+    </section>
+
+    <section>
+        <h2>5. Exemple de déchiffrement</h2>
+        <p><strong>Message chiffré :</strong> ERQMRXU</p>
+        <p><strong>Décalage :</strong> −3</p>
+        
+        <h3 style="margin-top: 1.5rem;">Calcul inverse</h3>
+        <table style="margin: 1rem auto; border-collapse: collapse;">
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">Chiffré</th>
+                <td style="border: 1px solid #ddd; padding: 8px;">E</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">R</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">Q</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">M</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">R</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">X</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">U</td>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">Valeur</th>
+                <td style="border: 1px solid #ddd; padding: 8px;">4</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">17</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">16</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">12</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">17</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">23</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">20</td>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">−3</th>
+                <td style="border: 1px solid #ddd; padding: 8px;">1</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">14</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">13</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">9</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">14</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">20</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">17</td>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">Résultat</th>
+                <td style="border: 1px solid #ddd; padding: 8px;">B</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">O</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">N</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">J</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">O</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">U</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">R</td>
+            </tr>
+        </table>
+        
+        <div class="lesson-example-box">
+            <p><strong>Message clair :</strong> BONJOUR</p>
+        </div>
+        
+        <div class="lesson-example-box" style="margin-top: 1rem;">
+            <p><strong>Astuce importante</strong></p>
+            <p>Si le résultat dépasse Z ou devient négatif, on fait un tour de l'alphabet.</p>
+            <p><strong>Exemples :</strong></p>
+            <ul style="margin-left: 1.5rem;">
+                <li>Y + 3 → B</li>
+                <li>A − 3 → X</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2>6. Avantages et limites</h2>
+        <div class="lesson-example-box">
+            <p><strong>Avantages</strong></p>
+            <ul style="margin-left: 1.5rem;">
+                <li>Très simple à comprendre</li>
+                <li>Bon outil pédagogique</li>
+                <li>Rapide à utiliser</li>
+            </ul>
+        </div>
+        <div class="lesson-example-box" style="margin-top: 1rem;">
+            <p><strong>Limites</strong></p>
+            <ul style="margin-left: 1.5rem;">
+                <li>Toujours le même décalage</li>
+                <li>Facile à casser avec une analyse de fréquences</li>
+                <li>Peu sécurisé aujourd'hui</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2>7. Analyse par fréquence (avec le chiffrement de César)</h2>
+        
+        <h3 style="margin-top: 1.5rem;">1. Qu'est-ce que l'analyse par fréquence ?</h3>
+        <p>L'analyse par fréquence consiste à :</p>
+        <ul>
+            <li>compter combien de fois chaque lettre apparaît dans un message chiffré,</li>
+            <li>comparer ces fréquences avec celles de la langue française.</li>
+        </ul>
+        <div class="lesson-example-box">
+            <p><strong>En français, certaines lettres apparaissent très souvent :</strong></p>
+            <ul style="margin-left: 1.5rem;">
+                <li>E est la lettre la plus fréquente</li>
+                <li>puis A, S, I, N, T, R</li>
+            </ul>
+        </div>
+        <p>Cette méthode est très efficace contre le chiffrement de César, car le décalage est toujours le même.</p>
+        
+        <h3 style="margin-top: 1.5rem;">2. Message chiffré à analyser</h3>
+        <p>On nous donne le message chiffré suivant :</p>
+        <div class="lesson-example-box">
+            <p style="text-align: center; font-size: 1.2rem;"><strong>ERQMRXU ERQMRXU</strong></p>
+            <p style="text-align: center;">(On ne connaît PAS le décalage.)</p>
+        </div>
+        
+        <h3 style="margin-top: 1.5rem;">3. Étape 1 : compter les lettres</h3>
+        <p>On compte le nombre d'apparitions de chaque lettre :</p>
+        <table style="margin: 1rem auto; border-collapse: collapse;">
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">Lettre</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Nombre d'apparitions</th>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #ddd; padding: 8px;">E</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">2</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #ddd; padding: 8px;">R</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">4</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #ddd; padding: 8px;">Q</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">2</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #ddd; padding: 8px;">M</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">2</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #ddd; padding: 8px;">X</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">2</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #ddd; padding: 8px;">U</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">2</td>
+            </tr>
+        </table>
+        <div class="lesson-example-box">
+            <p><strong>Observation :</strong> La lettre la plus fréquente est R.</p>
+        </div>
+        
+        <h3 style="margin-top: 1.5rem;">4. Étape 2 : faire une hypothèse</h3>
+        <p>En français, la lettre la plus fréquente est E.</p>
+        <div class="lesson-example-box">
+            <p><strong>Hypothèse :</strong> R (dans le message chiffré) correspond à E (en français).</p>
+        </div>
+        
+        <h3 style="margin-top: 1.5rem;">5. Étape 3 : calculer le décalage</h3>
+        <p>On associe les lettres à des nombres :</p>
+        <table style="margin: 1rem auto; border-collapse: collapse;">
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">Lettre</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">E</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">R</th>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">Valeur</th>
+                <td style="border: 1px solid #ddd; padding: 8px;">4</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">17</td>
+            </tr>
+        </table>
+        <p><strong>Calcul du décalage :</strong></p>
+        <div class="code-block">17 − 4 = 13</div>
+        <div class="lesson-example-box">
+            <p><strong>Décalage probable :</strong> +13</p>
+        </div>
+        
+        <h3 style="margin-top: 1.5rem;">6. Étape 4 : déchiffrer avec ce décalage</h3>
+        <p>On enlève 13 à chaque lettre :</p>
+        <table style="margin: 1rem auto; border-collapse: collapse;">
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">Lettre chiffrée</th>
+                <td style="border: 1px solid #ddd; padding: 8px;">E</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">R</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">Q</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">M</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">R</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">X</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">U</td>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">Valeur</th>
+                <td style="border: 1px solid #ddd; padding: 8px;">4</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">17</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">16</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">12</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">17</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">23</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">20</td>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">−13</th>
+                <td style="border: 1px solid #ddd; padding: 8px;">R</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">E</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">D</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">Z</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">E</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">K</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">H</td>
+            </tr>
+        </table>
+        <div class="lesson-example-box">
+            <p><strong>Résultat :</strong> REDZEKH REDZEKH</p>
+            <p style="color: #ff6b6b;"><strong>Problème :</strong> Ça ne ressemble pas encore à du français correct.</p>
+            <p>L'hypothèse était mauvaise.</p>
+        </div>
+        
+        <h3 style="margin-top: 1.5rem;">7. Étape 5 : nouvelle hypothèse</h3>
+        <p>La deuxième lettre fréquente en français est souvent O ou A.</p>
+        <p><strong>Essayons :</strong> R → O</p>
+        <table style="margin: 1rem auto; border-collapse: collapse;">
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">Lettre</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">R</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">O</th>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">Valeur</th>
+                <td style="border: 1px solid #ddd; padding: 8px;">17</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">14</td>
+            </tr>
+        </table>
+        <p><strong>Décalage :</strong></p>
+        <div class="code-block">17 − 14 = 3</div>
+        <div class="lesson-example-box">
+            <p><strong>Décalage = +3</strong></p>
+        </div>
+        
+        <h3 style="margin-top: 1.5rem;">8. Étape 6 : déchiffrement final</h3>
+        <p>On enlève 3 à chaque lettre :</p>
+        <table style="margin: 1rem auto; border-collapse: collapse;">
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">Chiffré</th>
+                <td style="border: 1px solid #ddd; padding: 8px;">E</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">R</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">Q</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">M</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">R</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">X</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">U</td>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">−3</th>
+                <td style="border: 1px solid #ddd; padding: 8px;">B</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">O</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">N</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">J</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">O</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">U</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">R</td>
+            </tr>
+        </table>
+        <div class="lesson-example-box">
+            <p><strong>Résultat :</strong> BONJOUR BONJOUR</p>
+            <p><strong>Message clair trouvé !</strong></p>
+        </div>
     </section>
 
     <div style="text-align: center; margin-top: 3rem;">

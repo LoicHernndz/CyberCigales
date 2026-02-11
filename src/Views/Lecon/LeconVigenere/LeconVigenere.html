@@ -4,63 +4,310 @@
         <span>/ Chiffrement de Vigenère</span>
     </div>
 
-    <h1>Chiffrement de Vigenère</h1>
-    <p class="intro-text">Le chiffrement polyalphabétique "indéchiffrable" pendant des siècles.</p>
+    <h1>Le chiffrement de Vigenère</h1>
+    <p class="intro-text">Comprendre un chiffrement simple et malin</p>
 
     <section>
-        <h2>1) Origine historique</h2>
-        <p>Inventé au XVIe siècle, ce chiffrement améliore le César en utilisant une clé répétée pour décaler les lettres selon plusieurs alphabets.</p>
+        <h2>1. À quoi sert le chiffrement ?</h2>
+        <p>Le chiffrement permet de rendre un message illisible pour toute personne qui ne possède pas la bonne information pour le comprendre.</p>
+        <p>Il est utilisé pour :</p>
+        <ul>
+            <li>protéger des messages,</li>
+            <li>sécuriser des données,</li>
+            <li>éviter que des informations confidentielles soient lues par des personnes non autorisées.</li>
+        </ul>
+        <p>Le chiffrement de Vigenère est un chiffrement par substitution, c'est-à-dire que chaque lettre du message est remplacée par une autre lettre.</p>
+    </section>
+
+    <section>
+        <h2>2. Le principe du chiffrement de Vigenère</h2>
+        <p>Le chiffrement de Vigenère utilise :</p>
+        <ul>
+            <li>un message clair (le message à protéger),</li>
+            <li>une clé secrète (un mot),</li>
+            <li>un décalage différent pour chaque lettre, grâce à la clé.</li>
+        </ul>
         <div class="lesson-example-box">
-            <strong>Exemple :</strong> Texte « BONJOUR » avec clé « CLE » → « DQPLQVS ».
+            <p><strong>À noter :</strong> Contrairement au chiffrement de César (qui utilise toujours le même décalage), Vigenère change le décalage à chaque lettre, ce qui le rend plus sécurisé.</p>
         </div>
     </section>
 
     <section>
-        <h2>2) Principe mathématique</h2>
-        <p>Chaque lettre du texte clair est décalée selon la lettre correspondante de la clé :</p>
-        <div class="code-block">C_i = (P_i + K_i) mod 26</div>
-        <p>Pour déchiffrer :</p>
-        <div class="code-block">P_i = (C_i - K_i) mod 26</div>
-    </section>
-
-    <section>
-        <h2>3) Implémentation</h2>
-        <pre class="code-block">
-// Entrées : texte, clé
-texte = texte.upper()
-clé = clé.upper()
-résultat = ""
-for i de 0 à len(texte)-1 :
-  si texte[i] est une lettre :
-    P = ord(texte[i]) - ord('A')
-    K = ord(clé[i % len(clé)]) - ord('A')
-    C = (P + K) % 26
-    résultat += chr(ord('A') + C)
-  sinon :
-    résultat += texte[i]</pre>
-    </section>
-
-    <section>
-        <h2>4) Cryptanalyse</h2>
-        <p>La répétition de la clé crée des motifs détectables (Attaque de Kasiski).</p>
+        <h2>3. Comment fonctionne la clé ?</h2>
+        <p>La clé est un mot que l'on répète autant de fois que nécessaire pour couvrir tout le message.</p>
         <div class="lesson-example-box">
-            <strong>Méthode :</strong>
-            <ol style="margin-left: 1.5rem;">
-                <li>Identifier les répétitions de séquences.</li>
-                <li>Mesurer les distances pour déduire la longueur de la clé.</li>
-                <li>Appliquer l'analyse de fréquence sur les sous-textes.</li>
-            </ol>
+            <strong>Exemple :</strong>
+            <p><strong>Message :</strong> BONJOUR</p>
+            <p><strong>Clé :</strong> CLE</p>
+            <p><strong>On répète la clé :</strong> CLECLEC</p>
+            <p>Chaque lettre de la clé indique combien on décale la lettre du message.</p>
         </div>
     </section>
 
     <section>
-        <h2>5) Exercices</h2>
-        <div class="exercise-list">
-            <ol>
-                <li>Chiffre « SALUT » avec clé « ABC ».</li>
-                <li>Déchiffre « DQPLQVS » avec clé « CLE ».</li>
-                <li>Teste une clé courte pour deviner un message chiffré « WFSJX ».</li>
-            </ol>
+        <h2>4. Associer les lettres à des nombres</h2>
+        <p>Pour chiffrer, on associe chaque lettre à un nombre :</p>
+        <table style="margin: 1rem auto; border-collapse: collapse;">
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">Lettre</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">A</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">B</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">C</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">D</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">E</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">...</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Z</th>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">Nombre</th>
+                <td style="border: 1px solid #ddd; padding: 8px;">0</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">1</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">2</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">3</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">4</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">...</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">25</td>
+            </tr>
+        </table>
+    </section>
+
+    <section>
+        <h2>5. Chiffrement étape par étape</h2>
+        <div class="lesson-example-box">
+            <strong>Exemple complet</strong>
+            <p><strong>Message :</strong> BONJOUR</p>
+            <p><strong>Clé répétée :</strong> CLECLEC</p>
+            <table style="margin: 1rem auto; border-collapse: collapse;">
+                <tr>
+                    <th style="border: 1px solid #ddd; padding: 8px;">Message</th>
+                    <td style="border: 1px solid #ddd; padding: 8px;">B</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">O</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">N</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">J</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">O</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">U</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">R</td>
+                </tr>
+                <tr>
+                    <th style="border: 1px solid #ddd; padding: 8px;">Valeur</th>
+                    <td style="border: 1px solid #ddd; padding: 8px;">1</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">14</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">13</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">9</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">14</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">20</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">17</td>
+                </tr>
+                <tr>
+                    <th style="border: 1px solid #ddd; padding: 8px;">Clé</th>
+                    <td style="border: 1px solid #ddd; padding: 8px;">C</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">L</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">E</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">C</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">L</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">E</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">C</td>
+                </tr>
+                <tr>
+                    <th style="border: 1px solid #ddd; padding: 8px;">Valeur</th>
+                    <td style="border: 1px solid #ddd; padding: 8px;">2</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">11</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">4</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">2</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">11</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">4</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">2</td>
+                </tr>
+                <tr>
+                    <th style="border: 1px solid #ddd; padding: 8px;">Calcul</th>
+                    <td style="border: 1px solid #ddd; padding: 8px;">1+2</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">14+11</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">13+4</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">9+2</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">14+11</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">20+4</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">17+2</td>
+                </tr>
+                <tr>
+                    <th style="border: 1px solid #ddd; padding: 8px;">Résultat</th>
+                    <td style="border: 1px solid #ddd; padding: 8px;">D</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Z</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">R</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">L</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Z</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Y</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">T</td>
+                </tr>
+            </table>
+            <p><strong>Message chiffré :</strong> DZR LZYT</p>
+        </div>
+    </section>
+
+    <section>
+        <h2>6. Déchiffrer un message de Vigenère</h2>
+        
+        <h3 style="margin-top: 1.5rem;">Exemple de déchiffrement du chiffrement de Vigenère</h3>
+        
+        <p><strong>Message chiffré :</strong> DZR LZYT</p>
+        <p><strong>Clé :</strong> CLE</p>
+        
+        <h4 style="margin-top: 1.5rem;">1. Répéter la clé</h4>
+        <p>On répète la clé pour qu'elle ait la même longueur que le message chiffré (sans les espaces) :</p>
+        <table style="margin: 1rem auto; border-collapse: collapse;">
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">Message chiffré :</th>
+                <td style="border: 1px solid #ddd; padding: 8px;">D</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">Z</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">R</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">L</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">Z</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">Y</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">T</td>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">Clé répétée :</th>
+                <td style="border: 1px solid #ddd; padding: 8px;">C</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">L</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">E</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">C</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">L</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">E</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">C</td>
+            </tr>
+        </table>
+        
+        <h4 style="margin-top: 1.5rem;">2. Associer les lettres à des nombres</h4>
+        <table style="margin: 1rem auto; border-collapse: collapse;">
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">Lettre</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">A</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">B</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">C</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">D</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">E</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">...</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Z</th>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">Nombre</th>
+                <td style="border: 1px solid #ddd; padding: 8px;">0</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">1</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">2</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">3</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">4</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">...</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">25</td>
+            </tr>
+        </table>
+        
+        <h4 style="margin-top: 1.5rem;">3. Déchiffrement étape par étape</h4>
+        <div class="lesson-example-box">
+            <p><strong>Cette fois, on fait l'opération inverse :</strong> lettre chiffrée − lettre de la clé</p>
+        </div>
+        
+        <table style="margin: 1rem auto; border-collapse: collapse;">
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">Chiffré</th>
+                <td style="border: 1px solid #ddd; padding: 8px;">D</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">Z</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">R</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">L</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">Z</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">Y</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">T</td>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">Valeur</th>
+                <td style="border: 1px solid #ddd; padding: 8px;">3</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">25</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">17</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">11</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">25</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">24</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">19</td>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">Clé</th>
+                <td style="border: 1px solid #ddd; padding: 8px;">C</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">L</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">E</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">C</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">L</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">E</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">C</td>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">Valeur</th>
+                <td style="border: 1px solid #ddd; padding: 8px;">2</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">11</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">4</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">2</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">11</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">4</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">2</td>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">Calcul</th>
+                <td style="border: 1px solid #ddd; padding: 8px;">3−2</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">25−11</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">17−4</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">11−2</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">25−11</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">24−4</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">19−2</td>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">Résultat</th>
+                <td style="border: 1px solid #ddd; padding: 8px;">B</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">O</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">N</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">J</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">O</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">U</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">R</td>
+            </tr>
+        </table>
+        
+        <h4 style="margin-top: 1.5rem;">4. Message déchiffré</h4>
+        <div class="lesson-example-box">
+            <p><strong>Message clair :</strong> BONJOUR</p>
+        </div>
+        
+        <div class="lesson-example-box" style="margin-top: 1rem;">
+            <p><strong>Astuce importante</strong></p>
+            <p>Si le résultat du calcul est négatif, on ajoute 26.</p>
+            <p><strong>Exemple :</strong></p>
+            <ul style="margin-left: 1.5rem;">
+                <li>2 − 5 = −3</li>
+                <li>−3 + 26 = 23 → X</li>
+            </ul>
+        </div>
+        
+        <div class="lesson-example-box" style="margin-top: 1rem;">
+            <p><strong>À retenir</strong></p>
+            <ul style="margin-left: 1.5rem;">
+                <li><strong>Chiffrer</strong> → on additionne</li>
+                <li><strong>Déchiffrer</strong> → on soustrait</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2>7. Pourquoi Vigenère est plus sécurisé ?</h2>
+        <div class="lesson-example-box">
+            <p><strong>Avantages :</strong></p>
+            <ul style="margin-left: 1.5rem;">
+                <li>le décalage change à chaque lettre,</li>
+                <li>plus résistant que le chiffrement de César,</li>
+                <li>difficile à casser sans la clé.</li>
+            </ul>
+        </div>
+        <div class="lesson-example-box" style="margin-top: 1rem;">
+            <p><strong>Limites :</strong></p>
+            <ul style="margin-left: 1.5rem;">
+                <li>si la clé est courte et répétée souvent, elle peut être retrouvée,</li>
+                <li>aujourd'hui, il n'est plus assez sécurisé pour protéger des données sensibles.</li>
+            </ul>
         </div>
     </section>
 
