@@ -21,10 +21,10 @@ function kebabToPascal(string $segment): string {
 
 /**
  * Résout une URI en nom de classe contrôleur
+ * Même logique que index.php : une seule boucle du chemin le plus long au plus court
  * Retourne [className, params] ou [null, []] si introuvable
  */
 function resolveUri(string $uri): array {
-    // Cas spécial : accueil
     if ($uri === '/') {
         return ['Controllers\\Homepage', []];
     }
@@ -32,31 +32,18 @@ function resolveUri(string $uri): array {
     $segments = explode('/', trim($uri, '/'));
     $pascalSegments = array_map('kebabToPascal', $segments);
 
-    // Tentative 1 : correspondance directe
-    $controllerClass = 'Controllers\\' . implode('\\', $pascalSegments);
-    if (class_exists($controllerClass)) {
-        return [$controllerClass, []];
-    }
-
-    // Tentative 2 : convention Index
-    $indexClass = $controllerClass . '\\Index';
-    if (class_exists($indexClass)) {
-        return [$indexClass, []];
-    }
-
-    // Tentative 3 : recherche progressive avec paramètres
-    for ($i = count($pascalSegments) - 1; $i > 0; $i--) {
+    for ($i = count($pascalSegments); $i > 0; $i--) {
         $trySegments = array_slice($pascalSegments, 0, $i);
-        $params = array_slice($segments, $i);
+        $params = ($i < count($pascalSegments)) ? array_slice($segments, $i) : [];
 
         $tryClass = 'Controllers\\' . implode('\\', $trySegments);
+
         if (class_exists($tryClass)) {
             return [$tryClass, $params];
         }
 
-        $tryIndex = $tryClass . '\\Index';
-        if (class_exists($tryIndex)) {
-            return [$tryIndex, $params];
+        if (class_exists($tryClass . '\\Index')) {
+            return [$tryClass . '\\Index', $params];
         }
     }
 
