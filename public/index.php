@@ -2,9 +2,8 @@
 /**
  * Point d'entrée de l'application CyberCigales
  * 
- * Ce fichier gère le routage principal de l'application.
- * Il charge l'autoloader, gère les routes dynamiques (Instagram)
- * et les routes statiques définies dans Routes.php.
+ * Routeur entièrement dynamique : l'URL est convertie en namespace de contrôleur.
+ * Convention : /segment1/segment2 → Controllers\Segment1\Segment2 (kebab-case → PascalCase)
  * 
  * @package CyberCigales
  */
@@ -12,41 +11,73 @@
 include "../src/config/Autoloader.php";
 include "../src/helpers/session_helper.php";
 
-use config\Routes;
-
-// Recupere la requete actuelle en ignorant les parametres passes
+// Récupère l'URI sans les paramètres GET
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 
-// ========================================
-// ROUTES DYNAMIQUES INSTAGRAM
-// ========================================
-// Routes pour les profils utilisateurs Instagram: /instagram/user/{username}
-if (preg_match('#^/instagram/user/([^/]+)/chat$#', $uri)) {
-    $controller = new Controllers\Instagram\UserChat();
+// Cas spécial : page d'accueil
+if ($uri === '/') {
+    $controller = new Controllers\Homepage();
     $controller->control();
     exit();
 }
 
-if (preg_match('#^/instagram/user/([^/]+)$#', $uri)) {
-    $controller = new Controllers\Instagram\UserProfile();
+/**
+ * Convertit un segment d'URL kebab-case en PascalCase
+ * Exemple : "chiffrement-cesar" → "ChiffrementCesar"
+ */
+function kebabToPascal(string $segment): string {
+    return str_replace(' ', '', ucwords(str_replace('-', ' ', $segment)));
+}
+
+// Découpe l'URI en segments et convertit en PascalCase
+$segments = explode('/', trim($uri, '/'));
+$pascalSegments = array_map('kebabToPascal', $segments);
+
+// === Tentative 1 : correspondance directe ===
+// /user/login → Controllers\User\Login
+$controllerClass = 'Controllers\\' . implode('\\', $pascalSegments);
+
+if (class_exists($controllerClass)) {
+    $controller = new $controllerClass();
     $controller->control();
     exit();
 }
 
-// ========================================
-// ROUTES STATIQUES
-// ========================================
-//  On cherche a quel controleur correspond la requete actuelle
-foreach (Routes::$routes as $key => $value) {
-    if ($key == $uri) {
-        $controller = new $value();
-        $controller->control();  //  Execute l'action du controller (afficher une page et/ou actions)
+// === Tentative 2 : convention Index (pour les répertoires) ===
+// /lecon → Controllers\Lecon\Index
+$indexClass = $controllerClass . '\\Index';
+if (class_exists($indexClass)) {
+    $controller = new $indexClass();
+    $controller->control();
+    exit();
+}
+
+// === Tentative 3 : recherche progressive avec paramètres ===
+// /instagram/user/john/chat → Controllers\Instagram\User + params ['john', 'chat']
+for ($i = count($pascalSegments) - 1; $i > 0; $i--) {
+    $trySegments = array_slice($pascalSegments, 0, $i);
+    $params = array_slice($segments, $i); // segments originaux (non PascalCase) comme paramètres
+
+    $tryClass = 'Controllers\\' . implode('\\', $trySegments);
+
+    if (class_exists($tryClass)) {
+        $_REQUEST['route_params'] = $params;
+        $controller = new $tryClass();
+        $controller->control();
+        exit();
+    }
+
+    // Essai Index dans le sous-dossier
+    $tryIndex = $tryClass . '\\Index';
+    if (class_exists($tryIndex)) {
+        $_REQUEST['route_params'] = $params;
+        $controller = new $tryIndex();
+        $controller->control();
         exit();
     }
 }
 
-//  Securite : Si l'url ne correspond a aucune page / methode implemente -> ERREUR 404
+// === Aucune correspondance → 404 ===
 $controller = new Controllers\Error404\Error404();
 $controller->control();
-;
 exit();
