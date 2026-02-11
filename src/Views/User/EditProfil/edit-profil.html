@@ -11,8 +11,8 @@
         {{FLASH_MESSAGE}}
 
         <form method="post" action="/user/edit" class="auth-form">
-            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                <div class="form-group" style="flex: 1;">
+            <div class="form-row">
+                <div class="form-group">
                     <label for="prenom">
                         <span class="material-icons">badge</span>
                         Prénom
@@ -27,7 +27,7 @@
                             autocomplete="given-name">
                 </div>
 
-                <div class="form-group" style="flex: 1;">
+                <div class="form-group">
                     <label for="nom">
                         <span class="material-icons">badge</span>
                         Nom
@@ -86,13 +86,13 @@
                 <p>Pour modifier votre mot de passe, utilisez la <a href="/user/reset-password">page de réinitialisation</a></p>
             </div>
 
-            <div class="form-actions" style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;">
-                <button type="submit" name="submit" class="btn-auth" style="flex: 2;">
+            <div class="form-actions">
+                <button type="submit" name="submit" class="btn-auth btn-primary">
                     <span class="material-icons">save</span>
                     <span>Enregistrer les modifications</span>
                 </button>
 
-                <a href="/user/profil" class="btn-auth btn-secondary" style="flex: 1; text-align: center; justify-content: center;">
+                <a href="/user/profil" class="btn-auth btn-secondary">
                     <span class="material-icons">close</span>
                     <span>Annuler</span>
                 </a>
@@ -145,7 +145,7 @@
             <h3>Zone dangereuse</h3>
             <p>La suppression de compte est définitive. Vous ne pourrez pas récupérer les données que vous supprimez !</p>
             <form method="post" action="/user/delete">
-                <button class="btn-danger" onclick="return(confirm('Êtes-vous sûr de vouloir supprimer votre compte définitivement ?'));">
+                <button class="btn-danger" data-confirm="Êtes-vous sûr de vouloir supprimer votre compte définitivement ?">
                     <span class="material-icons">delete_forever</span>
                     <span>Supprimer mon compte</span>
                 </button>

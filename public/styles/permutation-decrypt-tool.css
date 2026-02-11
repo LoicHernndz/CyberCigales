@@ -328,3 +328,9 @@
         width: 100%;
     }
 }
+
+/* Icônes material inline dans le texte */
+.icon-inline {
+    vertical-align: middle;
+    font-size: 1.1em;
+}

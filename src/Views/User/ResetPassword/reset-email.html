@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="color-scheme" content="light dark">
+  <title>Réinitialisation du mot de passe</title>
+  <style>
+    @media (prefers-color-scheme: light) {
+      body { background: #ffffff !important; color: #0a0e27 !important; }
+      a.button { background:#00ff41 !important; color:#0a0e27 !important; border-color:#00ff41 !important; }
+      a.link { color:#006600 !important; }
+      h1, .accent { color:#008f2d !important; }
+    }
+  </style>
+</head>
+<body style="margin:0;padding:0;background:#0a0e27;color:#00ff41;font-family:'Courier New',monospace;">
+  <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;">
+    Lien valable 30 minutes. Si vous n'êtes pas à l'origine de cette demande, ignorez cet email.
+  </div>
+
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width:640px;margin:0 auto;">
+    <tr>
+      <td style="padding:24px;">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" 
+               style="background:linear-gradient(135deg,#0a0e27 0%,#1a1a2e 50%,#0f0f1e 100%);
+                      border:2px solid #00ff41;border-radius:10px;">
+          <tr>
+            <td style="padding:28px 24px 8px 24px;text-align:center;">
+              <div style="font-size:14px;letter-spacing:2px;text-transform:uppercase;color:#00ff41;">
+                &gt; CyberCigales
+              </div>
+              <h1 style="margin:12px 0 0 0;font-size:22px;line-height:1.35;color:#00ff41;
+                         text-shadow:0 0 6px #00ff41;">
+                Réinitialisation de votre mot de passe
+              </h1>
+            </td>
+          </tr>
+
+          <tr>
+            <td style="padding:16px 24px 0 24px;color:#00ffff;font-size:15px;line-height:1.55;">
+              <p style="margin:0 0 12px 0;">
+                Nous avons reçu une demande de réinitialisation de mot de passe pour votre compte.
+              </p>
+              <p style="margin:0 0 16px 0;">
+                Cliquez sur le bouton ci-dessous pour choisir un nouveau mot de passe. 
+                <strong style="color:#00ff41;">Le lien expire dans 30 minutes.</strong>
+              </p>
+            </td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 24px 4px 24px;text-align:center;">
+              <a href="{{RESET_LINK}}" 
+                 class="button"
+                 style="display:inline-block;padding:12px 22px;border:2px solid #00ff41;border-radius:8px;
+                        color:#00ff41;text-decoration:none;text-transform:uppercase;letter-spacing:2px;
+                        font-weight:bold;">
+                &gt; Réinitialiser le mot de passe
+              </a>
+            </td>
+          </tr>
+
+          <tr>
+            <td style="padding:12px 24px 0 24px;color:#00ffff;font-size:13px;line-height:1.6;">
+              <p style="margin:0 0 10px 0;">Si le bouton ne fonctionne pas, copiez ce lien :</p>
+              <p style="margin:0;word-break:break-all;">
+                <a href="{{RESET_LINK}}" class="link" style="color:#00ffff;text-decoration:underline;">{{RESET_LINK}}</a>
+              </p>
+            </td>
+          </tr>
+
+          <tr>
+            <td style="padding:18px 24px 0 24px;color:#00ffff;font-size:13px;line-height:1.6;">
+              <p style="margin:0 0 10px 0;">
+                Si vous n'êtes pas à l'origine de cette demande, ignorez cet e-mail ; 
+                votre mot de passe restera inchangé.
+              </p>
+            </td>
+          </tr>
+
+          <tr>
+            <td style="padding:22px 24px 24px 24px;">
+              <hr style="border:none;border-top:2px solid rgba(0,255,65,.3);margin:0 0 14px 0;">
+              <p style="margin:0;font-size:12px;color:#00ff41;text-transform:uppercase;letter-spacing:1px;text-align:center;">
+                © CyberCigales — Sécurité &amp; cybersécurité
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

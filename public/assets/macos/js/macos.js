@@ -117,9 +117,9 @@ function createNewWindow(appName) {
     windowElement.innerHTML = `
         <div class="title-bar p-2 flex items-center bg-white/50 border-b border-gray-200 cursor-default" data-drag-handle="true">
             <div class="window-controls flex space-x-2 mr-3">
-                <button class="w-3 h-3 bg-red-500 rounded-full hover:opacity-75" onclick="closeApp('${appName}')" title="Fermer"></button>
-                <button class="w-3 h-3 bg-yellow-500 rounded-full hover:opacity-75" onclick="minimizeApp('${appName}')" title="Minimiser"></button>
-                <button class="w-3 h-3 bg-green-500 rounded-full hover:opacity-75" onclick="maximizeApp('${appName}')" title="Agrandir"></button>
+                <button class="w-3 h-3 bg-red-500 rounded-full hover:opacity-75" data-window-action="close" data-window-app="${appName}" title="Fermer"></button>
+                <button class="w-3 h-3 bg-yellow-500 rounded-full hover:opacity-75" data-window-action="minimize" data-window-app="${appName}" title="Minimiser"></button>
+                <button class="w-3 h-3 bg-green-500 rounded-full hover:opacity-75" data-window-action="maximize" data-window-app="${appName}" title="Agrandir"></button>
             </div>
             <span class="text-sm font-semibold">${appName}</span>
         </div>
@@ -452,14 +452,27 @@ window.addEventListener('load', () => {
     // 3. Gestion de l'activation des fenêtres par clic
     document.getElementById('desktop').addEventListener('mousedown', handleWindowClick);
 
-    // 4. Exécuter openApp pour le Finder au chargement (pour simuler l'ouverture automatique)
-    // openApp('Finder');
-});
+    // 4. Liaison des icônes du dock via data-app (remplace les onclick inline)
+    document.querySelectorAll('[data-app]').forEach(function (el) {
+        el.addEventListener('click', function () {
+            openApp(this.getAttribute('data-app'));
+        });
+    });
 
-// Exporter les fonctions pour qu'elles soient accessibles depuis le HTML (comme openApp)
-window.openApp = openApp;
-window.closeApp = closeApp;
-window.minimizeApp = minimizeApp;
-window.maximizeApp = maximizeApp;
-window.toggleAppleMenu = toggleAppleMenu;
-window.toggleFileMenu = toggleFileMenu;
+    // 5. Liaison des menus (remplace les onclick inline)
+    var appleMenuEl = document.getElementById('apple-menu');
+    var fileMenuToggleEl = document.getElementById('file-menu-toggle');
+    if (appleMenuEl) appleMenuEl.addEventListener('click', toggleAppleMenu);
+    if (fileMenuToggleEl) fileMenuToggleEl.addEventListener('click', toggleFileMenu);
+
+    // 6. Event delegation pour les boutons de fenêtres (close/minimize/maximize)
+    document.addEventListener('click', function (e) {
+        var btn = e.target.closest('[data-window-action]');
+        if (!btn) return;
+        var action = btn.getAttribute('data-window-action');
+        var appName = btn.getAttribute('data-window-app');
+        if (action === 'close') closeApp(appName);
+        else if (action === 'minimize') minimizeApp(appName);
+        else if (action === 'maximize') maximizeApp(appName);
+    });
+});

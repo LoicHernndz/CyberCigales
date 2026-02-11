@@ -13,7 +13,7 @@ const PhishingGame = (function() {
                 <p>Cher client,</p>
                 <p>Nous avons détecté une activité suspecte sur votre compte bancaire. Par mesure de sécurité, nous avons temporairement restreint l'accès à vos fonds.</p>
                 <p><strong>Si vous n'agissez pas dans les 24 heures, votre compte sera définitivement bloqué.</strong></p>
-                <div style="text-align: center;">
+                <div class="email-cta-wrapper">
                     <a href="#" class="email-cta-button urgent">VÉRIFIER MON IDENTITÉ MAINTENANT</a>
                 </div>
                 <p>Ne répondez pas à cet email. Ceci est un message automatique.</p>
@@ -36,7 +36,7 @@ const PhishingGame = (function() {
                 <p>Vous avez été sélectionné pour gagner le nouvel <strong>iPhone 15 Pro</strong> !</p>
                 <p>Notre tirage au sort annuel a désigné votre adresse email comme grande gagnante.</p>
                 <p>Pour recevoir votre cadeau, il vous suffit de régler les frais de port (2.99€).</p>
-                <div style="text-align: center;">
+                <div class="email-cta-wrapper">
                     <a href="#" class="email-cta-button">RÉCLAMER MON IPHONE</a>
                 </div>
                 <p>Offre valable uniquement aujourd'hui.</p>
@@ -101,7 +101,7 @@ const PhishingGame = (function() {
                 <p>Madame, Monsieur,</p>
                 <p>Vous avez fait l\'objet d\'un flash radar le 14/12/2025. L\'amende forfaitaire est de 135€.</p>
                 <p>Conformément à l\'article 529 du code de procédure pénale, vous devez régler cette somme sous 3 jours pour éviter des poursuites judiciaires.</p>
-                <div style="text-align: center;">
+                <div class="email-cta-wrapper">
                     <a href="#" class="email-cta-button urgent">PAYER L\'AMENDE</a>
                 </div>
                 <p>En l\'absence de règlement, le dossier sera transmis au tribunal de grande instance.</p>
@@ -145,6 +145,23 @@ const PhishingGame = (function() {
             if (e.target.closest('.email-body-content a') || e.target.closest('.email-body-content .fake-link')) {
                 e.preventDefault();
             }
+        });
+
+        // Bind buttons (remplace les onclick inline)
+        var btnSafe = document.getElementById('btn-safe');
+        var btnShowTypes = document.getElementById('btn-show-types');
+        var btnNext = document.getElementById('btn-next-scenario');
+        var btnRestart = document.getElementById('btn-restart');
+
+        if (btnSafe) btnSafe.addEventListener('click', function () { makeDecision(false); });
+        if (btnShowTypes) btnShowTypes.addEventListener('click', showPhishingTypes);
+        if (btnNext) btnNext.addEventListener('click', nextScenario);
+        if (btnRestart) btnRestart.addEventListener('click', function () { location.reload(); });
+
+        document.querySelectorAll('[data-phishing-type]').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                makeDecision(true, this.getAttribute('data-phishing-type'));
+            });
         });
     }
 

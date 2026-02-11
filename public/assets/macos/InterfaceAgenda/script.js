@@ -152,3 +152,8 @@ function goToToday() {
 
 // Initialisation au chargement de la page
 renderCalendar();
+
+// Liaison des boutons par ID (remplace les onclick inline)
+document.getElementById('btn-today')?.addEventListener('click', goToToday);
+document.getElementById('btn-prev-month')?.addEventListener('click', function () { changeMonth(-1); });
+document.getElementById('btn-next-month')?.addEventListener('click', function () { changeMonth(1); });

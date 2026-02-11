@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="/styles/hamming-game.css">
+<link rel="stylesheet" href="/styles/frequency-game.css">
 
 <div class="hamming-game-container">
     <!-- Zone de dialogue -->
@@ -23,27 +24,25 @@
                 <span class="material-icons">lock</span>
                 Mission : Casser le chiffrement
             </h3>
-            <p style="color: #3c3c43; margin-bottom: 1rem;">Clique sur les lettres du texte chiffre pour indiquer leur
+            <p class="freq-description">Clique sur les lettres du texte chiffre pour indiquer leur
                 correspondance.</p>
-            <button class="btn-help" id="btn-start-game" style="background: #007aff; color: white; border: none;">
+            <button class="btn-help btn-start" id="btn-start-game">
                 <span class="material-icons">play_arrow</span>
                 <span>Lancer la mission</span>
             </button>
         </div>
 
         <!-- Ecran de jeu (cache au debut) -->
-        <div id="play-screen" style="display: none;">
+        <div id="play-screen" class="hidden">
             <!-- Texte chiffre -->
             <div class="square-section">
                 <h3>
                     <span class="material-icons">lock</span>
                     Texte Chiffre
                 </h3>
-                <p style="font-size: 0.8rem; color: #86868b; margin-bottom: 0.75rem;">Clique sur une lettre pour definir
+                <p class="freq-cipher-hint">Clique sur une lettre pour definir
                     sa correspondance</p>
-                <div id="cipher-text-container"
-                    style="font-family: 'SF Mono', monospace; font-size: 1.1rem; letter-spacing: 2px; line-height: 2; padding: 1rem; background: rgba(0,0,0,0.04); border-radius: 10px; border: 1px solid rgba(0,0,0,0.08);">
-                </div>
+                <div id="cipher-text-container" class="cipher-text-box"></div>
             </div>
 
             <!-- Dechiffrement -->
@@ -52,25 +51,23 @@
                     <span class="material-icons">lock_open</span>
                     Votre Dechiffrement
                 </h3>
-                <div id="preview-text-container"
-                    style="font-family: 'SF Mono', monospace; font-size: 1.1rem; letter-spacing: 2px; line-height: 2; padding: 1rem; background: rgba(52,199,89,0.08); border-radius: 10px; border: 1px solid rgba(52,199,89,0.2); color: #248a3d;">
-                </div>
+                <div id="preview-text-container" class="preview-text-box"></div>
             </div>
 
             <!-- Actions -->
-            <div style="display: flex; gap: 0.75rem; justify-content: center;">
+            <div class="freq-actions">
                 <button class="btn-help" id="btn-reset">
                     <span class="material-icons">restart_alt</span>
                     <span>Reinitialiser</span>
                 </button>
-                <button class="btn-help" id="btn-check" style="background: #34c759; color: white; border: none;">
+                <button class="btn-help btn-validate" id="btn-check">
                     <span class="material-icons">check</span>
                     <span>Valider</span>
                 </button>
             </div>
 
             <!-- Feedback -->
-            <div class="feedback-section" id="feedback-section" style="display: none;">
+            <div class="feedback-section hidden" id="feedback-section">
                 <div class="feedback-content" id="feedback-content"></div>
             </div>
         </div>
@@ -81,7 +78,7 @@
                 <span class="material-icons">help_outline</span>
                 <span>Informations utiles</span>
             </button>
-            <div class="help-content" id="help-content" style="display: none;">
+            <div class="help-content hidden" id="help-content">
                 <h4>Frequences des lettres en francais</h4>
                 <p>En langue francaise, certaines lettres apparaissent beaucoup plus souvent que d'autres.</p>
                 <p>La lettre <strong>E</strong> est de loin la plus frequente, elle represente environ 15% des lettres
@@ -95,18 +92,15 @@
         </div>
 
         <!-- Ecran de fin -->
-        <div id="end-screen" class="square-section" style="display: none; text-align: center;">
-            <span class="material-icons" style="font-size: 48px; color: #34c759;">check_circle</span>
+        <div id="end-screen" class="square-section freq-end-screen hidden">
+            <span class="material-icons freq-end-icon">check_circle</span>
             <h3>Message Decrypte !</h3>
-            <p id="final-message"
-                style="font-family: monospace; background: rgba(0,0,0,0.05); padding: 1rem; border-radius: 8px; color: #1d1d1f;">
-            </p>
-            <p style="margin-top: 1rem; color: #86868b; font-size: 0.85rem;">
+            <p id="final-message" class="freq-final-message"></p>
+            <p class="freq-end-note">
                 L'analyse frequentielle exploite le fait que certaines lettres apparaissent plus souvent en francais. Le
                 'E' represente environ 15% des lettres !
             </p>
-            <button class="btn-help" onclick="location.reload()"
-                style="background: #007aff; color: white; border: none;">
+            <button class="btn-help btn-replay" id="btn-replay">
                 <span class="material-icons">replay</span>
                 <span>Rejouer</span>
             </button>

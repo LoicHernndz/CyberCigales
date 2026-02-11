@@ -1,152 +1,82 @@
-.frequency-game-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: 'Courier New', Courier, monospace;
-    color: #333;
+/* Styles spécifiques au jeu de fréquence */
+
+.freq-description {
+    color: #3c3c43;
+    margin-bottom: 1rem;
 }
 
-.game-header {
-    background: #2c3e50;
+.btn-start {
+    background: #007aff;
     color: white;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
+    border: none;
 }
 
-.header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.game-title {
-    margin: 0;
-    font-size: 1.5rem;
-}
-
-.mission-brief {
-    background: #f8f9fa;
-    padding: 30px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-.main-workspace {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 20px;
-}
-
-@media (max-width: 768px) {
-    .main-workspace {
-        grid-template-columns: 1fr;
-    }
-}
-
-.text-container {
-    background: #eee;
-    padding: 15px;
-    border-radius: 4px;
-    font-size: 1.2rem;
-    letter-spacing: 2px;
-    min-height: 100px;
-    word-break: break-all;
-    line-height: 1.6;
-}
-
-.preview {
-    background: #e8f5e9;
-    color: #2e7d32;
-    font-weight: bold;
-}
-
-.substitution-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 5px;
-    margin-bottom: 20px;
-    background: #fff;
-    padding: 10px;
-    border: 1px solid #ddd;
-}
-
-.sub-pair {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 1px solid #ccc;
-    padding: 2px;
-}
-
-.sub-pair label {
-    font-weight: bold;
-    font-size: 0.9rem;
-}
-
-.sub-pair input {
-    width: 30px;
-    text-align: center;
-    text-transform: uppercase;
-    border: 1px solid #999;
-}
-
-.frequency-chart {
-    background: #fff;
-    border: 1px solid #ddd;
-    padding: 10px;
-    min-height: 200px;
+.freq-cipher-hint {
     font-size: 0.8rem;
+    color: #86868b;
+    margin-bottom: 0.75rem;
 }
 
-.freq-row {
+.cipher-text-box {
+    font-family: 'SF Mono', monospace;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    line-height: 2;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.preview-text-box {
+    font-family: 'SF Mono', monospace;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    line-height: 2;
+    padding: 1rem;
+    background: rgba(52, 199, 89, 0.08);
+    border-radius: 10px;
+    border: 1px solid rgba(52, 199, 89, 0.2);
+    color: #248a3d;
+}
+
+.freq-actions {
     display: flex;
-    align-items: center;
-    margin-bottom: 2px;
-}
-
-.freq-label {
-    width: 20px;
-}
-
-.freq-bar {
-    background: #3498db;
-    height: 10px;
-}
-
-.btn-primary {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
-}
-
-.btn-secondary {
-    background-color: #95a5a6;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.btn-primary:hover { background-color: #2980b9; }
-.btn-secondary:hover { background-color: #7f8c8d; }
-
-.actions {
-    margin-top: 20px;
-    display: flex;
-    gap: 10px;
+    gap: 0.75rem;
     justify-content: center;
 }
 
-.feedback {
-    margin-top: 15px;
+.btn-validate {
+    background: #34c759;
+    color: white;
+    border: none;
+}
+
+.freq-end-screen {
     text-align: center;
-    font-weight: bold;
-    min-height: 20px;
+}
+
+.freq-end-icon {
+    font-size: 48px;
+    color: #34c759;
+}
+
+.freq-final-message {
+    font-family: monospace;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 1rem;
+    border-radius: 8px;
+    color: #1d1d1f;
+}
+
+.freq-end-note {
+    margin-top: 1rem;
+    color: #86868b;
+    font-size: 0.85rem;
+}
+
+.btn-replay {
+    background: #007aff;
+    color: white;
+    border: none;
 }

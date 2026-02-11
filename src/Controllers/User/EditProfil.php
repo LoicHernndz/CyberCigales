@@ -94,7 +94,7 @@ class EditProfil extends AbstractController
 
             // Si des erreurs existent, les afficher
             if (!empty($errors)) {
-                flash('edit_profil', implode('<br>', $errors), 'form-message form-message-red');
+                flash('edit_profil', implode(' | ', $errors), 'form-message form-message-red');
                 redirect('/user/edit');
                 return;
             }

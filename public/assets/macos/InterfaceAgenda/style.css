@@ -317,3 +317,12 @@ body {
 }
 .event.work { background-color: #fce8e6; color: #c5221f; border-left-color: #c5221f; }
 .event.personal { background-color: #e6f4ea; color: #137333; border-left-color: #137333; }
+
+/* Calendar sidebar colors */
+.calendar-personal { background: #1a73e8; }
+.calendar-work { background: #c5221f; }
+.calendar-family { background: #137333; }
+
+/* View buttons rounded corners */
+.view-btn-first { border-radius: 6px 0 0 6px; }
+.view-btn-last { border-radius: 0 6px 6px 0; }

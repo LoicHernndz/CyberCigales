@@ -25,18 +25,17 @@ document.addEventListener('DOMContentLoaded', () => {
     let encryptedText = "";
     let userSubstitutions = {};
 
+    const btnReplay = document.getElementById('btn-replay');
+
     // Initialisation
     if (btnStart) btnStart.addEventListener('click', startGame);
     if (btnCheck) btnCheck.addEventListener('click', checkSolution);
     if (btnReset) btnReset.addEventListener('click', resetSubstitutions);
     if (btnHelp) btnHelp.addEventListener('click', toggleHelp);
+    if (btnReplay) btnReplay.addEventListener('click', function () { location.reload(); });
 
     function toggleHelp() {
-        if (helpContent.style.display === 'none') {
-            helpContent.style.display = 'block';
-        } else {
-            helpContent.style.display = 'none';
-        }
+        if (helpContent) helpContent.classList.toggle('hidden');
     }
 
     // Demarrage du jeu
@@ -53,8 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (data.success) {
                     encryptedText = data.encrypted_text;
 
-                    startScreen.style.display = 'none';
-                    playScreen.style.display = 'block';
+                    startScreen.classList.add('hidden');
+                    playScreen.classList.remove('hidden');
 
                     userSubstitutions = {};
 
@@ -188,19 +187,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // Affichage du feedback
     function showFeedback(message, type) {
         if (!feedbackSection || !feedbackContent) return;
-        feedbackSection.style.display = 'block';
+        feedbackSection.classList.remove('hidden');
         feedbackContent.textContent = message;
         feedbackContent.className = 'feedback-content ' + type;
 
         setTimeout(() => {
-            feedbackSection.style.display = 'none';
+            feedbackSection.classList.add('hidden');
         }, 3000);
     }
 
     // Ecran de victoire
     function showVictory(decryptedText) {
-        if (playScreen) playScreen.style.display = 'none';
-        if (endScreen) endScreen.style.display = 'block';
+        if (playScreen) playScreen.classList.add('hidden');
+        if (endScreen) endScreen.classList.remove('hidden');
 
         const finalMessageEl = document.getElementById('final-message');
         if (finalMessageEl) finalMessageEl.textContent = decryptedText;
