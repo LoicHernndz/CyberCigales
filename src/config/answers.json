@@ -1,17 +1,17 @@
 {
   "Melina": {
     "0": {
-      "message": "Essaye abc123",
-      "responses": ["Non", "Nan", "non"],
-      "key": "abc123"
+      "message": "Salut voici ma plateforme de crypto : www.arnaque.com ! N'hésite pas à investir c'est 100% sur et tu peux faire jusqu'à 10% net par ans.",
+      "responses": ["Quoi ?", "Qu'est-ce que tu racontes ?", "hein ?"],
+      "key": "connaissance"
     },
     "1": {
-      "message": "Maintenant 1234",
-      "responses": ["Non", "Nan", "non"],
-      "key": "1234"
+      "message": "Ok tu veux apprendre et c'est une très bonne chose. Mais pas tout le monde y aura accès. Seulement les plus perspicaces. Pour voir si tu es assez vif d'esprit réussi le mini jeu suivant (attaque par fréquence) et tu pourras alors accéder à la suite.",
+      "responses": ["Je ne te donnerais rien facilement !", "Reviens quand tu as fini !", "Ne reviens pas tant que tu n'as pas réussi le mini jeu"],
+      "key": "www.lemonde.fr"
     },
     "2": {
-      "message": "Merci",
+      "message": "OK t'es bon gamin ! T'es bon !",
       "responses": ["C'est fini"]
     }
   },
