@@ -12,16 +12,27 @@ class FrequencyGameView extends AbstractView
 {
     private array $data;
 
+    /**
+     * @param array $data Données du jeu (clé 'username' utilisée pour le template)
+     */
     public function __construct(array $data = [])
     {
         $this->data = $data;
     }
 
+    /**
+     * @return string Chemin vers le template frequency-game.html
+     */
     public function templatePath(): string
     {
         return __DIR__ . '/frequency-game.html';
     }
 
+    /**
+     * Clés injectées dans le template HTML
+     *
+     * @return array{USERNAME_KEY: string}
+     */
     public function templateKeys(): array
     {
         return [
@@ -29,6 +40,9 @@ class FrequencyGameView extends AbstractView
         ];
     }
 
+    /**
+     * Affiche le header HTML minimal (page standalone, sans header CyberCigales)
+     */
     public function renderHeader(): void
     {
         echo '<!DOCTYPE html>
@@ -46,6 +60,9 @@ class FrequencyGameView extends AbstractView
 <body>';
     }
 
+    /**
+     * Affiche le footer HTML minimal (fermeture body/html)
+     */
     public function renderFooter(): void
     {
         echo '

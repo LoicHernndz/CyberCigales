@@ -21,11 +21,19 @@ class UserProfileView extends BaseInstagramView
         $this->profileData = $data;
     }
 
+    /**
+     * @return string Chemin vers le template user-profile.html
+     */
     public function templatePath(): string
     {
         return self::TEMPLATE_PATH;
     }
 
+    /**
+     * Génère toutes les clés de template pour le profil utilisateur
+     *
+     * @return array Clés incluant USERNAME, DISPLAY_NAME, AVATAR, stats, VERIFIED_ICON, PROFILE_INFO, POSTS
+     */
     public function templateKeys(): array
     {
         $keys = parent::templateKeys();
