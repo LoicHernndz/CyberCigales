@@ -22,15 +22,21 @@ class UserStatsTest extends TestCase
 
     public function testGetUserStatsReturnsArray()
     {
-        $this->mockDB->singleReturn = (object)[
-            'id'=>1, 'prenom'=>'Test', 'nom'=>'User','pseudo'=>'test','email'=>'a@a.com','total_score'=>10
+        $this->mockDB->singleReturn = (object) [
+            'id' => 1,
+            'prenom' => 'Test',
+            'nom' => 'User',
+            'pseudo' => 'test',
+            'email' => 'a@a.com',
+            'total_score' => 10,
+            'date_inscription' => '2024-01-01'
         ];
 
         $result = $this->stats->getUserStats(1);
 
         $this->assertIsArray($result);
         $this->assertArrayHasKey('general', $result);
-        $this->assertArrayHasKey('rgpd', $result);
+        $this->assertArrayHasKey('cypher', $result);
     }
 }
 

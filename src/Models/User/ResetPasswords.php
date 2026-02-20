@@ -12,7 +12,7 @@ use config\Database;
 class ResetPasswords
 {
     /** @var Database Instance de connexion à la base de données */
-    private Database $db;
+    private $db;
 
     /**
      * Constructeur - Initialise la connexion à la base de données
