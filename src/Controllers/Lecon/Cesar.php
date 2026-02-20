@@ -2,11 +2,24 @@
 
 namespace Controllers\Lecon;
 
-use Views\Lecon\LeconCesar\LeconCesarView;
 use Controllers\AbstractController;
+use Views\Lecon\LeconCesar\LeconCesarView;
 
-class Cesar extends AbstractController {
-    function getMethod(){
+/**
+ * Contrôleur de la leçon sur le chiffrement César
+ *
+ * Affiche le contenu pédagogique expliquant le fonctionnement
+ * du chiffrement de César.
+ */
+class Cesar extends AbstractController
+{
+    /**
+     * Affiche la leçon sur le chiffrement César
+     *
+     * @return void
+     */
+    public function getMethod(): void
+    {
         $view = new LeconCesarView();
         $view->render();
     }

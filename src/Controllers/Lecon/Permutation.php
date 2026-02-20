@@ -2,12 +2,23 @@
 
 namespace Controllers\Lecon;
 
-use Views\Lecon\LeconPermutation\LeconPermutationView;
 use Controllers\AbstractController;
+use Views\Lecon\LeconPermutation\LeconPermutationView;
 
+/**
+ * Contrôleur de la leçon sur le chiffrement par permutation
+ *
+ * Affiche le contenu pédagogique expliquant le fonctionnement
+ * du chiffrement par permutation (substitution polyalphabétique).
+ */
 class Permutation extends AbstractController
 {
-    function getMethod()
+    /**
+     * Affiche la leçon sur le chiffrement par permutation
+     *
+     * @return void
+     */
+    public function getMethod(): void
     {
         $view = new LeconPermutationView();
         $view->render();

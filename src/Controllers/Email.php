@@ -1,12 +1,24 @@
 <?php
+
 namespace Controllers;
 
 use Views\InterfaceMail\InterfaceMailView;
 use Models\InterfaceMail\InterfaceMailModel;
 
+/**
+ * Contrôleur de la page Email
+ *
+ * Récupère les emails depuis le modèle et les affiche
+ * via l'interface de messagerie simulée.
+ */
 class Email extends AbstractController
 {
-    function getMethod()
+    /**
+     * Récupère les emails et affiche l'interface de messagerie
+     *
+     * @return void
+     */
+    public function getMethod(): void
     {
         $view = new InterfaceMailView();
         $model = new InterfaceMailModel();

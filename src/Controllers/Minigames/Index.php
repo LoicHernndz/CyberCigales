@@ -2,11 +2,24 @@
 
 namespace Controllers\Minigames;
 
-use Views\Minigames\MinigamesView;
 use Controllers\AbstractController;
+use Views\Minigames\MinigamesView;
 
-class Index extends AbstractController {
-    public function getMethod() {
+/**
+ * Contrôleur de la page d'accueil des mini-jeux
+ *
+ * Affiche la liste de tous les mini-jeux éducatifs disponibles.
+ * Utilise la convention Index pour le routeur dynamique (/minigames → Minigames\Index).
+ */
+class Index extends AbstractController
+{
+    /**
+     * Affiche la page listant tous les mini-jeux disponibles
+     *
+     * @return void
+     */
+    public function getMethod(): void
+    {
         $view = new MinigamesView();
         $view->render();
     }

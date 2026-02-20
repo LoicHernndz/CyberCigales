@@ -8,19 +8,51 @@ use Models\User\User;
 use PHPMailer\src\PHPMailer;
 use Views\User\CreateNewPassword\CreateNewPasswordView;
 
+/**
+ * Contrôleur de création d'un nouveau mot de passe
+ *
+ * Gère le processus de réinitialisation de mot de passe :
+ * valide le token (GET) et effectue le changement de mot de passe (POST).
+ */
 class NewPassword extends AbstractController
 {
+    /**
+     * Modèle de réinitialisation de mots de passe
+     *
+     * @var ResetPasswords|null
+     */
     private $resetModel;
+
+    /**
+     * Modèle utilisateur
+     *
+     * @var User|null
+     */
     private $userModel;
+
+    /**
+     * Instance PHPMailer pour l'envoi d'emails
+     *
+     * @var PHPMailer|null
+     */
     private $mail;
 
-    function getMethod(){
-        if(empty($_GET['selector']) || empty($_GET['validator'])) {
+    /**
+     * Affiche le formulaire de création d'un nouveau mot de passe
+     *
+     * Valide le selector et le validator passés en paramètres GET.
+     * Affiche un message d'erreur si les paramètres sont invalides.
+     *
+     * @return void
+     */
+    public function getMethod(): void
+    {
+        if (empty($_GET['selector']) || empty($_GET['validator'])) {
             echo "Nous ne pouvons pas valider votre demande de réinitialisation de mot de passe.";
         } else {
             $selector = $_GET['selector'];
             $validator = $_GET['validator'];
-            if(ctype_xdigit($selector) && ctype_xdigit($validator)) {
+            if (ctype_xdigit($selector) && ctype_xdigit($validator)) {
                 $view = new CreateNewPasswordView();
                 $view->render();
             } else {
@@ -29,7 +61,15 @@ class NewPassword extends AbstractController
         }
     }
 
-    public function postMethod()
+    /**
+     * Traite la soumission du nouveau mot de passe
+     *
+     * Vérifie le token de réinitialisation, valide le nouveau mot de passe,
+     * met à jour en base de données et envoie un email de confirmation.
+     *
+     * @return void
+     */
+    public function postMethod(): void
     {
         $this->resetModel = new ResetPasswords;
         $this->userModel = new User;
@@ -40,7 +80,8 @@ class NewPassword extends AbstractController
         if (file_exists($envFile)) {
             $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
             foreach ($lines as $line) {
-                if (strpos(trim($line), '#') === 0) continue;
+                if (strpos(trim($line), '#') === 0)
+                    continue;
                 if (strpos($line, '=') !== false) {
                     list($key, $value) = explode('=', $line, 2);
                     $envVars[trim($key)] = trim($value, '"\'');
@@ -69,45 +110,45 @@ class NewPassword extends AbstractController
         $url = 'https://benahmed.alwaysdata.net/user/new-password?selector=' . $data['selector'] .
             '&validator=' . $data['validator'];
 
-        if(empty($_POST['pwd']) || empty($_POST['pwd-repeat'])){
+        if (empty($_POST['pwd']) || empty($_POST['pwd-repeat'])) {
             flash("new-password", "SVP remplissez tous les champs");
             redirect($url);
-        } else if($data['pwd'] != $data['pwd-repeat']){
+        } else if ($data['pwd'] != $data['pwd-repeat']) {
             flash("new-password", "Les mots de passe ne correspondent pas");
             redirect($url);
-        } else if(strlen($data['pwd']) < 6){
+        } else if (strlen($data['pwd']) < 6) {
             flash("new-password", "Le mot de passe doit contenir au moins 6 caractères");
             redirect($url);
         }
 
         $currentDate = date("U");
-        if(!$row = $this->resetModel->resetPassword($data['selector'], $currentDate)){
+        if (!$row = $this->resetModel->resetPassword($data['selector'], $currentDate)) {
             flash("new-password", "Vous devez renvoyer une nouvelle demande de réinitialisation de mot de passe.");
             redirect($url);
         }
 
         $tokenBin = hex2bin($data['validator']);
         $tokenCheck = password_verify($tokenBin, $row->pwdResetToken);
-        if(!$tokenCheck){
+        if (!$tokenCheck) {
             flash("new-password", "Vous devez renvoyer une nouvelle demande de réinitialisation de mot de passe.");
             redirect($url);
         }
 
         $tokenEmail = $row->pwdResetEmail;
 
-        if(!$this->userModel->findUserByEmailOrUsername($tokenEmail, $tokenEmail)){
+        if (!$this->userModel->findUserByEmailOrUsername($tokenEmail, $tokenEmail)) {
             flash("new-password", "Il n'y a pas d'utilisateur avec cet email.");
             redirect($url);
         }
 
         $newPwdHash = password_hash($data['pwd'], PASSWORD_DEFAULT);
 
-        if(!$this->userModel->resetPassword($newPwdHash, $tokenEmail)){
+        if (!$this->userModel->resetPassword($newPwdHash, $tokenEmail)) {
             flash("new-password", "Il y a eu une erreur.");
             redirect($url);
         }
 
-        if(!$this->resetModel->deleteEmail($tokenEmail)){
+        if (!$this->resetModel->deleteEmail($tokenEmail)) {
             flash("new-password", "Il y a eu une erreur.");
             redirect($url);
         }
