@@ -1,4 +1,6 @@
-html { font-family: 'Inter', sans-serif; }
+html {
+    font-family: 'Inter', sans-serif;
+}
 
 /* ---------------------------------- */
 /* Fond d\'écran (pour le Bureau) */
@@ -16,7 +18,8 @@ body {
 /* ---------------------------------- */
 .menu-bar {
     /* Style Glassmorphism pour la barre de menus */
-    background-color: rgba(255, 255, 255, 0.5); /* Blanc semi-transparent */
+    background-color: rgba(255, 255, 255, 0.5);
+    /* Blanc semi-transparent */
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
@@ -27,7 +30,8 @@ body {
 /* ---------------------------------- */
 .dock-container {
     /* Style Glassmorphism pour le dock */
-    background-color: rgba(255, 255, 255, 0.2); /* Blanc très transparent */
+    background-color: rgba(255, 255, 255, 0.2);
+    /* Blanc très transparent */
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.3);
@@ -50,12 +54,14 @@ body {
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
 }
 
-.dock-icon:hover + .dock-icon {
-    transform: scale(1.15); /* Voisins un peu agrandis */
+.dock-icon:hover+.dock-icon {
+    transform: scale(1.15);
+    /* Voisins un peu agrandis */
 }
 
 .dock-icon:has(+ .dock-icon:hover) {
-    transform: scale(1.15); /* Le voisin précédent est aussi un peu agrandi */
+    transform: scale(1.15);
+    /* Le voisin précédent est aussi un peu agrandi */
 }
 
 /* ---------------------------------- */
@@ -81,8 +87,10 @@ body {
 
 /* Conteneur principal du bureau */
 #desktop {
-    height: calc(100vh - 4rem); /* Espace pour la barre de menus et le dock */
-    padding-top: 28px; /* Pour éviter que le contenu ne soit sous la barre de menus */
+    height: calc(100vh - 4rem);
+    /* Espace pour la barre de menus et le dock */
+    padding-top: 28px;
+    /* Pour éviter que le contenu ne soit sous la barre de menus */
     position: relative;
 }
 
@@ -100,6 +108,183 @@ iframe {
 
 
 @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: .5; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .5;
+    }
+}
+
+/* ========================================================= */
+/* NOTIFICATIONS macOS (Toasts & Badge Dock)                 */
+/* ========================================================= */
+
+.notification-container {
+    position: fixed;
+    top: 36px;
+    /* Juste sous la barre de menu */
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    pointer-events: none;
+    /* Laisse passer les clics au travers si on clique à côté */
+}
+
+.notification-toast {
+    width: 340px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 14px;
+    padding: 16px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12),
+        0 1px 3px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    pointer-events: auto;
+    /* Rend la notif cliquable */
+    cursor: pointer;
+
+    /* Animation d'entrée */
+    animation: slideInNotif 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    transform-origin: right center;
+}
+
+.notification-toast:active {
+    transform: scale(0.98);
+}
+
+.notification-toast.removing {
+    animation: slideOutNotif 0.3s ease-in forwards;
+}
+
+.notif-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.notif-body {
+    flex: 1;
+    min-width: 0;
+    margin-top: -2px;
+}
+
+.notif-app {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #8e8e93;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.notif-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1d1d1f;
+    margin-bottom: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.notif-text {
+    font-size: 13px;
+    color: #48484a;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.notif-time {
+    font-size: 11px;
+    color: #8e8e93;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* Animations des Toasts */
+@keyframes slideInNotif {
+    0% {
+        opacity: 0;
+        transform: translateX(100%) scale(0.9);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+@keyframes slideOutNotif {
+    0% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(120%) scale(0.9);
+        height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        margin-bottom: 0;
+        border: none;
+    }
+}
+
+/* Badge du Dock (Amélioré type macOS) */
+.dock-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: #ff3b30;
+    /* Rouge Apple officiel */
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    border-radius: 12px;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+    z-index: 20;
+    pointer-events: none;
+    animation: badgeBounce 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* Border retirée pour faire plus natif macOS, le shadow gère le contraste */
+}
+
+@keyframes badgeBounce {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }

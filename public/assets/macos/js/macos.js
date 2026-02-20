@@ -200,6 +200,11 @@ function openApp(appName) {
         focusWindow(newWindow); // Focus immédiatement
     }
     updateDockIcon(appName, true);
+
+    // Réinitialiser le badge quand l'utilisateur ouvre l'app
+    if (typeof resetDockBadge === 'function') {
+        resetDockBadge(appName);
+    }
 }
 
 /**
