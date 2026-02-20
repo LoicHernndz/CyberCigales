@@ -14,7 +14,13 @@ namespace Views\Instagram;
 class InstagramView extends BaseInstagramView
 {
     private array $stories, $posts;
-    public function __construct(array $stories, array $posts) {
+
+    /**
+     * @param array $stories Tableau des stories Instagram
+     * @param array $posts   Tableau des posts du feed
+     */
+    public function __construct(array $stories, array $posts)
+    {
         $this->stories = $stories;
         $this->posts = $posts;
     }
@@ -31,10 +37,16 @@ class InstagramView extends BaseInstagramView
      * 
      * @return string Chemin vers le template HTML
      */
-    public function templatePath() : string {
+    public function templatePath(): string
+    {
         return self::TEMPLATE_PATH;
     }
 
+    /**
+     * Clés injectées dans le template Instagram
+     *
+     * @return array{STORIES: string, POSTS: string}
+     */
     public function templateKeys(): array
     {
         $keys = [];

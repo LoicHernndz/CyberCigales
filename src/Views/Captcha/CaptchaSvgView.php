@@ -10,6 +10,11 @@ class CaptchaSvgView
     private int $width;
     private int $height;
 
+    /**
+     * @param string $code   Code CAPTCHA à afficher dans le SVG
+     * @param int    $width  Largeur de l'image SVG en pixels
+     * @param int    $height Hauteur de l'image SVG en pixels
+     */
     public function __construct(string $code, int $width = 140, int $height = 48)
     {
         $this->code = $code;

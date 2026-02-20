@@ -21,11 +21,19 @@ class UserChatView extends BaseInstagramView
         $this->chatMessages = $messages;
     }
 
+    /**
+     * @return string Chemin vers le template user-chat.html
+     */
     public function templatePath(): string
     {
         return self::TEMPLATE_PATH;
     }
 
+    /**
+     * Fusionne les clés parentes avec le HTML des messages du chat
+     *
+     * @return array Clés de template incluant 'MESSAGES'
+     */
     public function templateKeys(): array
     {
         $keys = parent::templateKeys();

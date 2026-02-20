@@ -10,15 +10,22 @@ namespace Views\MacOSView;
 class MacOSView
 {
 
-    // Chemin du fichier HTML associé à la vue d’inscription
+    /** @var string Chemin vers le template HTML du bureau macOS */
     private const TEMPLATE_HTML = __DIR__ . '/home.html';
 
-    // Méthode qui renvoie le chemin du template HTML à utiliser pour cette vue
+    /**
+     * Renvoie le chemin du template HTML
+     *
+     * @return string
+     */
     public function templatePath(): string
     {
         return self::TEMPLATE_HTML;
     }
 
+    /**
+     * Affiche la page complète du bureau macOS (header + body + footer)
+     */
     function render()
     {
         $this->renderHeader();
@@ -26,6 +33,11 @@ class MacOSView
         $this->renderFooter();
     }
 
+    /**
+     * Charge et affiche le template HTML du bureau macOS
+     *
+     * Si le fichier template n'existe pas, affiche un contenu par défaut.
+     */
     function renderBody(): void
     {
         // Supposons que home.html est vide ou ne contient que le fond d'écran.
@@ -51,12 +63,19 @@ class MacOSView
         }
     }
 
-    // Fonction fictive pour éviter une erreur si elle est appelée par renderBody()
+    /**
+     * Renvoie les clés de template (vide par défaut)
+     *
+     * @return array<string, string>
+     */
     function templateKeys(): array
     {
         return [];
     }
 
+    /**
+     * Affiche le header HTML du bureau macOS (barre de menu Apple, Finder)
+     */
     function renderHeader(): void
     {
         $logoHref = isset($_SESSION['user_id']) ? '/dashboard' : '/';
@@ -124,6 +143,9 @@ class MacOSView
 ';
     }
 
+    /**
+     * Affiche le footer HTML du bureau macOS (dock d'applications)
+     */
     function renderFooter(): void
     {
 
