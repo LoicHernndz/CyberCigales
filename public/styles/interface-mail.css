@@ -1,0 +1,159 @@
+/* Styles spécifiques au jeu de Phishing intégrés ici */
+.toolbar-game-controls {
+    margin-left: auto;
+    /* Pousser à droite */
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-game-action {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--color-border);
+    background: white;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--color-text-dark);
+}
+
+.btn-game-action:hover {
+    background-color: #f0f0f0;
+}
+
+.btn-phishing {
+    color: #d70015;
+    border-color: #d70015;
+}
+
+.btn-phishing:hover {
+    background-color: #fff0f0;
+}
+
+.btn-safe {
+    color: #28cd41;
+    border-color: #28cd41;
+}
+
+.btn-safe:hover {
+    background-color: #f0fff4;
+}
+
+.score-display {
+    font-weight: 600;
+    color: var(--color-text-dark);
+    background: var(--color-bg-dark);
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    width: 400px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.feedback-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.feedback-icon.correct {
+    color: #28cd41;
+}
+
+.feedback-icon.incorrect {
+    color: #d70015;
+}
+
+.btn-next {
+    margin-top: 20px;
+    background: #007aff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn-next:hover {
+    background: #0062cc;
+}
+
+/* End Screen */
+.end-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+}
+
+.end-screen.hidden {
+    display: none;
+}
+
+/* Fake CSS pour le contenu des mails de phishing */
+.email-cta-button {
+    display: inline-block;
+    background: #007aff;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 6px;
+    margin: 15px 0;
+    font-weight: bold;
+}
+
+.email-cta-button.urgent {
+    background: #d70015;
+}
+
+.fake-link {
+    color: #007aff;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.email-signature {
+    margin-top: 20px;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+    font-size: 0.9em;
+    color: #666;
+}

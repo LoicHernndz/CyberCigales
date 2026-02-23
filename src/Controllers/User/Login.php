@@ -3,6 +3,7 @@ namespace Controllers\User;
 use Controllers\AbstractController;
 use Models\User\User;
 use Views\User\Login\LoginView;
+use Attributes\Route;
 
 /**
  * Contrôleur d'authentification utilisateur
@@ -10,6 +11,7 @@ use Views\User\Login\LoginView;
  * Gère l'affichage du formulaire de connexion et le traitement de l'authentification
  * avec validation CAPTCHA et vérification des credentials.
  */
+#[Route('/user/login', name: 'login')]
 class Login extends AbstractController
 {
     private User $userModel;

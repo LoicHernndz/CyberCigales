@@ -4,12 +4,14 @@ namespace Controllers;
 use Models\User\User;
 use Models\User\UserStats;
 use Views\Homepage\HomepageView;
+use Attributes\Route;
 
 /**
  * Contrôleur de la page d'accueil
  * 
  * Affiche la page d'accueil avec statistiques personnalisées pour les utilisateurs connectés.
  */
+#[Route('/', name: 'homepage')]
 class Homepage extends AbstractController
 {
 

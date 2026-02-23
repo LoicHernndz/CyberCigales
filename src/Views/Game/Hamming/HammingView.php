@@ -86,15 +86,7 @@ class HammingView extends AbstractView
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        html, body { 
-            height: 100%; 
-            overflow-x: hidden;
-            overflow-y: auto;
-            background: linear-gradient(180deg, #f5f5f7 0%, #e8e8ed 100%);
-        }
-    </style>
+    <link rel="stylesheet" href="/styles/game-layout.css">
 </head>
 <body>';
     }

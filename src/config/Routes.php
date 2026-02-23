@@ -2,6 +2,11 @@
 
 namespace config;
 
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use ReflectionClass;
+use Attributes\Route;
+
 /**
  * Configuration des routes de l'application
  * 
@@ -16,12 +21,9 @@ class Routes
      * @var array<string, string>
      */
     static public array $routes = [
-        '/' => 'Controllers\Homepage',
-        '/plan' => 'Controllers\SitePlan',
-        '/mentions' => 'Controllers\Mentions',
-        '/dashboard' => 'Controllers\Dashboard',
-
-        '/user/login' => 'Controllers\User\Login',
+        // NOTE : Les routes sont chargées dynamiquement via les Attributs dans initRoutes().
+        // Les entrées ci-dessous sont maintenues temporairement le temps de migrer tous les contrôleurs.
+        
         '/user/signup' => 'Controllers\User\Signup',
         '/user/reset-password' => 'Controllers\User\ResetPassword',
         '/user/new-password' => 'Controllers\User\CreateNewPassword',
@@ -68,4 +70,62 @@ class Routes
         '/data-breach/check' => 'Controllers\DataBreach\DataBreachCheck',
     ];
 
+    /**
+     * Table de routage Nom vers URL (pour la génération de liens)
+     * 
+     * @var array<string, string>
+     */
+    static public array $namedRoutes = [];
+
+    /**
+     * Initialise les routes en scannant les contrôleurs
+     */
+    public static function initRoutes(): void
+    {
+        $controllersDir = __DIR__ . '/../Controllers';
+        $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($controllersDir));
+        
+        foreach ($iterator as $file) {
+            if ($file->isFile() && $file->getExtension() === 'php') {
+                $className = self::getClassNameFromFile($file->getPathname());
+                if ($className && class_exists($className)) {
+                    $reflection = new ReflectionClass($className);
+                    $attributes = $reflection->getAttributes(Route::class);
+                    
+                    foreach ($attributes as $attribute) {
+                        $route = $attribute->newInstance();
+                        self::$routes[$route->path] = $className;
+                        self::$namedRoutes[$route->name] = $route->path;
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Extrait le nom complet de la classe (avec namespace) d'un fichier PHP
+     */
+    private static function getClassNameFromFile(string $filePath): ?string
+    {
+        $content = file_get_contents($filePath);
+        $namespace = null;
+        $class = null;
+        
+        if (preg_match('/namespace\s+(.+?);/', $content, $matches)) {
+            $namespace = $matches[1];
+        }
+        
+        if (preg_match('/class\s+(\w+)/', $content, $matches)) {
+            $class = $matches[1];
+        }
+        
+        if ($namespace && $class) {
+            return $namespace . '\\' . $class;
+        }
+        
+        return null;
+    }
 }
+
+// Initialisation des routes au chargement de la classe
+Routes::initRoutes();

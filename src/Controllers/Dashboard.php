@@ -2,12 +2,14 @@
 namespace Controllers;
 
 use Views\Homepage\HomepageView;
+use Attributes\Route;
 
 /**
  * Contrôleur du tableau de bord utilisateur
  * 
  * Affiche la page d'accueil personnalisée pour les utilisateurs connectés.
  */
+#[Route('/dashboard', name: 'dashboard')]
 class Dashboard extends AbstractController
 {
     /**
@@ -32,5 +34,3 @@ class Dashboard extends AbstractController
         return $chemin === "/dashboard" && $method === "GET";
     }
 }
-
-
