@@ -53,7 +53,7 @@ class InterfaceWebModel
 
         'dev.cybercigales.fr' => '
             <div style="max-width: 400px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; font-family: sans-serif; background: white;">
-                <h2 style="text-align: center; color: #d32f2f;">PANNEAU D\'ADMINISTRATION</h2>
+                <h2 style="text-align: center; color: #d32f2f;">ARTICLE COMPLET</h2>
                 <p style="font-size: 14px; color: #666; text-align: center;">Accès réservé au personnel de maintenance.</p>
                 <div style="margin-top: 20px;">
                     <label style="display: block; margin-bottom: 5px;">Utilisateur</label>
@@ -65,9 +65,9 @@ class InterfaceWebModel
                 </div>
                 <div style="margin-top: 25px;">
                     <button id="admin-unlock-btn" disabled style="width: 100%; padding: 12px; background: #2196f3; color: white; border: none; border-radius: 4px; cursor: not-allowed; opacity: 0.6; font-weight: bold;">
-                        DÉVERROUILLER LE SYSTÈME
+                        DÉVERROUILLER L\'ARTICLE COMPLET
                     </button>
-                    <p id="unlock-message" style="display:none; color: green; font-weight: bold; margin-top: 10px; text-align: center;">Accès déverrouillé ! Regardez votre console (F12) pour le code final.</p>
+                    <p id="unlock-message" style="display:none; color: green; font-weight: bold; margin-top: 10px; text-align: center;">Accès déverrouillé ! Regardez votre console (F12) pour accéder à l\'article complet.</p>
                 </div>
                 <script>
                     (function() {
@@ -78,7 +78,7 @@ class InterfaceWebModel
                             if (!btn.hasAttribute("disabled")) {
                                 msg.style.display = "block";
                                 console.log("%c [ADMIN] Accès accordé ! ", "background: #222; color: #bada55; font-size: 20px;");
-                                console.log("Le mot de passe secret pour le terminal est : BASH_MASTER_2026");
+                                console.log("Le lien vers l\'article complet est : www.lemonde.fr/acces-complet");
                                 alert("Système déverrouillé. Le code a été envoyé dans les logs administrateur (Console).");
                             } else {
                                 alert("Bouton désactivé. Seul un administrateur peut modifier les attributs de la page.");
@@ -86,7 +86,262 @@ class InterfaceWebModel
                         });
                     })();
                 </script>
-            </div>'
+            </div>',
+
+        'lemonde.fr' => '
+            <div style="max-width: 400px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; font-family: sans-serif; background: white;">
+                <h2 style="text-align: center; color: #d32f2f;">ARTICLE COMPLET</h2>
+                <p style="font-size: 14px; color: #666; text-align: center;">Accès réservé au personnel de maintenance.</p>
+                <div style="margin-top: 20px;">
+                    <label style="display: block; margin-bottom: 5px;">Utilisateur</label>
+                    <input type="text" value="admin" disabled style="width: 100%; padding: 8px; box-sizing: border-box; background: #eee;">
+                </div>
+                <div style="margin-top: 15px;">
+                    <label style="display: block; margin-bottom: 5px;">Code d\'accès</label>
+                    <input type="password" value="********" disabled style="width: 100%; padding: 8px; box-sizing: border-box; background: #eee;">
+                </div>
+                <div style="margin-top: 25px;">
+                    <button id="admin-unlock-btn" disabled style="width: 100%; padding: 12px; background: #2196f3; color: white; border: none; border-radius: 4px; cursor: not-allowed; opacity: 0.6; font-weight: bold;">
+                        DÉVERROUILLER L\'ARTICLE COMPLET
+                    </button>
+                    <p id="unlock-message" style="display:none; color: green; font-weight: bold; margin-top: 10px; text-align: center;">Accès déverrouillé ! Regardez votre console (F12) pour accéder à l\'article complet.</p>
+                </div>
+                <script>
+                    (function() {
+                        const btn = document.getElementById("admin-unlock-btn");
+                        const msg = document.getElementById("unlock-message");
+                        
+                        btn.addEventListener("click", function() {
+                            if (!btn.hasAttribute("disabled")) {
+                                msg.style.display = "block";
+                                console.log("%c [ADMIN] Accès accordé ! ", "background: #222; color: #bada55; font-size: 20px;");
+                                console.log("Le lien vers l\'article complet est : www.lemonde.fr-acces-complet");
+                                alert("Système déverrouillé. Le code a été envoyé dans les logs administrateur (Console).");
+                            } else {
+                                alert("Bouton désactivé. Seul un administrateur peut modifier les attributs de la page.");
+                            }
+                        });
+                    })();
+                </script>
+            </div>',
+
+        'lemonde.fr-acces-complet' => '
+
+            <style>
+        /* Simulation de la feuille de style du Monde (simplifiée pour cet exemple) */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Le Monde Journal", "Spectral", serif;
+            color: #161616;
+            background-color: #f6f6f6;
+            line-height: 1.5;
+        }
+        .lm-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+        
+        /* Header simplifié */
+        .lm-header {
+            border-bottom: 1px solid #e5e5e5;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .lm-logo {
+            font-family: "Le Monde Livre", serif;
+            font-size: 32px;
+            font-weight: bold;
+        }
+        .lm-nav-links a {
+            text-decoration: none;
+            color: #161616;
+            margin-left: 15px;
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .lm-subscribe-btn {
+            background-color: #ffe700;
+            color: #161616;
+            padding: 8px 16px;
+            text-decoration: none;
+            font-weight: bold;
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        /* Structure Article */
+        .article-header {
+            max-width: 800px;
+            margin: 30px auto 20px auto;
+            padding: 0 20px;
+        }
+        .breadcrumb {
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 12px;
+            color: #007fff;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        h1.article-title {
+            font-size: 40px;
+            line-height: 1.1;
+            margin: 0 0 15px 0;
+            font-weight: bold;
+        }
+        .article-chapeau {
+            font-size: 18px;
+            line-height: 1.4;
+            color: #161616;
+            margin-bottom: 20px;
+        }
+        .article-meta {
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 13px;
+            color: #666;
+            border-top: 1px solid #e5e5e5;
+            padding-top: 15px;
+            margin-bottom: 30px;
+        }
+        .article-body {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 20px 50px 20px;
+            font-size: 17px;
+            line-height: 1.6;
+        }
+        .article-body p {
+            margin-bottom: 20px;
+        }
+        .article-body h2 {
+            font-size: 24px;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        code.terminal-cmd {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #f0f0f0;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        /* Images dans l\'article */
+        figure.article-image {
+            margin: 30px -40px;
+        }
+        figure.article-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        figcaption {
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 13px;
+            color: #666;
+            margin-top: 10px;
+            padding-left: 40px;
+        }
+    </style>
+            <div class="lm-container">
+    <header class="lm-header">
+        <div class="lm-logo">Le Monde</div>
+        <div class="lm-nav-links">
+            <a href="#">Actualités</a>
+            <a href="#">Économie</a>
+            <a href="#">Pixels</a>
+            <a href="#" class="lm-subscribe-btn">S’abonner</a>
+        </div>
+    </header>
+
+    <article>
+        <header class="article-header">
+            <div class="breadcrumb">Pixels > Cybersécurité</div>
+            <h1 class="article-title">Le terminal Linux : de la navigation élémentaire à la compréhension de l\'attaque par force brute</h1>
+            <p class="article-chapeau">
+                Comprendre les commandes fondamentales pour se repérer dans un système d\'exploitation est la première étape vers la maîtrise de l\'informatique. C\'est aussi le prérequis nécessaire pour appréhender des méthodes d\'attaque rudimentaires mais efficaces, comme le "brute force".
+            </p>
+            <div class="article-meta">
+                Par la rédaction Pixels (avec CyberCigales) <br>
+                <time datetime="2026-02-11">Publié le 11 février 2026 à 11h42</time>
+            </div>
+        </header>
+
+        <div class="article-body">
+            <p>
+                Face à un écran noir où seul clignote un curseur blanc, beaucoup d\'utilisateurs ressentent une appréhension. Le terminal, cette interface textuelle omniprésente sur les systèmes Linux (qui propulsent la majorité des serveurs web mondiaux), semble austère. Pourtant, il s\'agit de l\'outil le plus direct pour dialoguer avec la machine.
+            </p>
+            <p>
+                Loin d\'être réservé aux experts, l\'usage du terminal repose sur quelques concepts clés analogues à la navigation dans un bâtiment. Avant de construire des forteresses numériques, il faut savoir ouvrir les portes et lire les panneaux.
+            </p>
+
+            <h2>Les fondations de la navigation</h2>
+
+            <p>
+                La première question que l\'on se pose dans un environnement inconnu est : « Où suis-je ? ». Dans le terminal, la réponse est apportée par la commande <code class="terminal-cmd">pwd</code> (Print Working Directory). Elle affiche le chemin complet du dossier dans lequel l\'utilisateur se trouve actuellement. C\'est votre point GPS.
+            </p>
+
+            <figure class="article-image">
+                <div style="background:#000; color:#0f0; padding:20px; font-family:monospace; text-align:left;">
+                    user@linux:~$ pwd<br>
+                    /home/user<br>
+                    user@linux:~$ ls<br>
+                    Documents  Images  Musique  config.txt<br>
+                    user@linux:~$ _
+                </div>
+                <figcaption>Capture d\'écran d\'un terminal montrant l\'utilisation des commandes de base pour se repérer. (Capture d\'écran)</figcaption>
+            </figure>
+
+            <p>
+                Une fois localisé, il faut observer son environnement. La commande <code class="terminal-cmd">ls</code> (List) est l\'équivalent d\'allumer la lumière dans une pièce : elle liste tous les fichiers et dossiers présents autour de vous. C\'est l\'outil d\'inventaire par excellence.
+            </p>
+            <p>
+                Pour se déplacer, l\'utilisateur emploie <code class="terminal-cmd">cd</code> (Change Directory). Taper <code class="terminal-cmd">cd Documents</code> revient à ouvrir la porte du bureau "Documents" et à y entrer. C’est la commande fondamentale du mouvement dans l’arborescence du système.
+            </p>
+
+            <h2>Lire le système pour mieux le comprendre</h2>
+
+            <p>
+                Se déplacer est utile, mais interagir est nécessaire. Pour lire le contenu d\'un fichier sans l\'ouvrir dans un éditeur complexe, la commande <code class="terminal-cmd">cat</code> est l\'outil de prédilection.
+            </p>
+            <p>
+                Si l\'on tape <code class="terminal-cmd">cat config.txt</code>, le terminal va littéralement « cracher » le contenu textuel de ce fichier directement à l\'écran. C\'est une commande cruciale, souvent utilisée par les administrateurs pour vérifier rapidement des journaux d\'événements (logs) ou des fichiers de configuration.
+            </p>
+
+            <h2>De l\'outil à l\'arme : l\'attaque par force brute</h2>
+
+            <p>
+                La maîtrise de ces commandes de base (<code class="terminal-cmd">cd</code> pour aller au bon endroit, <code class="terminal-cmd">ls</code> pour trouver la cible, <code class="terminal-cmd">cat</code> pour tenter de lire des informations) est le socle de l\'administration système. Paradoxalement, c\'est aussi le socle de la pensée d\'un attaquant.
+            </p>
+            <p>
+                Lorsqu\'un système est verrouillé par un mot de passe, une des méthodes d\'attaque les plus anciennes, et conceptuellement la plus simple, est la « force brute » (brute force).
+            </p>
+
+            <figure class="article-image">
+                 <div style="background:#ddd; height:250px; display:flex; justify-content:center; align-items:center; color:#666; font-style:italic;">
+                    [Illustration : Un cadenas numérique bombardé de milliers de clés différentes]
+                </div>
+                <figcaption>L\'attaque par force brute consiste à tester épuisement toutes les combinaisons possibles jusqu\'à trouver la bonne. (Crédits : Getty Images)</figcaption>
+            </figure>
+
+            <p>
+                Imaginez un cambrioleur face à un digicode à quatre chiffres. Au lieu de chercher une faille complexe dans le mécanisme, il décide de taper 0000, puis 0001, puis 0002, et ainsi de suite jusqu\'à 9999. Il est mathématiquement certain de finir par entrer.
+            </p>
+            <p>
+                En informatique, c\'est exactement la même chose. Un attaquant n\'utilise pas ses mains, mais des scripts automatisés qui s\'interfacent avec le terminal. Ces robots vont tenter des millions de combinaisons de mots de passe par seconde contre un formulaire de connexion ou un accès serveur.
+            </p>
+            <p>
+                Si le mot de passe est faible (comme "123456" ou "password"), l\'attaque par force brute réussira en quelques secondes. L\'attaquant obtiendra alors un accès légitime au terminal, et pourra utiliser les commandes <code class="terminal-cmd">cd</code>, <code class="terminal-cmd">ls</code> et <code class="terminal-cmd">cat</code> pour explorer et exfiltrer des données sensibles. Comprendre comment se protéger commence par comprendre la simplicité déconcertante de cette menace.
+            </p>
+        </div>
+    </article>
+    </div>'
     ];
 
     /**
