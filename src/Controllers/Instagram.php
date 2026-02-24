@@ -1,9 +1,8 @@
 <?php
-namespace Controllers\Instagram;
+namespace Controllers;
 
-use Views\Instagram\InstagramView;
 use Models\Instagram\InstagramModel;
-use Controllers\AbstractController;
+use Views\Instagram\InstagramView;
 
 /**
  * Contrôleur pour la page d'accueil Instagram
