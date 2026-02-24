@@ -6,9 +6,22 @@ use Controllers\AbstractController;
 use Views\Homepage\HomepageView;
 use Models\User\User;
 
+/**
+ * Contrôleur de suppression de compte utilisateur
+ *
+ * Gère la suppression du profil utilisateur : affiche la confirmation (GET)
+ * et effectue la suppression avec déconnexion (POST).
+ */
 class Delete extends AbstractController
 {
-    function getMethod()
+    /**
+     * Affiche la page de confirmation de suppression du compte
+     *
+     * Redirige vers la connexion si l'utilisateur n'est pas authentifié.
+     *
+     * @return void
+     */
+    public function getMethod(): void
     {
         if (!isset($_SESSION['user_id'])) {
             flash('edit_profil', 'Vous devez être connecté pour modifier votre profil.', 'form-message form-message-red');
@@ -19,7 +32,12 @@ class Delete extends AbstractController
         $view->render();
     }
 
-    function postMethod()
+    /**
+     * Supprime le profil utilisateur et détruit la session
+     *
+     * @return void
+     */
+    public function postMethod(): void
     {
         $userModel = new User();
         $userModel->deleteProfil($_SESSION['user_id']);
