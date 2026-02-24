@@ -10,15 +10,22 @@ namespace Views\MacOSView;
 class MacOSView
 {
 
-    // Chemin du fichier HTML associé à la vue d’inscription
+    /** @var string Chemin vers le template HTML du bureau macOS */
     private const TEMPLATE_HTML = __DIR__ . '/home.html';
 
-    // Méthode qui renvoie le chemin du template HTML à utiliser pour cette vue
+    /**
+     * Renvoie le chemin du template HTML
+     *
+     * @return string
+     */
     public function templatePath(): string
     {
         return self::TEMPLATE_HTML;
     }
 
+    /**
+     * Affiche la page complète du bureau macOS (header + body + footer)
+     */
     function render()
     {
         $this->renderHeader();
@@ -26,6 +33,11 @@ class MacOSView
         $this->renderFooter();
     }
 
+    /**
+     * Charge et affiche le template HTML du bureau macOS
+     *
+     * Si le fichier template n'existe pas, affiche un contenu par défaut.
+     */
     function renderBody(): void
     {
         // Supposons que home.html est vide ou ne contient que le fond d'écran.
@@ -51,12 +63,19 @@ class MacOSView
         }
     }
 
-    // Fonction fictive pour éviter une erreur si elle est appelée par renderBody()
+    /**
+     * Renvoie les clés de template (vide par défaut)
+     *
+     * @return array<string, string>
+     */
     function templateKeys(): array
     {
         return [];
     }
 
+    /**
+     * Affiche le header HTML du bureau macOS (barre de menu Apple, Finder)
+     */
     function renderHeader(): void
     {
         $logoHref = isset($_SESSION['user_id']) ? '/dashboard' : '/';
@@ -82,7 +101,7 @@ class MacOSView
 <header>
     <nav id="menu-bar" class="menu-bar fixed top-0 left-0 right-0 h-7 shadow-sm z-50 flex items-center px-2 text-sm text-gray-800">
         <!-- Menu Apple -->
-        <div id="apple-menu" class="group relative hover:bg-gray-200 p-1 rounded-md cursor-pointer mr-4" onclick="toggleAppleMenu()">
+        <div id="apple-menu" class="group relative hover:bg-gray-200 p-1 rounded-md cursor-pointer mr-4">
             <span class="font-semibold text-base"></span>
             <!-- Apple Dropdown -->
             <div id="apple-menu-dropdown" class="absolute top-7 left-0 w-48 bg-white backdrop-blur-sm rounded-lg shadow-xl p-1 hidden text-gray-800 ring-1 ring-gray-300 z-50">
@@ -94,7 +113,7 @@ class MacOSView
     
         <div id="active-app-name" class="font-semibold p-1">Bureau</div>
         <div class="ml-4 relative">
-            <div id="file-menu-toggle" class="hover:bg-gray-200 p-1 rounded-md cursor-pointer" onclick="toggleFileMenu()">Fichier</div>
+            <div id="file-menu-toggle" class="hover:bg-gray-200 p-1 rounded-md cursor-pointer">Fichier</div>
             <!-- Dropdown pour Fichier -->
             <div id="file-menu-dropdown" class="absolute top-7 left-0 w-48 bg-white backdrop-blur-sm rounded-lg shadow-xl p-1 hidden text-gray-800 ring-1 ring-gray-300 z-50">
                 <div class="hover:bg-blue-500 hover:text-white p-1 rounded-md flex justify-between items-center">
@@ -124,6 +143,9 @@ class MacOSView
 ';
     }
 
+    /**
+     * Affiche le footer HTML du bureau macOS (dock d'applications)
+     */
     function renderFooter(): void
     {
 
@@ -133,25 +155,25 @@ class MacOSView
     <div id="dock-container" class="dock-container fixed bottom-4 left-1/2 -translate-x-1/2 p-2 rounded-2xl shadow-2xl">
         <ul id="dock-list" class="flex space-x-5">
 
-            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 rounded-xl flex items-center justify-center relative group" onclick="openApp(\'Finder\')">
+            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 rounded-xl flex items-center justify-center relative group" data-app="Finder">
                 <img src="/images/macos/logo-du-finder.png">
                 <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Finder</div>
             </li>
 
             <!-- 2. Navigateur (Web) -->
-            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 rounded-xl flex items-center justify-center relative group" onclick="openApp(\'Web\')">
+            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 rounded-xl flex items-center justify-center relative group" data-app="Web">
                 <img src="/images/macos/safari.png">
                 <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Web</div>
             </li>
 
             <!-- 3. Mail -->
-            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 rounded-xl flex items-center justify-center relative group" onclick="openApp(\'Mail\')">
+            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 rounded-xl flex items-center justify-center relative group" data-app="Mail">
                 <img src="/images/macos/email.png">
                 <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Mail</div>
             </li>
 
             <!-- 4. Instagram (Messages) -->
-            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 from-pink-500 via-red-500 to-yellow-500 rounded-xl flex items-center justify-center relative group" onclick="openApp(\'Instagram\')">
+            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 from-pink-500 via-red-500 to-yellow-500 rounded-xl flex items-center justify-center relative group" data-app="Instagram">
                 <img src="/images/macos/instagram.png">
                 <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Instagram</div>
             </li>
@@ -160,24 +182,24 @@ class MacOSView
             <li class="w-px h-10 self-center bg-white/20 mx-3"></li>
 
             <!-- 6. Calendrier -->
-            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 rounded-xl flex flex-col items-center justify-center relative group" onclick="openApp(\'Calendrier\')">
+            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 rounded-xl flex flex-col items-center justify-center relative group" data-app="Calendrier">
                 <img src="/images/macos/calendar.png">
             </li>
 
             <!-- 7. Terminal -->
-            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 rounded-xl flex items-center justify-center relative group" onclick="openApp(\'Terminal\')">
+            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 rounded-xl flex items-center justify-center relative group" data-app="Terminal">
                 <img src="/images/macos/terminal.png">
                 <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Terminal</div>
             </li>
 
             <!-- 8. Paramètres -->
-            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 rounded-xl flex items-center justify-center relative group" onclick="openApp(\'Paramètres\')">
+            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 rounded-xl flex items-center justify-center relative group" data-app="Paramètres">
                 <img src="/images/macos/ajustement.png">
                 <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Paramètres</div>
             </li>
             
             <!-- 9. Hamming (Mini-jeu) -->
-            <li class="dock-icon w-14 h-14 p-2 bg-gradient-to-br from-green-600 to-emerald-800 rounded-xl flex items-center justify-center relative group" onclick="openApp(\'Hamming\')">
+            <li class="dock-icon w-14 h-14 p-2 bg-gradient-to-br from-green-600 to-emerald-800 rounded-xl flex items-center justify-center relative group" data-app="Hamming">
                 <svg class="w-9 h-9 text-green-300" fill="currentColor" viewBox="0 0 24 24">
                     <rect x="2" y="2" width="6" height="6" rx="1" opacity="0.9"/>
                     <rect x="9" y="2" width="6" height="6" rx="1" opacity="0.7"/>
@@ -193,7 +215,7 @@ class MacOSView
             </li>
 
             <!-- 10. Frequence (Mini-jeu) -->
-            <li class="dock-icon w-14 h-14 p-2 bg-gradient-to-br from-blue-600 to-indigo-800 rounded-xl flex items-center justify-center relative group" onclick="openApp(\'Frequence\')">
+            <li class="dock-icon w-14 h-14 p-2 bg-gradient-to-br from-blue-600 to-indigo-800 rounded-xl flex items-center justify-center relative group" data-app="Frequence">
                 <svg class="w-9 h-9 text-blue-200" fill="currentColor" viewBox="0 0 24 24">
                     <rect x="2" y="14" width="4" height="8" rx="1"/>
                     <rect x="8" y="10" width="4" height="12" rx="1"/>
@@ -207,7 +229,7 @@ class MacOSView
             <li class="w-px h-10 self-center bg-white/20 mx-3"></li>
 
             <!-- 9. Corbeille -->
-            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 rounded-xl flex items-center justify-center relative group" onclick="openApp(\'Corbeille\')">
+            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 rounded-xl flex items-center justify-center relative group" data-app="Corbeille">
                 <img src="/images/macos/poubelle.png">
                 <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Corbeille</div>
             </li>

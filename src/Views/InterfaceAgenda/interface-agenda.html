@@ -21,9 +21,9 @@
 
         <div class="calendar-list">
             <h3>MES CALENDRIERS</h3>
-            <div class="calendar-item"><span class="checkbox" style="background:#1a73e8"></span>Personnel</div>
-            <div class="calendar-item"><span class="checkbox" style="background:#c5221f"></span>Travail</div>
-            <div class="calendar-item"><span class="checkbox" style="background:#137333"></span>Famille</div>
+            <div class="calendar-item"><span class="checkbox calendar-personal"></span>Personnel</div>
+            <div class="calendar-item"><span class="checkbox calendar-work"></span>Travail</div>
+            <div class="calendar-item"><span class="checkbox calendar-family"></span>Famille</div>
         </div>
     </aside>
 
@@ -34,18 +34,18 @@
             </div>
 
             <div class="toolbar-center">
-                <button class="btn-today" onclick="goToToday()">Aujourd'hui</button>
+                <button class="btn-today" id="btn-today">Aujourd'hui</button>
                 <div class="nav-buttons">
-                    <button onclick="changeMonth(-1)">&#9664;</button>
-                    <button onclick="changeMonth(1)">&#9654;</button>
+                    <button id="btn-prev-month">&#9664;</button>
+                    <button id="btn-next-month">&#9654;</button>
                 </div>
             </div>
 
             <div class="toolbar-right">
                 <div class="view-buttons">
-                    <button style="border-radius: 6px 0 0 6px;">Jour</button>
+                    <button class="view-btn-first">Jour</button>
                     <button class="hide-mobile">Semaine</button> <button class="active-view">Mois</button>
-                    <button style="border-radius: 0 6px 6px 0;">Année</button>
+                    <button class="view-btn-last">Année</button>
                 </div>
             </div>
         </header>

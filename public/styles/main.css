@@ -164,6 +164,11 @@ body::before {
 .auth-subtitle { font-family: var(--font-sans); font-size: 0.95rem; color: rgba(255, 255, 255, 0.6); }
 
 .auth-form { display: flex; flex-direction: column; gap: 1.5rem; }
+.form-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+.form-row .form-group { flex: 1; }
+.form-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; }
+.form-actions .btn-auth.btn-primary { flex: 2; }
+.form-actions .btn-auth.btn-secondary { flex: 1; text-align: center; justify-content: center; }
 .form-group label { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; font-weight: 600; color: rgba(255, 255, 255, 0.9); margin-bottom: 0.5rem; }
 .form-group label .material-icons { font-size: 18px; color: var(--color-primary); }
 .form-group input {
@@ -613,13 +618,53 @@ body::before {
 .single-lesson-container h2 { font-family: var(--font-display); color: #00ff41; margin-top: 3rem; margin-bottom: 1.5rem; font-size: 1.8rem; }
 .single-lesson-container p { font-family: var(--font-sans); font-size: 1.1rem; line-height: 1.8; color: rgba(255, 255, 255, 0.9); margin-bottom: 1.5rem; text-align: justify; }
 
+/* Tableaux dans les leçons */
+.single-lesson-container table.lesson-table { margin: 1rem auto; border-collapse: collapse; }
+.single-lesson-container table.lesson-table th,
+.single-lesson-container table.lesson-table td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+.single-lesson-container table.lesson-table th { background-color: rgba(0, 255, 65, 0.15); }
+.single-lesson-container table.lesson-table .highlight { background-color: rgba(0, 255, 65, 0.15); font-weight: bold; }
+
 /* Elements Interactifs / Code */
 .code-block, pre { background: rgba(0, 0, 0, 0.4); border-left: 4px solid #00ff41; padding: 1.5rem; border-radius: 0 12px 12px 0; font-family: var(--font-mono); color: #00ff41; margin: 2rem 0; overflow-x: auto; }
+.code-block-spaced { line-height: 1.8; }
 .interactive-zone { background: rgba(255, 255, 255, 0.05); border: 1px dashed rgba(0, 255, 65, 0.4); border-radius: 16px; padding: 2rem; margin-top: 3rem; }
 .lesson-example-box { background: rgba(0, 255, 65, 0.05); border-left: 4px solid #00ff41; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; font-family: var(--font-sans); color: #fff; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); }
 .lesson-example-box strong { color: #00ff41; }
 .frequency-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 0.5rem; margin-top: 1.5rem; }
 .freq-cell { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 0.5rem; text-align: center; border-radius: 8px; font-size: 0.85rem; color: #00ff41; font-family: var(--font-display); }
+
+/* Lesson-specific utilities */
+.lesson-list { padding-left: 1.5rem; color: rgba(255,255,255,0.8); }
+.lesson-actions { text-align: center; margin-top: 3rem; }
+.text-small { font-size: 0.9rem; }
+.card-title-centered { text-align: center; margin-top: 0; }
+.section-title-bordered { border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem; }
+.video-title { margin-top: 0; }
+.card-spaced { margin-top: 2rem; }
+.point-icon-centered { text-align: center; }
+.icon-large { font-size: 32px; }
+.icon-medium { font-size: 1.3em; }
+.icon-small { font-size: 1.1em; }
+.icon-inline { vertical-align: middle; font-size: inherit; }
+
+/* RGPD Presentation */
+.rgpd-subtitle { text-align: center; color: #00ff41; }
+
+/* Auth Footer */
+.auth-footer-spaced { margin-top: 20px; text-align: center; }
+.auth-footer-text { color: #0ff; font-size: 0.95rem; }
+.auth-footer-link { color: #00ff41; text-decoration: underline; font-weight: bold; }
+.auth-link-back { display: inline-flex; align-items: center; gap: 0.5rem; justify-content: center; }
+
+/* Info Box */
+.info-box-spaced { margin-top: 2rem; }
+
+/* Form utilities */
+.form-full-width { width: 100%; }
+
+/* Hidden utility */
+.hidden { display: none; }
 
 /* ==========================================================================
    9. MEDIA QUERIES

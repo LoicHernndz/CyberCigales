@@ -15,9 +15,9 @@
     <!-- Header avec navigation -->
     <header class="header">
         <div class="header_left">
-            <button class="icon_button" aria-label="Go Back" type="button" onclick="window.location.href='/instagram'" title="Retour à l'accueil">
+            <a href="/instagram" class="icon_button" aria-label="Go Back" title="Retour à l'accueil">
                 <img src="/images/instagram/svgs/chevron-back-outline.svg" alt="Retour" class="ionicon">
-            </button>
+            </a>
             <h1 class="primary_header">
                 {{USERNAME}}
                 <span class="access-hidden">Profile</span>
@@ -39,7 +39,7 @@
         <!-- Section profil avec avatar et stats -->
         <div class="profile">
             <figure class="figure">
-                <img loading="lazy" src="{{AVATAR}}" alt="{{DISPLAY_NAME}} profile" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" />
+                <img loading="lazy" src="{{AVATAR}}" alt="{{DISPLAY_NAME}} profile" class="profile-avatar-img" />
             </figure>
             <div class="profile_meta">
                 <div class="name">{{DISPLAY_NAME}}</div>
@@ -87,7 +87,7 @@
         <!-- Boutons d'action -->
         <div class="ctas">
             <button class="button" type="button">Suivre</button>
-            <button class="button" type="button" onclick="window.location.href='{{CHAT_URL}}'">Message</button>
+            <a href="{{CHAT_URL}}" class="button">Message</a>
             <button class="button" type="button">Email</button>
             <button class="button" aria-label="Ajouter au profil" type="button">
                 <img src="/images/instagram/svgs/person-add-outline.svg" alt="Ajouter" class="ionicon">
@@ -118,9 +118,9 @@
     
     <!-- Navigation du bas -->
     <footer class="footer">
-        <button class="tab_button" aria-label="Accueil" type="button" onclick="window.location.href='/instagram'" title="Retour à l'accueil">
+        <a href="/instagram" class="tab_button" aria-label="Accueil" title="Retour à l'accueil">
             <img src="/images/instagram/svgs/home-sharp.svg" alt="Accueil" class="ionicon">
-        </button>
+        </a>
         <button class="tab_button" aria-label="Recherche" type="button">
             <img src="/images/instagram/svgs/search.svg" alt="Recherche" class="ionicon">
         </button>

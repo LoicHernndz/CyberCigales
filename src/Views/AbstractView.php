@@ -4,7 +4,8 @@ namespace Views;
 /**
  * Class abstract contenant les methodes communes a toutes views, par exemple pour avoir le meme footer et header
  */
-abstract class AbstractView {
+abstract class AbstractView
+{
     /**
      * Recupere le contenu du fichier html associe a la vue pour l'afficher.
      * Dans le fichier html, toutes les parties entre accolades (ex : {FOO}) seront remplaces par de vrais elements html passe à travers la methode templateKeys().
@@ -13,33 +14,36 @@ abstract class AbstractView {
     {
         $template = file_get_contents($this->templatePath());
 
-        foreach($this->templateKeys() as $key => $value){
+        foreach ($this->templateKeys() as $key => $value) {
             // Convertir en string pour éviter les problèmes de type
-            $value = (string)$value;
+            $value = (string) $value;
             // Remplacer toutes les occurrences de la clé
             $template = str_replace("{{{$key}}}", $value, $template);
         }
-        
+
         // Nettoyer les accolades orphelines qui pourraient rester (sécurité)
         $template = preg_replace('/\{\{\{[A-Z_]+\}\}\}/', '', $template);
 
-        echo $template ;
+        echo $template;
     }
 
     /**
      * Renvoie le chemin du fichier html template associe a la view
      */
-    abstract function templatePath() : string ;
+    abstract function templatePath(): string;
 
     /**
      * Renvoie une liste des elements dynamiques a ajouter au fichier statique html (exemple : nom d'utilisateur dans la hompage apres s'etre connecte)
      */
-    abstract function templateKeys() : array ;
+    abstract function templateKeys(): array;
 
     /**
      * Affiche la page dans son entierete, footer + contenu (fichier html) + header
+     *
+     * @return void
      */
-    function render(){
+    function render()
+    {
         $this->renderHeader();
         $this->renderBody();
         $this->renderFooter();
@@ -98,7 +102,7 @@ abstract class AbstractView {
                 </div>
                 <nav class="main-nav">
             ';
-        if(isset($_SESSION['user_id'])) :
+        if (isset($_SESSION['user_id'])):
             echo '<a href="/lecon" class="nav-link">
                         <span class="material-icons">school</span>
                         <span>Formations</span>
@@ -119,7 +123,7 @@ abstract class AbstractView {
                         <span class="material-icons">logout</span>
                         <span>Déconnexion</span>
                     </a>';
-        else :
+        else:
             echo '<a href="/" class="nav-link">
                         <span class="material-icons">home</span>
                         <span>Accueil</span>
@@ -182,23 +186,11 @@ abstract class AbstractView {
                 
                 <div class="footer-bottom">
                     <p>&copy; ';
-        echo        date("Y");
+        echo date("Y");
         echo ' CyberCigales. Tous droits réservés.</p>
                 </div>
             </footer>
-            <script>
-                document.addEventListener("DOMContentLoaded", function() {
-                    const toggleButton = document.querySelector(".mobile-menu-toggle");
-                    const nav = document.querySelector(".main-nav");
-
-                    if (toggleButton && nav) {
-                        toggleButton.addEventListener("click", function() {
-                            nav.classList.toggle("active");
-                            toggleButton.classList.toggle("active");
-                        });
-                    }
-                });
-            </script>
+            <script src="/js/mobile-menu.js"></script>
         </body>
     </html>';
     }

@@ -212,3 +212,14 @@ function I_resetColumns() {
         I_generateGrid();
     }
 }
+
+// Liaison des boutons par ID (remplace les onclick inline)
+document.addEventListener('DOMContentLoaded', function () {
+    var btnGenerate = document.getElementById('btn-generate');
+    var btnCopy = document.getElementById('btn-copy');
+    var btnReset = document.getElementById('btn-reset-columns');
+
+    if (btnGenerate) btnGenerate.addEventListener('click', I_generateGrid);
+    if (btnCopy) btnCopy.addEventListener('click', I_copyResult);
+    if (btnReset) btnReset.addEventListener('click', I_resetColumns);
+});

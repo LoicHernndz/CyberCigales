@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', function() {
             O_feedbackContent.classList.add('error');
         }
         
-        O_feedbackSection.style.display = 'block';
+        O_feedbackSection.classList.remove('hidden');
     }
     
     /**
@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     function hideFeedback() {
         if (O_feedbackSection) {
-            O_feedbackSection.style.display = 'none';
+            O_feedbackSection.classList.add('hidden');
         }
     }
     
@@ -221,12 +221,7 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     function toggleHelp() {
         if (!O_helpContent) return;
-        
-        if (O_helpContent.style.display === 'none') {
-            O_helpContent.style.display = 'block';
-        } else {
-            O_helpContent.style.display = 'none';
-        }
+        O_helpContent.classList.toggle('hidden');
     }
     
     // Initialiser le jeu

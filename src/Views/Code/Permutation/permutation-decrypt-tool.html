@@ -2,7 +2,7 @@
 <script src="/assets/code/permutation-decrypt-tool.js"></script>
 
 <div class="decrypt-tool-container">
-    <h1 class="tool-title"><span class="material-icons" style="vertical-align: middle; font-size: inherit;">lock_open</span> Outil de Décryptage par Permutation</h1>
+    <h1 class="tool-title"><span class="material-icons icon-inline">lock_open</span> Outil de Décryptage par Permutation</h1>
     
     <p class="tool-description">
         Cet outil vous aide à décrypter un message chiffré par permutation en réorganisant les colonnes visuellement.
@@ -10,7 +10,7 @@
     </p>
 
     <div class="info-box">
-        <h3><span class="material-icons" style="vertical-align: middle; font-size: 1.3em;">menu_book</span> Comment ça fonctionne ?</h3>
+        <h3><span class="material-icons icon-inline icon-medium">menu_book</span> Comment ça fonctionne ?</h3>
         <p>
             <strong>1.</strong> Le chiffrement par permutation organise le texte en colonnes selon une clé.
         </p>
@@ -24,7 +24,7 @@
 
     <div class="input-section">
         <div class="input-group">
-            <label for="encrypted-text"><span class="material-icons" style="vertical-align: middle; font-size: 1.1em;">edit_note</span> Texte chiffré :</label>
+            <label for="encrypted-text"><span class="material-icons icon-inline icon-small">edit_note</span> Texte chiffré :</label>
             <textarea 
                 id="encrypted-text" 
                 placeholder="Entrez le texte chiffré ici... (ex: bjrnu_oo_)"
@@ -32,7 +32,7 @@
         </div>
 
         <div class="input-group">
-            <label for="num-columns"><span class="material-icons" style="vertical-align: middle; font-size: 1.1em;">grid_on</span> Nombre de colonnes :</label>
+            <label for="num-columns"><span class="material-icons icon-inline icon-small">grid_on</span> Nombre de colonnes :</label>
             <input 
                 type="number" 
                 id="num-columns" 
@@ -43,7 +43,7 @@
             >
         </div>
 
-        <button class="btn-generate" onclick="I_generateGrid()">
+        <button class="btn-generate" id="btn-generate">
             Générer le tableau
         </button>
     </div>
@@ -51,7 +51,7 @@
     <div class="grid-container" id="grid-container">
         <h2 class="grid-title">Tableau de Décryptage</h2>
         <p class="instruction">
-            <span class="material-icons" style="vertical-align: middle;">swap_horiz</span> Glissez-déposez les colonnes pour réorganiser le texte
+            <span class="material-icons icon-inline">swap_horiz</span> Glissez-déposez les colonnes pour réorganiser le texte
         </p>
         
         <div class="columns-container" id="columns-container">
@@ -59,18 +59,18 @@
         </div>
 
         <div class="result-section">
-            <h3 class="result-title"><span class="material-icons" style="vertical-align: middle; font-size: 1.2em;">description</span> Texte déchiffré actuel :</h3>
+            <h3 class="result-title"><span class="material-icons icon-inline">description</span> Texte déchiffré actuel :</h3>
             <div class="result-text" id="result-text">
                 <!-- Le résultat sera affiché ici -->
             </div>
         </div>
 
         <div class="controls">
-            <button class="btn-control" onclick="I_copyResult()">
-                <span class="material-icons" style="vertical-align: middle; font-size: 1.1em;">content_copy</span> Copier le résultat
+            <button class="btn-control" id="btn-copy">
+                <span class="material-icons icon-inline">content_copy</span> Copier le résultat
             </button>
-            <button class="btn-control btn-reset" onclick="I_resetColumns()">
-                <span class="material-icons" style="vertical-align: middle; font-size: 1.1em;">refresh</span> Réinitialiser
+            <button class="btn-control btn-reset" id="btn-reset-columns">
+                <span class="material-icons icon-inline">refresh</span> Réinitialiser
             </button>
         </div>
     </div>

@@ -52,11 +52,11 @@
             <p class="instruction">Cet email est-il une tentative de phishing ?</p>
             
             <div class="decision-buttons">
-                <button class="btn-decision safe" onclick="PhishingGame.makeDecision(false)">
+                <button class="btn-decision safe" id="btn-safe">
                     <span class="material-icons">verified_user</span>
                     C'est légitime
                 </button>
-                <button class="btn-decision phish" onclick="PhishingGame.showPhishingTypes()">
+                <button class="btn-decision phish" id="btn-show-types">
                     <span class="material-icons">warning</span>
                     C'est du phishing
                 </button>
@@ -65,19 +65,19 @@
             <div id="phishing-types" class="phishing-types hidden">
                 <h3>Quel type de phishing ?</h3>
                 <div class="type-grid">
-                    <button class="btn-type" onclick="PhishingGame.makeDecision(true, 'urgency')">
+                    <button class="btn-type" data-phishing-type="urgency">
                         <span class="material-icons">timer</span>
                         Urgence / Pression
                     </button>
-                    <button class="btn-type" onclick="PhishingGame.makeDecision(true, 'fake_site')">
+                    <button class="btn-type" data-phishing-type="fake_site">
                         <span class="material-icons">link_off</span>
                         Faux lien / Site
                     </button>
-                    <button class="btn-type" onclick="PhishingGame.makeDecision(true, 'auth')">
+                    <button class="btn-type" data-phishing-type="auth">
                         <span class="material-icons">admin_panel_settings</span>
                         Fausse Autorité
                     </button>
-                    <button class="btn-type" onclick="PhishingGame.makeDecision(true, 'offer')">
+                    <button class="btn-type" data-phishing-type="offer">
                         <span class="material-icons">card_giftcard</span>
                         Offre trop belle
                     </button>
@@ -91,7 +91,7 @@
             <div class="feedback-icon" id="feedback-icon"></div>
             <h2 id="feedback-title">Résultat</h2>
             <p id="feedback-message">Explication...</p>
-            <button class="btn-next" onclick="PhishingGame.nextScenario()">
+            <button class="btn-next" id="btn-next-scenario">
                 Suivant
                 <span class="material-icons">arrow_forward</span>
             </button>
@@ -105,7 +105,7 @@
             <p class="final-score">Votre score : <span id="final-score">0</span>/5</p>
             <p id="final-message">Pas mal, mais restez vigilant !</p>
             <a href="/minigames" class="btn-finish">Retour aux jeux</a>
-            <button class="btn-restart" onclick="location.reload()">Rejouer</button>
+            <button class="btn-restart" id="btn-restart">Rejouer</button>
         </div>
     </div>
 </div>

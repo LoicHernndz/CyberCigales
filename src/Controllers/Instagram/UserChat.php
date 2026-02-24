@@ -65,28 +65,13 @@ class UserChat extends AbstractController
         // Ajout du statut pour le chat
         $userProfile['status'] = 'En ligne';
 
-        // Passage des données à la vue
+        // Passage des données brutes à la vue (pas de HTML dans le controller)
         $view->addTemplateKey('USER_AVATAR', $userProfile['avatar']);
         $view->addTemplateKey('USER_DISPLAY_NAME', $userProfile['display_name']);
         $view->addTemplateKey('USER_USERNAME', $userProfile['username']);
         $view->addTemplateKey('USER_STATUS', $userProfile['status']);
         $view->addTemplateKey('PROFILE_URL', '/instagram/user/' . urlencode($username));
-
-        // Génération du HTML pour les messages
-        $messagesHtml = '';
-        foreach ($chatMessages as $message) {
-            $senderClass = ($message['type'] === 'sent') ? 'sent' : 'received';
-            $messagesHtml .= '
-            <div class="message ' . $senderClass . '">
-                <div class="message-content">
-                    <p>' . htmlspecialchars($message['content']) . '</p>
-                    <span class="time">' . $message['time'] . '</span>
-                </div>
-            </div>';
-        }
-
-        // Passage des données à la vue
-        $view->addTemplateKey('MESSAGES', $messagesHtml);
+        $view->setChatMessages($chatMessages);
 
         $view->render();
     }
