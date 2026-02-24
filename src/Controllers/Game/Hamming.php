@@ -70,11 +70,11 @@ class Hamming extends AbstractController
             // Si requête AJAX, retourner JSON
             if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
                 header('Content-Type: application/json');
-                echo json_encode(['success' => false, 'message' => 'Session expirée', 'redirect' => '/hamming']);
+                echo json_encode(['success' => false, 'message' => 'Session expirée', 'redirect' => '/game/hamming']);
                 exit();
             }
             // Sinon rediriger vers GET
-            header('Location: /hamming');
+            header('Location: /game/hamming');
             exit();
         }
         

@@ -2,9 +2,8 @@
 /**
  * Point d'entrée de l'application CyberCigales
  * 
- * Ce fichier gère le routage principal de l'application.
- * Il charge l'autoloader, gère les routes dynamiques (Instagram)
- * et les routes statiques définies dans Routes.php.
+ * Routeur entièrement dynamique : l'URL est convertie en namespace de contrôleur.
+ * Convention : /segment1/segment2 → Controllers\Segment1\Segment2 (kebab-case → PascalCase)
  * 
  * @package CyberCigales
  */
@@ -12,41 +11,54 @@
 include "../src/config/Autoloader.php";
 include "../src/helpers/session_helper.php";
 
-use config\Routes;
-
-// Recupere la requete actuelle en ignorant les parametres passes
+// Récupère l'URI sans les paramètres GET
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 
-// ========================================
-// ROUTES DYNAMIQUES INSTAGRAM
-// ========================================
-// Routes pour les profils utilisateurs Instagram: /instagram/user/{username}
-if (preg_match('#^/instagram/user/([^/]+)/chat$#', $uri)) {
-    $controller = new Controllers\Instagram\UserChat();
+// Cas spécial : page d'accueil
+if ($uri === '/') {
+    $controller = new Controllers\Homepage();
     $controller->control();
     exit();
 }
 
-if (preg_match('#^/instagram/user/([^/]+)$#', $uri)) {
-    $controller = new Controllers\Instagram\UserProfile();
-    $controller->control();
-    exit();
+/**
+ * Convertit un segment d'URL kebab-case en PascalCase
+ * Exemple : "chiffrement-cesar" → "ChiffrementCesar"
+ */
+function kebabToPascal(string $segment): string {
+    return str_replace(' ', '', ucwords(str_replace('-', ' ', $segment)));
 }
 
-// ========================================
-// ROUTES STATIQUES
-// ========================================
-//  On cherche a quel controleur correspond la requete actuelle
-foreach (Routes::$routes as $key => $value) {
-    if ($key == $uri) {
-        $controller = new $value();
-        $controller->control();  //  Execute l'action du controller (afficher une page et/ou actions)
+// Découpe l'URI en segments et convertit en PascalCase
+$segments = explode('/', trim($uri, '/'));
+$pascalSegments = array_map('kebabToPascal', $segments);
+
+// Résolution : du chemin le plus long au plus court
+// - i = total   → correspondance directe (/user/login → Controllers\User\Login)
+// - i < total   → paramètres dynamiques  (/instagram/user/john → Controllers\Instagram\User + params)
+// À chaque étape, on tente aussi la convention Index (/lecon → Controllers\Lecon\Index)
+for ($i = count($pascalSegments); $i > 0; $i--) {
+    $trySegments = array_slice($pascalSegments, 0, $i);
+    $params = ($i < count($pascalSegments)) ? array_slice($segments, $i) : [];
+
+    $tryClass = 'Controllers\\' . implode('\\', $trySegments);
+
+    if (class_exists($tryClass)) {
+        $_REQUEST['route_params'] = $params;
+        $controller = new $tryClass();
+        $controller->control();
+        exit();
+    }
+
+    if (class_exists($tryClass . '\\Index')) {
+        $_REQUEST['route_params'] = $params;
+        $controller = new ($tryClass . '\\Index')();
+        $controller->control();
         exit();
     }
 }
 
-//  Securite : Si l'url ne correspond a aucune page / methode implemente -> ERREUR 404
+// === Aucune correspondance → 404 ===
 $controller = new Controllers\Error404\Error404();
 $controller->control();
-;
 exit();
