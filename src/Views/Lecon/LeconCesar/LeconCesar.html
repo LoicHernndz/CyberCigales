@@ -8,27 +8,26 @@
     <p class="intro-text">Le chiffrement le plus simple à comprendre</p>
 
     <!-- Légende couleurs -->
-    <div
-        style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2rem; padding: 1rem 1.5rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; font-size: 0.9rem;">
-        <span><span style="color: #00c8ff; font-weight: 700;">■</span> Message clair</span>
-        <span><span style="color: #ff4444; font-weight: 700;">■</span> Clé / Décalage</span>
-        <span><span style="color: #b06cff; font-weight: 700;">■</span> Message chiffré</span>
+    <div class="legend-container">
+        <span><span class="message-related">■</span> Message clair</span>
+        <span><span class="key-related">■</span> Clé / Décalage</span>
+        <span><span class="code-related">■</span> Message chiffré</span>
     </div>
 
     <section>
         <h2>1. À quoi sert le chiffrement ?</h2>
         <p>Le chiffrement permet de cacher un message afin qu'il ne soit lisible que par les personnes autorisées.</p>
         <p>Le chiffrement de César est l'un des plus anciens chiffrements connus. Il consiste à décaler chaque lettre du
-            <span style="color: #00c8ff; font-weight: 600;">message</span> d'un nombre fixe de positions dans l'alphabet
-            : c'est le <span style="color: #ff4444; font-weight: 600;">décalage</span>.</p>
+            <span class="message-related">message</span> d'un nombre fixe de positions dans l'alphabet
+            : c'est le <span class="key-related">décalage</span>.</p>
     </section>
 
     <section>
         <h2>2. Le principe du chiffrement de César</h2>
         <p>On choisit :</p>
         <ul>
-            <li>un <span style="color: #00c8ff; font-weight: 600;">message clair</span>,</li>
-            <li>un <span style="color: #ff4444; font-weight: 600;">décalage</span> (un nombre).</li>
+            <li>un <span class="message-related">message clair</span>,</li>
+            <li>un <span class="key-related">décalage</span> (un nombre).</li>
         </ul>
         <div class="lesson-example-box">
             <p><strong>À noter :</strong> Toutes les lettres du message sont décalées du même nombre.</p>
@@ -37,142 +36,142 @@
 
     <section>
         <h2>3. Associer les lettres à des nombres</h2>
-        <table style="margin: 1rem auto; border-collapse: collapse;">
+        <table class="lesson-table">
             <tr>
-                <th style="border: 1px solid #ddd; padding: 8px;">Lettre</th>
-                <th style="border: 1px solid #ddd; padding: 8px;">A</th>
-                <th style="border: 1px solid #ddd; padding: 8px;">B</th>
-                <th style="border: 1px solid #ddd; padding: 8px;">C</th>
-                <th style="border: 1px solid #ddd; padding: 8px;">D</th>
-                <th style="border: 1px solid #ddd; padding: 8px;">E</th>
-                <th style="border: 1px solid #ddd; padding: 8px;">...</th>
-                <th style="border: 1px solid #ddd; padding: 8px;">Z</th>
+                <th>Lettre</th>
+                <th>A</th>
+                <th>B</th>
+                <th>C</th>
+                <th>D</th>
+                <th>E</th>
+                <th>...</th>
+                <th>Z</th>
             </tr>
             <tr>
-                <th style="border: 1px solid #ddd; padding: 8px;">Nombre</th>
-                <td style="border: 1px solid #ddd; padding: 8px;">0</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">1</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">2</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">3</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">4</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">...</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">25</td>
+                <th>Nombre</th>
+                <td>0</td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>...</td>
+                <td>25</td>
             </tr>
         </table>
     </section>
 
     <section>
         <h2>4. Exemple de chiffrement (pas à pas)</h2>
-        <p><span style="color: #00c8ff; font-weight: 600;">Message clair :</span> BONJOUR</p>
-        <p><span style="color: #ff4444; font-weight: 600;">Décalage choisi :</span> +3</p>
+        <p><span class="message-related">Message clair :</span> BONJOUR</p>
+        <p><span class="key-related">Décalage choisi :</span> +3</p>
 
-        <h3 style="margin-top: 1.5rem;">Calcul lettre par lettre</h3>
-        <table style="margin: 1rem auto; border-collapse: collapse;">
-            <tr>
-                <th style="border: 1px solid #ddd; padding: 8px; color: #00c8ff;">Message</th>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #00c8ff;">B</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #00c8ff;">O</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #00c8ff;">N</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #00c8ff;">J</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #00c8ff;">O</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #00c8ff;">U</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #00c8ff;">R</td>
+        <h3>Calcul lettre par lettre</h3>
+        <table class="lesson-table">
+            <tr class="message-related">
+                <th>Message</th>
+                <td>B</td>
+                <td>O</td>
+                <td>N</td>
+                <td>J</td>
+                <td>O</td>
+                <td>U</td>
+                <td>R</td>
             </tr>
             <tr>
-                <th style="border: 1px solid #ddd; padding: 8px;">Valeur</th>
-                <td style="border: 1px solid #ddd; padding: 8px;">1</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">14</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">13</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">9</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">14</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">20</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">17</td>
+                <th>Valeur</th>
+                <td>1</td>
+                <td>14</td>
+                <td>13</td>
+                <td>9</td>
+                <td>14</td>
+                <td>20</td>
+                <td>17</td>
             </tr>
             <tr>
-                <th style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">+3</th>
-                <td style="border: 1px solid #ddd; padding: 8px;">4</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">17</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">16</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">12</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">17</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">23</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">20</td>
+                <th>+3</th>
+                <td>4</td>
+                <td>17</td>
+                <td>16</td>
+                <td>12</td>
+                <td>17</td>
+                <td>23</td>
+                <td>20</td>
             </tr>
-            <tr>
-                <th style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">Résultat</th>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">E</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">R</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">Q</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">M</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">R</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">X</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">U</td>
+            <tr class="code-related">
+                <th>Résultat</th>
+                <td>E</td>
+                <td>R</td>
+                <td>Q</td>
+                <td>M</td>
+                <td>R</td>
+                <td>X</td>
+                <td>U</td>
             </tr>
         </table>
 
         <div class="lesson-example-box">
-            <p><span style="color: #b06cff; font-weight: 600;">Message chiffré :</span> ERQMRXU</p>
+            <p><span class="code-related">Message chiffré :</span> ERQMRXU</p>
         </div>
     </section>
 
     <section>
         <h2>5. Exemple de déchiffrement</h2>
-        <p><span style="color: #b06cff; font-weight: 600;">Message chiffré :</span> ERQMRXU</p>
-        <p><span style="color: #ff4444; font-weight: 600;">Décalage :</span> −3</p>
+        <p><span class="code-related">Message chiffré :</span> ERQMRXU</p>
+        <p><span class="key-related">Décalage :</span> −3</p>
 
-        <h3 style="margin-top: 1.5rem;">Calcul inverse</h3>
-        <table style="margin: 1rem auto; border-collapse: collapse;">
-            <tr>
-                <th style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">Chiffré</th>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">E</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">R</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">Q</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">M</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">R</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">X</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">U</td>
+        <h3>Calcul inverse</h3>
+        <table class="lesson-table">
+            <tr class="code-related">
+                <th>Chiffré</th>
+                <td>E</td>
+                <td>R</td>
+                <td>Q</td>
+                <td>M</td>
+                <td>R</td>
+                <td>X</td>
+                <td>U</td>
             </tr>
             <tr>
-                <th style="border: 1px solid #ddd; padding: 8px;">Valeur</th>
-                <td style="border: 1px solid #ddd; padding: 8px;">4</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">17</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">16</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">12</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">17</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">23</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">20</td>
+                <th>Valeur</th>
+                <td>4</td>
+                <td>17</td>
+                <td>16</td>
+                <td>12</td>
+                <td>17</td>
+                <td>23</td>
+                <td>20</td>
             </tr>
             <tr>
-                <th style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">−3</th>
-                <td style="border: 1px solid #ddd; padding: 8px;">1</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">14</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">13</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">9</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">14</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">20</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">17</td>
+                <th>−3</th>
+                <td>1</td>
+                <td>14</td>
+                <td>13</td>
+                <td>9</td>
+                <td>14</td>
+                <td>20</td>
+                <td>17</td>
             </tr>
-            <tr>
-                <th style="border: 1px solid #ddd; padding: 8px; color: #00c8ff;">Résultat</th>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #00c8ff;">B</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #00c8ff;">O</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #00c8ff;">N</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #00c8ff;">J</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #00c8ff;">O</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #00c8ff;">U</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #00c8ff;">R</td>
+            <tr class="message-related">
+                <th>Résultat</th>
+                <td>B</td>
+                <td>O</td>
+                <td>N</td>
+                <td>J</td>
+                <td>O</td>
+                <td>U</td>
+                <td>R</td>
             </tr>
         </table>
 
         <div class="lesson-example-box">
-            <p><span style="color: #00c8ff; font-weight: 600;">Message clair :</span> BONJOUR</p>
+            <p><span class="message-related">Message clair :</span> BONJOUR</p>
         </div>
 
-        <div class="lesson-example-box" style="margin-top: 1rem;">
+        <div class="lesson-example-box">
             <p><strong>Astuce importante</strong></p>
             <p>Si le résultat dépasse Z ou devient négatif, on fait un tour de l'alphabet.</p>
             <p><strong>Exemples :</strong></p>
-            <ul style="margin-left: 1.5rem;">
+            <ul >
                 <li>Y + 3 → B</li>
                 <li>A − 3 → X</li>
             </ul>
@@ -183,15 +182,15 @@
         <h2>6. Avantages et limites</h2>
         <div class="lesson-example-box">
             <p><strong>Avantages</strong></p>
-            <ul style="margin-left: 1.5rem;">
+            <ul>
                 <li>Très simple à comprendre</li>
                 <li>Bon outil pédagogique</li>
                 <li>Rapide à utiliser</li>
             </ul>
         </div>
-        <div class="lesson-example-box" style="margin-top: 1rem;">
+        <div class="lesson-example-box">
             <p><strong>Limites</strong></p>
-            <ul style="margin-left: 1.5rem;">
+            <ul >
                 <li>Toujours le même décalage</li>
                 <li>Facile à casser avec une analyse de fréquences</li>
                 <li>Peu sécurisé aujourd'hui</li>
@@ -202,188 +201,188 @@
     <section>
         <h2>7. Analyse par fréquence (avec le chiffrement de César)</h2>
 
-        <h3 style="margin-top: 1.5rem;">1. Qu'est-ce que l'analyse par fréquence ?</h3>
+        <h3>1. Qu'est-ce que l'analyse par fréquence ?</h3>
         <p>L'analyse par fréquence consiste à :</p>
         <ul>
             <li>compter combien de fois chaque lettre apparaît dans un <span
-                    style="color: #b06cff; font-weight: 600;">message chiffré</span>,</li>
+                    class="code-related">message chiffré</span>,</li>
             <li>comparer ces fréquences avec celles de la langue française.</li>
         </ul>
         <div class="lesson-example-box">
             <p><strong>En français, certaines lettres apparaissent très souvent :</strong></p>
-            <ul style="margin-left: 1.5rem;">
+            <ul >
                 <li>E est la lettre la plus fréquente</li>
                 <li>puis A, S, I, N, T, R</li>
             </ul>
         </div>
         <p>Cette méthode est très efficace contre le chiffrement de César, car le <span
-                style="color: #ff4444; font-weight: 600;">décalage</span> est toujours le même.</p>
+                class="key-related">décalage</span> est toujours le même.</p>
 
-        <h3 style="margin-top: 1.5rem;">2. Message chiffré à analyser</h3>
-        <p>On nous donne le <span style="color: #b06cff; font-weight: 600;">message chiffré</span> suivant :</p>
-        <div class="lesson-example-box">
-            <p style="text-align: center; font-size: 1.2rem;"><span style="color: #b06cff; font-weight: 700;">ERQMRXU
+        <h3>2. Message chiffré à analyser</h3>
+        <p>On nous donne le <span class="code-related">message chiffré</span> suivant :</p>
+        <div class="important-lesson-example-box">
+            <p><span class="code-related">ERQMRXU
                     ERQMRXU</span></p>
-            <p style="text-align: center;">(On ne connaît PAS le <span
-                    style="color: #ff4444; font-weight: 600;">décalage</span>.)</p>
+            <p>(On ne connaît PAS le <span
+                    class="key-related">décalage</span>.)</p>
         </div>
 
-        <h3 style="margin-top: 1.5rem;">3. Étape 1 : compter les lettres</h3>
+        <h3>3. Étape 1 : compter les lettres</h3>
         <p>On compte le nombre d'apparitions de chaque lettre :</p>
-        <table style="margin: 1rem auto; border-collapse: collapse;">
+        <table class="lesson-table">
             <tr>
-                <th style="border: 1px solid #ddd; padding: 8px;">Lettre</th>
-                <th style="border: 1px solid #ddd; padding: 8px;">Nombre d'apparitions</th>
+                <th>Lettre</th>
+                <th>Nombre d'apparitions</th>
             </tr>
             <tr>
-                <td style="border: 1px solid #ddd; padding: 8px;">E</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">2</td>
+                <td>E</td>
+                <td>2</td>
             </tr>
             <tr>
-                <td style="border: 1px solid #ddd; padding: 8px; font-weight: 700; color: #b06cff;">R</td>
-                <td style="border: 1px solid #ddd; padding: 8px; font-weight: 700; color: #b06cff;">4</td>
+                <td>R</td>
+                <td>4</td>
             </tr>
             <tr>
-                <td style="border: 1px solid #ddd; padding: 8px;">Q</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">2</td>
+                <td>Q</td>
+                <td>2</td>
             </tr>
             <tr>
-                <td style="border: 1px solid #ddd; padding: 8px;">M</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">2</td>
+                <td>M</td>
+                <td>2</td>
             </tr>
             <tr>
-                <td style="border: 1px solid #ddd; padding: 8px;">X</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">2</td>
+                <td>X</td>
+                <td>2</td>
             </tr>
             <tr>
-                <td style="border: 1px solid #ddd; padding: 8px;">U</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">2</td>
+                <td>U</td>
+                <td>2</td>
             </tr>
         </table>
         <div class="lesson-example-box">
             <p><strong>Observation :</strong> La lettre la plus fréquente est <span
-                    style="color: #b06cff; font-weight: 600;">R</span>.</p>
+                    class="code-related">R</span>.</p>
         </div>
 
-        <h3 style="margin-top: 1.5rem;">4. Étape 2 : faire une hypothèse</h3>
+        <h3>4. Étape 2 : faire une hypothèse</h3>
         <p>En français, la lettre la plus fréquente est E.</p>
         <div class="lesson-example-box">
-            <p><strong>Hypothèse :</strong> <span style="color: #b06cff; font-weight: 600;">R</span> (dans le message
+            <p><strong>Hypothèse :</strong> <span class="code-related">R</span> (dans le message
                 chiffré) correspond à E (en français).</p>
         </div>
 
-        <h3 style="margin-top: 1.5rem;">5. Étape 3 : calculer le décalage</h3>
+        <h3>5. Étape 3 : calculer le décalage</h3>
         <p>On associe les lettres à des nombres :</p>
-        <table style="margin: 1rem auto; border-collapse: collapse;">
+        <table class="lesson-table">
             <tr>
-                <th style="border: 1px solid #ddd; padding: 8px;">Lettre</th>
-                <th style="border: 1px solid #ddd; padding: 8px;">E</th>
-                <th style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">R</th>
+                <th>Lettre</th>
+                <th>E</th>
+                <th>R</th>
             </tr>
             <tr>
-                <th style="border: 1px solid #ddd; padding: 8px;">Valeur</th>
-                <td style="border: 1px solid #ddd; padding: 8px;">4</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">17</td>
+                <th>Valeur</th>
+                <td>4</td>
+                <td>17</td>
             </tr>
         </table>
-        <p><strong>Calcul du <span style="color: #ff4444;">décalage</span> :</strong></p>
+        <p><strong>Calcul du <span class="key-related">décalage</span> :</strong></p>
         <div class="code-block">17 − 4 = 13</div>
         <div class="lesson-example-box">
-            <p><span style="color: #ff4444; font-weight: 600;">Décalage probable :</span> +13</p>
+            <p><span class="key-related">Décalage probable :</span> +13</p>
         </div>
 
-        <h3 style="margin-top: 1.5rem;">6. Étape 4 : déchiffrer avec ce décalage</h3>
+        <h3>6. Étape 4 : déchiffrer avec ce décalage</h3>
         <p>On enlève 13 à chaque lettre :</p>
-        <table style="margin: 1rem auto; border-collapse: collapse;">
-            <tr>
-                <th style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">Lettre chiffrée</th>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">E</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">R</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">Q</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">M</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">R</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">X</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">U</td>
+        <table class="lesson-table">
+            <tr class="code-related">
+                <th>Lettre chiffrée</th>
+                <td>E</td>
+                <td>R</td>
+                <td>Q</td>
+                <td>M</td>
+                <td>R</td>
+                <td>X</td>
+                <td>U</td>
             </tr>
             <tr>
-                <th style="border: 1px solid #ddd; padding: 8px;">Valeur</th>
-                <td style="border: 1px solid #ddd; padding: 8px;">4</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">17</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">16</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">12</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">17</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">23</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">20</td>
+                <th>Valeur</th>
+                <td>4</td>
+                <td>17</td>
+                <td>16</td>
+                <td>12</td>
+                <td>17</td>
+                <td>23</td>
+                <td>20</td>
             </tr>
             <tr>
-                <th style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">−13</th>
-                <td style="border: 1px solid #ddd; padding: 8px;">R</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">E</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">D</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">Z</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">E</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">K</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">H</td>
+                <th>−13</th>
+                <td>R</td>
+                <td>E</td>
+                <td>D</td>
+                <td>Z</td>
+                <td>E</td>
+                <td>K</td>
+                <td>H</td>
             </tr>
         </table>
         <div class="lesson-example-box">
             <p><strong>Résultat :</strong> REDZEKH REDZEKH</p>
-            <p style="color: #ff6b6b;"><strong>Problème :</strong> Ça ne ressemble pas encore à du français correct.</p>
+            <p class="lesson-warning-text"><strong>Problème :</strong> Ça ne ressemble pas encore à du français correct.</p>
             <p>L'hypothèse était mauvaise.</p>
         </div>
 
-        <h3 style="margin-top: 1.5rem;">7. Étape 5 : nouvelle hypothèse</h3>
+        <h3>7. Étape 5 : nouvelle hypothèse</h3>
         <p>La deuxième lettre fréquente en français est souvent O ou A.</p>
-        <p><strong>Essayons :</strong> <span style="color: #b06cff; font-weight: 600;">R</span> → O</p>
-        <table style="margin: 1rem auto; border-collapse: collapse;">
+        <p><strong>Essayons :</strong> <span class="code-related">R</span> → O</p>
+        <table class="lesson-table">
             <tr>
-                <th style="border: 1px solid #ddd; padding: 8px;">Lettre</th>
-                <th style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">R</th>
-                <th style="border: 1px solid #ddd; padding: 8px;">O</th>
+                <th>Lettre</th>
+                <th>R</th>
+                <th>O</th>
             </tr>
             <tr>
-                <th style="border: 1px solid #ddd; padding: 8px;">Valeur</th>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">17</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">14</td>
+                <th>Valeur</th>
+                <td>17</td>
+                <td>14</td>
             </tr>
         </table>
-        <p><strong><span style="color: #ff4444;">Décalage</span> :</strong></p>
+        <p><strong><span class="key-related">Décalage</span> :</strong></p>
         <div class="code-block">17 − 14 = 3</div>
         <div class="lesson-example-box">
-            <p><span style="color: #ff4444; font-weight: 600;">Décalage = +3</span></p>
+            <p><span class="key-related">Décalage = +3</span></p>
         </div>
 
-        <h3 style="margin-top: 1.5rem;">8. Étape 6 : déchiffrement final</h3>
+        <h3>8. Étape 6 : déchiffrement final</h3>
         <p>On enlève 3 à chaque lettre :</p>
-        <table style="margin: 1rem auto; border-collapse: collapse;">
-            <tr>
-                <th style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">Chiffré</th>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">E</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">R</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">Q</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">M</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">R</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">X</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #b06cff;">U</td>
+        <table class="lesson-table">
+            <tr class="code-related">
+                <th>Chiffré</th>
+                <td>E</td>
+                <td>R</td>
+                <td>Q</td>
+                <td>M</td>
+                <td>R</td>
+                <td>X</td>
+                <td>U</td>
             </tr>
-            <tr>
-                <th style="border: 1px solid #ddd; padding: 8px; color: #ff4444;">−3</th>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #00c8ff;">B</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #00c8ff;">O</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #00c8ff;">N</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #00c8ff;">J</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #00c8ff;">O</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #00c8ff;">U</td>
-                <td style="border: 1px solid #ddd; padding: 8px; color: #00c8ff;">R</td>
+            <tr class="message-related">
+                <th>−3</th>
+                <td>B</td>
+                <td>O</td>
+                <td>N</td>
+                <td>J</td>
+                <td>O</td>
+                <td>U</td>
+                <td>R</td>
             </tr>
         </table>
         <div class="lesson-example-box">
-            <p><strong>Résultat :</strong> <span style="color: #00c8ff; font-weight: 600;">BONJOUR BONJOUR</span></p>
-            <p><span style="color: #00c8ff; font-weight: 600;">Message clair trouvé !</span></p>
+            <p><strong>Résultat :</strong> <span class="message-related">BONJOUR BONJOUR</span></p>
+            <p><span class="message-related">Message clair trouvé !</span></p>
         </div>
     </section>
 
-    <div style="text-align: center; margin-top: 3rem;">
+    <div class="lesson-actions">
         <a href="/lecon" class="btn-primary">Retour aux leçons</a>
     </div>
 </div>
