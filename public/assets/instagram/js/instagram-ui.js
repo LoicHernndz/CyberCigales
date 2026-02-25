@@ -9,6 +9,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const bellButton = bellButtons[0];
     bellButton.style.position = 'relative';
 
+    // NETTOYAGE : Supprimer les anciennes notifications de spam de l'énigme
+    try {
+        let history = JSON.parse(localStorage.getItem('instagram_notifications') || '[]');
+        let filtered = history.filter(n => n.username === 'mel_133');
+        localStorage.setItem('instagram_notifications', JSON.stringify(filtered));
+        let unread = filtered.length > 0 ? 1 : 0;
+        localStorage.setItem('instagram_unread_count', unread.toString());
+    } catch (e) { }
+
     // Créer le panel de notifications
     const panel = document.createElement('div');
     panel.className = 'instagram-notif-panel hidden';

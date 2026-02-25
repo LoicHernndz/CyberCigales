@@ -318,9 +318,11 @@ class InstagramModel
                 'username' => 'mel_133',
                 'avatar' => '/images/instagram/faux-profil-amie-hacke/melina_photo_selfie_salon.png',
                 'location' => 'Inconnu',
-                'image' => '/images/instagram/faux-profil-amie-hacke/melina_photo_miroir.png',
+                'image' => '/images/instagram/faux-profil-amie-hacke/melina_photo_miroir.png', // Fallback or thumbnail if needed, but video will play
+                'is_video' => true,
+                'video' => '/images/videos/instagram/hacker-terminal-promo.mov',
                 'likes' => 842,
-                'caption' => 'Je viens de trouver quelque chose d\'intéressant dans les logs système... Mon journal en parle plus en détail. 👁️ #cyber #hacked',
+                'caption' => '🚨 NOUVELLE OPPORTUNITÉ CRYPTO ! 🚨 Rejoignez ma plateforme SECURISEE pour faire exploser vos profits. 📈 Ne laissez pas les banques contrôler votre argent ! Lien en bio.💸💎 #crypto #investissement #libertefinanciere #hackthesystem',
                 'comments' => [],
                 'time' => 'À l\'instant'
             ]);
@@ -526,12 +528,27 @@ class InstagramModel
                 'posts' => (function () {
                     $basePosts = [
                         ['id' => 1, 'image' => '/images/instagram/Cesar.png', 'type' => 'normal', 'is_video' => false],
-                        ['id' => 2, 'video' => '/videos/instagram/Hacker-promo-plateforme-crypto.mp4', 'type' => 'mp4', 'is_video' => true],
                         ['id' => 3, 'image' => '/images/instagram/steve-doig-FaMBWkmvPyY-unsplash.jpg', 'type' => 'normal', 'is_video' => false],
                         ['id' => 4, 'image' => '/images/instagram/faux-profil-amie-hacke/melina_photo_miroir_2.png', 'type' => 'normal', 'is_video' => false],
                     ];
                     if (isset($_SESSION['instagram_mel_post_unlocked']) && $_SESSION['instagram_mel_post_unlocked']) {
-                        array_unshift($basePosts, ['id' => 999, 'image' => '/images/instagram/faux-profil-amie-hacke/melina_photo_miroir.png', 'type' => 'normal', 'is_video' => false]);
+                        // On insère le post vidéo piraté APRÈS César mais AVANT le miroir 2
+                        array_splice($basePosts, 1, 0, [
+                            [
+                                'id' => 2,
+                                'video' => '/images/videos/instagram/Hacker-promo-plateforme-crypto.mp4',
+                                'type' => 'mp4',
+                                'is_video' => true
+                            ]
+                        ]);
+                        // Et au-dessus, le "nouveau" post de la vidéo de promo
+                        array_unshift($basePosts, [
+                            'id' => 999,
+                            'image' => '/images/instagram/faux-profil-amie-hacke/melina_photo_miroir.png',
+                            'type' => 'mov',
+                            'is_video' => true,
+                            'video' => '/images/videos/instagram/hacker-terminal-promo.mov'
+                        ]);
                     }
                     return $basePosts;
                 })()

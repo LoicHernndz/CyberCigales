@@ -84,6 +84,13 @@ class InstagramView extends BaseInstagramView
         foreach ($this->posts as $post) {
             $commentsHtml = $this->renderComments($post['comments']);
 
+            $mediaHtml = '';
+            if (isset($post['is_video']) && $post['is_video'] && isset($post['video'])) {
+                $mediaHtml = '<video src="' . $post['video'] . '" title="Post by ' . $post['username'] . '" autoplay muted loop playsinline controls style="width: 100%; max-height: 600px; object-fit: contain; background: black;"></video>';
+            } else {
+                $mediaHtml = '<img src="' . $post['image'] . '" alt="Post by ' . $post['username'] . '">';
+            }
+
             $html .= '<article class="post">'
                 . '<div class="post-header">'
                 . '<div class="user-info">'
@@ -94,8 +101,8 @@ class InstagramView extends BaseInstagramView
                 . '</div></div>'
                 . '<button class="more-btn" aria-label="Plus d\'options">&#x22EF;</button>'
                 . '</div>'
-                . '<div class="post-image">'
-                . '<img src="' . $post['image'] . '" alt="Post by ' . $post['username'] . '">'
+                . '<div class="post-media" style="width: 100%; display: flex; justify-content: center; background: #fafafa;">'
+                . $mediaHtml
                 . '</div>'
                 . '<div class="post-actions">'
                 . '<button class="action-btn like-btn" aria-label="Aimer"><img src="/images/instagram/svgs/heart-outline.svg" alt="Like" class="icon"></button>'

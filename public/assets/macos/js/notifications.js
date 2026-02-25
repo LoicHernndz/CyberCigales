@@ -147,53 +147,9 @@ function playNotificationSound() {
     } catch (e) { }
 }
 
-const SIMULATED_POSTS = [
-    { username: 'mel_133', avatar: '/images/instagram/faux-profil-amie-hacke/melina_photo_selfie_salon.png', caption: "Nouveau look pour cette nouvelle semaine ! 💫✨ #fashion #style" },
-    { username: 'alex_photo', avatar: '/images/instagram/alexander-schimmeck-2zJhA9RSkys-unsplash.jpg', caption: "Golden hour à Paris 🌇 Un moment magique #photography" },
-    { username: 'anna_food', avatar: '/images/instagram/anna-bratiychuk-IeNoBmJ011g-unsplash.jpg', caption: "Nouvelle recette : tiramisu aux fraises 🍓🍰 #foodie" },
-    { username: 'heather_travel', avatar: '/images/instagram/heather-barnes-CNDiESvWfrk-unsplash.jpg', caption: "Les rizières de Bali au lever du soleil 🌅 #travel" },
-    { username: 'leo_creative', avatar: '/images/instagram/leo_visions-n5ojSxRb1Vs-unsplash.jpg', caption: "Nouvelle illustration terminée ! 🎨 Qu'en pensez-vous ?" },
-    { username: 'corina_pets', avatar: '/images/instagram/corina-rainer-sScNrKruEPs-unsplash.jpg', caption: "Caramel apprend à donner la patte ! 🐾 Trop fier de lui 🥺" },
-    { username: 'mike_coffee', avatar: '/images/instagram/mike-kenneally-TD4DBagg2wE-unsplash.jpg', caption: "Nouveau blend éthiopien ☕ Notes de myrtille et chocolat" },
-    { username: 'monika_cuisine', avatar: '/images/instagram/monika-grabkowska-EbRBhZ-I_p8-unsplash.jpg', caption: "Tajine marocain fait maison 🍲 La recette arrive bientôt !" },
-    {
-        username: 'diliara_style', avatar: '/images/instagram/diliara-garifullina-I48gnI1Qs5o-unsplash.jpg', caption: "Haul soldes d'hiver 🛍️ Mes 5 meilleures trouvailles !"
-    },
-    { username: 'annie_nature', avatar: '/images/instagram/annie-spratt-e92dhXE8PUg-unsplash.jpg', caption: "Les cerisiers en fleurs au jardin 🌸 Le printemps arrive !" }
-];
-
-let usedPostIndices = [];
-function getRandomPost() {
-    if (usedPostIndices.length >= SIMULATED_POSTS.length) usedPostIndices = [];
-    let index;
-    do { index = Math.floor(Math.random() * SIMULATED_POSTS.length); } while (usedPostIndices.includes(index));
-    usedPostIndices.push(index);
-    return SIMULATED_POSTS[index];
-}
-
-function scheduleNextNotification() {
-    const delay = NOTIF_CONFIG.minIntervalMs + Math.random() * (NOTIF_CONFIG.maxIntervalMs - NOTIF_CONFIG.minIntervalMs);
-    setTimeout(() => {
-        showNotification(getRandomPost());
-        scheduleNextNotification();
-    }, delay);
-}
-
-// Initialisation globale
 window.addEventListener('load', () => {
-    initNotificationContainer();
-
-    // Restaurer le badge au chargement
-    const unread = parseInt(localStorage.getItem('instagram_unread_count') || '0');
-    if (unread > 0) {
-        updateDockBadge('Instagram', unread);
-    }
-
-    // Lancer la boucle de simulation
-    setTimeout(() => {
-        showNotification(getRandomPost());
-        scheduleNextNotification();
-    }, 8000 + Math.random() * 7000); // 8-15s pour le rpeimier
+    // On se contente d'écouter et de nettoyer le LS.
+    // La SEULE notification de mel_133 sera injectée par InterfaceWebModel (lemonde.fr-acces-complet)
 });
 
 // Écouter les modifs de storage (venant d'autres frames/pages) pour resync le badge

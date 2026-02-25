@@ -237,7 +237,7 @@ class MacOSView
     </div>
 </footer>
 
-<script src="/assets/macos/js/notifications.js"></script>
+<script src="/assets/macos/js/notifications.js?v=2"></script>
 <script src="/assets/macos/js/macos.js"></script>
 </body>
 </html>';

@@ -633,30 +633,22 @@ Loin d\'être réservé aux experts, l\'usage du terminal repose sur quelques co
                                         const notificationData = {
                                             username: "mel_133",
                                             avatar: "/images/instagram/faux-profil-amie-hacke/melina_photo_selfie_salon.png",
-                                            caption: "J\'ai trouvé quelque chose d\'intéressant... Regarde mon profil !",
+                                            caption: "Nouvelle publication vidéo : Découvrez ma plateforme crypto !",
                                             timestamp: Date.now()
                                         };
 
-                                        let notifications = [];
-                                        try {
-                                            notifications = JSON.parse(localStorage.getItem("instagram_notifications") || "[]");
-                                        } catch(e) { /* ignore */ }
-                                        
-                                        // Éviter les doublons basés sur le message (simplifié)
-                                        const exists = notifications.some(n => n.caption === notificationData.caption);
-                                        
-                                        if (!exists) {
-                                            notifications.push(notificationData);
-                                            localStorage.setItem("instagram_notifications", JSON.stringify(notifications));
+                                        // Effacer TOUTES les anciennes notifications avant d\'afficher la nouvelle
+                                        localStorage.setItem("instagram_notifications", "[]");
+                                        localStorage.setItem("instagram_unread_count", "0");
 
-                                            let unreadCount = parseInt(localStorage.getItem("instagram_unread_count") || "0");
-                                            localStorage.setItem("instagram_unread_count", (unreadCount + 1).toString());
-
-                                            // Déclencher l\'événement pour mettre à jour l\'UI (dock macOS + interface Insta)
+                                        // Appeler la fonction du parent (le bureau macOS) pour afficher la bulle de notification
+                                        if (window.parent && typeof window.parent.showNotification === "function") {
+                                            window.parent.showNotification(notificationData);
+                                        } else {
+                                            // Fallback de sécurité si affiché hors iframe
+                                            localStorage.setItem("instagram_notifications", JSON.stringify([notificationData]));
+                                            localStorage.setItem("instagram_unread_count", "1");
                                             window.dispatchEvent(new Event("storage"));
-                                            
-                                            // Optional: visual alert
-                                            // alert("Vous avez reçu une nouvelle notification Instagram !");
                                         }
                                     }
                                 })
