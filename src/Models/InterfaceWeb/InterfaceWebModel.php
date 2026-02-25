@@ -89,41 +89,257 @@ class InterfaceWebModel
             </div>',
 
         'lemonde.fr' => '
-            <div style="max-width: 400px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; font-family: sans-serif; background: white;">
-                <h2 style="text-align: center; color: #d32f2f;">ARTICLE COMPLET</h2>
-                <p style="font-size: 14px; color: #666; text-align: center;">Accès réservé au personnel de maintenance.</p>
-                <div style="margin-top: 20px;">
-                    <label style="display: block; margin-bottom: 5px;">Utilisateur</label>
-                    <input type="text" value="admin" disabled style="width: 100%; padding: 8px; box-sizing: border-box; background: #eee;">
+            <style>
+        /* Simulation de la feuille de style du Monde (simplifiée) */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Le Monde Journal", "Spectral", serif;
+            color: #161616;
+            background-color: #f6f6f6;
+            line-height: 1.5;
+        }
+        .lm-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            min-height: 100vh;
+        }
+        
+        /* Header simplifié */
+        .lm-header {
+            border-bottom: 1px solid #e5e5e5;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .lm-logo {
+            font-family: "Le Monde Livre", serif;
+            font-size: 32px;
+            font-weight: bold;
+        }
+        .lm-nav-links a {
+            text-decoration: none;
+            color: #161616;
+            margin-left: 15px;
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .lm-subscribe-btn {
+            background-color: #ffe700;
+            color: #161616;
+            padding: 8px 16px;
+            text-decoration: none;
+            font-weight: bold;
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        /* Structure Article */
+        .article-header {
+            max-width: 800px;
+            margin: 30px auto 20px auto;
+            padding: 0 20px;
+        }
+        .breadcrumb {
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 12px;
+            color: #007fff;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        h1.article-title {
+            font-size: 40px;
+            line-height: 1.1;
+            margin: 0 0 15px 0;
+            font-weight: bold;
+        }
+        .article-chapeau {
+            font-size: 18px;
+            line-height: 1.4;
+            color: #161616;
+            margin-bottom: 20px;
+        }
+        .article-meta {
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 13px;
+            color: #666;
+            border-top: 1px solid #e5e5e5;
+            padding-top: 15px;
+            margin-bottom: 30px;
+        }
+        .article-body {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 20px 50px 20px;
+            font-size: 17px;
+            line-height: 1.6;
+        }
+        .article-body p {
+            margin-bottom: 20px;
+        }
+
+        /* Effet de fondu (Paywall / Lock) */
+        .article-fade {
+            position: relative;
+            max-height: 100px;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+        .article-fade::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+        }
+
+        .admin-lock-box {
+            max-width: 450px;
+            margin: 0 auto;
+            padding: 30px;
+            border: 1px solid #e5e5e5;
+            border-top: 4px solid #d32f2f;
+            background: #fafafa;
+            font-family: Helvetica, Arial, sans-serif;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .admin-lock-box h2 {
+            text-align: center;
+            color: #d32f2f;
+            margin: 0 0 5px 0;
+            font-family: "Le Monde Livre", "Spectral", serif;
+            font-size: 24px;
+        }
+        .admin-lock-box .subtitle {
+            font-size: 13px;
+            color: #666;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .admin-lock-box label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #333;
+        }
+        .admin-lock-box input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            background: #e9ecef;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            color: #555;
+            cursor: not-allowed;
+        }
+        .admin-lock-box button {
+            width: 100%;
+            padding: 14px;
+            background: #161616;
+            color: white;
+            border: none;
+            cursor: not-allowed;
+            opacity: 0.8;
+            font-weight: bold;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            transition: background 0.3s;
+        }
+        .admin-lock-box button:not([disabled]):hover {
+            background: #d32f2f;
+            opacity: 1;
+            cursor: pointer;
+        }
+    </style>
+    </head>
+    <body>
+
+    <div class="lm-container">
+        <header class="lm-header">
+            <div class="lm-logo">Le Monde</div>
+            <div class="lm-nav-links">
+                <a href="#">Actualités</a>
+                <a href="#">Économie</a>
+                <a href="#">Pixels</a>
+                <a href="#" class="lm-subscribe-btn">S’abonner</a>
+            </div>
+        </header>
+
+        <article>
+            <header class="article-header">
+                <div class="breadcrumb">Pixels > Cybersécurité</div>
+                <h1 class="article-title">Le terminal Linux : de la navigation élémentaire à la compréhension de l\'attaque par force brute</h1>
+                <p class="article-chapeau">
+                    Comprendre les commandes fondamentales pour se repérer dans un système d\'exploitation est la première étape vers la maîtrise de l\'informatique. C\'est aussi le prérequis nécessaire pour appréhender des méthodes d\'attaque rudimentaires mais efficaces, comme le "brute force".
+                </p>
+                <div class="article-meta">
+                    Par la rédaction Pixels (avec CyberCigales) <br>
+                    <time datetime="2026-02-11">Publié le 11 février 2026 à 11h42</time>
                 </div>
-                <div style="margin-top: 15px;">
-                    <label style="display: block; margin-bottom: 5px;">Code d\'accès</label>
-                    <input type="password" value="********" disabled style="width: 100%; padding: 8px; box-sizing: border-box; background: #eee;">
+            </header>
+
+            <div class="article-body">
+                <p>
+                    Face à un écran noir où seul clignote un curseur blanc, beaucoup d\'utilisateurs ressentent une appréhension. Le terminal, cette interface textuelle omniprésente sur les systèmes Linux (qui propulsent la majorité des serveurs web mondiaux), semble austère. Pourtant, il s\'agit de l\'outil le plus direct pour dialoguer avec la machine.
+                </p>
+                
+                <div class="article-fade">
+                    <p>
+                        Loin d\'être réservé aux experts, l\'usage du terminal repose sur quelques concepts clés analogues à la navigation dans un bâtiment. Avant de construire des forteresses numériques, il faut savoir ouvrir les portes et lire les panneaux...
+                    </p>
                 </div>
-                <div style="margin-top: 25px;">
-                    <button id="admin-unlock-btn" disabled style="width: 100%; padding: 12px; background: #2196f3; color: white; border: none; border-radius: 4px; cursor: not-allowed; opacity: 0.6; font-weight: bold;">
-                        DÉVERROUILLER L\'ARTICLE COMPLET
-                    </button>
-                    <p id="unlock-message" style="display:none; color: green; font-weight: bold; margin-top: 10px; text-align: center;">Accès déverrouillé ! Regardez votre console (F12) pour accéder à l\'article complet.</p>
+
+                <div class="admin-lock-box">
+                    <h2>ARTICLE COMPLET</h2>
+                    <p class="subtitle">Accès restreint : réservé au personnel de maintenance.</p>
+                    
+                    <div>
+                        <label>Utilisateur</label>
+                        <input type="text" value="admin" disabled>
+                    </div>
+                    
+                    <div>
+                        <label>Code d\'accès</label>
+                        <input type="password" value="********" disabled>
+                    </div>
+                    
+                    <div>
+                        <button id="admin-unlock-btn" disabled>DÉVERROUILLER L\'ARTICLE</button>
+                        <p id="unlock-message" style="display:none; color: #2e7d32; font-weight: bold; margin-top: 15px; text-align: center; font-size: 13px;">
+                            Accès accordé. Vérifiez la console administrateur (F12).
+                        </p>
+                    </div>
                 </div>
+
                 <script>
-                    (function() {
-                        const btn = document.getElementById("admin-unlock-btn");
-                        const msg = document.getElementById("unlock-message");
-                        
-                        btn.addEventListener("click", function() {
-                            if (!btn.hasAttribute("disabled")) {
-                                msg.style.display = "block";
-                                console.log("%c [ADMIN] Accès accordé ! ", "background: #222; color: #bada55; font-size: 20px;");
-                                console.log("Le lien vers l\'article complet est : www.lemonde.fr-acces-complet");
-                                alert("Système déverrouillé. Le code a été envoyé dans les logs administrateur (Console).");
-                            } else {
-                                alert("Bouton désactivé. Seul un administrateur peut modifier les attributs de la page.");
-                            }
-                        });
-                    })();
+        (function() {
+            const btn = document.getElementById("admin-unlock-btn");
+            const msg = document.getElementById("unlock-message");
+
+            btn.addEventListener("click", function() {
+            if (!btn.hasAttribute("disabled")) {
+                msg.style.display = "block";
+                console.log("%c [ADMIN] Accès accordé ! ", "background: #222; color: #bada55; font-size: 20px;");
+                console.log("Le lien vers l\'article complet est : www.lemonde.fr-acces-complet");
+                alert("Système déverrouillé. Le code a été envoyé dans les logs administrateur (Console).");
+            } else {
+                alert("Bouton désactivé. Seul un administrateur peut modifier les attributs de la page.");
+            }
+        });
+        })();
                 </script>
-            </div>',
+            </div>
+        </article>
+    </div>',
 
         'lemonde.fr-acces-complet' => '
 
