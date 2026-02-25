@@ -59,8 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Simuler une réponse du bot après 2 secondes
             setTimeout(() => {
-                const response = generateResponse(message);
-                scrollToBottom();
+                generateResponse(message);
             }, 2000);
         }
     }
@@ -137,7 +136,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
             let text = await response.text();
 
-            if (text.length>0) addBotMessage(text);
+            if (text.length>0) {
+                addBotMessage(text);
+                scrollToBottom();
+            }
 
             return text;
 
