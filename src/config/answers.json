@@ -6,7 +6,7 @@
       "key": "connaissance"
     },
     "1": {
-      "message": "Ok tu veux apprendre et c'est une très bonne chose. Mais pas tout le monde y aura accès. Seulement les plus perspicaces. Pour voir si tu es assez vif d'esprit réussi le mini jeu suivant (attaque par fréquence) et tu pourras alors accéder à la suite.",
+      "message": "Ok tu veux apprendre et c'est une très bonne chose. Mais pas tout le monde y aura accès. Seulement les plus perspicaces. Pour voir si tu es assez vif d'esprit réussi le mini jeu suivant (attaque par fréquence) et tu pourras alors accéder à la suite. Voici le code pour y accéder : 8265.",
       "responses": ["Je ne te donnerais rien facilement !", "Reviens quand tu as fini !", "Ne reviens pas tant que tu n'as pas réussi le mini jeu"],
       "key": "www.lemonde.fr"
     },

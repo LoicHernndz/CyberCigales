@@ -59,7 +59,21 @@ class Frequency extends AbstractController
             exit();
         }
         $action = $_POST['action'] ?? '';
+
+        $code = $_POST['code'] ?? '';
         switch ($action) {
+            case 'verify_code':
+                if ($code == '8265') {
+                    $this->startGoodCodePage();
+                    exit;
+                } else {
+                    echo json_encode([
+                        'success' => false,
+                        'message' => 'Code incorrect'
+                    ]);
+
+                }
+                exit;
             case 'start_game':
                 $this->startGame();
                 break;
@@ -69,6 +83,15 @@ class Frequency extends AbstractController
             default:
                 echo json_encode(['success' => false, 'message' => 'Action invalide']);
         }
+    }
+
+    private function startGoodCodePage(): void {
+        header('Content-Type: application/json');
+        echo json_encode([
+            'success' => true,
+            'message' => 'Code correct'
+        ]);
+        exit;
     }
 
     /**

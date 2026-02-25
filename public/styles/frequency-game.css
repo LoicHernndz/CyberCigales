@@ -5,6 +5,18 @@
     margin-bottom: 1rem;
 }
 
+.hidden {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+.visible {
+    opacity: 1;
+    max-height: 200px;
+}
+
 .btn-start {
     background: #007aff;
     color: white;

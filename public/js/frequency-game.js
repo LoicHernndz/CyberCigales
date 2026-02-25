@@ -5,10 +5,11 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     // Elements du DOM
-    const startScreen = document.getElementById('start-screen');
+    const startScreen = document.getElementById('good-code-screen');
     const playScreen = document.getElementById('play-screen');
     const endScreen = document.getElementById('end-screen');
 
+    const btnVerify = document.getElementById('btn-unlock');
     const btnStart = document.getElementById('btn-start-game');
     const btnCheck = document.getElementById('btn-check');
     const btnReset = document.getElementById('btn-reset');
@@ -28,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnReplay = document.getElementById('btn-replay');
 
     // Initialisation
+    if (btnVerify) btnVerify.addEventListener('click', startVerify);
     if (btnStart) btnStart.addEventListener('click', startGame);
     if (btnCheck) btnCheck.addEventListener('click', checkSolution);
     if (btnReset) btnReset.addEventListener('click', resetSubstitutions);
@@ -36,6 +38,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function toggleHelp() {
         if (helpContent) helpContent.classList.toggle('hidden');
+    }
+
+    function startVerify() {
+        const codeInput = document.querySelector('input[name="code"]');
+
+        const formData = new FormData();
+        formData.append('action', 'verify_code');
+        formData.append('code', codeInput.value);
+
+        fetch('/game/frequency', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('unlock-screen').classList.add('hidden');
+                    document.getElementById('good-code-screen').classList.remove('hidden');
+                } else {
+                    document.getElementById('error-message-code').classList.remove('hidden');
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                showFeedback("Erreur serveur", 'error');
+            });
     }
 
     // Demarrage du jeu
@@ -63,6 +91,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (dialogueText) {
                         dialogueText.textContent = "Analyse le message chiffre ! Clique sur une lettre pour definir sa correspondance.";
                     }
+                } else {
+                    btnStart.addEventListener("click", () => {
+                        text.classList.toggle("visible");
+                    })
+                    showFeedback(data.message, 'error')
                 }
             })
             .catch(err => {

@@ -1,4 +1,5 @@
-<link rel="stylesheet" href="/styles/hamming-game.css">
+<link rel="stylesheet" href="/styles/hamming-game.css" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html">
 <link rel="stylesheet" href="/styles/frequency-game.css">
 
 <div class="hamming-game-container">
@@ -19,7 +20,29 @@
     <!-- Zone de jeu principale -->
     <div class="game-area">
         <!-- Ecran de demarrage -->
-        <div id="start-screen" class="square-section">
+        <div id="unlock-screen" class="square-section">
+            <h3>
+                <span class="material-icons">lock</span>
+                Mission : Casser le chiffrement
+            </h3>
+            <p class="freq-description">Clique sur les lettres du texte chiffre pour indiquer leur
+                correspondance.</p>
+            <form method="post" name="code">
+                <input type="text" maxlength="4" inputmode="numeric" pattern="[0-9]" placeholder="Entrez le code" name="code">
+                <input type="button" value="Dévérouiller le jeu" id="btn-unlock">
+            </form>
+
+            <p id="error-message-code" class="hidden">Code faux</p>
+
+<!--            <button class="btn-help btn-start" id="btn-start-game">-->
+<!--                <span class="material-icons">play_arrow</span>-->
+<!--                <span>Lancer la mission</span>-->
+<!--            </button>-->
+        </div>
+
+<!--        <div id="start-screen" class="square-section">-->
+
+        <div id="good-code-screen" class="square-section hidden">
             <h3>
                 <span class="material-icons">lock</span>
                 Mission : Casser le chiffrement
