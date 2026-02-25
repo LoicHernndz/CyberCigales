@@ -183,6 +183,44 @@ class InterfaceWebModel
             margin-bottom: 20px;
         }
 
+        /* Encarts Publicitaires (Indices) */
+        .advertisement {
+            margin: 35px 0;
+            padding: 15px 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #eaeaea;
+            border-left: 4px solid #007fff;
+            font-family: Helvetica, Arial, sans-serif;
+            position: relative;
+        }
+        .ad-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: #999;
+            margin-bottom: 10px;
+            display: block;
+            letter-spacing: 1px;
+        }
+        .ad-title {
+            font-weight: bold;
+            font-size: 15px;
+            color: #161616;
+            margin-bottom: 5px;
+        }
+        .ad-text {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.4;
+        }
+        .ad-link {
+            display: inline-block;
+            margin-top: 8px;
+            font-size: 12px;
+            color: #007fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
         /* Effet de fondu (Paywall / Lock) */
         .article-fade {
             position: relative;
@@ -200,6 +238,7 @@ class InterfaceWebModel
             background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
         }
 
+        /* Bloc d\'accès restreint intégré */
         .admin-lock-box {
             max-width: 450px;
             margin: 0 auto;
@@ -210,29 +249,29 @@ class InterfaceWebModel
             font-family: Helvetica, Arial, sans-serif;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
-        .admin-lock-box h2 {
-            text-align: center;
+.admin-lock-box h2 {
+    text-align: center;
             color: #d32f2f;
             margin: 0 0 5px 0;
             font-family: "Le Monde Livre", "Spectral", serif;
             font-size: 24px;
         }
         .admin-lock-box .subtitle {
-            font-size: 13px;
+    font-size: 13px;
             color: #666;
             text-align: center;
             margin-bottom: 25px;
         }
         .admin-lock-box label {
-            display: block;
-            margin-bottom: 6px;
+    display: block;
+    margin-bottom: 6px;
             font-size: 13px;
             font-weight: bold;
             color: #333;
         }
         .admin-lock-box input {
-            width: 100%;
-            padding: 10px;
+    width: 100%;
+    padding: 10px;
             margin-bottom: 15px;
             box-sizing: border-box;
             background: #e9ecef;
@@ -242,8 +281,8 @@ class InterfaceWebModel
             cursor: not-allowed;
         }
         .admin-lock-box button {
-            width: 100%;
-            padding: 14px;
+    width: 100%;
+    padding: 14px;
             background: #161616;
             color: white;
             border: none;
@@ -255,13 +294,13 @@ class InterfaceWebModel
             transition: background 0.3s;
         }
         .admin-lock-box button:not([disabled]):hover {
-            background: #d32f2f;
-            opacity: 1;
-            cursor: pointer;
-        }
+    background: #d32f2f;
+    opacity: 1;
+    cursor: pointer;
+}
     </style>
-    </head>
-    <body>
+</head>
+<body>
 
     <div class="lm-container">
         <header class="lm-header">
@@ -291,10 +330,17 @@ class InterfaceWebModel
                 <p>
                     Face à un écran noir où seul clignote un curseur blanc, beaucoup d\'utilisateurs ressentent une appréhension. Le terminal, cette interface textuelle omniprésente sur les systèmes Linux (qui propulsent la majorité des serveurs web mondiaux), semble austère. Pourtant, il s\'agit de l\'outil le plus direct pour dialoguer avec la machine.
                 </p>
+
+                <div class="advertisement">
+                    <span class="ad-label">Sponsorisé par l\'Institut des Outils Dev</span>
+                    <div class="ad-title">Formation Web : Apprenez à regarder sous la surface</div>
+                    <div class="ad-text">Face à un élément web qui vous résiste, la solution est souvent à portée de <strong>clic droit</strong>. Apprenez à <strong>inspecter</strong> le code de vos pages pour comprendre ce qui se cache vraiment derrière l\'interface utilisateur.</div>
+                    <a href="#" class="ad-link">Découvrir le programme ></a>
+                </div>
                 
                 <div class="article-fade">
                     <p>
-                        Loin d\'être réservé aux experts, l\'usage du terminal repose sur quelques concepts clés analogues à la navigation dans un bâtiment. Avant de construire des forteresses numériques, il faut savoir ouvrir les portes et lire les panneaux...
+Loin d\'être réservé aux experts, l\'usage du terminal repose sur quelques concepts clés analogues à la navigation dans un bâtiment. Avant de construire des forteresses numériques, il faut savoir ouvrir les portes et lire les panneaux...
                     </p>
                 </div>
 
@@ -315,27 +361,34 @@ class InterfaceWebModel
                     <div>
                         <button id="admin-unlock-btn" disabled>DÉVERROUILLER L\'ARTICLE</button>
                         <p id="unlock-message" style="display:none; color: #2e7d32; font-weight: bold; margin-top: 15px; text-align: center; font-size: 13px;">
-                            Accès accordé. Vérifiez la console administrateur (F12).
+    Accès accordé. Vérifiez la console administrateur (F12).
                         </p>
                     </div>
                 </div>
 
-                <script>
-        (function() {
-            const btn = document.getElementById("admin-unlock-btn");
-            const msg = document.getElementById("unlock-message");
+                <div class="advertisement" style="margin-top: 40px; border-left-color: #ff9800;">
+                    <span class="ad-label">Publicité - Mindset Pro</span>
+                    <div class="ad-title">Coaching de vie : Ne restez plus bloqué</div>
+                    <div class="ad-text">Vous vous sentez freiné ou <em>désactivé</em> (<strong>disabled</strong>) face aux défis du quotidien ? Notre méthode vous aide à <strong>supprimer les attributs</strong> négatifs de votre vie pour reprendre immédiatement le contrôle de vos actions.</div>
+                    <a href="#" class="ad-link" style="color: #ff9800;">Commencer ma thérapie ></a>
+                </div>
 
-            btn.addEventListener("click", function() {
-            if (!btn.hasAttribute("disabled")) {
-                msg.style.display = "block";
-                console.log("%c [ADMIN] Accès accordé ! ", "background: #222; color: #bada55; font-size: 20px;");
-                console.log("Le lien vers l\'article complet est : www.lemonde.fr-acces-complet");
-                alert("Système déverrouillé. Le code a été envoyé dans les logs administrateur (Console).");
-            } else {
-                alert("Bouton désactivé. Seul un administrateur peut modifier les attributs de la page.");
-            }
-        });
-        })();
+                <script>
+(function() {
+    const btn = document.getElementById("admin-unlock-btn");
+    const msg = document.getElementById("unlock-message");
+
+    btn.addEventListener("click", function() {
+        if (!btn.hasAttribute("disabled")) {
+            msg.style.display = "block";
+            console.log("%c [ADMIN] Accès accordé ! ", "background: #222; color: #bada55; font-size: 20px;");
+            console.log("Le lien vers l\'article complet est : www.lemonde.fr-acces-complet");
+            alert("Système déverrouillé. Le code a été envoyé dans les logs administrateur (Console).");
+        } else {
+            alert("Bouton désactivé. Seul un administrateur peut modifier les attributs de la page.");
+        }
+    });
+})();
                 </script>
             </div>
         </article>
