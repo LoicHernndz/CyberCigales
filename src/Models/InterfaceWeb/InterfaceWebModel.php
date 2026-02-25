@@ -88,6 +88,7 @@ class InterfaceWebModel
                 </script>
             </div>',
 
+
         'lemonde.fr' => '
             <style>
         /* Simulation de la feuille de style du Monde (simplifiée) */
@@ -610,7 +611,63 @@ Loin d\'être réservé aux experts, l\'usage du terminal repose sur quelques co
             </p>
         </div>
     </article>
-    </div>'
+    </div>
+                <script>
+                    (function() {
+                        let timeoutReached = false;
+                        
+                        function triggerInstagramNotification() {
+                            if (timeoutReached) return;
+                            timeoutReached = true;
+                            
+                            console.log("30 secondes écoulées sur l\'article ! Déclenchement de la notification Instagram.");
+                            
+                            // 1. Appeler l\'API PHP pour débloquer le post
+                            fetch("/instagram/unlock-post")
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        console.log("Post Instagram débloqué côté serveur.");
+                                        
+                                        // 2. Mettre à jour le localStorage pour la notification UI
+                                        const notificationData = {
+                                            username: "mel_133",
+                                            avatar: "/images/instagram/faux-profil-amie-hacke/melina_photo_selfie_salon.png",
+                                            caption: "J\'ai trouvé quelque chose d\'intéressant... Regarde mon profil !",
+                                            timestamp: Date.now()
+                                        };
+
+                                        let notifications = [];
+                                        try {
+                                            notifications = JSON.parse(localStorage.getItem("instagram_notifications") || "[]");
+                                        } catch(e) { /* ignore */ }
+                                        
+                                        // Éviter les doublons basés sur le message (simplifié)
+                                        const exists = notifications.some(n => n.caption === notificationData.caption);
+                                        
+                                        if (!exists) {
+                                            notifications.push(notificationData);
+                                            localStorage.setItem("instagram_notifications", JSON.stringify(notifications));
+
+                                            let unreadCount = parseInt(localStorage.getItem("instagram_unread_count") || "0");
+                                            localStorage.setItem("instagram_unread_count", (unreadCount + 1).toString());
+
+                                            // Déclencher l\'événement pour mettre à jour l\'UI (dock macOS + interface Insta)
+                                            window.dispatchEvent(new Event("storage"));
+                                            
+                                            // Optional: visual alert
+                                            // alert("Vous avez reçu une nouvelle notification Instagram !");
+                                        }
+                                    }
+                                })
+                                .catch(err => console.error("Erreur unlock-post:", err));
+                        }
+
+                        // Déclenchement après 30 secondes
+                        setTimeout(triggerInstagramNotification, 30000);
+                    })();
+                </script>
+            </div>'
     ];
 
     /**
@@ -675,7 +732,7 @@ Loin d\'être réservé aux experts, l\'usage du terminal repose sur quelques co
                 
                 <div style="background: #fff; border: 1px solid #ccc; padding: 20px; display: inline-block; margin-top: 30px; border-radius: 6px; max-width: 500px; text-align:left;">
                     <p style="margin:0;"><strong>Erreur :</strong> Impossible de trouver le serveur associé à l\'adresse :</p>
-                    <p style="color: blue; margin-top:5px;">'.htmlspecialchars($url).'</p>
+                    <p style="color: blue; margin-top:5px;">' . htmlspecialchars($url) . '</p>
                     <hr style="margin: 15px 0; border:0; border-top:1px solid #eee;">
                     <p style="font-size: 12px; color: #aaa;">Essayez de taper <strong>apple.com</strong> ou <strong>google.com</strong>.</p>
                 </div>
@@ -688,12 +745,18 @@ Loin d\'être réservé aux experts, l\'usage du terminal repose sur quelques co
      *
      * @return string
      */
-    public function getCurrentUrl(): string { return $this->currentUrl; }
+    public function getCurrentUrl(): string
+    {
+        return $this->currentUrl;
+    }
 
     /**
      * Récupère le contenu HTML à afficher.
      *
      * @return string
      */
-    public function getDisplayContent(): string { return $this->displayContent; }
+    public function getDisplayContent(): string
+    {
+        return $this->displayContent;
+    }
 }

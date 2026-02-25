@@ -103,7 +103,7 @@ class InstagramModel
             ]
         ];
     }
-    
+
     /**
      * Récupère les données des posts du feed
      * 
@@ -111,7 +111,12 @@ class InstagramModel
      */
     public function getPosts(): array
     {
-        return [
+        // On s'assure que la session est démarrée
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $posts = [
             [
                 'id' => 1,
                 'username' => 'alex_photo',
@@ -305,8 +310,25 @@ class InstagramModel
                 'time' => 'Hier'
             ]
         ];
+
+        // On insère le post secret de Melina s'il a été débloqué via le journal
+        if (isset($_SESSION['instagram_mel_post_unlocked']) && $_SESSION['instagram_mel_post_unlocked'] === true) {
+            array_unshift($posts, [
+                'id' => 999,
+                'username' => 'mel_133',
+                'avatar' => '/images/instagram/faux-profil-amie-hacke/melina_photo_selfie_salon.png',
+                'location' => 'Inconnu',
+                'image' => '/images/instagram/faux-profil-amie-hacke/melina_photo_miroir.png',
+                'likes' => 842,
+                'caption' => 'Je viens de trouver quelque chose d\'intéressant dans les logs système... Mon journal en parle plus en détail. 👁️ #cyber #hacked',
+                'comments' => [],
+                'time' => 'À l\'instant'
+            ]);
+        }
+
+        return $posts;
     }
-    
+
     /**
      * Base de données de tous les profils utilisateurs
      * 
@@ -495,22 +517,28 @@ class InstagramModel
                 'username' => 'mel_133',
                 'display_name' => 'Melina',
                 'avatar' => '/images/instagram/faux-profil-amie-hacke/melina_photo_selfie_salon.png',
-                'posts_count' => '3',
+                'posts_count' => (isset($_SESSION['instagram_mel_post_unlocked']) && $_SESSION['instagram_mel_post_unlocked']) ? '4' : '3',
                 'followers_count' => '89.2K',
                 'following_count' => '1,156',
                 'bio' => "✨ Fashion & Lifestyle ✨\n📸 Photographer\n🎨 Creative soul\n📍 Paris, France\nMARSEILLE 13\n\n#fashion #lifestyle #photography #paris #creative",
                 'website' => 'cybercigales.fr',
                 'verified' => true,
-                'posts' => [
-                    ['id' => 1, 'image' => '/images/instagram/Cesar.png', 'type' => 'normal', 'is_video' => false],
-                    ['id' => 2, 'video' => '/videos/instagram/Hacker-promo-plateforme-crypto.mp4', 'type' => 'mp4', 'is_video' => true],
-                    ['id' => 3, 'image' => '/images/instagram/steve-doig-FaMBWkmvPyY-unsplash.jpg', 'type' => 'normal', 'is_video' => false],
-                    ['id' => 4, 'image' => '/images/instagram/faux-profil-amie-hacke/melina_photo_miroir_2.png', 'type' => 'normal', 'is_video' => false],
-                ]
+                'posts' => (function () {
+                    $basePosts = [
+                        ['id' => 1, 'image' => '/images/instagram/Cesar.png', 'type' => 'normal', 'is_video' => false],
+                        ['id' => 2, 'video' => '/videos/instagram/Hacker-promo-plateforme-crypto.mp4', 'type' => 'mp4', 'is_video' => true],
+                        ['id' => 3, 'image' => '/images/instagram/steve-doig-FaMBWkmvPyY-unsplash.jpg', 'type' => 'normal', 'is_video' => false],
+                        ['id' => 4, 'image' => '/images/instagram/faux-profil-amie-hacke/melina_photo_miroir_2.png', 'type' => 'normal', 'is_video' => false],
+                    ];
+                    if (isset($_SESSION['instagram_mel_post_unlocked']) && $_SESSION['instagram_mel_post_unlocked']) {
+                        array_unshift($basePosts, ['id' => 999, 'image' => '/images/instagram/faux-profil-amie-hacke/melina_photo_miroir.png', 'type' => 'normal', 'is_video' => false]);
+                    }
+                    return $basePosts;
+                })()
             ],
         ];
     }
-    
+
     /**
      * Récupère le profil d'un utilisateur par son username
      * 
@@ -522,7 +550,7 @@ class InstagramModel
         $profiles = $this->getAllUserProfiles();
         return $profiles[$username] ?? null;
     }
-    
+
     /**
      * Messages de chat génériques par utilisateur
      * 
@@ -605,12 +633,12 @@ class InstagramModel
                 ['type' => 'sent', 'content' => 'Merci beaucoup ! J\'adore la photographie ✨', 'time' => '14:37'],
             ],
         ];
-        
+
         return $chatMessages[$username] ?? [
             ['type' => 'received', 'content' => 'Salut ! 👋', 'time' => '12:00'],
             ['type' => 'sent', 'content' => 'Hey ! Ça va ?', 'time' => '12:05'],
             ['type' => 'received', 'content' => 'Oui super et toi ?', 'time' => '12:06'],
         ];
     }
-    
+
 }
