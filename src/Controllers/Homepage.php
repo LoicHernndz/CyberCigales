@@ -4,12 +4,14 @@ namespace Controllers;
 use Models\User\User;
 use Models\User\UserStats;
 use Views\Homepage\HomepageView;
+use Attributes\Route;
 
 /**
  * Contrôleur de la page d'accueil
  * 
  * Affiche la page d'accueil avec statistiques personnalisées pour les utilisateurs connectés.
  */
+#[Route('/', name: 'homepage')]
 class Homepage extends AbstractController
 {
 
@@ -77,13 +79,5 @@ class Homepage extends AbstractController
         $view->addTemplateKey('RGPD_COMPLETION', $rgpdCompletion);
         $view->addTemplateKey('CYPHER_COMPLETION', $cypherCompletion);
         $view->addTemplateKey('UNLOCKED_BADGES', count($unlockedBadges));
-    }
-
-    // Méthode statique permettant de déterminer si ce contrôleur doit être utilisé
-    static function support(string $chemin, string $method) : bool{
-        // Ce contrôleur s'active uniquement si :
-        // - l'URL demandée est "/"
-        // - la méthode HTTP utilisée est "GET"
-        return $chemin === "/" && $method === "GET";
     }
 }

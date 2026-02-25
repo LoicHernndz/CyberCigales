@@ -23,15 +23,4 @@ class Exec extends AbstractController
         $helper = new BashRequest();
         $helper->control();
     }
-
-    /**
-     * Vérifie si la méthode HTTP est supportée par ce contrôleur
-     *
-     * @param string $method La méthode HTTP à vérifier (GET, POST, etc.)
-     * @return bool True si la méthode est GET ou POST
-     */
-    public function support(string $method): bool
-    {
-        return $method === 'GET' || $method === 'POST';
-    }
 }

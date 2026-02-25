@@ -63,10 +63,4 @@ class UserProfile extends AbstractController
 
         $view->render();
     }
-
-    public function support(string $method): bool
-    {
-        return $method === 'GET';
-    }
 }
-

@@ -51,18 +51,4 @@ class Profil extends AbstractController
         // Afficher le contenu de la page de profil
         $view->render();
     }
-
-    /**
-     * Détermine si ce contrôleur doit gérer la requête
-     * 
-     * @param string $chemin L'URL demandée
-     * @param string $method La méthode HTTP
-     * @return bool True si la route correspond à /user/profil en GET
-     */
-    static function support(string $chemin, string $method) : bool{
-        // Ce contrôleur s'active uniquement si :
-        // - le chemin de l'URL est "/user/profil"
-        // - la méthode HTTP utilisée est "GET"
-        return $chemin === "/user/profil" && $method === "GET";
-    }
 }

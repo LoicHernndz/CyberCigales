@@ -27,10 +27,4 @@ class Dashboard extends AbstractController
         $view = new HomepageView();
         $view->render();
     }
-
-    static function support(string $chemin, string $method) : bool{
-        return $chemin === "/dashboard" && $method === "GET";
-    }
 }
-
-

@@ -43,18 +43,4 @@ class Instagram extends AbstractController
         $view = new InstagramView($stories, $posts);
         $view->render();
     }
-    
-    /**
-     * Méthode statique permettant de déterminer si ce contrôleur doit être utilisé
-     * 
-     * @param string $chemin L'URL demandée
-     * @param string $method La méthode HTTP (GET, POST, etc.)
-     * @return bool True si ce contrôleur doit gérer cette requête
-     */
-    static function support(string $chemin, string $method) : bool{
-        // Ce contrôleur s'active uniquement si :
-        // - l'URL demandée est "/instagram"
-        // - la méthode HTTP utilisée est "GET"
-        return $chemin === "/instagram" && $method === "GET";
-    }
 }

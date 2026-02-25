@@ -31,15 +31,4 @@ class Logout extends AbstractController {
         // Je redirige l'utilisateur vers la page d'accueil
         redirect("/");
     }
-
-    /**
-     * Détermine si ce contrôleur doit gérer la requête
-     * 
-     * @param string $chemin L'URL demandée
-     * @param string $method La méthode HTTP (GET, POST, etc.)
-     * @return bool True si la route correspond à /user/logout en GET
-     */
-    static function support(string $chemin, string $method) : bool{
-        return $chemin === "/user/logout" && $method === "GET";
-    }
 }
