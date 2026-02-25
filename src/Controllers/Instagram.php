@@ -3,6 +3,7 @@ namespace Controllers;
 
 use Models\Instagram\InstagramModel;
 use Views\Instagram\InstagramView;
+use Attributes\Route;
 
 /**
  * Contrôleur pour la page d'accueil Instagram
@@ -16,13 +17,17 @@ use Views\Instagram\InstagramView;
  * - Vue : InstagramView (template HTML)
  * - Contrôleur : Instagram (logique métier)
  */
+#[Route('/instagram', name: 'instagram')]
 class Instagram extends AbstractController
 {
     /**
      * Méthode principale appelée lors de l'accès à /instagram
      * Génère les données et les passe à la vue pour affichage
+     *
+     * @return void
      */
-    function getMethod(){
+    public function getMethod(): void
+    {
 
         // Vérifier si l'utilisateur est connecté
         $this->connexionVerify();
