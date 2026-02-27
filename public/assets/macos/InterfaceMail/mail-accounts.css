@@ -2,6 +2,12 @@
    Styles — Système Multi-Comptes Mail
    ========================================================= */
 
+/* Classe utilitaire pour cacher les éléments */
+.hidden {
+    display: none !important;
+}
+
+
 /* --- Section Comptes dans la Sidebar --- */
 .accounts-section {
     border-top: 1px solid var(--color-border);

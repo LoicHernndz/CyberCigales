@@ -13,11 +13,166 @@ const MailGame = (function () {
         password: 'EmailS3cret!'
     };
 
+    const hackerEmail = 'k0de_breaker@darkweb.net';
+
     const hackerAccount = {
         name: 'K0de_Breaker',
         email: HACKER_CREDENTIALS.email,
         avatarLetter: '☠',
-        emails: [] // Boîte vide pour l'instant
+        emails: [
+            {
+                id: 'n1',
+                from: 'lehackeur@darkweb.net',
+                senderName: 'Ghost_User',
+                to: hackerEmail,
+                date: '23:11',
+                subject: '<i class=\'fas fa-reply\'></i> Re: La cible de la semaine',
+                snippet: 'Mdr, t\'es sérieux ? T\'as encore pété un compte Insta en moins de dix minutes ?',
+                body: `<p>Mdr, t'es sérieux ? T'as encore pété un compte Insta en moins de dix minutes ? T'es un grand malade. Par contre, fais gaffe, si elle essaie de récupérer son compte, t'as mis quoi comme sécu ?</p> <br><br>
+                    
+                    <p>De : K0de_Breaker <br>
+                    Envoyé : Hier, 23:38</p>
+
+                    <p>T'inquiète pas pour ça. C'est blindé. Tu ne sais pas ce que j'ai mis comme mot de passe du compte de la fille que j'ai hacké ? Impossible qu'elle devine.<br>
+
+                    J'ai fait un mix tordu : j'ai mis à la fois la date d'entrée en vigueur du RGPD (pour le côté ironique), la date de naissance de la seule personne qui compte pour moi dans ce monde de brutes, et le nom de la plus belle ville du monde (là où on ira quand on sera riches).<br>
+
+                    Ça fait un mot de passe à rallonge, mais incassable par dictionnaire. Allez, je retourne bosser sur le projet "Coffre-fort".</p>`,
+                read: true,
+                isGame: false
+            },
+            {
+                id: 'n5',
+                from: 'noreply@hostcloud.fr',
+                senderName: 'HostCloud Solutions',
+                to: hackerEmail,
+                date: 'Hier',
+                subject: '[IMPORTANT] Échec de facturation - Serveur Dédié #889-X',
+                snippet: 'Cher client, Nous n\'avons pas pu traiter le paiement...',
+                body: `<p>Cher client, <br><br>
+
+                Nous n'avons pas pu traiter le paiement mensuel de votre Serveur Dédié (IP : 192.168.x.x) car la carte bancaire virtuelle associée à votre compte a expiré.<br><br>
+
+                Si le solde de 45,99 € n'est pas réglé dans les prochaines 48 heures, votre serveur sera temporairement suspendu. Pour éviter toute interruption de vos services d'hébergement, veuillez mettre à jour vos informations de paiement via votre espace client.<br><br>
+
+                Cordialement,<br>
+                L'équipe de facturation HostCloud</p>`,
+                read: true,
+                isGame: false
+            },
+            {
+                id: 'n2',
+                from: 'noreply@fleursandco.fr',
+                senderName: 'Boutique Fleurs & Co',
+                to: hackerEmail,
+                date: '10 Mars',
+                subject: 'Confirmation de commande #FR4920 - Cadeau',
+                snippet: 'Bonjour, Votre commande a bien été enregistrée.',
+                body: `<p>Bonjour,
+
+                    Votre commande a bien été enregistrée. Le bouquet "Amour Maternel" sera livré à l'adresse indiquée (Hôpital Saint-Louis, Chambre 402). <br><br>
+
+                    Message d'accompagnement : <br>
+                    "Maman, même si je ne suis pas souvent là, tu restes la femme de ma vie. Joyeux anniversaire pour tes 50 ans. Je t'aime." <br><br>
+
+                    Date de livraison souhaitée : 14 Avril <br><br>
+
+                    Merci de votre confiance.</p>`,
+                read: false,
+                isGame: false
+            },
+            {
+                id: 'n3',
+                from: hackerEmail,
+                senderName: 'Moi',
+                to: hackerEmail,
+                date: '9 mars',
+                subject: 'Ne pas oublier !!!',
+                snippet: 'To do list : Ne pas oublier de vider les disques...',
+                body: `<p>To do list : <br><br>
+
+                    - Ne pas oublier de vider les disques durs ce soir. Les flics reniflent trop près. <br><br>
+
+                    - J'ai tout transféré dans le coffre-fort au hangar. Tout mon matos, le cash, et les clés USB des wallets sont dedans. C'est le seul endroit sûr. <br><br>
+
+                    - Penser à changer le cadenas à 4 chiffres la semaine prochaine, le 1-9-8-4 c'est trop classique (réf Orwell, mais bon, pas prudent). <br><br>
+
+                    - Dès que je vends les données, je me tire. Direction Marseille. J'en rêve depuis gosse, c'est la seule ville qui vaut la peine d'être vécue. Plus belle ville du monde, loin de cette grisaille.</p>`,
+                read: true,
+                isGame: false
+            },
+            {
+                id: 'n4',
+                from: 'newsletter@TechWatch.fr',
+                senderName: 'TechWatch Daily',
+                to: hackerEmail,
+                date: '5 mars',
+                subject: 'Newsletter Sécurité Info',
+                snippet: 'L\'actu cyber de la semaine — Le cauchemar des DPO continue...',
+                body: `<p>L'ACTU CYBER DE LA SEMAINE <br><br>
+
+                Le cauchemar des DPO continue <br>
+                Cela fait maintenant plusieurs années que le Règlement Général sur la Protection des Données (RGPD) a bouleversé le web européen.<br><br>
+
+                Rappelons que depuis son entrée en application officielle le 25 mai 2018, les sanctions n'ont cessé de tomber pour les entreprises négligentes. En tant que hackeurs éthiques (ou non), cette date reste un tournant dans notre histoire numérique...<br><br>
+
+                [Lire la suite de l'article]</p>`,
+                read: true,
+                isGame: false
+            },
+            {
+                id: 'n6',
+                from: 'it-support@hostcloud.fr',
+                senderName: 'HostCloud Support IT',
+                to: hackerEmail,
+                date: '5 mars',
+                subject: 'Maintenance planifiée serveur',
+                snippet: 'Une maintenance des serveurs aura lieu ce samedi...',
+                body: `<p>Bonjour,</p><p>Veuillez noter qu'une maintenance serveur aura lieu ce samedi de 22h à 02h. L'accès aux emails pourra être perturbé.</p><p>Cordialement,<br>L'équipe IT HostCloud</p>`,
+                read: true,
+                isGame: false
+            },
+            {
+                id: 'n7',
+                from: 'noreply@pizzanightexpress.fr',
+                senderName: 'Pizza Night Express',
+                to: hackerEmail,
+                date: '2 mars',
+                subject: 'Ta fidélité récompensée : 1 Pizza MEGA offerte !',
+                snippet: 'Salut Max, Félicitations ! Grâce à tes dernières commandes...',
+                body: `<p>Salut Max, <br><br>
+
+                Félicitations ! Grâce à tes dernières commandes nocturnes, tu as officiellement atteint le statut VIP Gold chez Pizza Night Express.<br><br>
+
+                Pour fêter ça, ta prochaine Pizza MEGA (au choix parmi nos recettes incontournables) est 100% GRATUITE lors de ta prochaine livraison à domicile. Utilise le code promo : CRAVING-NIGHT avant la fin du mois.<br><br>
+
+                L'offre ne s'applique pas sur les suppléments fromage.<br><br>
+
+                À très vite pour combler tes petites faims de la nuit !</p>`,
+                read: true,
+                isGame: false
+            },
+            {
+                id: 'n8',
+                from: 'service.client.crypto.securite@yahoo.fr',
+                senderName: 'service.client.crypto.securite@yahoo.fr',
+                to: hackerEmail,
+                date: '2 mars',
+                subject: 'URGENT!!! Votre compte Bínance est bIoquè',
+                snippet: 'Bonjour cher utilisateur, Nous avons detecter une activité...',
+                body: `<p>Bonjour cher utilisateur, <br><br>
+
+                Nous avons detecter une activité suspectes sur votre compte de cryptomonaie. Pour des raisons de securitées, vos fonds on été gelés immediatement.<br><br>
+
+                Veulliez cliquer sur le lien ci-dessous et entrer vos mots de passes pour verifier votre identiter et recuperer vos Bitcoins. Si vous ne le faites pas, votre compte sera suprimer.<br><br>
+
+                le-vrai-site-de-binance.fr<br><br>
+
+                L'equipe de direction.</p>`,
+                read: true,
+                isGame: false
+            }
+        ]
     };
 
     const userAccount = {
@@ -29,162 +184,8 @@ const MailGame = (function () {
     // Compte actif : 'user' ou 'hacker'
     let activeAccount = 'user';
 
-    // Emails Normaux (Inbox) - Réels de l'histoire ou contexte
-    const normalEmails = [
-        {
-            id: 'n1',
-            from: 'lehackeur@darkweb.net',
-            senderName: 'Ghost_User',
-            to: userEmail,
-            date: '23:11 AM',
-            subject: '<i class=\'fas fa-reply\'></i> Re: La cible de la semaine',
-            snippet: 'Mdr, t\'es sérieux ? T\'as encore pété un compte Insta en moins de dix minutes ?',
-            body: `<p>Mdr, t'es sérieux ? T'as encore pété un compte Insta en moins de dix minutes ? T'es un grand malade. Par contre, fais gaffe, si elle essaie de récupérer son compte, t'as mis quoi comme sécu ?</p> <br><br>
-                    
-                    <p>De : K0de_Breaker <br>
-                    Envoyé : Hier, 23:38</p>
-
-                    <p>T'inquiète pas pour ça. C'est blindé. Tu ne sais pas ce que j'ai mis comme mot de passe du compte de la fille que j'ai hacké ? Impossible qu'elle devine.<br>
-
-                    J’ai fait un mix tordu : j'ai mis à la fois la date d'entrée en vigueur du RGPD (pour le côté ironique), la date de naissance de la seule personne qui compte pour moi dans ce monde de brutes, et le nom de la plus belle ville du monde (là où on ira quand on sera riches).<br>
-
-                    Ça fait un mot de passe à rallonge, mais incassable par dictionnaire. Allez, je retourne bosser sur le projet "Coffre-fort".</p>`,
-            read: true,
-            isGame: false
-        },
-        {
-            id: 'n5',
-            from: 'noreply@hostcloud.fr',
-            senderName: 'HostCloud Solutions',
-            to: userEmail,
-            date: 'Yesterday',
-            subject: '[IMPORTANT] Échec de facturation - Serveur Dédié #889-X',
-            snippet: 'Cher client, Nous n\'avons...',
-            body: `<p>Cher client, <br><br>
-
-                Nous n'avons pas pu traiter le paiement mensuel de votre Serveur Dédié (IP : 192.168.x.x) car la carte bancaire virtuelle associée à votre compte a expiré.<br><br>
-
-                Si le solde de 45,99 € n'est pas réglé dans les prochaines 48 heures, votre serveur sera temporairement suspendu. Pour éviter toute interruption de vos services d'hébergement, veuillez mettre à jour vos informations de paiement via votre espace client.<br><br>
-
-                Cordialement,<br>
-                L'équipe de facturation HostCloud</p>`,
-            read: true,
-            isGame: false
-        },
-        {
-            id: 'n2',
-            from: 'noreply@fleursandco.fr',
-            senderName: 'Boutique Fleurs & Co',
-            to: userEmail,
-            date: '10 Mars',
-            subject: 'Confirmation de commande #FR4920 - Cadeau',
-            snippet: 'Bonjour, Votre commande a bien été enregistrée.',
-            body: `<p>Bonjour,
-
-                    Votre commande a bien été enregistrée. Le bouquet "Amour Maternel" sera livré à l'adresse indiquée (Hôpital Saint-Louis, Chambre 402). <br><br>
-
-                    Message d'accompagnement : <br>
-                    "Maman, même si je ne suis pas souvent là, tu restes la femme de ma vie. Joyeux anniversaire pour tes 50 ans. Je t'aime." <br><br>
-
-                    Date de livraison souhaitée : 14 Avril <br><br>
-
-                    Merci de votre confiance.</p>`,
-            read: false,
-            isGame: false
-        },
-        {
-            id: 'n3',
-            from: userEmail,
-            senderName: 'Moi',
-            to: userEmail,
-            date: '9 mars',
-            subject: 'Ne pas oublier !!!',
-            snippet: 'o do list : Ne pas...',
-            body: `<p>To do list : <br><br>
-
-                    - Ne pas oublier de vider les disques durs ce soir. Les flics reniflent trop près. <br><br>
-
-                    - J'ai tout transféré dans le coffre-fort au hangar. Tout mon matos, le cash, et les clés USB des wallets sont dedans. C'est le seul endroit sûr. <br><br>
-
-                    - Penser à changer le cadenas à 4 chiffres la semaine prochaine, le 1-9-8-4 c'est trop classique (réf Orwell, mais bon, pas prudent). <br><br>
-
-                    - Dès que je vends les données, je me tire. Direction Marseille. J'en rêve depuis gosse, c'est la seule ville qui vaut la peine d'être vécue. Plus belle ville du monde, loin de cette grisaille.</p>`,
-            read: true,
-            isGame: false
-        },
-        {
-            id: 'n4',
-            from: 'newsletter@TechWatch.fr',
-            senderName: 'TechWatch Daily',
-            to: userEmail,
-            date: '5 mars',
-            subject: 'Newsletter Sécurité Info',
-            snippet: 'Oui j\'ai vu qu\'il faisait froid ce matin mais j\'ai pris une veste tkt.',
-            body: `<p>L'ACTU CYBER DE LA SEMAINE <br><br>
-
-                Le cauchemar des DPO continue <br>
-                Cela fait maintenant plusieurs années que le Règlement Général sur la Protection des Données (RGPD) a bouleversé le web européen.<br><br>
-
-                Rappelons que depuis son entrée en application officielle le 25 mai 2018, les sanctions n'ont cessé de tomber pour les entreprises négligentes. En tant que hackeurs éthiques (ou non), cette date reste un tournant dans notre histoire numérique...<br><br>
-
-                [Lire la suite de l'article]</p>`,
-            read: true,
-            isGame: false
-        },
-        // Ajout de quelques mails corpo normaux pour le réalisme
-        {
-            id: 'n6',
-            from: 'it-support@cybercigales.fr',
-            senderName: 'Support IT',
-            to: userEmail,
-            date: '5 mars',
-            subject: 'Maintenance planifiée serveur',
-            snippet: 'Une maintenance des serveurs aura lieu ce samedi...',
-            body: `<p>Bonjour,</p><p>Veuillez noter qu'une maintenance serveur aura lieu ce samedi de 22h à 02h. L'accès aux emails pourra être perturbé.</p><p>Cordialement,<br>L'équipe IT</p>`,
-            read: true,
-            isGame: false
-        },
-        {
-            id: 'n7',
-            from: 'it-support@cybercigales.fr',
-            senderName: 'Pizza Night Express',
-            to: userEmail,
-            date: '2 mars',
-            subject: 'Ta fidélité récompensée : 1 Pizza MEGA offerte !',
-            snippet: 'Salut Max, Félicitations ! Grâce...',
-            body: `<p>Salut Max, <br><br>
-
-                Félicitations ! Grâce à tes dernières commandes nocturnes, tu as officiellement atteint le statut VIP Gold chez Pizza Night Express.<br><br>
-
-                Pour fêter ça, ta prochaine Pizza MEGA (au choix parmi nos recettes incontournables) est 100% GRATUITE lors de ta prochaine livraison à domicile. Utilise le code promo : CRAVING-NIGHT avant la fin du mois.<br><br>
-
-                L'offre ne s'applique pas sur les suppléments fromage.<br><br>
-
-                À très vite pour combler tes petites faims de la nuit !</p>`,
-            read: true,
-            isGame: false
-        },
-        {
-            id: 'n8',
-            from: 'service.client.crypto.securite@yahoo.fr',
-            senderName: 'service.client.crypto.securite@yahoo.fr',
-            to: userEmail,
-            date: '2 mars',
-            subject: 'URGENT!!! Votre compte Bínance est bIoquè',
-            snippet: 'Salut Max, Félicitations ! Grâce...',
-            body: `<p>Bonjour cher utilisateur, <br><br>
-
-                Nous avons detecter une activité suspectes sur votre compte de cryptomonaie. Pour des raisons de securitées, vos fonds on été gelés immediatement.<br><br>
-
-                Veulliez cliquer sur le lien ci-dessous et entrer vos mots de passes pour verifier votre identiter et recuperer vos Bitcoins. Si vous ne le faites pas, votre compte sera suprimer.<br><br>
-
-                le-vrai-site-de-binance.fr<br><br>
-
-                L'equipe de direction.</p>`,
-            read: true,
-            isGame: false
-        }
-    ];
+    // Boîte mail de Lucie — vide par défaut, le joueur arrive sur cette boîte
+    const normalEmails = [];
 
     // Emails de Jeu (Junk / Phishing / Legit mélangés)
     const gameEmails = [
