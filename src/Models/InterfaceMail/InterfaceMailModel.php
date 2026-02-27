@@ -53,4 +53,14 @@ class InterfaceMailModel
             ],
         ];
     }
+
+    /**
+     * Récupère les emails de la boîte du hackeur
+     *
+     * @return array Tableau vide — prêt pour de futurs emails narratifs
+     */
+    public function getHackerEmails(): array
+    {
+        return [];
+    }
 }

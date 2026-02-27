@@ -1,10 +1,33 @@
 /**
  * Logiciel de jeu "Mail Phishing" pour l'interface macOS
  * Version 3 : Destinataire unique, plus de scénarios, explications détaillées
+ * Version 4 : Système multi-comptes (compte utilisateur + compte hackeur)
  */
 const MailGame = (function () {
 
     const userEmail = "lucie.bertrand@cybercigales.fr";
+
+    // --- Données du compte hackeur ---
+    const HACKER_CREDENTIALS = {
+        email: 'k0de_breaker@darkweb.net',
+        password: 'EmailS3cret!'
+    };
+
+    const hackerAccount = {
+        name: 'K0de_Breaker',
+        email: HACKER_CREDENTIALS.email,
+        avatarLetter: '☠',
+        emails: [] // Boîte vide pour l'instant
+    };
+
+    const userAccount = {
+        name: 'Lucie Bertrand',
+        email: userEmail,
+        avatarLetter: 'L'
+    };
+
+    // Compte actif : 'user' ou 'hacker'
+    let activeAccount = 'user';
 
     // Emails Normaux (Inbox) - Réels de l'histoire ou contexte
     const normalEmails = [
@@ -428,6 +451,9 @@ const MailGame = (function () {
 
         // Toujours mettre à jour la visibilité au démarrage
         updateControlsVisibility();
+
+        // Initialiser le gestionnaire de comptes
+        AccountManager.init();
     }
 
     function setupStandardMode() {
@@ -487,6 +513,10 @@ const MailGame = (function () {
     }
 
     function getEmailsForCurrentMailbox() {
+        // Si on est sur le compte hackeur, on retourne ses emails
+        if (activeAccount === 'hacker') {
+            return hackerAccount.emails;
+        }
         if (currentMailbox === 'inbox') return normalEmails;
         if (currentMailbox === 'junk') return gameEmails;
         return [];
@@ -655,6 +685,187 @@ const MailGame = (function () {
 
         els.endScreen.classList.remove('hidden');
     }
+
+    // =========================================================
+    // MODULE : AccountManager — Gestion du switch de compte
+    // =========================================================
+
+    const AccountManager = (function () {
+
+        const overlay = document.getElementById('login-overlay');
+        const emailIn = document.getElementById('login-email-input');
+        const passIn = document.getElementById('login-password-input');
+        const errorBox = document.getElementById('login-error');
+        const btnCancel = document.getElementById('btn-login-cancel');
+        const btnSubmit = document.getElementById('btn-login-submit');
+        const btnAdd = document.getElementById('btn-add-account');
+
+        const mailWindow = document.getElementById('mail-window');
+        const indicator = document.getElementById('account-indicator');
+        const indicatorAvatar = document.getElementById('indicator-avatar');
+        const indicatorEmail = document.getElementById('indicator-email');
+        const hackerItem = document.getElementById('account-hacker-item');
+        const userBadge = document.getElementById('user-badge');
+        const hackerBadge = document.getElementById('hacker-badge');
+        const userItem = document.getElementById('account-user-item');
+
+        function openLoginModal() {
+            if (overlay) {
+                overlay.classList.remove('hidden');
+                if (emailIn) emailIn.value = '';
+                if (passIn) passIn.value = '';
+                hideError();
+                setTimeout(() => emailIn && emailIn.focus(), 100);
+            }
+        }
+
+        function closeLoginModal() {
+            if (overlay) overlay.classList.add('hidden');
+        }
+
+        function showError() {
+            if (errorBox) {
+                errorBox.classList.remove('hidden');
+                // Reset animation
+                errorBox.style.animation = 'none';
+                errorBox.offsetHeight; // reflow
+                errorBox.style.animation = '';
+            }
+        }
+
+        function hideError() {
+            if (errorBox) errorBox.classList.add('hidden');
+        }
+
+        function handleLogin() {
+            const email = emailIn ? emailIn.value.trim() : '';
+            const pass = passIn ? passIn.value : '';
+
+            if (email === HACKER_CREDENTIALS.email && pass === HACKER_CREDENTIALS.password) {
+                closeLoginModal();
+                switchToAccount('hacker');
+            } else {
+                showError();
+                if (passIn) { passIn.value = ''; passIn.focus(); }
+            }
+        }
+
+        function switchToAccount(account) {
+            activeAccount = account;
+
+            if (account === 'hacker') {
+                // Thème sombre
+                if (mailWindow) mailWindow.classList.add('hacker-mode');
+
+                // Indicateur toolbar
+                if (indicator) indicator.classList.add('hacker-mode');
+                if (indicatorAvatar) {
+                    indicatorAvatar.textContent = '☠';
+                    indicatorAvatar.className = 'account-avatar-sm hacker-avatar';
+                }
+                if (indicatorEmail) indicatorEmail.textContent = hackerAccount.email;
+
+                // Badges actifs
+                if (userBadge) userBadge.style.display = 'none';
+                if (hackerBadge) hackerBadge.style.display = 'block';
+
+                // Rendre le compte hackeur visible dans la sidebar
+                if (hackerItem) hackerItem.classList.remove('hidden');
+
+                // Changer le bouton « Ajouter un compte » en « Se déconnecter »
+                if (btnAdd) {
+                    btnAdd.innerHTML = '<i class="fas fa-sign-out-alt"></i> Déconnecter k0de_breaker';
+                    btnAdd.style.color = '#ff453a';
+                }
+
+                // Réinitialiser la mailbox et afficher les emails hackeur
+                currentMailbox = 'inbox';
+                currentEmailId = null;
+                renderEmailList();
+                els.readingPane.innerHTML = '<div class="placeholder">Boîte vide — aucun message pour l\'instant.</div>';
+
+                // Cacher les contrôles du mini-jeu
+                if (els.gameControls) els.gameControls.style.display = 'none';
+
+            } else {
+                // Retour au compte utilisateur
+                if (mailWindow) mailWindow.classList.remove('hacker-mode');
+
+                // Indicateur toolbar
+                if (indicator) indicator.classList.remove('hacker-mode');
+                if (indicatorAvatar) {
+                    indicatorAvatar.textContent = 'L';
+                    indicatorAvatar.className = 'account-avatar-sm user-avatar';
+                }
+                if (indicatorEmail) indicatorEmail.textContent = userAccount.email;
+
+                // Badges
+                if (userBadge) userBadge.style.display = 'block';
+                if (hackerBadge) hackerBadge.style.display = 'none';
+
+                // Rétablir le bouton
+                if (btnAdd) {
+                    btnAdd.innerHTML = '<i class="fas fa-plus-circle"></i> Ajouter un compte';
+                    btnAdd.style.color = '';
+                }
+
+                // Repasser en inbox normale
+                currentMailbox = 'inbox';
+                currentEmailId = null;
+                switchMailbox('inbox');
+            }
+        }
+
+        function init() {
+            // Bouton « Ajouter un compte » / « Se déconnecter »
+            if (btnAdd) {
+                btnAdd.addEventListener('click', () => {
+                    if (activeAccount === 'hacker') {
+                        switchToAccount('user');
+                    } else {
+                        openLoginModal();
+                    }
+                });
+            }
+
+            // Clic sur l'item hackeur dans la sidebar → switcher
+            if (hackerItem) {
+                hackerItem.addEventListener('click', () => {
+                    if (activeAccount !== 'hacker') switchToAccount('hacker');
+                });
+            }
+
+            // Clic sur l'item utilisateur → switcher
+            if (userItem) {
+                userItem.addEventListener('click', () => {
+                    if (activeAccount !== 'user') switchToAccount('user');
+                });
+            }
+
+            // Bouton annuler
+            if (btnCancel) btnCancel.addEventListener('click', closeLoginModal);
+
+            // Bouton connexion
+            if (btnSubmit) btnSubmit.addEventListener('click', handleLogin);
+
+            // Entrée clavier dans le formulaire
+            [emailIn, passIn].forEach(input => {
+                if (input) input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') handleLogin();
+                    if (e.key === 'Escape') closeLoginModal();
+                });
+            });
+
+            // Clic sur l'overlay pour fermer
+            if (overlay) {
+                overlay.addEventListener('click', (e) => {
+                    if (e.target === overlay) closeLoginModal();
+                });
+            }
+        }
+
+        return { init, switchToAccount, openLoginModal };
+    })();
 
     return { init };
 })();

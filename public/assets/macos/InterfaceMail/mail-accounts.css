@@ -1,0 +1,447 @@
+/* =========================================================
+   Styles — Système Multi-Comptes Mail
+   ========================================================= */
+
+/* --- Section Comptes dans la Sidebar --- */
+.accounts-section {
+    border-top: 1px solid var(--color-border);
+    padding: 10px 0 4px;
+    margin-top: 8px;
+}
+
+.accounts-title {
+    font-weight: 600;
+    color: var(--color-text-dark);
+    padding: 4px 15px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-text-light);
+}
+
+.account-item {
+    display: flex;
+    align-items: center;
+    padding: 7px 15px;
+    cursor: pointer;
+    gap: 10px;
+    transition: background-color 0.2s;
+    border-radius: 4px;
+    margin: 1px 6px;
+}
+
+.account-item:hover {
+    background-color: var(--color-bg-dark);
+}
+
+.account-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+}
+
+.account-avatar.user-avatar {
+    background: linear-gradient(135deg, #007aff, #5ac8fa);
+}
+
+.account-avatar.hacker-avatar {
+    background: linear-gradient(135deg, #2c2c2e, #636366);
+}
+
+.account-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.account-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text-dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.account-email {
+    font-size: 11px;
+    color: var(--color-text-light);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.account-active-badge {
+    width: 8px;
+    height: 8px;
+    background: #28cd41;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.btn-add-account {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 6px 15px;
+    background: none;
+    border: none;
+    font-size: 13px;
+    color: var(--color-accent-blue);
+    cursor: pointer;
+    text-align: left;
+    margin-top: 4px;
+}
+
+.btn-add-account:hover {
+    color: #0062cc;
+}
+
+/* --- Indicateur compte actif dans la toolbar --- */
+.account-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 10px;
+    background: var(--color-bg-dark);
+    border-radius: 6px;
+    border: 1px solid var(--color-border);
+    font-size: 12px;
+    color: var(--color-text-dark);
+    margin-left: 10px;
+}
+
+.account-indicator .account-avatar-sm {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 700;
+    color: white;
+}
+
+.account-avatar-sm.user-avatar {
+    background: linear-gradient(135deg, #007aff, #5ac8fa);
+}
+
+.account-avatar-sm.hacker-avatar {
+    background: linear-gradient(135deg, #2c2c2e, #636366);
+}
+
+.account-indicator.hacker-mode {
+    background: #1c1c1e;
+    border-color: #636366;
+    color: #ebebf5;
+}
+
+.account-indicator.hacker-mode .account-avatar-sm {
+    background: #636366;
+}
+
+/* --- Modal de Connexion --- */
+.account-login-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    backdrop-filter: blur(6px);
+    animation: fadeInOverlay 0.2s ease;
+}
+
+.account-login-overlay.hidden {
+    display: none;
+}
+
+@keyframes fadeInOverlay {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.account-login-modal {
+    background: white;
+    border-radius: 14px;
+    width: 360px;
+    padding: 30px 28px 24px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUpModal 0.25s ease;
+}
+
+@keyframes slideUpModal {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.login-modal-header {
+    text-align: center;
+    margin-bottom: 22px;
+}
+
+.login-modal-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #2c2c2e, #636366);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+    font-size: 22px;
+    color: white;
+}
+
+.login-modal-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: #1c1c1e;
+    margin: 0 0 4px;
+}
+
+.login-modal-subtitle {
+    font-size: 13px;
+    color: var(--color-text-light);
+    margin: 0;
+}
+
+.login-form-group {
+    margin-bottom: 14px;
+}
+
+.login-form-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-text-light);
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.login-form-group input {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background: #f9f9f9;
+}
+
+.login-form-group input:focus {
+    border-color: var(--color-accent-blue);
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.15);
+    background: white;
+}
+
+.login-error {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #d70015;
+    background: #fff0f0;
+    border: 1px solid #ffd7d9;
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin-bottom: 14px;
+    animation: shakeError 0.3s ease;
+}
+
+@keyframes shakeError {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-4px);
+    }
+
+    75% {
+        transform: translateX(4px);
+    }
+}
+
+.login-error.hidden {
+    display: none;
+}
+
+.login-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.btn-login-cancel {
+    flex: 1;
+    padding: 9px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--color-text-dark);
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.btn-login-cancel:hover {
+    background: var(--color-bg-dark);
+}
+
+.btn-login-submit {
+    flex: 1;
+    padding: 9px;
+    border: none;
+    border-radius: 8px;
+    background: #1c1c1e;
+    font-size: 14px;
+    font-family: inherit;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.btn-login-submit:hover {
+    background: #3a3a3c;
+}
+
+.btn-login-submit:active {
+    transform: scale(0.97);
+}
+
+/* --- Boîte mail hackeur (thème sombre) --- */
+.mail-window.hacker-mode .toolbar {
+    background: #1c1c1e;
+    border-bottom-color: #3a3a3c;
+}
+
+.mail-window.hacker-mode .toolbar-group button {
+    color: #8e8e93;
+}
+
+.mail-window.hacker-mode .toolbar-group button:hover {
+    background: #3a3a3c;
+    color: #ebebf5;
+}
+
+.mail-window.hacker-mode .sidebar {
+    background: #2c2c2e;
+    border-right-color: #3a3a3c;
+}
+
+.mail-window.hacker-mode .mailbox-title,
+.mail-window.hacker-mode .accounts-title {
+    color: #8e8e93;
+}
+
+.mail-window.hacker-mode .mailbox-list li {
+    color: #ebebf5;
+}
+
+.mail-window.hacker-mode .mailbox-list li:hover {
+    background: #3a3a3c;
+}
+
+.mail-window.hacker-mode .mailbox-list .active-mailbox {
+    background: #48484a;
+}
+
+.mail-window.hacker-mode .email-list-column {
+    background: #1c1c1e;
+    border-right-color: #3a3a3c;
+}
+
+.mail-window.hacker-mode .sort-bar {
+    color: #636366;
+    border-bottom-color: #3a3a3c;
+}
+
+.mail-window.hacker-mode .email-item {
+    border-bottom-color: #3a3a3c;
+}
+
+.mail-window.hacker-mode .email-item:hover {
+    background: #2c2c2e;
+}
+
+.mail-window.hacker-mode .sender {
+    color: #ebebf5;
+}
+
+.mail-window.hacker-mode .time,
+.mail-window.hacker-mode .snippet {
+    color: #636366;
+}
+
+.mail-window.hacker-mode .reading-pane {
+    background: #1c1c1e;
+}
+
+.mail-window.hacker-mode .reading-pane h2,
+.mail-window.hacker-mode .reading-pane .email-content p {
+    color: #ebebf5;
+}
+
+.mail-window.hacker-mode .recipient-info {
+    border-bottom-color: #3a3a3c;
+    color: #8e8e93;
+}
+
+.mail-window.hacker-mode .recipient-info strong {
+    color: #ebebf5;
+}
+
+.mail-window.hacker-mode .placeholder {
+    color: #48484a;
+}
+
+.mail-window.hacker-mode .account-item:hover {
+    background: #3a3a3c;
+}
+
+.mail-window.hacker-mode .account-name {
+    color: #ebebf5;
+}
+
+.mail-window.hacker-mode .btn-add-account {
+    color: #64d2ff;
+}
+
+.mail-window.hacker-mode .accounts-section {
+    border-top-color: #3a3a3c;
+}
+
+.mail-window.hacker-mode .separator {
+    background-color: #3a3a3c;
+}
