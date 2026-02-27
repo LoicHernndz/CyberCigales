@@ -432,6 +432,11 @@
     color: #48484a;
 }
 
+.mail-window.hacker-mode .subject {
+    color: #ebebf5;
+}
+
+
 .mail-window.hacker-mode .account-item:hover {
     background: #3a3a3c;
 }
