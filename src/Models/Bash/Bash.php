@@ -82,7 +82,7 @@ class Bash
             "Cela est donc très long. \nMais si on test cette méthode avec des éléments que nous estimons suceptible d'être présent dans le mot de passe, le temps nécessaire pour trouver ce mot de passe s'en trouve donc réduit.");
 
         new File($this->root, 'documents/documents-personnels', 'dir', []);
-        new File($this->root, 'documents/documents-personnels/anniversaires.txt', 'txt', 'Mère: 12 Janvier\nPère: 25 Mai');
+        new File($this->root, 'documents/documents-personnels/anniversaires.txt', 'txt', 'Mère: 14 Avril\nPère: 25 Mai');
         new File(
             $this->root,
             'documents/documents-personnels/la-plus-belle-ville-du-monde.txt',
