@@ -25,33 +25,43 @@
 
     <section>
         <h2>3) Évolution vers la sécurité moderne</h2>
-        <p>Au fil du temps, la nécessité de renforcer la sécurité a conduit à l'apparition :</p>
-        <ul class="lesson-list">
-            <li>Du hachage des mots de passe (UNIX, 1970)</li>
-            <li>Des politiques strictes (longueur, complexité)</li>
-            <li>Des gestionnaires de mots de passe</li>
-            <li>De l'authentification multi-facteurs (MFA)</li>
-        </ul>
+
+        <p>La question du stockage des mots de passe est une étape inévitable et rapidement problématique dès que l'on doit créer et gérer des comptes utilisateurs.</p>
+        <p>On estime que près de <strong>2 personnes sur 3</strong> utilisent le même mot de passe sur plusieurs plateformes. Négliger cette étape, même sur un petit site, peut donc fortement compromettre la vie digitale des utilisateurs. </p>
+
+        <h3>1. Stockage classique</h3>
+
+        <p>C'est l'approche naïve : le site stocke en mémoire le nom de ses utilisateurs à côté de leur mot de passe <strong>explicitement, en clair</strong>.</p>
+
+        <div class="vulnerabilities-box">
+            <strong>Vulnérabilité :</strong> Si la base de données du site subit un leak (fuites de données, abus de droits internes), rien ne protège les mots de passe, on connait les informations de tout le monde.
+        </div>
+
+        <h3>2. Chiffrage</h3>
+
+        <p>On ajoute une couche de protection : le mot de passe traverse plusieurs transformations pour devenir illisible et seulement retraduit à travers les transformations inverses.</p>
+        <p>L'avantage est qu'en cas de fuite, on ne peut pas trouver les vrais mots de passe des utilisateurs sans savoir de quelle manière elles ont été modifiées.</p>
+
+        <div class="vulnerabilities-box">
+            <strong>Vulnérabilité :</strong> A nouveau, il suffit que la méthode de chiffrement fuite également pour que cette protection devienne inutile. Beaucoup de sites comme HaveIBeenPwned recensent de nombreuses fuites connues.
+        </div>
+
+        <h3>3. Hachage</h3>
+
+        <p>Pour remédier à ce problème, on va utiliser de nouveaux types de transformations. Celles-ci sont faciles à appliquer, mais impossibles voire très couteuses à défaire, elles n'ont pas d'opération inverse. Ce sont des <strong>fonctions de hachage</strong></p>
+        <p>Il est donc "théoriquement" impossible de trouver votre mot de passe à partir des valeurs stockées.</p>
+        <p>Ainsi, lors d'une connexion, au lieu de déchiffrer la valeur stockée sur ton compte et de vérifier que tu as bien entré ce mot de passe, c'est le mot de passe que tu as entré qui sera encrypté, et si la valeur obtenue est la même que celle stockée sur ton compte, alors le site sait que tu as entré le bon mot de passe.</p>
+
+        <div class="vulnerabilities-box">
+            <strong>Vulnérabilité :</strong> Cette méthode est le grand minimum aujourd'hui en termes de sécurité, mais elle présente à elle seule quelques faiblesses.
+            <ul>Un même mot de passe donnera toujours le même résultat par une fonction de hachage. Cela veut dire que si plusieurs personnes ont le même mot de passe, cela se verra dans la base de données, et indique souvent l'utilisation de mots de passe courants.</ul>
+            <ul>Il existe aujourd'hui déjà des approches pour craquer ce type d'encryption, et on trouve que beaucoup d'anciennes fonctions de hachage ont déjà été entièrement craquées (ex: MD5). Que cela soit par "brute force", par technique plus ingénieuse telle que les "rainbow tables" ou la résolution mathématique d'une opération inversée.</ul>
+            <ul>La plus grosse menace reste par dessus tout l'arrivée des machines quantiques, qui pourraient résoudre de manière triviale les fonctions que l'on considère aujourd'hui les plus robustes. <strong>L'âge quantique pourrait marquer la fin des systèmes à mot de passe.</strong></ul>
+        </div>
     </section>
 
     <section>
-        <h2>4) Problèmes et attaques</h2>
-        <p>Les mots de passe peuvent être compromis par diverses méthodes.</p>
-        <div class="exercise-list">
-            <ol>
-                <li>Attaques par dictionnaire</li>
-                <li>Brute force</li>
-                <li>Phishing / Ingénierie sociale</li>
-                <li>Fuites de bases de données</li>
-            </ol>
-        </div>
-        <div class="lesson-example-box">
-            <strong>Danger :</strong> Réutiliser le même mot de passe sur plusieurs sites = risque maximal.
-        </div>
-    </section>
-
-    <section>
-        <h2>5) Recommandations modernes</h2>
+        <h2>4) Recommandations modernes</h2>
         <div class="code-block code-block-spaced">
             ✅ Au moins 12 caractères<br>
             ✅ Mélanger lettres, chiffres, symboles<br>
@@ -62,18 +72,7 @@
     </section>
 
     <section>
-        <h2>6) Exercices</h2>
-        <div class="exercise-list">
-            <ol>
-                <li>Explique pourquoi « 123456 » est un mauvais mot de passe.</li>
-                <li>Propose un mot de passe robuste basé sur une phrase secrète.</li>
-                <li>Quelle attaque permet d'essayer toutes les combinaisons possibles ?</li>
-            </ol>
-        </div>
-    </section>
-
-    <section>
-        <h2>7) Futur des mots de passe</h2>
+        <h2>5) Futur des mots de passe</h2>
         <p>Vers un monde sans mot de passe ("Passwordless") :</p>
         <ul class="lesson-list">
             <li>Biométrie (empreintes, reconnaissance faciale)</li>

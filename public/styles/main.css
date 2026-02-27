@@ -618,7 +618,6 @@ body::before {
 .single-lesson-container h2 { font-family: var(--font-display); color: #00ff41; margin-top: 3rem; margin-bottom: 1.5rem; font-size: 1.8rem; }
 .single-lesson-container p { font-family: var(--font-sans); font-size: 1.1rem; line-height: 1.8; color: rgba(255, 255, 255, 0.9); margin-bottom: 1.5rem; text-align: justify; }
 
-
 /* Tableaux dans les leçons */
 .legend-container { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2rem; padding: 1rem 1.5rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; font-size: 0.9rem; }
 .single-lesson-container table.lesson-table { margin: 1rem auto; border-collapse: collapse; }
@@ -639,9 +638,12 @@ body::before {
 .interactive-zone { background: rgba(255, 255, 255, 0.05); border: 1px dashed rgba(0, 255, 65, 0.4); border-radius: 16px; padding: 2rem; margin-top: 3rem; }
 .lesson-example-box { background: rgba(0, 255, 65, 0.05); border-left: 4px solid #00ff41; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; font-family: var(--font-sans); color: #fff; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); }
 .lesson-example-box ul { margin-left: 1.5rem; }
+.vulnerabilities-box { background: rgba(255, 0, 0, 0.05); border-left: 4px solid #ff0040; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; font-family: var(--font-sans); color: #fff; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); }
+.vulnerabilities-box ul { margin-left: 1.5rem; margin-top: 1.5rem; }
 .important-lesson-example-box { background: rgba(0, 255, 65, 0.05); border-left: 4px solid #00ff41; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; font-family: var(--font-sans); color: #fff; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); }
 .important-lesson-example-box p { text-align: center; }
 .lesson-example-box strong { color: #00ff41; }
+.vulnerabilities-box strong { color: #ff0040; }
 .frequency-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 0.5rem; margin-top: 1.5rem; }
 .freq-cell { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 0.5rem; text-align: center; border-radius: 8px; font-size: 0.85rem; color: #00ff41; font-family: var(--font-display); }
 
