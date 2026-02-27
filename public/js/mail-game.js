@@ -774,11 +774,9 @@ const MailGame = (function () {
                 // Rendre le compte hackeur visible dans la sidebar
                 if (hackerItem) hackerItem.classList.remove('hidden');
 
-                // Changer le bouton « Ajouter un compte » en « Se déconnecter »
-                if (btnAdd) {
-                    btnAdd.innerHTML = '<i class="fas fa-sign-out-alt"></i> Déconnecter k0de_breaker';
-                    btnAdd.style.color = '#ff453a';
-                }
+                // Masquer Junk (mini-jeu phishing inaccessible depuis le compte hackeur)
+                const junkItem = document.querySelector('li[data-mailbox="junk"]');
+                if (junkItem) junkItem.classList.add('hidden');
 
                 // Réinitialiser la mailbox et afficher les emails hackeur
                 currentMailbox = 'inbox';
@@ -805,11 +803,9 @@ const MailGame = (function () {
                 if (userBadge) userBadge.style.display = 'block';
                 if (hackerBadge) hackerBadge.style.display = 'none';
 
-                // Rétablir le bouton
-                if (btnAdd) {
-                    btnAdd.innerHTML = '<i class="fas fa-plus-circle"></i> Ajouter un compte';
-                    btnAdd.style.color = '';
-                }
+                // Rétablir Junk (mini-jeu phishing accessible depuis compte Lucie)
+                const junkItem = document.querySelector('li[data-mailbox="junk"]');
+                if (junkItem) junkItem.classList.remove('hidden');
 
                 // Repasser en inbox normale
                 currentMailbox = 'inbox';
