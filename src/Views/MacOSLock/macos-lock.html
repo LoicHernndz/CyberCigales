@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>macOS — Écran de verrouillage</title>
+    <link rel="stylesheet" href="/styles/macos-lock.css">
+</head>
+
+<body class="macos-lock">
+
+    <!-- Barre de menu macOS -->
+    <div class="macos-menubar">
+        <div class="macos-menubar-time">
+            <span class="macos-menubar-icon">🔒</span>
+            <span id="current-time"></span>
+        </div>
+    </div>
+
+    <!-- Fond animé avec flou -->
+    <div class="lock-bg-blur"></div>
+
+    <!-- Container de connexion -->
+    <div class="login-container">
+
+        <!-- Icône cadenas / avatar -->
+        <div class="lock-icon">🔒</div>
+
+        <!-- Nom -->
+        <div class="user-name">Élève</div>
+
+        <!-- Sous-titre -->
+        <div class="lock-subtitle">
+            Connectez-vous à votre compte CyberCigales<br>pour accéder à l'escape game.
+        </div>
+
+        <!-- Bouton de connexion -->
+        <a href="/user/login?redirect=/macos" class="login-btn" id="loginBtn">
+            <span class="login-btn-icon">→</span>
+            Se connecter
+        </a>
+
+    </div>
+
+    <!-- Heure en grand au centre bas -->
+    <div class="lock-clock">
+        <div class="lock-clock-time" id="lock-big-time"></div>
+        <div class="lock-clock-date" id="lock-big-date"></div>
+    </div>
+
+    <script>
+        // Horloge
+        function updateTime() {
+            const now = new Date();
+            const hhmm = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+            const dateStr = now.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+
+            if (document.getElementById('current-time'))
+                document.getElementById('current-time').textContent = hhmm;
+            if (document.getElementById('lock-big-time'))
+                document.getElementById('lock-big-time').textContent = hhmm;
+            if (document.getElementById('lock-big-date'))
+                document.getElementById('lock-big-date').textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        // Animation bouton au clic
+        document.getElementById('loginBtn').addEventListener('click', function (e) {
+            this.classList.add('loading');
+            this.textContent = 'Redirection...';
+        });
+    </script>
+</body>
+
+</html>
