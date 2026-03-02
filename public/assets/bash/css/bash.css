@@ -1,8 +1,11 @@
 :root {
-    --bg-color: #1e1e1e;
+    --bg-color: #0a0a0a;
     --text-color: #d4d4d4;
     --accent-blue: #569cd6;
     --accent-green: #6a9955;
+    --ssh-green: #00ff41;
+    --ssh-banner: #00d4aa;
+    --error-red: #f44747;
     --caret-color: #aeafad;
     --selection-bg: #264f78;
     --font-stack: 'Fira Code', 'Courier New', monospace;
@@ -16,7 +19,7 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     font-family: var(--font-stack);
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
 }
@@ -25,21 +28,27 @@ body {
     cursor: text;
     height: 100vh;
     width: 100%;
-    overflow: hidden;
-    padding: 12px;
-    box-sizing: border-box;
-}
-
-#app-window-terminal .window-content {
-    height: 100%;
     overflow-y: auto;
-    width: 100%;
+    padding: 16px;
+    box-sizing: border-box;
 }
 
 #output {
     white-space: pre-wrap;
     word-break: break-all;
-    line-height: 1.5;
+    line-height: 1.6;
+}
+
+/* ── Ligne d'input ──────────────────────────────────────────────── */
+#input-line {
+    display: flex;
+    align-items: center;
+    line-height: 1.6;
+}
+
+#prompt {
+    white-space: nowrap;
+    margin-right: 4px;
 }
 
 #input {
@@ -50,10 +59,35 @@ body {
     font-family: inherit;
     font-size: inherit;
     line-height: inherit;
-    width: 60%;
+    flex: 1;
     caret-color: var(--caret-color);
+    padding: 0;
 }
 
+/* ── Prompt SSH ─────────────────────────────────────────────────── */
+.prompt-user {
+    color: var(--ssh-green);
+    font-weight: 600;
+}
+
+.prompt-path {
+    color: var(--accent-blue);
+    font-weight: 500;
+}
+
+/* ── Bannière SSH ───────────────────────────────────────────────── */
+.ssh-banner {
+    color: var(--ssh-banner);
+    font-weight: 500;
+}
+
+/* ── Commandes en surbrillance dans le help ─────────────────────── */
+.cmd-highlight {
+    color: #dcdcaa;
+    font-weight: 500;
+}
+
+/* ── Fichiers / dossiers ────────────────────────────────────────── */
 .file {
     color: var(--text-color);
 }
@@ -67,6 +101,12 @@ body {
     color: var(--accent-green);
 }
 
+/* ── Erreurs ────────────────────────────────────────────────────── */
+.error {
+    color: var(--error-red);
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────────── */
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -87,4 +127,14 @@ body {
 
 ::selection {
     background: var(--selection-bg);
+}
+
+/* ── Curseur clignotant ─────────────────────────────────────────── */
+#input:focus {
+    caret-color: var(--ssh-green);
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }

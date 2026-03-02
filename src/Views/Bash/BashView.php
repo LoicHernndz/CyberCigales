@@ -5,28 +5,42 @@ namespace Views\Bash;
 use Views\AbstractView;
 
 /**
- * Vue du terminal Bash simulé
- * 
- * Affiche l'interface de terminal en ligne de commande.
+ * Vue du terminal SSH simule
+ *
+ * Affiche l'interface de terminal en plein ecran (sans header/footer).
+ * Le joueur doit se connecter via SSH avant d'acceder au filesystem.
  */
 class BashView extends AbstractView
 {
-    // Chemin du fichier HTML associé à la page des mentions légales
     private const TEMPLATE_HTML = __DIR__ . '/bash.html';
 
-    // Méthode qui retourne le chemin du template HTML à afficher
+    /**
+     * Retourne le chemin du template HTML du terminal
+     *
+     * @return string Chemin absolu du fichier HTML
+     */
     public function templatePath(): string
     {
         return self::TEMPLATE_HTML;
     }
 
-    // Méthode qui retourne les variables à injecter dans le template
-    // Ici, la page est statique donc aucune donnée dynamique n’est envoyée
+    /**
+     * Retourne les variables dynamiques a injecter dans le template
+     *
+     * Page statique : aucune donnee dynamique.
+     *
+     * @return array Tableau vide
+     */
     public function templateKeys(): array
     {
         return [];
     }
 
+    /**
+     * Affiche le terminal sans header/footer (plein ecran)
+     *
+     * @return void
+     */
     public function render()
     {
         parent::renderBody();
