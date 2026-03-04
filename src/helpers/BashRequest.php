@@ -21,6 +21,11 @@ class BashRequest
      */
     public function control()
     {
+        // Démarrer la session si ce n'est pas déjà fait pour l'historique
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
         $env = new Bash();
 
         $input = $_REQUEST["input"] ?? "";
@@ -31,10 +36,16 @@ class BashRequest
             return;
         }
 
+        // Ajouter la commande à l'historique
+        if (!isset($_SESSION['bash_history'])) {
+            $_SESSION['bash_history'] = [];
+        }
+        $_SESSION['bash_history'][] = $input;
+
         $args = explode(" ", trim($input));
         $command = $args[0];
 
-        $allowed = ["pwd", "ls", "cd", "cat", "clear", "help", "sudo_access"];
+        $allowed = ["pwd", "ls", "cd", "cat", "clear", "help", "sudo_access", "whoami", "date", "echo", "history", "man", "grep", "touch", "mkdir", "rm", "ping", "ssh"];
 
         if (in_array($command, $allowed)) {
             $result = $this->$command($env, $args, $path);
@@ -187,7 +198,13 @@ class BashRequest
         $output .= "cd   - Changer de dossier<br>";
         $output .= "cat  - Lire un fichier<br>";
         $output .= "pwd  - Afficher le chemin actuel<br>";
-        $output .= "clear - Effacer l'écran";
+        $output .= "clear - Effacer l'écran<br>";
+        $output .= "whoami - Afficher l'utilisateur actuel<br>";
+        $output .= "date - Afficher la date<br>";
+        $output .= "echo - Afficher du texte<br>";
+        $output .= "history - Afficher l'historique<br>";
+        $output .= "man - Afficher le manuel d'une commande<br>";
+        $output .= "grep - Rechercher dans un fichier<br>";
         return ["path" => $path, "output" => $output];
     }
 
@@ -205,5 +222,137 @@ class BashRequest
             "path" => $path,
             "output" => "<span style='color: #00ff00;'>[SUCCESS] Accès administrateur temporaire accordé.</span><br>Indice : Le secret est caché dans un fichier invisible du dossier /home/documents/documents-confidentiels. Utilisez vos outils d'analyse réseau (F12) lors d'un 'ls' pour le voir."
         ];
+    }
+
+    private function whoami($env, $args, $path)
+    {
+        return ["path" => $path, "output" => "guest"];
+    }
+
+    private function date($env, $args, $path)
+    {
+        return ["path" => $path, "output" => date('D M d H:i:s T Y')];
+    }
+
+    private function echo($env, $args, $path)
+    {
+        array_shift($args);
+        return ["path" => $path, "output" => htmlspecialchars(implode(" ", $args))];
+    }
+
+    private function history($env, $args, $path)
+    {
+        $history = $_SESSION['bash_history'] ?? [];
+        $output = "";
+        foreach ($history as $i => $cmd) {
+            $output .= ($i + 1) . "  " . htmlspecialchars($cmd) . "<br>";
+        }
+        return ["path" => $path, "output" => $output];
+    }
+
+    private function man($env, $args, $path)
+    {
+        if (count($args) < 2) {
+            return ["path" => $path, "output" => "Quel manuel voulez-vous ? (ex: man ls)"];
+        }
+
+        $cmd = $args[1];
+        $manuals = [
+            "ls" => "ls - list directory contents",
+            "cd" => "cd - change the shell working directory",
+            "cat" => "cat - concatenate files and print on the standard output",
+            "pwd" => "pwd - print name of current/working directory",
+            "clear" => "clear - clear the terminal screen",
+            "whoami" => "whoami - print effective userid",
+            "date" => "date - print or set the system date and time",
+            "echo" => "echo - display a line of text",
+            "history" => "history - display the history list",
+            "grep" => "grep - print lines matching a pattern",
+            "touch" => "touch - change file timestamps (or create empty file)",
+            "mkdir" => "mkdir - make directories",
+            "rm" => "rm - remove files or directories",
+            "ping" => "ping - send ICMP ECHO_REQUEST to network hosts",
+            "ssh" => "ssh - OpenSSH SSH client (remote login program)"
+        ];
+
+        if (isset($manuals[$cmd])) {
+            return ["path" => $path, "output" => $manuals[$cmd]];
+        }
+
+        return ["path" => $path, "output" => "Aucune entrée de manuel pour $cmd"];
+    }
+
+    private function grep($env, $args, $path)
+    {
+        if (count($args) < 3) {
+            return ["path" => $path, "output" => "usage: grep PATTERN FILE"];
+        }
+
+        $pattern = $args[1];
+        $filename = $args[2];
+
+        // Nettoyer les guillemets autour du pattern si présents
+        $pattern = trim($pattern, "\"'");
+
+        $dir = $env->find(explode("/", trim($path, "/")));
+        $file = $dir->getChild($filename);
+
+        if (!$file || $file->getType() === "dir") {
+            return ["path" => $path, "output" => "grep: $filename: Aucun fichier de ce type"];
+        }
+
+        $content = $file->getContent();
+        $lines = explode("\n", $content); // Le contenu est stocké avec \n dans Bash.php
+        // Si le contenu n'a pas de \n explicites mais des \n littéraux (comme dans Bash.php), il faut gérer
+        // Dans Bash.php: '... \n ...'
+        // PHP interprète \n dans les chaînes entre guillemets doubles.
+        
+        $output = "";
+        foreach ($lines as $line) {
+            if (strpos($line, $pattern) !== false) {
+                // Mettre en évidence le pattern
+                $highlighted = str_replace($pattern, "<span style='color:red'>$pattern</span>", htmlspecialchars($line));
+                $output .= $highlighted . "<br>";
+            }
+        }
+
+        return ["path" => $path, "output" => $output];
+    }
+
+    private function touch($env, $args, $path)
+    {
+        return ["path" => $path, "output" => "touch: permission denied (read-only system)"];
+    }
+
+    private function mkdir($env, $args, $path)
+    {
+        return ["path" => $path, "output" => "mkdir: permission denied (read-only system)"];
+    }
+
+    private function rm($env, $args, $path)
+    {
+        return ["path" => $path, "output" => "rm: permission denied (read-only system)"];
+    }
+
+    private function ping($env, $args, $path)
+    {
+        if (count($args) < 2) {
+            return ["path" => $path, "output" => "ping: usage error: Destination address required"];
+        }
+        $host = htmlspecialchars($args[1]);
+        $output = "PING $host (64 bytes data)<br>";
+        $output .= "64 bytes from $host: icmp_seq=1 ttl=54 time=12.3 ms<br>";
+        $output .= "64 bytes from $host: icmp_seq=2 ttl=54 time=12.5 ms<br>";
+        $output .= "64 bytes from $host: icmp_seq=3 ttl=54 time=12.4 ms<br>";
+        return ["path" => $path, "output" => $output];
+    }
+
+    private function ssh($env, $args, $path)
+    {
+        if (count($args) < 2) {
+            return ["path" => $path, "output" => "usage: ssh user@hostname"];
+        }
+        $target = htmlspecialchars($args[1]);
+        return ["path" => $path, "output" => "ssh: connect to host $target port 22: Connection refused"];
     }
 }
