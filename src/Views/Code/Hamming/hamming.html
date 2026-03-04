@@ -1,0 +1,51 @@
+<link rel="stylesheet" href="/assets/code/css/hamming.css">
+
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="auth-icon">
+        <span class="material-icons"></span>
+      </div>
+      <h1>Correction de messages par Hamming</h1>
+      <p class="auth-subtitle">Utilisez le carré de Hamming pour corriger un message brouillé.</p>
+    </div>
+
+    <div class="hamming-game-container">
+      <!-- Zone de jeu principale -->
+      <div class="game-area">
+        <!-- Stats du jeu -->
+        <div class="game-stats">
+          <div class="stat-item">
+            <div class="progress-bar-container">
+              <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <span class="stat-value" id="streak-display">0 / 5</span>
+          </div>
+        </div>
+
+        <!-- Le carre de Hamming -->
+        <div class="square-section">
+          <h3>
+            Trouvez le prochain bit errone
+          </h3>
+          <div class="square-wrapper">
+            <div class="hamming-grid" id="square-container">
+              <!-- Les cellules seront generees par JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Feedback -->
+        <div class="feedback-section hidden" id="feedback-section">
+          <div class="feedback-content" id="feedback-content">
+            <!-- Message de feedback -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="application/json" id="square-data">{{{SQUARE_JSON}}}</script>
+<script type="application/json" id="game-data">{{{GAME_DATA}}}</script>
+<script src="/assets/code/js/hamming.js"></script>
