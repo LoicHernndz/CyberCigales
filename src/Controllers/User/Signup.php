@@ -50,6 +50,9 @@ class Signup extends AbstractController
      * @return void
      */
     function postMethod(){
+        // OWASP A01 - Broken Access Control : vérification du token CSRF
+        $this->csrfVerify();
+
         // Je nettoie TOUTES les données POST en une seule fois
         // FILTER_SANITIZE_STRING va :
         // - Enlever les balises HTML (<script>, <img>, etc.)
@@ -118,10 +121,20 @@ class Signup extends AbstractController
         }
 
 
-        // Je vérifie que le mot de passe fait au moins 6 caractères
-        if(strlen($data['password']) < 6){
-            // Si le mot de passe est trop court, c'est pas sécurisé
-            flash("signup", "Mot de passe invalide (au moins 6 caracteres)");
+        // OWASP A07 - Identification and Authentication Failures :
+        // Politique de mot de passe renforcée selon les recommandations OWASP
+        // Minimum 8 caractères avec au moins 1 majuscule, 1 minuscule et 1 chiffre
+        // Cela rend les attaques par dictionnaire et force brute beaucoup plus difficiles
+        if(strlen($data['password']) < 8){
+            flash("signup", "Le mot de passe doit contenir au moins 8 caractères");
+            $view = new SignupView();
+            $view->render();
+            exit();
+        } else if(!preg_match('/[A-Z]/', $data['password']) ||
+                  !preg_match('/[a-z]/', $data['password']) ||
+                  !preg_match('/[0-9]/', $data['password'])){
+            // On vérifie la présence d'au moins une majuscule, une minuscule et un chiffre
+            flash("signup", "Le mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre");
             $view = new SignupView();
             $view->render();
             exit();
@@ -153,8 +166,13 @@ class Signup extends AbstractController
             // Si ça marche, je redirige vers la page de connexion
             redirect("/user/login");
         } else{
-            // Si ça plante (problème de base, etc.), j'arrête tout et j'affiche l'erreur
-            die("Quelque chose s'est mal passé");
+            // OWASP A09 - Logging : on log l'erreur côté serveur au lieu de l'afficher
+            // die() exposait un message technique à l'utilisateur
+            error_log('[ERROR] Échec inscription utilisateur');
+            flash("signup", "Une erreur interne est survenue. Veuillez réessayer.");
+            $view = new SignupView();
+            $view->render();
+            exit();
         }
     }
 }

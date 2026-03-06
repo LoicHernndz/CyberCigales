@@ -42,6 +42,9 @@ class Edit extends AbstractController
      */
     public function postMethod(): void
     {
+        // OWASP A01 - Broken Access Control : vérification du token CSRF
+        $this->csrfVerify();
+
         if (!isset($_SESSION['user_id'])) {
             flash('edit_profil', 'Vous devez être connecté pour modifier votre profil.', 'form-message form-message-red');
             redirect('/user/login');

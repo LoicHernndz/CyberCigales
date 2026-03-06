@@ -21,7 +21,9 @@ class EditProfilView extends AbstractView
         $keys['PSEUDO_KEY'] = $_SESSION['user_pseudo'] ?? '';
         $keys['EMAIL_KEY'] = $_SESSION['user_email'] ?? '';
         $keys['FLASH_MESSAGE'] = flash('edit_profil');
-        
+        // OWASP A01 : token CSRF injecté dans les formulaires (édition + suppression)
+        $keys['CSRF_FIELD'] = csrf_field();
+
         return $keys;
     }
 }

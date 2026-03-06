@@ -29,7 +29,9 @@ class CreateNewPasswordView extends AbstractView
 
             // Les valeurs du selector et validator extraites de l’URL (nettoyées avec trim)
             self::SELECTOR_KEY => trim($_GET['selector']),
-            self::VALIDATOR_KEY => trim($_GET['validator'])
+            self::VALIDATOR_KEY => trim($_GET['validator']),
+            // OWASP A01 : token CSRF injecté dans le formulaire pour empêcher les requêtes forgées
+            'CSRF_FIELD' => csrf_field()
         ];
     }
 }

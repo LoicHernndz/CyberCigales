@@ -44,6 +44,19 @@ class ResetPassword extends AbstractController
      */
     public function postMethod()
     {
+        // OWASP A01 - Broken Access Control : vérification du token CSRF
+        $this->csrfVerify();
+
+        // OWASP A07 - Rate Limiting : protection contre le spam de demandes de réinitialisation
+        // On limite à 3 demandes par fenêtre de 15 minutes
+        // Cela empêche un attaquant de bombarder une adresse email de liens de réinitialisation
+        if (!\helpers\RateLimiter::check('reset_password', 3, 900)) {
+            flash("reset", "Trop de demandes. Veuillez patienter avant de réessayer.");
+            (new ResetPasswordView())->render();
+            return;
+        }
+        \helpers\RateLimiter::record('reset_password');
+
         $this->resetModel = new ResetPasswords;
         $this->userModel = new User;
 
@@ -89,13 +102,21 @@ class ResetPassword extends AbstractController
         $url = "https://benahmed.alwaysdata.net/user/new-password?selector=" . $selector . "&validator=" . bin2hex($token);
         $expires = strval((int)(date("U")) + 1800);
 
+        // OWASP A09 - Logging : on log les erreurs internes au lieu de les afficher
+        // die() exposait des détails techniques à l'utilisateur (nom des fonctions internes)
         if (!$this->resetModel->deleteEmail($usersEmail)) {
-            die("Erreur interne (deleteEmail)");
+            error_log('[ERROR] Échec deleteEmail pour la réinitialisation');
+            flash("reset", "Une erreur est survenue. Veuillez réessayer plus tard.");
+            (new ResetPasswordView())->render();
+            return;
         }
 
         $hashedToken = password_hash($token, PASSWORD_DEFAULT);
         if (!$this->resetModel->insertToken($usersEmail, $selector, $hashedToken, $expires)) {
-            die("Erreur interne (insertToken)");
+            error_log('[ERROR] Échec insertToken pour la réinitialisation');
+            flash("reset", "Une erreur est survenue. Veuillez réessayer plus tard.");
+            (new ResetPasswordView())->render();
+            return;
         }
 
         // Chargement du template email depuis la vue
@@ -121,6 +142,9 @@ class ResetPassword extends AbstractController
             "Si vous n'êtes pas à l'origine de cette demande, ignorez cet e-mail.";
 
         $this->mail->send();
+
+        // OWASP A09 - Logging : on log les demandes de réinitialisation (email tronqué pour la vie privée)
+        \helpers\SecurityLogger::log('PASSWORD_RESET_REQUESTED', ['email' => substr($usersEmail, 0, 3) . '***']);
 
         // Message identique pour tous les cas (sécurité)
         flash("reset", "Si cette adresse email est associée à un compte, vous recevrez un email de réinitialisation.", 'form-message form-message-green');

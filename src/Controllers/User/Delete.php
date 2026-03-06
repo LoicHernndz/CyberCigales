@@ -11,6 +11,8 @@ use Models\User\User;
  *
  * Gère la suppression du profil utilisateur : affiche la confirmation (GET)
  * et effectue la suppression avec déconnexion (POST).
+ *
+ * OWASP A01 - Broken Access Control : vérification CSRF et authentification sur POST
  */
 class Delete extends AbstractController
 {
@@ -35,10 +37,25 @@ class Delete extends AbstractController
     /**
      * Supprime le profil utilisateur et détruit la session
      *
+     * OWASP A01 : on vérifie le CSRF et l'authentification avant toute action destructive
+     *
      * @return void
      */
     public function postMethod(): void
     {
+        // OWASP A01 - Broken Access Control : vérification du token CSRF
+        $this->csrfVerify();
+
+        // OWASP A07 - Identification and Authentication Failures :
+        // on vérifie que l'utilisateur est bien connecté avant de supprimer son compte
+        if (!isset($_SESSION['user_id'])) {
+            redirect('/user/login');
+            return;
+        }
+
+        // OWASP A09 - Logging : on log la suppression de compte avant de détruire la session
+        \helpers\SecurityLogger::log('ACCOUNT_DELETED', ['user_id' => $_SESSION['user_id']]);
+
         $userModel = new User();
         $userModel->deleteProfil($_SESSION['user_id']);
         unset($_SESSION['user_id']);
@@ -46,7 +63,5 @@ class Delete extends AbstractController
         unset($_SESSION['user_pseudo']);
         session_destroy();
         redirect("/");
-        $view = new HomepageView();
-        $view->render();
     }
 }

@@ -51,6 +51,11 @@ class Login extends AbstractController
      */
     public function createUserSession($user): void
     {
+        // OWASP A07 - Session Fixation : on régénère l'ID de session après connexion
+        // Cela empêche un attaquant d'imposer un ID de session avant le login
+        // puis de réutiliser cet ID pour accéder au compte de la victime
+        session_regenerate_id(true);
+
         // Je crée des variables de session avec les infos de l'utilisateur
         $_SESSION['user_id'] = $user->id;
         $_SESSION['user_email'] = $user->email;
@@ -69,6 +74,20 @@ class Login extends AbstractController
      */
     function postMethod(): void
     {
+        // OWASP A01 - Broken Access Control : vérification du token CSRF
+        $this->csrfVerify();
+
+        // OWASP A07 - Rate Limiting : protection contre les attaques par force brute
+        // On limite à 5 tentatives de connexion par fenêtre de 5 minutes
+        // Au-delà, l'utilisateur doit attendre que la fenêtre expire
+        if (!\helpers\RateLimiter::check('login', 5, 300)) {
+            $retryAfter = \helpers\RateLimiter::retryAfter('login', 300);
+            flash('login', "Trop de tentatives de connexion. Réessayez dans " . ceil($retryAfter / 60) . " minute(s).");
+            $view = new LoginView();
+            $view->render();
+            return;
+        }
+
         // Je nettoie TOUTES les données POST en une seule fois
         $_POST = filter_input_array(INPUT_POST);
 
@@ -103,15 +122,25 @@ class Login extends AbstractController
             $loggedInUser = $this->userModel->login($data['name/email'], $data['password']);
             if($loggedInUser){
                 // Si le mot de passe est correct, je crée une session utilisateur
+                // OWASP A09 - Logging : on log les connexions réussies pour l'audit trail
+                \helpers\SecurityLogger::log('LOGIN_SUCCESS', ['user_id' => $loggedInUser->id, 'email' => $loggedInUser->email]);
                 $this->createUserSession($loggedInUser);
             } else{
                 // Si le mot de passe est incorrect, j'affiche une erreur
+                // OWASP A07 : on enregistre la tentative échouée pour le rate limiting
+                \helpers\RateLimiter::record('login');
+                // OWASP A09 - Logging : on log les échecs de connexion pour détecter les attaques
+                \helpers\SecurityLogger::log('LOGIN_FAILED', ['input' => substr($data['name/email'], 0, 50)]);
                 flash('login', "Utilisateur non trouvé");
                 $view = new LoginView();
                 $view->render();
             }
         } else{
             // Si l'utilisateur n'existe pas, j'affiche une erreur
+            // OWASP A07 : on enregistre la tentative échouée pour le rate limiting
+            \helpers\RateLimiter::record('login');
+            // OWASP A09 - Logging : on log les échecs de connexion pour détecter les attaques
+            \helpers\SecurityLogger::log('LOGIN_FAILED', ['input' => substr($data['name/email'], 0, 50)]);
             flash('login', "Utilisateur non trouvé");
             $view = new LoginView();
             $view->render();

@@ -80,13 +80,16 @@ class User{
 
     //Réinitialisation du mot de passe
     public function resetPassword($newPwdHash, $tokenEmail){
-        error_log('DEBUG: requête SQL = UPDATE users SET password_hash=' . $newPwdHash . ' WHERE TRIM(LOWER(email))=TRIM(LOWER(' . $tokenEmail . '))');
+        // OWASP A02 - Cryptographic Failures : on ne log JAMAIS les hash de mots de passe
+        // ni la structure des requêtes SQL (les anciennes lignes de debug ont été supprimées)
+        // car un attaquant ayant accès aux logs pourrait exploiter ces informations
         $this->db->query('UPDATE users SET password_hash=:pwd WHERE TRIM(LOWER(email))=TRIM(LOWER(:email))');
         $this->db->bind(':pwd', $newPwdHash);
         $this->db->bind(':email', $tokenEmail);
 
         $result = $this->db->execute();
-        error_log('DEBUG: rows updated = ' . $this->db->rowCount());
+        // OWASP A09 - Logging : log sécurisé sans données sensibles (email tronqué)
+        error_log('[SECURITY] Mot de passe réinitialisé pour : ' . substr($tokenEmail, 0, 3) . '***');
         if($result){
             return true;
         }else{

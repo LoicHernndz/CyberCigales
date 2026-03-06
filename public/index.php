@@ -11,6 +11,33 @@
 include "../src/config/Autoloader.php";
 include "../src/helpers/session_helper.php";
 
+// === OWASP A05 - Security Misconfiguration : Headers de sécurité HTTP ===
+// Ces headers protègent contre les attaques côté client les plus courantes
+
+// Empêche le navigateur de deviner le type MIME (protection contre les attaques MIME-sniffing)
+header('X-Content-Type-Options: nosniff');
+
+// Empêche l'affichage du site dans une iframe externe (protection contre le clickjacking)
+// Un attaquant pourrait superposer notre site dans une iframe invisible pour piéger les clics
+header('X-Frame-Options: SAMEORIGIN');
+
+// Active le filtre XSS intégré des navigateurs (couche de défense supplémentaire)
+header('X-XSS-Protection: 1; mode=block');
+
+// Contrôle les informations envoyées dans le header Referer lors de la navigation
+// strict-origin-when-cross-origin : n'envoie que l'origine (pas l'URL complète) vers d'autres sites
+header('Referrer-Policy: strict-origin-when-cross-origin');
+
+// Désactive l'accès aux APIs sensibles du navigateur (caméra, micro, géolocalisation)
+header('Permissions-Policy: camera=(), microphone=(), geolocation=()');
+
+// Content-Security-Policy (CSP) : définit les sources autorisées pour les ressources
+// - default-src 'self' : par défaut, seules les ressources de notre domaine sont autorisées
+// - script-src/style-src 'unsafe-inline' : nécessaire pour les scripts/styles inline existants
+// - font-src : autorise Google Fonts pour les polices
+// - img-src data: : autorise les images encodées en base64 (SVG CAPTCHA)
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:;");
+
 // Récupère l'URI sans les paramètres GET
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 

@@ -1,9 +1,41 @@
-# Restriction des droits sur les fichiers
+# === OWASP A05 - Security Misconfiguration : Configuration Apache sécurisée ===
 RewriteEngine On
 
-# Si la requete concerne un fichier public, l'acces est autorise
+# OWASP A08 - Software and Data Integrity Failures : Forcer HTTPS
+# Redirige toutes les requêtes HTTP vers HTTPS pour chiffrer les communications
+# Sans HTTPS, les cookies de session et mots de passe transitent en clair sur le réseau
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# OWASP A08 - HSTS (HTTP Strict Transport Security)
+# Indique au navigateur de TOUJOURS utiliser HTTPS pendant 1 an
+# Même si l'utilisateur tape http://, le navigateur ira directement en HTTPS
+<IfModule mod_headers.c>
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+# OWASP A05 - Désactiver le listing des répertoires
+# Sans cette directive, Apache affiche la liste des fichiers d'un dossier
+# quand il n'y a pas de fichier index.php/index.html (fuite d'informations)
+Options -Indexes
+
+# OWASP A05 - Bloquer l'accès aux fichiers cachés (.env, .git, .htaccess interne)
+# Le fichier .env contient les credentials de la BDD et du SMTP
+# Le dossier .git contient tout l'historique du code source
+<FilesMatch "^\.">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# Routage : si la requête ne correspond pas à un fichier ou dossier existant,
+# on redirige vers index.php (le routeur PHP)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-
-# Sinon, on s'addresse au routeur (index.php)
 RewriteRule ^(.*)$ index.php [L,QSA]

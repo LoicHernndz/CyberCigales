@@ -45,8 +45,16 @@ class Database
             // getMessage() me donne le détail exact de ce qui a foiré
             $this->error = $e->getMessage();
 
-            // J'affiche l'erreur directement sur la page
-            echo $this->error;
+            // OWASP A09 - Security Logging and Monitoring Failures :
+            // On log l'erreur côté serveur pour le debugging, mais on ne l'affiche JAMAIS
+            // à l'utilisateur car elle contient des infos sensibles (nom de la BDD, host, etc.)
+            // Un attaquant pourrait utiliser ces infos pour cibler ses attaques
+            error_log('[DB ERROR] ' . $this->error);
+
+            // OWASP A05 - Security Misconfiguration :
+            // Message générique à l'utilisateur, sans détails techniques
+            http_response_code(500);
+            die('Une erreur interne est survenue. Veuillez réessayer plus tard.');
         }
     }
 
