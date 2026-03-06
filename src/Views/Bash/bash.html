@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>ssh</title>
+  <title>Terminal</title>
   <link rel="stylesheet" href="/assets/bash/css/bash.css">
-
 </head>
 <body>
-<span id="output"></span>
-<input type="text" id="input">
+  <div id="terminal-wrapper">
+    <div id="output"></div>
+    <div id="input-line">
+      <span id="prompt"></span>
+      <input type="text" id="input" autocomplete="off" spellcheck="false">
+    </div>
+  </div>
 
-<script src="/assets/bash/js/bash.js"></script>
+  <script src="/assets/bash/js/bash.js"></script>
 </body>
 </html>

@@ -23,8 +23,16 @@ class BashRequest
     {
         $env = new Bash();
 
+        // Action SSH login (verification des identifiants)
+        $action = $_REQUEST["action"] ?? "";
+        if ($action === "ssh_login") {
+            $this->sshLogin($env);
+            return;
+        }
+
         $input = $_REQUEST["input"] ?? "";
         $path = $_REQUEST["path"] ?? "/home";
+        $mode = $_REQUEST["mode"] ?? "ssh";
 
         if (empty($input)) {
             echo json_encode(["path" => $path, "output" => ""]);
@@ -37,7 +45,7 @@ class BashRequest
         $allowed = ["pwd", "ls", "cd", "cat", "clear", "help", "sudo_access"];
 
         if (in_array($command, $allowed)) {
-            $result = $this->$command($env, $args, $path);
+            $result = $this->$command($env, $args, $path, $mode);
             echo json_encode($result);
         } else {
             echo json_encode([
@@ -48,6 +56,22 @@ class BashRequest
     }
 
     /**
+     * Resout un chemin dans le bon filesystem selon le mode
+     *
+     * @param Bash $env L'environnement bash
+     * @param array $pathArray Segments du chemin
+     * @param string $mode 'local' ou 'ssh'
+     * @return \Models\Bash\File|null
+     */
+    private function resolve(Bash $env, array $pathArray, string $mode)
+    {
+        if ($mode === "local") {
+            return $env->findLocal($pathArray);
+        }
+        return $env->find($pathArray);
+    }
+
+    /**
      * Exécute la commande ls (liste le contenu d'un répertoire)
      * 
      * @param Bash $env L'environnement bash
@@ -55,9 +79,9 @@ class BashRequest
      * @param string $path Le chemin actuel
      * @return array Le résultat de la commande avec path et output
      */
-    private function ls($env, $args, $path)
+    private function ls($env, $args, $path, $mode = "ssh")
     {
-        $dir = $env->find(explode("/", trim($path, "/")));
+        $dir = $this->resolve($env, explode("/", trim($path, "/")), $mode);
         if (!$dir || $dir->getType() !== "dir") {
             return ["path" => $path, "output" => "ls: impossible d'accéder à '$path': Aucun dossier de ce type"];
         }
@@ -96,7 +120,7 @@ class BashRequest
      * @param string $path Le chemin actuel
      * @return array Le nouveau chemin après changement de répertoire
      */
-    private function cd($env, $args, $path)
+    private function cd($env, $args, $path, $mode = "ssh")
     {
         if (count($args) < 2) return ["path" => $path, "output" => ""];
 
@@ -111,7 +135,7 @@ class BashRequest
             return ["path" => $newPath, "output" => ""];
         }
 
-        $dir = $env->find($currentPathArray);
+        $dir = $this->resolve($env, $currentPathArray, $mode);
         $child = $dir->getChild($target);
 
         if ($child && $child->getType() === "dir") {
@@ -130,12 +154,12 @@ class BashRequest
      * @param string $path Le chemin actuel
      * @return array Le contenu du fichier
      */
-    private function cat($env, $args, $path)
+    private function cat($env, $args, $path, $mode = "ssh")
     {
         if (count($args) < 2) return ["path" => $path, "output" => "cat: argument manquant"];
 
         $target = $args[1];
-        $dir = $env->find(explode("/", trim($path, "/")));
+        $dir = $this->resolve($env, explode("/", trim($path, "/")), $mode);
         $file = $dir->getChild($target);
 
         if ($file && $file->getType() !== "dir") {
@@ -155,7 +179,7 @@ class BashRequest
      * @param string $path Le chemin actuel
      * @return array Le chemin actuel
      */
-    private function pwd($env, $args, $path)
+    private function pwd($env, $args, $path, $mode = "ssh")
     {
         return ["path" => $path, "output" => $path];
     }
@@ -168,7 +192,7 @@ class BashRequest
      * @param string $path Le chemin actuel
      * @return array Signal pour effacer l'écran
      */
-    private function clear($env, $args, $path) {
+    private function clear($env, $args, $path, $mode = "ssh") {
         return ["path" => $path, "output" => "@CLEAR"];
     }
 
@@ -180,7 +204,7 @@ class BashRequest
      * @param string $path Le chemin actuel
      * @return array La liste des commandes disponibles
      */
-    private function help($env, $args, $path)
+    private function help($env, $args, $path, $mode = "ssh")
     {
         $output = "Commandes disponibles :<br>";
         $output .= "ls   - Lister les fichiers<br>";
@@ -199,11 +223,37 @@ class BashRequest
      * @param string $path Le chemin actuel
      * @return array Message d'accès administrateur avec indice
      */
-    private function sudo_access($env, $args, $path)
+    private function sudo_access($env, $args, $path, $mode = "ssh")
     {
         return [
             "path" => $path,
             "output" => "<span style='color: #00ff00;'>[SUCCESS] Accès administrateur temporaire accordé.</span><br>Indice : Le secret est caché dans un fichier invisible du dossier /home/documents/documents-confidentiels. Utilisez vos outils d'analyse réseau (F12) lors d'un 'ls' pour le voir."
         ];
+    }
+
+    /**
+     * Vérifie les identifiants SSH
+     *
+     * Compare l'utilisateur, l'hôte et le mot de passe envoyés
+     * avec les identifiants attendus définis dans le modèle Bash.
+     *
+     * @param Bash $env L'environnement bash contenant les identifiants
+     * @return void
+     */
+    private function sshLogin(Bash $env): void
+    {
+        $user = $_REQUEST["user"] ?? "";
+        $host = $_REQUEST["host"] ?? "";
+        $pass = $_REQUEST["pass"] ?? "";
+
+        $credentials = $env->getCredentials();
+
+        $authenticated = (
+            $user === $credentials['user'] &&
+            $host === $credentials['host'] &&
+            $pass === $credentials['pass']
+        );
+
+        echo json_encode(["authenticated" => $authenticated]);
     }
 }
