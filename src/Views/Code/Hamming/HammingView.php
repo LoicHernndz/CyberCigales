@@ -8,6 +8,8 @@ class HammingView extends AbstractView
 {
 
     private const FLASH_KEY = 'FLASH';
+    private const GAME_KEY = 'GAME';
+    private const SCRIPTS_KEY = 'GAME_SCRIPT';
 
     /** @var array Données du jeu (square, streak, target) */
     private array $data;
@@ -41,13 +43,26 @@ class HammingView extends AbstractView
      */
     function templateKeys(): array
     {
+
+        if (!isset($this->data['square'])) {
+            return [
+                self::FLASH_KEY => flash('hamming'),
+                self::GAME_KEY => '',
+                self::SCRIPTS_KEY => ''
+            ];
+        }
+
         $square = $this->data['square'] ?? [[0,0,0],[0,0,0],[0,0,0]];
         $streak = $this->data['streak'] ?? 0;
         $target = $this->data['target'] ?? 5;
 
         return [
-            'SQUARE_JSON' => json_encode($square),
-            'GAME_DATA' => json_encode(['streak' => $streak, 'target' => $target])
+            self::FLASH_KEY => flash('hamming'),
+            self::GAME_KEY => file_get_contents(__DIR__ . '/game-area.html'),
+            self::SCRIPTS_KEY =>
+                '<script type="application/json" id="square-data">'.json_encode($square).'</script>
+                <script type="application/json" id="game-data">'.json_encode(['streak' => $streak, 'target' => $target]).'</script>
+                <script src="/assets/code/js/hamming.js"></script>'
         ];
     }
 
