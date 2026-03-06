@@ -58,11 +58,11 @@
             <script>
                 function confirmReset() {
                     if (confirm('Êtes-vous sûr de vouloir réinitialiser toute votre progression de l\'escape game ? (Scores, chats, etc. seront perdus définitivement)')) {
-                        // Purger la progression client (LocalStorage/SessionStorage)
+                        // Purger la progression client (LocalStorage)
                         localStorage.removeItem('lemonde_notif_triggered');
                         localStorage.removeItem('instagram_notifications');
                         localStorage.setItem('instagram_unread_count', '0');
-                        sessionStorage.removeItem('mailActiveAccount');
+                        localStorage.removeItem('mailActiveAccount');
                         window.dispatchEvent(new Event("storage"));
 
                         // Soumettre le formulaire vers le serveur

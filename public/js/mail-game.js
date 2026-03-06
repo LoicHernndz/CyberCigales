@@ -571,8 +571,8 @@ const MailGame = (function () {
 
         function switchToAccount(account) {
             activeAccount = account;
-            // Persister le compte actif pour la session
-            sessionStorage.setItem('mailActiveAccount', account);
+            // Persister le compte actif pour le navigateur
+            localStorage.setItem('mailActiveAccount', account);
             if (account === 'hacker') {
                 // Thème sombre
                 if (mailWindow) mailWindow.classList.add('hacker-mode');
@@ -670,8 +670,8 @@ const MailGame = (function () {
                 });
             }
 
-            // Restaurer le compte actif depuis la session (si la page est rechargée)
-            const savedAccount = sessionStorage.getItem('mailActiveAccount');
+            // Restaurer le compte actif depuis le stockage (si la page est rechargée)
+            const savedAccount = localStorage.getItem('mailActiveAccount');
             if (savedAccount === 'hacker') {
                 switchToAccount('hacker');
             }
