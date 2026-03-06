@@ -1,7 +1,6 @@
 /**
- * Logiciel de jeu "Mail Phishing" pour l'interface macOS
- * Version 3 : Destinataire unique, plus de scénarios, explications détaillées
- * Version 4 : Système multi-comptes (compte utilisateur + compte hackeur)
+ * Interface Mail macOS pour l'escape game
+ * Système multi-comptes (compte utilisateur + compte hackeur)
  */
 const MailGame = (function () {
 
@@ -187,7 +186,7 @@ const MailGame = (function () {
     // Boîte mail de Lucie — vide par défaut, le joueur arrive sur cette boîte
     const normalEmails = [];
 
-    // Emails de Jeu (Junk / Phishing / Legit mélangés)
+    // Emails Junk (spam, phishing, etc. — affichage lecture seule)
     const gameEmails = [
         {
             id: 1,
@@ -207,10 +206,7 @@ const MailGame = (function () {
                     <a href="http://bank-verify-alert.com/login" class="email-cta-button urgent" target="_blank">VÉRIFIER MON IDENTITÉ MAINTENANT</a>
                 </div>
             `,
-            isPhishing: true,
-            explanation: 'ALERTE ROUGE : Cet email joue sur la peur ("compte bloqué", "Russie") pour vous faire agir vite. De plus, regardez l\'expéditeur : "bank-verify-alert.com" n\'est PAS le site officiel de votre banque.',
-            status: 'pending',
-            isGame: true
+            isPhishing: true
         },
         {
             id: 2,
@@ -228,10 +224,7 @@ const MailGame = (function () {
                 <p>Pour continuer à profiter de vos séries préférées, veuillez mettre à jour vos informations de paiement ci-dessous.</p>
                 <p><a href="http://netflix-fix-billing.com/update-payment" class="email-cta-button" target="_blank">Mettre à jour le paiement</a></p>
             `,
-            isPhishing: true,
-            explanation: 'Regardez l\'adresse email de l\'expéditeur : "netflix-fix-billing.com". Netflix utiliserait uniquement "netflix.com". C\'est une tentative pour voler votre carte bancaire.',
-            status: 'pending',
-            isGame: true
+            isPhishing: true
         },
         {
             id: 3,
@@ -247,10 +240,7 @@ const MailGame = (function () {
                 <p><span class="fake-link">Intranet : Documents Mutuelle 2026.pdf</span></p>
                 <div class="email-signature"><p>Hélène, Service RH</p></div>
             `,
-            isPhishing: false,
-            explanation: 'Cet email est SUR. L\'expéditeur est bien interne "@cybercigales.fr", le ton est professionnel, et le lien pointe vers l\'intranet de l\'entreprise.',
-            status: 'pending',
-            isGame: true
+            isPhishing: false
         },
         {
             id: 4,
@@ -267,10 +257,7 @@ const MailGame = (function () {
                 <p>Pour débloquer la livraison prévue demain, veuillez régulariser la situation :</p>
                 <p><a href="http://chronopost-suivi-express.xyz/frais" class="email-cta-button" target="_blank">Payer les frais de douane</a></p>
             `,
-            isPhishing: true,
-            explanation: 'Chronopost n\'utilise JAMAIS une adresse "@gmail.com" pour ses communications officielles. C\'est une arnaque très courante pour récupérer vos numéros de carte bleue.',
-            status: 'pending',
-            isGame: true
+            isPhishing: true
         },
         {
             id: 5,
@@ -288,10 +275,7 @@ const MailGame = (function () {
                 <p><a href="http://mso-auth-update.info/reset-password" class="email-cta-button" target="_blank">Conserver mon mot de passe</a></p>
                 <p>Microsoft Security Team</p>
             `,
-            isPhishing: true,
-            explanation: '"mso-auth-update.info" n\'est pas un domaine Microsoft. De plus, Microsoft ne vous demandera jamais de cliquer sur un lien pour "conserver" un mot de passe de cette manière.',
-            status: 'pending',
-            isGame: true
+            isPhishing: true
         },
         {
             id: 6,
@@ -308,10 +292,7 @@ const MailGame = (function () {
                 <p>Découvrez vos artistes préférés dans votre bilan "Wrapped".</p>
                 <p><a href="https://www.spotify.com/us/wrapped/" class="email-cta-button" style="background:#1DB954;" target="_blank">Voir mon Wrapped</a></p>
             `,
-            isPhishing: false,
-            explanation: 'Cet email provient du domaine officiel "spotify.com". Le lien mène vers l\'application ou le site officiel. C\'est un email marketing légitime.',
-            status: 'pending',
-            isGame: true
+            isPhishing: false
         },
         {
             id: 7,
@@ -329,10 +310,7 @@ const MailGame = (function () {
                 <p>Jean</p>
                 <p>Sent from my iPhone</p>
             `,
-            isPhishing: true,
-            explanation: 'C\'est une "Arnaque au Président" (CEO Fraud). L\'attaquant utilise un domaine légèrement différent ("cybercigales-group.com" au lieu de "cybercigales.fr") et joue sur l\'urgence et la confidentialité pour contourner les procédures.',
-            status: 'pending',
-            isGame: true
+            isPhishing: true
         },
         {
             id: 8,
@@ -350,10 +328,7 @@ const MailGame = (function () {
                 <p>Pour recevoir votre remboursement, veuillez confirmer vos coordonnées bancaires :</p>
                 <p><a href="http://dgfip.finances.gouv.fr.hosting-82.com/remboursement" class="email-cta-button" target="_blank">Accéder au formulaire de remboursement</a></p>
             `,
-            isPhishing: true,
-            explanation: 'Regardez bien l\'URL de l\'expéditeur. Ça finit par "hosting-82.com", pas par "gouv.fr". C\'est une imitation pour voler vos infos.',
-            status: 'pending',
-            isGame: true
+            isPhishing: true
         },
         {
             id: 9,
@@ -370,10 +345,7 @@ const MailGame = (function () {
                 <p>Si ce n'était pas vous, veuillez sécuriser votre compte immédiatement.</p>
                 <p><a href="http://paypa1-verify.com/secure" class="email-cta-button urgent" target="_blank">Sécuriser mon compte</a></p>
             `,
-            isPhishing: true,
-            explanation: 'PayPal utilise toujours votre nom complet, pas "Cher client". De plus, l\'adresse de l\'expéditeur "paypa1" contient une faute (typosquatting).',
-            status: 'pending',
-            isGame: true
+            isPhishing: true
         },
         {
             id: 10,
@@ -390,68 +362,29 @@ const MailGame = (function () {
                 <p>Cliquez ci-dessous pour la recevoir.</p>
                 <p><a href="http://amazon-win-prizes.net/claim-gift" class="email-cta-button" target="_blank">Obtenir ma carte cadeau</a></p>
             `,
-            isPhishing: true,
-            explanation: 'Les cadeaux gratuits tombés du ciel n\'existent pas. Le domaine "amazon-win-prizes.net" est frauduleux.',
-            status: 'pending',
-            isGame: true
+            isPhishing: true
         }
     ];
 
     let currentMailbox = 'inbox'; // 'inbox' ou 'junk'
     let currentEmailId = null;
-    let score = 0;
 
     // DOM Elements
     const els = {
         emailList: document.getElementById('email-list-container'),
         readingPane: document.getElementById('reading-pane'),
-        scoreDisplay: document.getElementById('game-score').parentElement,
-        gameControls: document.querySelector('.toolbar-game-controls'),
-        scoreValue: document.getElementById('game-score'),
-        inboxCount: document.getElementById('inbox-count'),
-        junkCount: document.querySelector('li[data-mailbox="junk"] .icon-label'), // Pour ajouter un badge si on veut
-        modal: document.getElementById('feedback-modal'),
-        feedbackTitle: document.getElementById('feedback-title'),
-        feedbackMessage: document.getElementById('feedback-message'),
-        feedbackIcon: document.getElementById('feedback-icon'),
-        endScreen: document.getElementById('end-screen'),
-        finalScore: document.getElementById('final-score'),
-        btnSafe: document.getElementById('btn-mark-safe'),
-        btnPhish: document.getElementById('btn-report-phishing'),
-        btnNext: document.getElementById('btn-next-scenario')
+        inboxCount: document.getElementById('inbox-count')
     };
 
     function init() {
-        // Détection du mode jeu via URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const isGameMode = urlParams.get('mode') === 'game';
-
-        if (isGameMode) {
-            setupGameMode();
-            switchMailbox('junk');
-        } else {
-            switchMailbox('inbox');
-            setupStandardMode();
-        }
-
-        els.btnSafe.addEventListener('click', () => handleDecision(false));
-        els.btnPhish.addEventListener('click', () => handleDecision(true));
-
-        els.btnNext.addEventListener('click', closeModal);
-
-        // Listener pour le bouton Continuer (fin de jeu)
-        document.getElementById('btn-continue-game')?.addEventListener('click', () => {
-            els.endScreen.classList.add('hidden');
-        });
+        switchMailbox('inbox');
+        setupStandardMode();
 
         els.readingPane.addEventListener('click', (e) => {
             if (e.target.tagName === 'A' || e.target.classList.contains('fake-link')) {
                 e.preventDefault();
             }
         });
-
-        // Toujours mettre à jour la visibilité au démarrage
-        updateControlsVisibility();
 
         // Initialiser le gestionnaire de comptes
         AccountManager.init();
@@ -466,28 +399,6 @@ const MailGame = (function () {
         });
     }
 
-    function setupGameMode() {
-        // En mode jeu, on cache la sidebar ou on désactive les autres items (sauf Junk)
-        document.querySelectorAll('.mailbox-list li').forEach(item => {
-            const mailbox = item.getAttribute('data-mailbox');
-            if (mailbox !== 'junk') {
-                item.style.display = 'none';
-            }
-        });
-
-        // On modifie le titre 'Mailboxes'
-        const title = document.querySelector('.mailbox-title');
-        if (title) title.textContent = 'Mission Phishing';
-
-        // Désactive les boutons de la toolbar standard
-        const tbGroup = document.querySelector('.toolbar-group');
-        if (tbGroup) tbGroup.style.display = 'none';
-
-        // Désactive le tri
-        const sortBar = document.querySelector('.sort-bar');
-        if (sortBar) sortBar.style.display = 'none';
-    }
-
     function switchMailbox(mailbox) {
         currentMailbox = mailbox;
         currentEmailId = null;
@@ -499,18 +410,6 @@ const MailGame = (function () {
         renderEmailList();
 
         els.readingPane.innerHTML = '<div class="placeholder">Sélectionnez un email pour le lire...</div>';
-
-        updateControlsVisibility();
-    }
-
-    function updateControlsVisibility() {
-        if (currentMailbox === 'junk') {
-            els.gameControls.style.display = 'flex';
-            // Update score display immediately
-            els.scoreValue.textContent = score;
-        } else {
-            els.gameControls.style.display = 'none';
-        }
     }
 
     function getEmailsForCurrentMailbox() {
@@ -534,18 +433,12 @@ const MailGame = (function () {
 
         emailsToRender.forEach(email => {
             const li = document.createElement('li');
-            let isRead = email.read;
-            if (email.isGame) isRead = (email.status === 'processed');
+            let isRead = email.read !== false;
 
             li.className = `email-item ${isRead ? 'read' : ''}`;
             if (email.id === currentEmailId) li.classList.add('selected');
 
             let statusIcon = '';
-            if (email.isGame && email.status === 'processed') {
-                // Check if decision was correct is not stored on email object directly here for simplicity, 
-                // but usually processed means done.
-                statusIcon = '<i class="fas fa-check" style="color:#28cd41; margin-right:5px;"></i> ';
-            }
 
             // Affichage propre
             li.innerHTML = `
@@ -567,7 +460,7 @@ const MailGame = (function () {
         const list = getEmailsForCurrentMailbox();
         const email = list.find(e => e.id === id);
 
-        if (!email.isGame) email.read = true;
+        email.read = true;
 
         renderEmailList();
 
@@ -583,109 +476,7 @@ const MailGame = (function () {
         `;
     }
 
-    function handleDecision(isReportPhishing) {
-        if (currentMailbox !== 'junk') return;
-        if (currentEmailId === null) return;
 
-        const email = gameEmails.find(e => e.id === currentEmailId);
-
-        if (email.status === 'processed') {
-            alert("Vous avez déjà traité cet email.");
-            return;
-        }
-
-        let isCorrect = false;
-        if (email.isPhishing && isReportPhishing) isCorrect = true;
-        if (!email.isPhishing && !isReportPhishing) isCorrect = true;
-
-        if (isCorrect) score++;
-
-        email.status = 'processed';
-
-        showFeedback(isCorrect, email.explanation);
-
-        els.scoreValue.textContent = score;
-
-        checkEndGame();
-    }
-
-    function showFeedback(correct, explanation) {
-        els.feedbackTitle.textContent = correct ? "Bien joué !" : "Erreur d'analyse";
-        els.feedbackTitle.style.color = correct ? "#28cd41" : "#d70015";
-
-        // Icône différente selon la réussite
-        const iconClass = correct ? 'fa-check-circle' : 'fa-times-circle';
-        els.feedbackIcon.className = `fas ${iconClass} feedback-icon`;
-        els.feedbackIcon.classList.remove('correct', 'incorrect'); // Nettoyage anciennes classes
-        els.feedbackIcon.classList.add(correct ? 'correct' : 'incorrect');
-
-        els.feedbackMessage.textContent = explanation;
-        els.modal.classList.remove('hidden');
-    }
-
-    function closeModal() {
-        els.modal.classList.add('hidden');
-        renderEmailList();
-
-        const remaining = gameEmails.filter(e => e.status === 'pending').length;
-        if (remaining === 0) {
-            showEndScreen();
-        }
-    }
-
-    function checkEndGame() {
-        // Déclenché après fermeture modal
-    }
-
-    function showEndScreen() {
-        els.finalScore.textContent = score;
-
-        // Nettoyer anciens messages
-        const oldMsg = els.endScreen.querySelector('p.custom-msg');
-        if (oldMsg) oldMsg.remove();
-
-        const total = 5; // Nombre d'emails de jeu (Attention à bien compter ceux qui sont isGame=true)
-        // Note: gameEmails contient 10 items dont 8 isGame=true dans ce fichier apparemment. 
-        // Vérifions: IDs 1,2,3,4,5,6,7,8,9,10 tous isGame=true. total = 10.
-        // Attends, le score est sur 5 dans l'HTML. Vérifions la logique score.
-        // Si score === 5, c'est que l'utilisateur a tout bon sur 5 mails ? 
-        // L'utilisateur joue 5 scénarios ou tous ?
-        // Dans closeModal, on vérifie pending.
-
-        // Affichage de l'indice si score parfait (ou >= 5 pour être sûr)
-        const clueContainer = document.getElementById('game-clue-container');
-        if (score >= 5) {
-            const msg = "Excellent ! Vous êtes un expert.";
-            const p = document.createElement('p');
-            p.textContent = msg;
-            p.classList.add('custom-msg');
-            p.style.marginTop = "10px";
-            els.finalScore.parentElement.after(p);
-
-            clueContainer.style.display = 'block';
-            clueContainer.innerHTML = `
-                <div style="background: #f0fdf4; border: 2px solid #22c55e; padding: 20px; border-radius: 10px; margin-top: 20px; color: #15803d; animation: popIn 0.5s ease-out;">
-                    <h3 style="margin-top:0; font-size: 1.2rem; font-weight: bold;">Mission Accomplie !</h3>
-                    <p>Voici un indice crucial pour la suite de votre enquête :</p>
-                    <p style="font-family: monospace; font-size: 1.4rem; background: rgba(255,255,255,0.8); padding: 10px; border-radius: 5px; margin: 10px 0; font-weight: bold; border: 1px dashed #15803d;">
-                        CODE ACCÈS : "PROTOC0L_GH0ST"
-                    </p>
-                    <p style="font-size: 0.9rem;">Notez-le précieusement.</p>
-                </div>
-            `;
-        } else {
-            const msg = "Pas mal, mais essayez encore pour le score parfait !";
-            const p = document.createElement('p');
-            p.textContent = msg;
-            p.classList.add('custom-msg');
-            p.style.marginTop = "10px";
-            els.finalScore.parentElement.after(p);
-
-            clueContainer.style.display = 'none';
-        }
-
-        els.endScreen.classList.remove('hidden');
-    }
 
     // =========================================================
     // MODULE : AccountManager — Gestion du switch de compte
@@ -774,18 +565,11 @@ const MailGame = (function () {
                 // Rendre le compte hackeur visible dans la sidebar
                 if (hackerItem) hackerItem.classList.remove('hidden');
 
-                // Masquer Junk (mini-jeu phishing inaccessible depuis le compte hackeur)
-                const junkItem = document.querySelector('li[data-mailbox="junk"]');
-                if (junkItem) junkItem.classList.add('hidden');
-
                 // Réinitialiser la mailbox et afficher les emails hackeur
                 currentMailbox = 'inbox';
                 currentEmailId = null;
                 renderEmailList();
                 els.readingPane.innerHTML = '<div class="placeholder">Boîte vide — aucun message pour l\'instant.</div>';
-
-                // Cacher les contrôles du mini-jeu
-                if (els.gameControls) els.gameControls.style.display = 'none';
 
             } else {
                 // Retour au compte utilisateur
@@ -803,9 +587,7 @@ const MailGame = (function () {
                 if (userBadge) userBadge.style.display = 'block';
                 if (hackerBadge) hackerBadge.style.display = 'none';
 
-                // Rétablir Junk (mini-jeu phishing accessible depuis compte Lucie)
-                const junkItem = document.querySelector('li[data-mailbox="junk"]');
-                if (junkItem) junkItem.classList.remove('hidden');
+
 
                 // Repasser en inbox normale
                 currentMailbox = 'inbox';

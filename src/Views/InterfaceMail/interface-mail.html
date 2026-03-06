@@ -30,16 +30,7 @@
                 <span id="indicator-email">lucie.bertrand@cybercigales.fr</span>
             </div>
 
-            <!-- Contrôles du Jeu -->
-            <div class="toolbar-game-controls">
-                <div class="score-display">Score: <span id="game-score">0</span>/5</div>
-                <button id="btn-mark-safe" class="btn-game-action btn-safe">
-                    <i class="fas fa-shield-alt"></i> Légitime
-                </button>
-                <button id="btn-report-phishing" class="btn-game-action btn-phishing">
-                    <i class="fas fa-exclamation-triangle"></i> Phishing
-                </button>
-            </div>
+
         </div>
 
         <div class="content-area">
@@ -84,7 +75,8 @@
 
                     <!-- Compte hackeur (visible uniquement si connecté) -->
                     <div class="account-item hidden" id="account-hacker-item" data-account="hacker">
-                        <div class="account-avatar hacker-avatar"><i class="fas fa-skull-crossbones" style="font-size:12px;"></i></div>
+                        <div class="account-avatar hacker-avatar"><i class="fas fa-skull-crossbones"
+                                style="font-size:12px;"></i></div>
                         <div class="account-info">
                             <div class="account-name">K0de_Breaker</div>
                             <div class="account-email">k0de_breaker@darkweb.net</div>
@@ -114,29 +106,7 @@
 
         </div>
 
-        <!-- Modal de Feedback (mini-jeu phishing) -->
-        <div id="feedback-modal" class="modal hidden">
-            <div class="modal-content">
-                <i id="feedback-icon" class="fas fa-check-circle feedback-icon"></i>
-                <h2 id="feedback-title">Résultat</h2>
-                <p id="feedback-message">Explication...</p>
-                <button class="btn-next" id="btn-next-scenario">
-                    Message Suivant <i class="fas fa-arrow-right"></i>
-                </button>
-            </div>
-        </div>
 
-        <!-- Écran de fin (mini-jeu phishing) -->
-        <div id="end-screen" class="end-screen hidden">
-            <h2>Session Terminée</h2>
-            <p class="end-screen-text">Votre vigilance a payé.</p>
-            <p class="score-display end-screen-score">Score Final : <span id="final-score">0</span>/5</p>
-
-            <div id="game-clue-container" class="end-screen-clue"></div>
-            <div class="end-screen-actions">
-                <button class="btn-next btn-continue" id="btn-continue-game">Continuer</button>
-            </div>
-        </div>
     </div>
 
     <!-- Modal de Connexion Compte Hackeur -->
