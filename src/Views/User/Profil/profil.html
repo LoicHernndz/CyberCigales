@@ -18,87 +18,98 @@
             </div>
         </div>
     </div>
+</div>
+
+<!-- Grille principale : Graphiques + Détails -->
+<div class="content-grid-profil">
+    <!-- Actions rapides -->
+    <div class="quick-actions-card">
+        <div class="card-header-profil">
+            <div class="card-icon-header">
+                <span class="material-icons">flash_on</span>
+            </div>
+            <h2>Actions rapides</h2>
+        </div>
+        <div class="actions-list">
+            <a href="/lecon" class="action-button">
+                <span class="material-icons">school</span>
+                <span>Voir toutes les formations</span>
+                <span class="material-icons action-arrow">arrow_forward</span>
+            </a>
+            <a href="/minigames" class="action-button">
+                <span class="material-icons">dashboard</span>
+                <span>Voir tous les mini-jeux</span>
+                <span class="material-icons action-arrow">arrow_forward</span>
+            </a>
+            <a href="/user/reset-password" class="action-button">
+                <span class="material-icons">lock_reset</span>
+                <span>Changer mon mot de passe</span>
+                <span class="material-icons action-arrow">arrow_forward</span>
+            </a>
+            <form action="/game/reset-game" method="POST"
+                onsubmit="return confirm('Êtes-vous sûr de vouloir réinitialiser toute votre progression de l\'escape game ? (Scores, chats, etc. seront perdus définitivement)');"
+                style="width: 100%;">
+                <input type="hidden" name="action" value="reset_all">
+                <button type="submit" class="action-button action-btn-danger"
+                    style="width: 100%; border: none; background: none; cursor: pointer; color: inherit; font: inherit;">
+                    <span class="material-icons" style="color: #ff4d4d;">delete_forever</span>
+                    <span style="color: #ff4d4d; font-weight: bold;">Réinitialiser ma progression</span>
+                    <span class="material-icons action-arrow" style="color: #ff4d4d;">arrow_forward</span>
+                </button>
+            </form>
+        </div>
     </div>
 
-    <!-- Grille principale : Graphiques + Détails -->
-    <div class="content-grid-profil">
-        <!-- Actions rapides -->
-        <div class="quick-actions-card">
+    <!-- Colonne droite : Informations + Badges -->
+    <div class="right-column">
+        <!-- Informations personnelles -->
+        <div class="info-card-profil">
             <div class="card-header-profil">
                 <div class="card-icon-header">
-                    <span class="material-icons">flash_on</span>
+                    <span class="material-icons">person</span>
                 </div>
-                <h2>Actions rapides</h2>
+                <h2>Informations</h2>
             </div>
-            <div class="actions-list">
-                <a href="/lecon" class="action-button">
-                    <span class="material-icons">school</span>
-                    <span>Voir toutes les formations</span>
-                    <span class="material-icons action-arrow">arrow_forward</span>
-                </a>
-                <a href="/minigames" class="action-button">
-                    <span class="material-icons">dashboard</span>
-                    <span>Voir tous les mini-jeux</span>
-                    <span class="material-icons action-arrow">arrow_forward</span>
-                </a>
-                <a href="/user/reset-password" class="action-button">
-                    <span class="material-icons">lock_reset</span>
-                    <span>Changer mon mot de passe</span>
-                    <span class="material-icons action-arrow">arrow_forward</span>
+            <div class="info-list">
+                <div class="info-row">
+                    <span class="info-label">
+                        <span class="material-icons">badge</span>
+                        Prénom
+                    </span>
+                    <span class="info-value">{{FIRSTNAME_KEY}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">
+                        <span class="material-icons">badge</span>
+                        Nom
+                    </span>
+                    <span class="info-value">{{LASTNAME_KEY}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">
+                        <span class="material-icons">alternate_email</span>
+                        Pseudo
+                    </span>
+                    <span class="info-value">{{USERNAME_KEY}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">
+                        <span class="material-icons">email</span>
+                        Email
+                    </span>
+                    <span class="info-value">{{EMAIL_KEY}}</span>
+                </div>
+            </div>
+            <div class="card-footer-profil">
+                <a href="/user/edit" class="btn-edit-profil">
+                    <span class="material-icons">edit</span>
+                    <span>Modifier mon profil</span>
                 </a>
             </div>
         </div>
 
-        <!-- Colonne droite : Informations + Badges -->
-        <div class="right-column">
-            <!-- Informations personnelles -->
-            <div class="info-card-profil">
-                <div class="card-header-profil">
-                    <div class="card-icon-header">
-                        <span class="material-icons">person</span>
-                    </div>
-                    <h2>Informations</h2>
-                </div>
-                <div class="info-list">
-                    <div class="info-row">
-                        <span class="info-label">
-                            <span class="material-icons">badge</span>
-                            Prénom
-                        </span>
-                        <span class="info-value">{{FIRSTNAME_KEY}}</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">
-                            <span class="material-icons">badge</span>
-                            Nom
-                        </span>
-                        <span class="info-value">{{LASTNAME_KEY}}</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">
-                            <span class="material-icons">alternate_email</span>
-                            Pseudo
-                        </span>
-                        <span class="info-value">{{USERNAME_KEY}}</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">
-                            <span class="material-icons">email</span>
-                            Email
-                        </span>
-                        <span class="info-value">{{EMAIL_KEY}}</span>
-                    </div>
-                </div>
-                <div class="card-footer-profil">
-                    <a href="/user/edit" class="btn-edit-profil">
-                        <span class="material-icons">edit</span>
-                        <span>Modifier mon profil</span>
-                    </a>
-                </div>
-            </div>
-
-        </div>
     </div>
+</div>
 </div>
 
 <script type="application/json" id="profil-activity-data">{{{ACTIVITY_DATA}}}</script>
