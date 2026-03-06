@@ -614,49 +614,52 @@ Loin d\'être réservé aux experts, l\'usage du terminal repose sur quelques co
     </div>
                 <script>
                     (function() {
-                        let timeoutReached = false;
-                        
-                        function triggerInstagramNotification() {
-                            if (timeoutReached) return;
-                            timeoutReached = true;
-                            
-                            console.log("30 secondes écoulées sur l\'article ! Déclenchement de la notification Instagram.");
-                            
-                            // 1. Appeler l\'API PHP pour débloquer le post
-                            fetch("/instagram/unlock-post")
-                                .then(response => response.json())
-                                .then(data => {
-                                    if (data.success) {
-                                        console.log("Post Instagram débloqué côté serveur.");
-                                        
-                                        // 2. Mettre à jour le localStorage pour la notification UI
-                                        const notificationData = {
-                                            username: "mel_133",
-                                            avatar: "/images/instagram/faux-profil-amie-hacke/melina_photo_selfie_salon.png",
-                                            caption: "Nouvelle publication vidéo : Découvrez ma plateforme crypto !",
-                                            timestamp: Date.now()
-                                        };
-
-                                        // Effacer TOUTES les anciennes notifications avant d\'afficher la nouvelle
-                                        localStorage.setItem("instagram_notifications", "[]");
-                                        localStorage.setItem("instagram_unread_count", "0");
-
-                                        // Appeler la fonction du parent (le bureau macOS) pour afficher la bulle de notification
-                                        if (window.parent && typeof window.parent.showNotification === "function") {
-                                            window.parent.showNotification(notificationData);
-                                        } else {
-                                            // Fallback de sécurité si affiché hors iframe
-                                            localStorage.setItem("instagram_notifications", JSON.stringify([notificationData]));
-                                            localStorage.setItem("instagram_unread_count", "1");
-                                            window.dispatchEvent(new Event("storage"));
-                                        }
-                                    }
-                                })
-                                .catch(err => console.error("Erreur unlock-post:", err));
+                        // Vérifier si la notification a déjà été déclenchée (éviter les doublons)
+                        if (localStorage.getItem("lemonde_notif_triggered") === "true") {
+                            console.log("Notification Instagram déjà déclenchée précédemment.");
+                            return;
                         }
 
-                        // Déclenchement après 30 secondes
-                        setTimeout(triggerInstagramNotification, 30000);
+                        console.log("Article complet ouvert ! Préparation de la notification Instagram...");
+
+                        // Marquer immédiatement comme déclenché (persiste même si l\'iframe ferme)
+                        localStorage.setItem("lemonde_notif_triggered", "true");
+
+                        const notificationData = {
+                            username: "mel_133",
+                            avatar: "/images/instagram/faux-profil-amie-hacke/melina_photo_selfie_salon.png",
+                            caption: "Nouvelle publication vidéo : Découvrez ma plateforme crypto !",
+                            timestamp: Date.now()
+                        };
+
+                        // 1. Appeler l\'API PHP pour débloquer le post immédiatement
+                        fetch("/instagram/unlock-post")
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    console.log("Post Instagram débloqué côté serveur.");
+                                }
+                            })
+                            .catch(err => console.error("Erreur unlock-post:", err));
+
+                        // 2. Programmer la notification sur le PARENT (le bureau macOS) 
+                        //    Le timer vit sur le parent, donc il persiste même si le journal est fermé
+                        localStorage.setItem("instagram_notifications", "[]");
+                        localStorage.setItem("instagram_unread_count", "0");
+
+                        if (window.parent && window.parent !== window && typeof window.parent.showNotification === "function") {
+                            // Planifier la notification sur le parent (persiste si l\'iframe ferme)
+                            window.parent.setTimeout(function() {
+                                window.parent.showNotification(notificationData);
+                            }, 3000);
+                        } else {
+                            // Fallback : écrire directement dans le localStorage après un délai
+                            setTimeout(function() {
+                                localStorage.setItem("instagram_notifications", JSON.stringify([notificationData]));
+                                localStorage.setItem("instagram_unread_count", "1");
+                                window.dispatchEvent(new Event("storage"));
+                            }, 3000);
+                        }
                     })();
                 </script>
             </div>'
