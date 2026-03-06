@@ -198,6 +198,8 @@ function openApp(appName) {
         const newWindow = createNewWindow(appName);
         state.openWindows[appName] = newWindow;
         focusWindow(newWindow); // Focus immédiatement
+        // Mettre en plein écran par défaut à la création
+        maximizeApp(appName);
     }
     updateDockIcon(appName, true);
 
