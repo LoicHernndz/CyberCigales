@@ -183,8 +183,35 @@ const MailGame = (function () {
     // Compte actif : 'user' ou 'hacker'
     let activeAccount = 'user';
 
-    // Boîte mail de Lucie — vide par défaut, le joueur arrive sur cette boîte
-    const normalEmails = [];
+    // Boîte mail de Lucie
+    const normalEmails = [
+        {
+            id: 'lucie-1',
+            from: 'k0de_breaker@darkweb.net',
+            senderName: 'K0de_Breaker',
+            to: userEmail,
+            date: '08:03',
+            subject: '⚠️ Dernier avertissement',
+            snippet: 'Tu fouines un peu trop à mon goût...',
+            body: `<p>Salut <strong>Lucie</strong>,</p>
+
+                <p>Tu ne me connais pas. Mais moi, je sais <strong>exactement</strong> qui tu es.</p>
+
+                <p>Je sais que tu poses des questions. Je sais que tu fouilles là où il ne faut pas. Tes petites "recherches" sur la cybersécurité, tes cours, tes exercices… Tu crois que personne ne regarde ?</p>
+
+                <p><strong>Arrête. Maintenant.</strong></p>
+
+                <p>Tu n'as aucune idée de ce que tu es en train de remuer. Si tu continues à avancer dans cette direction, je te garantis que tu vas le regretter. Je ne suis pas le genre de personne qu'on provoque sans conséquences.</p>
+
+                <p>Considère ceci comme ton <strong>premier et dernier avertissement</strong>.</p>
+
+                <p style="color: #ff4444; font-family: monospace; font-weight: bold;">— K0de_Breaker</p>
+
+                <p style="font-size: 0.85rem; color: #888; margin-top: 20px; font-style: italic;">P.S. : Joli mot de passe d'ailleurs. Tu devrais le changer… si ce n'est pas déjà trop tard.</p>`,
+            read: false,
+            isGame: false
+        }
+    ];
 
     // Emails Junk (spam, phishing, etc. — affichage lecture seule)
     const gameEmails = [
