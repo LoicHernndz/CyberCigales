@@ -651,14 +651,14 @@ Loin d\'être réservé aux experts, l\'usage du terminal repose sur quelques co
                             // Planifier la notification sur le parent (persiste si l\'iframe ferme)
                             window.parent.setTimeout(function() {
                                 window.parent.showNotification(notificationData);
-                            }, 3000);
+                            }, 30000);
                         } else {
                             // Fallback : écrire directement dans le localStorage après un délai
                             setTimeout(function() {
                                 localStorage.setItem("instagram_notifications", JSON.stringify([notificationData]));
                                 localStorage.setItem("instagram_unread_count", "1");
                                 window.dispatchEvent(new Event("storage"));
-                            }, 3000);
+                            }, 30000);
                         }
                     })();
                 </script>
