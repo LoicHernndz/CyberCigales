@@ -1,43 +1,55 @@
 /**
  * Logiciel de jeu "Mail Phishing" pour l'interface macOS
  * Version 3 : Destinataire unique, plus de scénarios, explications détaillées
+ * Version 4 : Système multi-comptes (compte utilisateur + compte hackeur)
  */
 const MailGame = (function () {
 
     const userEmail = "lucie.bertrand@cybercigales.fr";
 
-    // Emails Normaux (Inbox) - Réels de l'histoire ou contexte
-    const normalEmails = [
-        {
-            id: 'n1',
-            from: 'lehackeur@darkweb.net',
-            senderName: 'Ghost_User',
-            to: userEmail,
-            date: '23:11 AM',
-            subject: '<i class=\'fas fa-reply\'></i> Re: La cible de la semaine',
-            snippet: 'Mdr, t\'es sérieux ? T\'as encore pété un compte Insta en moins de dix minutes ?',
-            body: `<p>Mdr, t'es sérieux ? T'as encore pété un compte Insta en moins de dix minutes ? T'es un grand malade. Par contre, fais gaffe, si elle essaie de récupérer son compte, t'as mis quoi comme sécu ?</p> <br><br>
+    // --- Données du compte hackeur ---
+    const HACKER_CREDENTIALS = {
+        email: 'k0de_breaker@darkweb.net',
+        password: 'EmailS3cret!'
+    };
+
+    const hackerEmail = 'k0de_breaker@darkweb.net';
+
+    const hackerAccount = {
+        name: 'K0de_Breaker',
+        email: HACKER_CREDENTIALS.email,
+        avatarLetter: '☠',
+        emails: [
+            {
+                id: 'n1',
+                from: 'lehackeur@darkweb.net',
+                senderName: 'Ghost_User',
+                to: hackerEmail,
+                date: '23:11',
+                subject: '<i class=\'fas fa-reply\'></i> Re: La cible de la semaine',
+                snippet: 'Mdr, t\'es sérieux ? T\'as encore pété un compte Insta en moins de dix minutes ?',
+                body: `<p>Mdr, t'es sérieux ? T'as encore pété un compte Insta en moins de dix minutes ? T'es un grand malade. Par contre, fais gaffe, si elle essaie de récupérer son compte, t'as mis quoi comme sécu ?</p> <br><br>
                     
                     <p>De : K0de_Breaker <br>
                     Envoyé : Hier, 23:38</p>
 
                     <p>T'inquiète pas pour ça. C'est blindé. Tu ne sais pas ce que j'ai mis comme mot de passe du compte de la fille que j'ai hacké ? Impossible qu'elle devine.<br>
 
-                    J’ai fait un mix tordu : j'ai mis à la fois la date d'entrée en vigueur du RGPD (pour le côté ironique), la date de naissance de la seule personne qui compte pour moi dans ce monde de brutes, et le nom de la plus belle ville du monde (là où on ira quand on sera riches).<br>
+                    J'ai fait un mix tordu : j'ai mis à la fois la date d'entrée en vigueur du RGPD (pour le côté ironique), la date de naissance de la seule personne qui compte pour moi dans ce monde de brutes, et le nom de la plus belle ville du monde (là où on ira quand on sera riches).<br>
 
                     Ça fait un mot de passe à rallonge, mais incassable par dictionnaire. Allez, je retourne bosser sur le projet "Coffre-fort".</p>`,
-            read: true,
-            isGame: false
-        },
-        {
-            id: 'n5',
-            from: 'noreply@hostcloud.fr',
-            senderName: 'HostCloud Solutions',
-            to: userEmail,
-            date: 'Yesterday',
-            subject: '[IMPORTANT] Échec de facturation - Serveur Dédié #889-X',
-            snippet: 'Cher client, Nous n\'avons...',
-            body: `<p>Cher client, <br><br>
+                read: true,
+                isGame: false
+            },
+            {
+                id: 'n5',
+                from: 'noreply@hostcloud.fr',
+                senderName: 'HostCloud Solutions',
+                to: hackerEmail,
+                date: 'Hier',
+                subject: '[IMPORTANT] Échec de facturation - Serveur Dédié #889-X',
+                snippet: 'Cher client, Nous n\'avons pas pu traiter le paiement...',
+                body: `<p>Cher client, <br><br>
 
                 Nous n'avons pas pu traiter le paiement mensuel de votre Serveur Dédié (IP : 192.168.x.x) car la carte bancaire virtuelle associée à votre compte a expiré.<br><br>
 
@@ -45,18 +57,18 @@ const MailGame = (function () {
 
                 Cordialement,<br>
                 L'équipe de facturation HostCloud</p>`,
-            read: true,
-            isGame: false
-        },
-        {
-            id: 'n2',
-            from: 'noreply@fleursandco.fr',
-            senderName: 'Boutique Fleurs & Co',
-            to: userEmail,
-            date: '10 Mars',
-            subject: 'Confirmation de commande #FR4920 - Cadeau',
-            snippet: 'Bonjour, Votre commande a bien été enregistrée.',
-            body: `<p>Bonjour,
+                read: true,
+                isGame: false
+            },
+            {
+                id: 'n2',
+                from: 'noreply@fleursandco.fr',
+                senderName: 'Boutique Fleurs & Co',
+                to: hackerEmail,
+                date: '10 Mars',
+                subject: 'Confirmation de commande #FR4920 - Cadeau',
+                snippet: 'Bonjour, Votre commande a bien été enregistrée.',
+                body: `<p>Bonjour,
 
                     Votre commande a bien été enregistrée. Le bouquet "Amour Maternel" sera livré à l'adresse indiquée (Hôpital Saint-Louis, Chambre 402). <br><br>
 
@@ -66,18 +78,18 @@ const MailGame = (function () {
                     Date de livraison souhaitée : 14 Avril <br><br>
 
                     Merci de votre confiance.</p>`,
-            read: false,
-            isGame: false
-        },
-        {
-            id: 'n3',
-            from: userEmail,
-            senderName: 'Moi',
-            to: userEmail,
-            date: '9 mars',
-            subject: 'Ne pas oublier !!!',
-            snippet: 'o do list : Ne pas...',
-            body: `<p>To do list : <br><br>
+                read: false,
+                isGame: false
+            },
+            {
+                id: 'n3',
+                from: hackerEmail,
+                senderName: 'Moi',
+                to: hackerEmail,
+                date: '9 mars',
+                subject: 'Ne pas oublier !!!',
+                snippet: 'To do list : Ne pas oublier de vider les disques...',
+                body: `<p>To do list : <br><br>
 
                     - Ne pas oublier de vider les disques durs ce soir. Les flics reniflent trop près. <br><br>
 
@@ -86,18 +98,18 @@ const MailGame = (function () {
                     - Penser à changer le cadenas à 4 chiffres la semaine prochaine, le 1-9-8-4 c'est trop classique (réf Orwell, mais bon, pas prudent). <br><br>
 
                     - Dès que je vends les données, je me tire. Direction Marseille. J'en rêve depuis gosse, c'est la seule ville qui vaut la peine d'être vécue. Plus belle ville du monde, loin de cette grisaille.</p>`,
-            read: true,
-            isGame: false
-        },
-        {
-            id: 'n4',
-            from: 'newsletter@TechWatch.fr',
-            senderName: 'TechWatch Daily',
-            to: userEmail,
-            date: '5 mars',
-            subject: 'Newsletter Sécurité Info',
-            snippet: 'Oui j\'ai vu qu\'il faisait froid ce matin mais j\'ai pris une veste tkt.',
-            body: `<p>L'ACTU CYBER DE LA SEMAINE <br><br>
+                read: true,
+                isGame: false
+            },
+            {
+                id: 'n4',
+                from: 'newsletter@TechWatch.fr',
+                senderName: 'TechWatch Daily',
+                to: hackerEmail,
+                date: '5 mars',
+                subject: 'Newsletter Sécurité Info',
+                snippet: 'L\'actu cyber de la semaine — Le cauchemar des DPO continue...',
+                body: `<p>L'ACTU CYBER DE LA SEMAINE <br><br>
 
                 Le cauchemar des DPO continue <br>
                 Cela fait maintenant plusieurs années que le Règlement Général sur la Protection des Données (RGPD) a bouleversé le web européen.<br><br>
@@ -105,31 +117,30 @@ const MailGame = (function () {
                 Rappelons que depuis son entrée en application officielle le 25 mai 2018, les sanctions n'ont cessé de tomber pour les entreprises négligentes. En tant que hackeurs éthiques (ou non), cette date reste un tournant dans notre histoire numérique...<br><br>
 
                 [Lire la suite de l'article]</p>`,
-            read: true,
-            isGame: false
-        },
-        // Ajout de quelques mails corpo normaux pour le réalisme
-        {
-            id: 'n6',
-            from: 'it-support@cybercigales.fr',
-            senderName: 'Support IT',
-            to: userEmail,
-            date: '5 mars',
-            subject: 'Maintenance planifiée serveur',
-            snippet: 'Une maintenance des serveurs aura lieu ce samedi...',
-            body: `<p>Bonjour,</p><p>Veuillez noter qu'une maintenance serveur aura lieu ce samedi de 22h à 02h. L'accès aux emails pourra être perturbé.</p><p>Cordialement,<br>L'équipe IT</p>`,
-            read: true,
-            isGame: false
-        },
-        {
-            id: 'n7',
-            from: 'it-support@cybercigales.fr',
-            senderName: 'Pizza Night Express',
-            to: userEmail,
-            date: '2 mars',
-            subject: 'Ta fidélité récompensée : 1 Pizza MEGA offerte !',
-            snippet: 'Salut Max, Félicitations ! Grâce...',
-            body: `<p>Salut Max, <br><br>
+                read: true,
+                isGame: false
+            },
+            {
+                id: 'n6',
+                from: 'it-support@hostcloud.fr',
+                senderName: 'HostCloud Support IT',
+                to: hackerEmail,
+                date: '5 mars',
+                subject: 'Maintenance planifiée serveur',
+                snippet: 'Une maintenance des serveurs aura lieu ce samedi...',
+                body: `<p>Bonjour,</p><p>Veuillez noter qu'une maintenance serveur aura lieu ce samedi de 22h à 02h. L'accès aux emails pourra être perturbé.</p><p>Cordialement,<br>L'équipe IT HostCloud</p>`,
+                read: true,
+                isGame: false
+            },
+            {
+                id: 'n7',
+                from: 'noreply@pizzanightexpress.fr',
+                senderName: 'Pizza Night Express',
+                to: hackerEmail,
+                date: '2 mars',
+                subject: 'Ta fidélité récompensée : 1 Pizza MEGA offerte !',
+                snippet: 'Salut Max, Félicitations ! Grâce à tes dernières commandes...',
+                body: `<p>Salut Max, <br><br>
 
                 Félicitations ! Grâce à tes dernières commandes nocturnes, tu as officiellement atteint le statut VIP Gold chez Pizza Night Express.<br><br>
 
@@ -138,18 +149,18 @@ const MailGame = (function () {
                 L'offre ne s'applique pas sur les suppléments fromage.<br><br>
 
                 À très vite pour combler tes petites faims de la nuit !</p>`,
-            read: true,
-            isGame: false
-        },
-        {
-            id: 'n8',
-            from: 'service.client.crypto.securite@yahoo.fr',
-            senderName: 'service.client.crypto.securite@yahoo.fr',
-            to: userEmail,
-            date: '2 mars',
-            subject: 'URGENT!!! Votre compte Bínance est bIoquè',
-            snippet: 'Salut Max, Félicitations ! Grâce...',
-            body: `<p>Bonjour cher utilisateur, <br><br>
+                read: true,
+                isGame: false
+            },
+            {
+                id: 'n8',
+                from: 'service.client.crypto.securite@yahoo.fr',
+                senderName: 'service.client.crypto.securite@yahoo.fr',
+                to: hackerEmail,
+                date: '2 mars',
+                subject: 'URGENT!!! Votre compte Bínance est bIoquè',
+                snippet: 'Bonjour cher utilisateur, Nous avons detecter une activité...',
+                body: `<p>Bonjour cher utilisateur, <br><br>
 
                 Nous avons detecter une activité suspectes sur votre compte de cryptomonaie. Pour des raisons de securitées, vos fonds on été gelés immediatement.<br><br>
 
@@ -158,10 +169,23 @@ const MailGame = (function () {
                 le-vrai-site-de-binance.fr<br><br>
 
                 L'equipe de direction.</p>`,
-            read: true,
-            isGame: false
-        }
-    ];
+                read: true,
+                isGame: false
+            }
+        ]
+    };
+
+    const userAccount = {
+        name: 'Lucie Bertrand',
+        email: userEmail,
+        avatarLetter: 'L'
+    };
+
+    // Compte actif : 'user' ou 'hacker'
+    let activeAccount = 'user';
+
+    // Boîte mail de Lucie — vide par défaut, le joueur arrive sur cette boîte
+    const normalEmails = [];
 
     // Emails de Jeu (Junk / Phishing / Legit mélangés)
     const gameEmails = [
@@ -428,6 +452,9 @@ const MailGame = (function () {
 
         // Toujours mettre à jour la visibilité au démarrage
         updateControlsVisibility();
+
+        // Initialiser le gestionnaire de comptes
+        AccountManager.init();
     }
 
     function setupStandardMode() {
@@ -487,6 +514,10 @@ const MailGame = (function () {
     }
 
     function getEmailsForCurrentMailbox() {
+        // Si on est sur le compte hackeur, on retourne ses emails
+        if (activeAccount === 'hacker') {
+            return hackerAccount.emails;
+        }
         if (currentMailbox === 'inbox') return normalEmails;
         if (currentMailbox === 'junk') return gameEmails;
         return [];
@@ -655,6 +686,190 @@ const MailGame = (function () {
 
         els.endScreen.classList.remove('hidden');
     }
+
+    // =========================================================
+    // MODULE : AccountManager — Gestion du switch de compte
+    // =========================================================
+
+    const AccountManager = (function () {
+
+        const overlay = document.getElementById('login-overlay');
+        const emailIn = document.getElementById('login-email-input');
+        const passIn = document.getElementById('login-password-input');
+        const errorBox = document.getElementById('login-error');
+        const btnCancel = document.getElementById('btn-login-cancel');
+        const btnSubmit = document.getElementById('btn-login-submit');
+        const btnAdd = document.getElementById('btn-add-account');
+
+        const mailWindow = document.getElementById('mail-window');
+        const indicator = document.getElementById('account-indicator');
+        const indicatorAvatar = document.getElementById('indicator-avatar');
+        const indicatorEmail = document.getElementById('indicator-email');
+        const hackerItem = document.getElementById('account-hacker-item');
+        const userBadge = document.getElementById('user-badge');
+        const hackerBadge = document.getElementById('hacker-badge');
+        const userItem = document.getElementById('account-user-item');
+
+        function openLoginModal() {
+            if (overlay) {
+                overlay.classList.remove('hidden');
+                if (emailIn) emailIn.value = '';
+                if (passIn) passIn.value = '';
+                hideError();
+                setTimeout(() => emailIn && emailIn.focus(), 100);
+            }
+        }
+
+        function closeLoginModal() {
+            if (overlay) overlay.classList.add('hidden');
+        }
+
+        function showError() {
+            if (errorBox) {
+                errorBox.classList.remove('hidden');
+                // Reset animation
+                errorBox.style.animation = 'none';
+                errorBox.offsetHeight; // reflow
+                errorBox.style.animation = '';
+            }
+        }
+
+        function hideError() {
+            if (errorBox) errorBox.classList.add('hidden');
+        }
+
+        function handleLogin() {
+            const email = emailIn ? emailIn.value.trim() : '';
+            const pass = passIn ? passIn.value : '';
+
+            if (email === HACKER_CREDENTIALS.email && pass === HACKER_CREDENTIALS.password) {
+                closeLoginModal();
+                switchToAccount('hacker');
+            } else {
+                showError();
+                if (passIn) { passIn.value = ''; passIn.focus(); }
+            }
+        }
+
+        function switchToAccount(account) {
+            activeAccount = account;
+            // Persister le compte actif pour la session
+            sessionStorage.setItem('mailActiveAccount', account);
+            if (account === 'hacker') {
+                // Thème sombre
+                if (mailWindow) mailWindow.classList.add('hacker-mode');
+
+                // Indicateur toolbar
+                if (indicator) indicator.classList.add('hacker-mode');
+                if (indicatorAvatar) {
+                    indicatorAvatar.textContent = '☠';
+                    indicatorAvatar.className = 'account-avatar-sm hacker-avatar';
+                }
+                if (indicatorEmail) indicatorEmail.textContent = hackerAccount.email;
+
+                // Badges actifs
+                if (userBadge) userBadge.style.display = 'none';
+                if (hackerBadge) hackerBadge.style.display = 'block';
+
+                // Rendre le compte hackeur visible dans la sidebar
+                if (hackerItem) hackerItem.classList.remove('hidden');
+
+                // Masquer Junk (mini-jeu phishing inaccessible depuis le compte hackeur)
+                const junkItem = document.querySelector('li[data-mailbox="junk"]');
+                if (junkItem) junkItem.classList.add('hidden');
+
+                // Réinitialiser la mailbox et afficher les emails hackeur
+                currentMailbox = 'inbox';
+                currentEmailId = null;
+                renderEmailList();
+                els.readingPane.innerHTML = '<div class="placeholder">Boîte vide — aucun message pour l\'instant.</div>';
+
+                // Cacher les contrôles du mini-jeu
+                if (els.gameControls) els.gameControls.style.display = 'none';
+
+            } else {
+                // Retour au compte utilisateur
+                if (mailWindow) mailWindow.classList.remove('hacker-mode');
+
+                // Indicateur toolbar
+                if (indicator) indicator.classList.remove('hacker-mode');
+                if (indicatorAvatar) {
+                    indicatorAvatar.textContent = 'L';
+                    indicatorAvatar.className = 'account-avatar-sm user-avatar';
+                }
+                if (indicatorEmail) indicatorEmail.textContent = userAccount.email;
+
+                // Badges
+                if (userBadge) userBadge.style.display = 'block';
+                if (hackerBadge) hackerBadge.style.display = 'none';
+
+                // Rétablir Junk (mini-jeu phishing accessible depuis compte Lucie)
+                const junkItem = document.querySelector('li[data-mailbox="junk"]');
+                if (junkItem) junkItem.classList.remove('hidden');
+
+                // Repasser en inbox normale
+                currentMailbox = 'inbox';
+                currentEmailId = null;
+                switchMailbox('inbox');
+            }
+        }
+
+        function init() {
+            // Bouton « Ajouter un compte » / « Se déconnecter »
+            if (btnAdd) {
+                btnAdd.addEventListener('click', () => {
+                    if (activeAccount === 'hacker') {
+                        switchToAccount('user');
+                    } else {
+                        openLoginModal();
+                    }
+                });
+            }
+
+            // Clic sur l'item hackeur dans la sidebar → switcher
+            if (hackerItem) {
+                hackerItem.addEventListener('click', () => {
+                    if (activeAccount !== 'hacker') switchToAccount('hacker');
+                });
+            }
+
+            // Clic sur l'item utilisateur → switcher
+            if (userItem) {
+                userItem.addEventListener('click', () => {
+                    if (activeAccount !== 'user') switchToAccount('user');
+                });
+            }
+
+            // Bouton annuler
+            if (btnCancel) btnCancel.addEventListener('click', closeLoginModal);
+
+            // Bouton connexion
+            if (btnSubmit) btnSubmit.addEventListener('click', handleLogin);
+
+            // Entrée clavier dans le formulaire
+            [emailIn, passIn].forEach(input => {
+                if (input) input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') handleLogin();
+                    if (e.key === 'Escape') closeLoginModal();
+                });
+            });
+
+            // Clic sur l'overlay pour fermer
+            if (overlay) {
+                overlay.addEventListener('click', (e) => {
+                    if (e.target === overlay) closeLoginModal();
+                });
+            }
+
+            // Restaurer le compte actif depuis la session (si la page est rechargée)
+            const savedAccount = sessionStorage.getItem('mailActiveAccount');
+            if (savedAccount === 'hacker') {
+                switchToAccount('hacker');
+            }
+        }
+
+        return { init, switchToAccount, openLoginModal };
+    })();
 
     return { init };
 })();

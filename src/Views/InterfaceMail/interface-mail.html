@@ -10,17 +10,24 @@
 
     <link rel="stylesheet" href="/assets/macos/InterfaceMail/style.css">
     <link rel="stylesheet" href="/assets/macos/InterfaceMail/phishing-game.css">
+    <link rel="stylesheet" href="/assets/macos/InterfaceMail/mail-accounts.css">
 </head>
 
 <body>
 
-    <div class="mail-window">
+    <div class="mail-window" id="mail-window">
 
         <div class="toolbar">
             <div class="toolbar-group">
                 <button title="Nouveau message"><i class="fas fa-envelope"></i></button>
                 <button title="Supprimer"><i class="fas fa-trash-alt"></i></button>
                 <button title="Archiver"><i class="fas fa-archive"></i></button>
+            </div>
+
+            <!-- Indicateur compte actif -->
+            <div class="account-indicator" id="account-indicator">
+                <div class="account-avatar-sm user-avatar" id="indicator-avatar">L</div>
+                <span id="indicator-email">lucie.bertrand@cybercigales.fr</span>
             </div>
 
             <!-- Contrôles du Jeu -->
@@ -38,7 +45,7 @@
         <div class="content-area">
 
             <div class="sidebar">
-                <div class="mailbox-title">Mailboxes</div>
+                <div class="mailbox-title">Boîtes aux lettres</div>
                 <ul class="mailbox-list">
                     <li class="active-mailbox" data-mailbox="inbox">
                         <div class="icon-label"><i class="fas fa-inbox"></i> Inbox</div> <span class="count"
@@ -60,11 +67,41 @@
                         <div class="icon-label"><i class="fas fa-trash-alt"></i> Trash</div>
                     </li>
                 </ul>
+
+                <!-- Section Comptes -->
+                <div class="accounts-section">
+                    <div class="accounts-title">Comptes</div>
+
+                    <!-- Compte utilisateur (toujours visible) -->
+                    <div class="account-item" id="account-user-item" data-account="user">
+                        <div class="account-avatar user-avatar">L</div>
+                        <div class="account-info">
+                            <div class="account-name">Lucie Bertrand</div>
+                            <div class="account-email">lucie.bertrand@cybercigales.fr</div>
+                        </div>
+                        <div class="account-active-badge" id="user-badge"></div>
+                    </div>
+
+                    <!-- Compte hackeur (visible uniquement si connecté) -->
+                    <div class="account-item hidden" id="account-hacker-item" data-account="hacker">
+                        <div class="account-avatar hacker-avatar"><i class="fas fa-skull-crossbones" style="font-size:12px;"></i></div>
+                        <div class="account-info">
+                            <div class="account-name">K0de_Breaker</div>
+                            <div class="account-email">k0de_breaker@darkweb.net</div>
+                        </div>
+                        <div class="account-active-badge" id="hacker-badge" style="display:none;"></div>
+                    </div>
+
+                    <!-- Bouton ajouter compte -->
+                    <button class="btn-add-account" id="btn-add-account">
+                        <i class="fas fa-plus-circle"></i> Ajouter un compte
+                    </button>
+                </div>
             </div>
 
             <div class="email-list-column">
                 <div class="sort-bar">
-                    Sorted by <strong>Date</strong> <i class="fas fa-caret-down"></i>
+                    Trié par <strong>Date</strong> <i class="fas fa-caret-down"></i>
                 </div>
                 <ul id="email-list-container" class="email-list">
                     <!-- Rempli par le JS -->
@@ -77,7 +114,7 @@
 
         </div>
 
-        <!-- Modal de Feedback -->
+        <!-- Modal de Feedback (mini-jeu phishing) -->
         <div id="feedback-modal" class="modal hidden">
             <div class="modal-content">
                 <i id="feedback-icon" class="fas fa-check-circle feedback-icon"></i>
@@ -89,9 +126,8 @@
             </div>
         </div>
 
-        <!-- Écran de fin -->
+        <!-- Écran de fin (mini-jeu phishing) -->
         <div id="end-screen" class="end-screen hidden">
-            <!-- <i class="fas fa-trophy" style="font-size: 64px; color: #ffd700; margin-bottom: 20px;"></i> -->
             <h2>Session Terminée</h2>
             <p class="end-screen-text">Votre vigilance a payé.</p>
             <p class="score-display end-screen-score">Score Final : <span id="final-score">0</span>/5</p>
@@ -99,6 +135,41 @@
             <div id="game-clue-container" class="end-screen-clue"></div>
             <div class="end-screen-actions">
                 <button class="btn-next btn-continue" id="btn-continue-game">Continuer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Connexion Compte Hackeur -->
+    <div class="account-login-overlay hidden" id="login-overlay">
+        <div class="account-login-modal">
+            <div class="login-modal-header">
+                <div class="login-modal-icon">
+                    <i class="fas fa-skull-crossbones"></i>
+                </div>
+                <h2 class="login-modal-title">Connexion au compte</h2>
+                <p class="login-modal-subtitle">Entrez vos identifiants pour accéder à cette boîte mail</p>
+            </div>
+
+            <div class="login-error hidden" id="login-error">
+                <i class="fas fa-exclamation-circle"></i>
+                <span>Identifiants incorrects. Réessayez.</span>
+            </div>
+
+            <div class="login-form-group">
+                <label for="login-email-input">Adresse e-mail</label>
+                <input type="email" id="login-email-input" placeholder="utilisateur@domaine.com" autocomplete="off">
+            </div>
+
+            <div class="login-form-group">
+                <label for="login-password-input">Mot de passe</label>
+                <input type="password" id="login-password-input" placeholder="••••••••">
+            </div>
+
+            <div class="login-actions">
+                <button class="btn-login-cancel" id="btn-login-cancel">Annuler</button>
+                <button class="btn-login-submit" id="btn-login-submit">
+                    <i class="fas fa-sign-in-alt"></i> Se connecter
+                </button>
             </div>
         </div>
     </div>
