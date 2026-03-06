@@ -46,6 +46,12 @@ class ResetProgress
             $this->db->bind(':user_id', $userId);
             $this->db->execute();
 
+            // 4. Réinitialiser les variables de session liées au jeu
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+            unset($_SESSION['instagram_mel_post_unlocked']);
+
             return true;
         } catch (\Exception $e) {
             error_log("Erreur lors de la réinitialisation de la progression : " . $e->getMessage());

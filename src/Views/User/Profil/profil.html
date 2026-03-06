@@ -46,17 +46,30 @@
                 <span>Changer mon mot de passe</span>
                 <span class="material-icons action-arrow">arrow_forward</span>
             </a>
-            <form action="/game/reset-game" method="POST"
-                onsubmit="return confirm('Êtes-vous sûr de vouloir réinitialiser toute votre progression de l\'escape game ? (Scores, chats, etc. seront perdus définitivement)');"
-                style="width: 100%;">
+            <form action="/game/reset-game" method="POST" id="form-reset-game" style="width: 100%;">
                 <input type="hidden" name="action" value="reset_all">
-                <button type="submit" class="action-button action-btn-danger"
+                <button type="button" class="action-button action-btn-danger" onclick="confirmReset()"
                     style="width: 100%; border: none; background: none; cursor: pointer; color: inherit; font: inherit;">
                     <span class="material-icons" style="color: #ff4d4d;">delete_forever</span>
                     <span style="color: #ff4d4d; font-weight: bold;">Réinitialiser ma progression</span>
                     <span class="material-icons action-arrow" style="color: #ff4d4d;">arrow_forward</span>
                 </button>
             </form>
+            <script>
+                function confirmReset() {
+                    if (confirm('Êtes-vous sûr de vouloir réinitialiser toute votre progression de l\'escape game ? (Scores, chats, etc. seront perdus définitivement)')) {
+                        // Purger la progression client (LocalStorage/SessionStorage)
+                        localStorage.removeItem('lemonde_notif_triggered');
+                        localStorage.removeItem('instagram_notifications');
+                        localStorage.setItem('instagram_unread_count', '0');
+                        sessionStorage.removeItem('mailActiveAccount');
+                        window.dispatchEvent(new Event("storage"));
+
+                        // Soumettre le formulaire vers le serveur
+                        document.getElementById('form-reset-game').submit();
+                    }
+                }
+            </script>
         </div>
     </div>
 
