@@ -194,12 +194,6 @@ class UserStats
                 'completion' => 0,
                 'score' => 0,
                 'status' => 'locked'
-            ],
-            'phishing' => [
-                'name' => 'Phishing Detective',
-                'completion' => 0,
-                'score' => 0,
-                'status' => 'locked'
             ]
         ];
     }
