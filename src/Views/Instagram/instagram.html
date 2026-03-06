@@ -102,12 +102,240 @@
                 </button>
 
                 <!-- Bouton Profil (avec avatar) -->
-                <button class="nav-btn" aria-label="Profil">
+                <button class="nav-btn" id="btn-profile-switch" aria-label="Profil">
                     <img src="images/heidisheltie.jpg" alt="Profil" class="profile-nav-img">
                 </button>
             </nav>
         </main>
     </div>
+
+    <!-- Modal de connexion Instagram -->
+    <div class="insta-login-overlay hidden" id="insta-login-overlay">
+        <div class="insta-login-modal">
+            <div class="insta-login-header">
+                <img src="/images/instagram/faux-profil-amie-hacke/logo-instagram et ecriture.png" alt="Instagram"
+                    class="insta-login-logo">
+                <p class="insta-login-subtitle">Connectez-vous à un autre compte</p>
+            </div>
+            <div class="insta-login-error hidden" id="insta-login-error">
+                Identifiants incorrects. Réessayez.
+            </div>
+            <div class="insta-login-form">
+                <input type="text" id="insta-login-username" placeholder="Nom d'utilisateur" autocomplete="off">
+                <input type="password" id="insta-login-password" placeholder="Mot de passe">
+                <button class="insta-login-btn" id="insta-login-submit">Se connecter</button>
+            </div>
+            <button class="insta-login-cancel" id="insta-login-cancel">Annuler</button>
+        </div>
+    </div>
+
+    <style>
+        .insta-login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+            animation: fadeIn 0.2s ease;
+        }
+
+        .insta-login-overlay.hidden {
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .insta-login-modal {
+            background: #fff;
+            border-radius: 12px;
+            padding: 30px 24px;
+            width: 90%;
+            max-width: 350px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .insta-login-header {
+            margin-bottom: 20px;
+        }
+
+        .insta-login-logo {
+            height: 45px;
+            margin-bottom: 10px;
+        }
+
+        .insta-login-subtitle {
+            color: #8e8e8e;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .insta-login-error {
+            background: #ed4956;
+            color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 12px;
+            animation: shake 0.4s ease;
+        }
+
+        .insta-login-error.hidden {
+            display: none;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-8px);
+            }
+
+            75% {
+                transform: translateX(8px);
+            }
+        }
+
+        .insta-login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .insta-login-form input {
+            padding: 12px 14px;
+            border: 1px solid #dbdbdb;
+            border-radius: 6px;
+            font-size: 14px;
+            background: #fafafa;
+            outline: none;
+            transition: border-color 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .insta-login-form input:focus {
+            border-color: #a8a8a8;
+            background: #fff;
+        }
+
+        .insta-login-btn {
+            padding: 12px;
+            background: #0095f6;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .insta-login-btn:hover {
+            background: #1877f2;
+        }
+
+        .insta-login-cancel {
+            background: none;
+            border: none;
+            color: #0095f6;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 8px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .insta-login-cancel:hover {
+            color: #00376b;
+        }
+    </style>
+
+    <!-- Script Account Switch -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const overlay = document.getElementById('insta-login-overlay');
+            const usernameIn = document.getElementById('insta-login-username');
+            const passwordIn = document.getElementById('insta-login-password');
+            const errorBox = document.getElementById('insta-login-error');
+            const btnProfile = document.getElementById('btn-profile-switch');
+            const btnSubmit = document.getElementById('insta-login-submit');
+            const btnCancel = document.getElementById('insta-login-cancel');
+
+            // Ouvrir la modale
+            btnProfile.addEventListener('click', () => {
+                overlay.classList.remove('hidden');
+                usernameIn.value = '';
+                passwordIn.value = '';
+                errorBox.classList.add('hidden');
+                setTimeout(() => usernameIn.focus(), 100);
+            });
+
+            // Fermer la modale
+            btnCancel.addEventListener('click', () => overlay.classList.add('hidden'));
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) overlay.classList.add('hidden');
+            });
+
+            // Validation
+            function tryLogin() {
+                const user = usernameIn.value.trim().toLowerCase();
+                const pass = passwordIn.value.toLowerCase();
+
+                if (user === 'mel_133' && pass === 'marseille14042018') {
+                    overlay.classList.add('hidden');
+                    window.location.href = '/instagram/user/mel_133';
+                } else {
+                    errorBox.classList.remove('hidden');
+                    errorBox.style.animation = 'none';
+                    errorBox.offsetHeight;
+                    errorBox.style.animation = '';
+                    passwordIn.value = '';
+                    passwordIn.focus();
+                }
+            }
+
+            btnSubmit.addEventListener('click', tryLogin);
+            [usernameIn, passwordIn].forEach(input => {
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') tryLogin();
+                    if (e.key === 'Escape') overlay.classList.add('hidden');
+                });
+            });
+        });
+    </script>
 
     <!-- Script UI Notifications -->
     <script src="/assets/instagram/js/instagram-ui.js?v=2"></script>
