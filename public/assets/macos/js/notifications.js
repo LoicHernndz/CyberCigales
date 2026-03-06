@@ -158,3 +158,11 @@ window.addEventListener('storage', (e) => {
         updateDockBadge('Instagram', parseInt(e.newValue || '0'));
     }
 });
+
+// Helper attaché au parent pour planifier une notification sans perdre le contexte
+// si l'iframe enfant est fermée avant la fin du délai
+window.scheduleNotification = function (data, delayMs) {
+    setTimeout(() => {
+        showNotification(data);
+    }, delayMs);
+};

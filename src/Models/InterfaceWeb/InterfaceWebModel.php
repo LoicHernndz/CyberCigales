@@ -647,13 +647,16 @@ Loin d\'être réservé aux experts, l\'usage du terminal repose sur quelques co
                         localStorage.setItem("instagram_notifications", "[]");
                         localStorage.setItem("instagram_unread_count", "0");
 
-                        if (window.parent && window.parent !== window && typeof window.parent.showNotification === "function") {
-                            // Planifier la notification sur le parent (persiste si l\'iframe ferme)
+                        if (window.parent && window.parent !== window && typeof window.parent.scheduleNotification === "function") {
+                            // Planifier la notification sur le parent proprement via helper
+                            window.parent.scheduleNotification(notificationData, 30000);
+                        } else if (window.parent && window.parent !== window && typeof window.parent.showNotification === "function") {
+                            // Fallback ancien système
                             window.parent.setTimeout(function() {
                                 window.parent.showNotification(notificationData);
                             }, 30000);
                         } else {
-                            // Fallback : écrire directement dans le localStorage après un délai
+                            // Fallback LS
                             setTimeout(function() {
                                 localStorage.setItem("instagram_notifications", JSON.stringify([notificationData]));
                                 localStorage.setItem("instagram_unread_count", "1");
