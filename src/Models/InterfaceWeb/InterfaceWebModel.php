@@ -372,7 +372,8 @@ class InterfaceWebModel
             $rawInput = trim($_POST['url_input']);
 
             // 2. On nettoie l'URL pour trouver la "clé"
-            $cleanKey = str_replace(['https://', 'http://', 'www.', '/'], '', $rawInput);
+            // strtolower() permet d'accepter les URLs en majuscules : WWW.GOOGLE.COM → google.com
+            $cleanKey = strtolower(str_replace(['https://', 'http://', 'www.', '/'], '', $rawInput));
 
             // On met à jour l'URL affichée
             $this->currentUrl = $rawInput;
