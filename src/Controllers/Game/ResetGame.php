@@ -4,10 +4,12 @@ namespace Controllers\Game;
 
 use Controllers\AbstractController;
 use Models\Game\ResetProgress;
+use Attributes\Route;
 
 /**
  * Contrôleur pour réinitialiser la progression de l'escape game
  */
+#[Route('/game/reset-game', name: 'game_reset_game')]
 class ResetGame extends AbstractController
 {
     /**

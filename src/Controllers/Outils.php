@@ -3,12 +3,14 @@
 namespace Controllers;
 
 use Views\Code\AllCodePage\AllCodePageView;
+use Attributes\Route;
 
 /**
  * Contrôleur de la page Outils
  *
  * Affiche la page listant tous les outils de chiffrement/déchiffrement disponibles.
  */
+#[Route('/outils', name: 'outils')]
 class Outils extends AbstractController
 {
     /**

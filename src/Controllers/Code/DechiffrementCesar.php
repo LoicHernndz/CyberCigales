@@ -4,6 +4,7 @@ namespace Controllers\Code;
 
 use Controllers\AbstractController;
 use Views\Code\Cesar\DecodeCesarView;
+use Attributes\Route;
 
 /**
  * Contrôleur du déchiffrement César
@@ -11,6 +12,7 @@ use Views\Code\Cesar\DecodeCesarView;
  * Affiche le formulaire de déchiffrement César et traite
  * la vérification du texte déchiffré soumis par l'utilisateur.
  */
+#[Route('/code/dechiffrement-cesar', name: 'code_dechiffrement_cesar')]
 class DechiffrementCesar extends AbstractController
 {
     /**
@@ -37,7 +39,7 @@ class DechiffrementCesar extends AbstractController
         if (!isset($_POST['btn-submit'])) {
             \helpers\Code\Cesar::verification($texte, $texte_chiffre_a_verifier, 'decrypt', $decalage);
         } else {
-            echo json_encode(['success' => false, 'message' => 'Action invalide']);
+            $this->jsonResponse(['success' => false, 'message' => 'Action invalide']);
         }
         $view = new DecodeCesarView();
         $view->render();

@@ -5,6 +5,7 @@ namespace Controllers\User;
 use Controllers\AbstractController;
 use Views\Homepage\HomepageView;
 use Models\User\User;
+use Attributes\Route;
 
 /**
  * Contrôleur de suppression de compte utilisateur
@@ -12,6 +13,7 @@ use Models\User\User;
  * Gère la suppression du profil utilisateur : affiche la confirmation (GET)
  * et effectue la suppression avec déconnexion (POST).
  */
+#[Route('/user/delete', name: 'user_delete')]
 class Delete extends AbstractController
 {
     /**
@@ -25,7 +27,7 @@ class Delete extends AbstractController
     {
         if (!isset($_SESSION['user_id'])) {
             flash('edit_profil', 'Vous devez être connecté pour modifier votre profil.', 'form-message form-message-red');
-            redirect('/user/login');
+            redirect(url('user_login'));
             return;
         }
         $view = new HomepageView();
@@ -45,7 +47,7 @@ class Delete extends AbstractController
         unset($_SESSION['user_email']);
         unset($_SESSION['user_pseudo']);
         session_destroy();
-        redirect("/");
+        redirect(url('homepage'));
         $view = new HomepageView();
         $view->render();
     }

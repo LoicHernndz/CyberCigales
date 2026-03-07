@@ -4,6 +4,7 @@ namespace Controllers\Code;
 
 use Controllers\AbstractController;
 use Views\Code\Vigenere\CodeVigenereView;
+use Attributes\Route;
 
 /**
  * Contrôleur du chiffrement Vigenère
@@ -11,6 +12,7 @@ use Views\Code\Vigenere\CodeVigenereView;
  * Affiche le formulaire de chiffrement Vigenère et traite
  * la vérification du texte chiffré soumis par l'utilisateur.
  */
+#[Route('/code/chiffrement-vigenere', name: 'code_chiffrement_vigenere')]
 class ChiffrementVigenere extends AbstractController
 {
     /**
@@ -40,7 +42,7 @@ class ChiffrementVigenere extends AbstractController
         if (!isset($_POST['btn-submit'])) {
             \helpers\Code\Vigenere::verification($texte, $texte_chiffre_a_verifier, 'encrypt', $cle);
         } else {
-            echo json_encode(['success' => false, 'message' => 'Action invalide']);
+            $this->jsonResponse(['success' => false, 'message' => 'Action invalide']);
         }
         $view = new CodeVigenereView();
         $view->render();

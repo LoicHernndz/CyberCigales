@@ -10,6 +10,7 @@
 
 include "../src/config/Autoloader.php";
 include "../src/helpers/session_helper.php";
+include "../src/helpers/url_helper.php";
 
 // Récupère l'URI sans les paramètres GET
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];

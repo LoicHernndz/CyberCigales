@@ -10,7 +10,7 @@
 
         {{FLASH}}
 
-        <form method="post" action="/user/signup" class="auth-form">
+        <form method="post" action="{{{URL_SIGNUP}}}" class="auth-form">
             <input type="hidden" name="type" value="register">
 
             <div class="form-row">
@@ -113,10 +113,10 @@
                     Copiez le code de sécurité
                 </label>
                 <div class="captcha-container">
-                    <a href="/user/signup" aria-label="Rafraîchir le code">
+                    <a href="{{{URL_SIGNUP}}}" aria-label="Rafraîchir le code">
                         <img src="/captcha?ts={{CAPTCHA_TS}}" alt="Captcha" class="captcha-img" />
                     </a>
-                    <a class="btn-captcha-refresh" href="/user/signup" aria-label="Rafraîchir le code">
+                    <a class="btn-captcha-refresh" href="{{{URL_SIGNUP}}}" aria-label="Rafraîchir le code">
                         <span class="material-icons">refresh</span>
                     </a>
                 </div>
@@ -138,7 +138,7 @@
                     value="1"
                     required>
                 <label for="accept_mentions">
-                    J'ai lu et j'accepte les <a href="/mentions">mentions légales</a>
+                    J'ai lu et j'accepte les <a href="{{{URL_MENTIONS}}}">mentions légales</a>
                 </label>
             </div>
 
@@ -149,7 +149,7 @@
 
             <div class="auth-footer">
                 <p>Vous avez déjà un compte ?</p>
-                <a href="/user/login" class="link-secondary">
+                <a href="{{{URL_LOGIN}}}" class="link-secondary">
                     <span class="material-icons">login</span>
                     Se connecter
                 </a>

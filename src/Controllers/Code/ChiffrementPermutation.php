@@ -4,6 +4,7 @@ namespace Controllers\Code;
 
 use Controllers\AbstractController;
 use Views\Code\Permutation\CodePermutationView;
+use Attributes\Route;
 
 /**
  * Contrôleur du chiffrement par Permutation
@@ -11,6 +12,7 @@ use Views\Code\Permutation\CodePermutationView;
  * Affiche le formulaire de chiffrement par permutation et traite
  * la vérification du texte chiffré soumis par l'utilisateur.
  */
+#[Route('/code/chiffrement-permutation', name: 'code_chiffrement_permutation')]
 class ChiffrementPermutation extends AbstractController
 {
     /**
@@ -41,7 +43,7 @@ class ChiffrementPermutation extends AbstractController
         if (!isset($_POST['btn-submit'])) {
             \helpers\Code\Permutation::verification($texte, $texte_chiffre_a_verifier, 'encrypt', $cle, $char_espaces);
         } else {
-            echo json_encode(['success' => false, 'message' => 'Action invalide']);
+            $this->jsonResponse(['success' => false, 'message' => 'Action invalide']);
         }
         $view = new CodePermutationView();
         $view->render();

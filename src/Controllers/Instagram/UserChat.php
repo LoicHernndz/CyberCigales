@@ -4,6 +4,7 @@ namespace Controllers\Instagram;
 use Views\Instagram\UserChatView;
 use Models\Instagram\InstagramModel;
 use Controllers\AbstractController;
+use Attributes\Route;
 
 /**
  * Contrôleur pour le chat avec un utilisateur Instagram
@@ -18,6 +19,7 @@ use Controllers\AbstractController;
  * - PROFILE_URL : Lien vers le profil
  * - MESSAGES : HTML des messages du chat
  */
+#[Route('/instagram/user-chat', name: 'instagram_user_chat')]
 class UserChat extends AbstractController
 {
     /**

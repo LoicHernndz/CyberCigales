@@ -3,6 +3,7 @@
 namespace Controllers\Code;
 
 use Views\Code\Vigenere\DecodeVigenereView;
+use Attributes\Route;
 
 /**
  * Contrôleur du déchiffrement Vigenère
@@ -11,6 +12,7 @@ use Views\Code\Vigenere\DecodeVigenereView;
  * la vérification du texte déchiffré soumis par l'utilisateur.
  * Hérite de ChiffrementVigenere pour réutiliser la logique commune.
  */
+#[Route('/code/dechiffrement-vigenere', name: 'code_dechiffrement_vigenere')]
 class DechiffrementVigenere extends ChiffrementVigenere
 {
     /**
@@ -37,7 +39,7 @@ class DechiffrementVigenere extends ChiffrementVigenere
         if (!isset($_POST['btn-submit'])) {
             \helpers\Code\Vigenere::verification($texte, $texte_chiffre_a_verifier, 'decrypt', $cle);
         } else {
-            echo json_encode(['success' => false, 'message' => 'Action invalide']);
+            $this->jsonResponse(['success' => false, 'message' => 'Action invalide']);
         }
         $view = new DecodeVigenereView();
         $view->render();

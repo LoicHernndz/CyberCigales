@@ -4,6 +4,7 @@ namespace Controllers;
 
 use Models\InterfaceWeb\InterfaceWebModel;
 use Views\InterfaceWeb\InterfaceWebView;
+use Attributes\Route;
 
 /**
  * Contrôleur de l'interface Web simulée
@@ -11,6 +12,7 @@ use Views\InterfaceWeb\InterfaceWebView;
  * Gère l'affichage et les interactions avec le navigateur web simulé.
  * Les requêtes GET et POST sont traitées de manière identique.
  */
+#[Route('/web', name: 'web')]
 class Web extends AbstractController
 {
     /**

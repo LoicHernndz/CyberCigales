@@ -31,45 +31,31 @@
             <h2>Actions rapides</h2>
         </div>
         <div class="actions-list">
-            <a href="/lecon" class="action-button">
+            <a href="{{{URL_LECON}}}" class="action-button">
                 <span class="material-icons">school</span>
                 <span>Voir toutes les formations</span>
                 <span class="material-icons action-arrow">arrow_forward</span>
             </a>
-            <a href="/minigames" class="action-button">
+            <a href="{{{URL_MINIGAMES}}}" class="action-button">
                 <span class="material-icons">dashboard</span>
                 <span>Voir tous les mini-jeux</span>
                 <span class="material-icons action-arrow">arrow_forward</span>
             </a>
-            <a href="/user/reset-password" class="action-button">
+            <a href="{{{URL_RESET_PASSWORD}}}" class="action-button">
                 <span class="material-icons">lock_reset</span>
                 <span>Changer mon mot de passe</span>
                 <span class="material-icons action-arrow">arrow_forward</span>
             </a>
-            <form action="/game/reset-game" method="POST" id="form-reset-game" style="width: 100%;">
+            <form action="{{{URL_GAME_RESET}}}" method="POST" id="form-reset-game" style="width: 100%;">
                 <input type="hidden" name="action" value="reset_all">
-                <button type="button" class="action-button action-btn-danger" onclick="confirmReset()"
+                <button type="button" class="action-button action-btn-danger" id="btn-reset-game"
                     style="width: 100%; border: none; background: none; cursor: pointer; color: inherit; font: inherit;">
                     <span class="material-icons" style="color: #ff4d4d;">delete_forever</span>
                     <span style="color: #ff4d4d; font-weight: bold;">Réinitialiser ma progression</span>
                     <span class="material-icons action-arrow" style="color: #ff4d4d;">arrow_forward</span>
                 </button>
             </form>
-            <script>
-                function confirmReset() {
-                    if (confirm('Êtes-vous sûr de vouloir réinitialiser toute votre progression de l\'escape game ? (Scores, chats, etc. seront perdus définitivement)')) {
-                        // Purger la progression client (LocalStorage)
-                        localStorage.removeItem('lemonde_notif_triggered');
-                        localStorage.removeItem('instagram_notifications');
-                        localStorage.setItem('instagram_unread_count', '0');
-                        localStorage.removeItem('mailActiveAccount');
-                        window.dispatchEvent(new Event("storage"));
-
-                        // Soumettre le formulaire vers le serveur
-                        document.getElementById('form-reset-game').submit();
-                    }
-                }
-            </script>
+            <script src="/js/profil-reset.js"></script>
         </div>
     </div>
 
@@ -114,7 +100,7 @@
                 </div>
             </div>
             <div class="card-footer-profil">
-                <a href="/user/edit" class="btn-edit-profil">
+                <a href="{{{URL_EDIT}}}" class="btn-edit-profil">
                     <span class="material-icons">edit</span>
                     <span>Modifier mon profil</span>
                 </a>

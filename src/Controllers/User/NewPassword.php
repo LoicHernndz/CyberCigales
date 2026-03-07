@@ -7,6 +7,7 @@ use Models\User\ResetPasswords;
 use Models\User\User;
 use PHPMailer\src\PHPMailer;
 use Views\User\CreateNewPassword\CreateNewPasswordView;
+use Attributes\Route;
 
 /**
  * Contrôleur de création d'un nouveau mot de passe
@@ -14,6 +15,7 @@ use Views\User\CreateNewPassword\CreateNewPasswordView;
  * Gère le processus de réinitialisation de mot de passe :
  * valide le token (GET) et effectue le changement de mot de passe (POST).
  */
+#[Route('/user/new-password', name: 'user_new_password')]
 class NewPassword extends AbstractController
 {
     /**
@@ -48,17 +50,22 @@ class NewPassword extends AbstractController
     public function getMethod(): void
     {
         if (empty($_GET['selector']) || empty($_GET['validator'])) {
-            echo "Nous ne pouvons pas valider votre demande de réinitialisation de mot de passe.";
-        } else {
-            $selector = $_GET['selector'];
-            $validator = $_GET['validator'];
-            if (ctype_xdigit($selector) && ctype_xdigit($validator)) {
-                $view = new CreateNewPasswordView();
-                $view->render();
-            } else {
-                echo "Nous ne pouvons pas valider votre demande de réinitialisation de mot de passe.";
-            }
+            flash('login', "Nous ne pouvons pas valider votre demande de réinitialisation de mot de passe.");
+            redirect(url('user_login'));
+            return;
         }
+
+        $selector = $_GET['selector'];
+        $validator = $_GET['validator'];
+
+        if (!ctype_xdigit($selector) || !ctype_xdigit($validator)) {
+            flash('login', "Nous ne pouvons pas valider votre demande de réinitialisation de mot de passe.");
+            redirect(url('user_login'));
+            return;
+        }
+
+        $view = new CreateNewPasswordView();
+        $view->render();
     }
 
     /**
@@ -154,6 +161,6 @@ class NewPassword extends AbstractController
         }
 
         flash("login", "Votre mot de passe a été mis à jour ! Vous pouvez vous connecter avec votre nouveau mot de passe.", 'form-message form-message-green');
-        redirect("/user/login");
+        redirect(url('user_login'));
     }
 }

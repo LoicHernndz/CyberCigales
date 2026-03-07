@@ -5,6 +5,7 @@ namespace Controllers\User;
 use Controllers\AbstractController;
 use Models\User\User;
 use Views\User\EditProfil\EditProfilView;
+use Attributes\Route;
 
 /**
  * Contrôleur d'édition du profil utilisateur
@@ -12,6 +13,7 @@ use Views\User\EditProfil\EditProfilView;
  * Gère l'affichage du formulaire d'édition (GET) et le traitement
  * des modifications de profil (POST) avec validation des données.
  */
+#[Route('/user/edit', name: 'user_edit')]
 class Edit extends AbstractController
 {
     /**
@@ -25,7 +27,7 @@ class Edit extends AbstractController
     {
         if (!isset($_SESSION['user_id'])) {
             flash('edit_profil', 'Vous devez être connecté pour modifier votre profil.', 'form-message form-message-red');
-            redirect('/user/login');
+            redirect(url('user_login'));
             return;
         }
         $view = new EditProfilView();
@@ -44,7 +46,7 @@ class Edit extends AbstractController
     {
         if (!isset($_SESSION['user_id'])) {
             flash('edit_profil', 'Vous devez être connecté pour modifier votre profil.', 'form-message form-message-red');
-            redirect('/user/login');
+            redirect(url('user_login'));
             return;
         }
 
@@ -81,7 +83,7 @@ class Edit extends AbstractController
 
             if (!empty($errors)) {
                 flash('edit_profil', implode(' | ', $errors), 'form-message form-message-red');
-                redirect('/user/edit');
+                redirect(url('user_edit'));
                 return;
             }
 
@@ -99,10 +101,10 @@ class Edit extends AbstractController
                 $_SESSION['user_pseudo'] = $pseudo;
                 $_SESSION['user_email'] = $email;
                 flash('edit_profil', 'Vos informations ont été mises à jour avec succès !', 'form-message form-message-green');
-                redirect('/user/profil');
+                redirect(url('user_profil'));
             } else {
                 flash('edit_profil', 'Une erreur est survenue lors de la mise à jour.', 'form-message form-message-red');
-                redirect('/user/edit');
+                redirect(url('user_edit'));
             }
         }
     }

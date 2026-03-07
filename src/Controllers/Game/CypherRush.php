@@ -4,13 +4,15 @@ namespace Controllers\Game;
 use Controllers\AbstractController;
 use Models\Game\CypherGame;
 use Views\Game\CypherRush\CypherRushView;
+use Attributes\Route;
 
 /**
  * Contrôleur du jeu CypherRush
- * 
+ *
  * Mini-jeu éducatif de déchiffrement contre la montre.
  * Gère la génération de challenges, la vérification des réponses et le score.
  */
+#[Route('/game/cypher-rush', name: 'game_cypher_rush')]
 class CypherRush extends AbstractController
 {
     /**
@@ -23,8 +25,7 @@ class CypherRush extends AbstractController
     function getMethod(){
         // Vérifier si l'utilisateur est connecté
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /user/login');
-            exit();
+            redirect(url('user_login'));
         }
 
         // Données à passer à la vue
@@ -45,8 +46,7 @@ class CypherRush extends AbstractController
     {
         // Vérifier si l'utilisateur est connecté
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /user/login');
-            exit();
+            redirect(url('user_login'));
         }
 
         $action = $_POST['action'] ?? '';
@@ -65,7 +65,7 @@ class CypherRush extends AbstractController
                 break;
 
             default:
-                echo json_encode(['success' => false, 'message' => 'Action invalide']);
+                $this->jsonResponse(['success' => false, 'message' => 'Action invalide']);
         }
     }
 
@@ -80,7 +80,7 @@ class CypherRush extends AbstractController
         $_SESSION['cypher_start_time'] = time();
         $_SESSION['cypher_hints_used'] = 0;
 
-        echo json_encode([
+        $this->jsonResponse([
             'success' => true,
             'encrypted_message' => $gameData['encrypted'],
             'cipher_type' => $gameData['type'],
@@ -112,20 +112,22 @@ class CypherRush extends AbstractController
 
             $_SESSION['cypher_score'] = $totalScore;
 
-            echo json_encode([
+            $explanation = $_SESSION['cypher_current_challenge']['explanation'] ?? '';
+
+            // Réinitialiser le jeu avant jsonResponse (qui appelle exit)
+            unset($_SESSION['cypher_game_started']);
+            unset($_SESSION['cypher_current_challenge']);
+
+            $this->jsonResponse([
                 'success' => true,
                 'correct' => true,
                 'score' => $totalScore,
                 'time' => $timeElapsed,
                 'message' => '🎉 Bravo ! Message déchiffré avec succès !',
-                'explanation' => $_SESSION['cypher_current_challenge']['explanation'] ?? ''
+                'explanation' => $explanation
             ]);
-
-            // Réinitialiser le jeu
-            unset($_SESSION['cypher_game_started']);
-            unset($_SESSION['cypher_current_challenge']);
         } else {
-            echo json_encode([
+            $this->jsonResponse([
                 'success' => true,
                 'correct' => false,
                 'message' => '❌ Ce n\'est pas la bonne réponse. Réessaie !'
@@ -135,7 +137,7 @@ class CypherRush extends AbstractController
 
     private function getHint() {
         if (!isset($_SESSION['cypher_current_challenge'])) {
-            echo json_encode(['success' => false, 'message' => 'Aucun jeu en cours']);
+            $this->jsonResponse(['success' => false, 'message' => 'Aucun jeu en cours']);
             return;
         }
 
@@ -145,14 +147,14 @@ class CypherRush extends AbstractController
         if ($hintsUsed < count($hints)) {
             $_SESSION['cypher_hints_used'] = $hintsUsed + 1;
 
-            echo json_encode([
+            $this->jsonResponse([
                 'success' => true,
                 'hint' => $hints[$hintsUsed],
                 'penalty' => 100,
                 'hints_remaining' => count($hints) - $hintsUsed - 1
             ]);
         } else {
-            echo json_encode([
+            $this->jsonResponse([
                 'success' => false,
                 'message' => 'Plus d\'indices disponibles !'
             ]);

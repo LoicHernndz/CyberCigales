@@ -3,13 +3,15 @@ namespace Controllers\User;
 use Controllers\AbstractController;
 use Models\User\User;
 use Views\User\Login\LoginView;
+use Attributes\Route;
 
 /**
  * Contrôleur d'authentification utilisateur
- * 
+ *
  * Gère l'affichage du formulaire de connexion et le traitement de l'authentification
  * avec validation CAPTCHA et vérification des credentials.
  */
+#[Route('/user/login', name: 'user_login')]
 class Login extends AbstractController
 {
     private User $userModel;
@@ -56,7 +58,7 @@ class Login extends AbstractController
         $_SESSION['user_email'] = $user->email;
         $_SESSION['user_pseudo'] = $user->pseudo;
         // Je redirige vers la page d'accueil ou le tableau de bord
-        redirect("/");
+        redirect(url('homepage'));
     }
     
     /**

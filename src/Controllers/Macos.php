@@ -4,6 +4,7 @@ namespace Controllers;
 
 use Views\MacOSView\MacOSView;
 use Views\MacOSLock\MacOSLockView;
+use Attributes\Route;
 
 /**
  * Contrôleur de la page MacOS
@@ -11,6 +12,7 @@ use Views\MacOSLock\MacOSLockView;
  * Affiche l'interface simulée de MacOS via la vue correspondante.
  * L'accès est protégé : l'utilisateur doit être connecté à son compte CyberCigales.
  */
+#[Route('/macos', name: 'macos')]
 class Macos extends AbstractController
 {
     /**

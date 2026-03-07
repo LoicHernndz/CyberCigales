@@ -20,13 +20,26 @@ abstract class AbstractController {
     function connexionVerify() {
         // Vérifier si l'utilisateur est connecté
         if (!isset($_SESSION['user_id'])) {
-            redirect('/user/login');
+            redirect(url('user_login'));
             return;
         }
     }
 
+    /**
+     * Envoie une réponse JSON et termine l'exécution.
+     */
+    protected function jsonResponse(array $data, int $status = 200): void {
+        http_response_code($status);
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+        exit();
+    }
+
     abstract function getMethod();
+
     function postMethod(){
-        echo 'ERREUR 404';
+        http_response_code(405);
+        $controller = new \Controllers\Error404\Error404();
+        $controller->getMethod();
     }
 }

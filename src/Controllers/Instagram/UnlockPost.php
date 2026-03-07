@@ -3,13 +3,15 @@
 namespace Controllers\Instagram;
 
 use Controllers\AbstractController;
+use Attributes\Route;
 
 /**
  * Class UnlockPost
- * 
+ *
  * Contrôleur appelé via AJAX pour débloquer un post Instagram
  * spécifique après avoir accompli une action (ex: lire le journal).
  */
+#[Route('/instagram/unlock-post', name: 'instagram_unlock_post')]
 class UnlockPost extends AbstractController
 {
     function getMethod()
@@ -22,8 +24,7 @@ class UnlockPost extends AbstractController
         // Débloquer le post
         $_SESSION['instagram_mel_post_unlocked'] = true;
 
-        header('Content-Type: application/json');
-        echo json_encode(['success' => true]);
+        $this->jsonResponse(['success' => true]);
     }
 
     function postMethod()

@@ -4,6 +4,7 @@ namespace Controllers\Instagram\Chat;
 
 use Controllers\AbstractController;
 use helpers\GenerateAnswer;
+use Attributes\Route;
 
 /**
  * Contrôleur des réponses du chat Instagram
@@ -11,6 +12,7 @@ use helpers\GenerateAnswer;
  * Délègue la génération des réponses au helper GenerateAnswer,
  * aussi bien en GET qu'en POST.
  */
+#[Route('/instagram/chat/response', name: 'instagram_chat_response')]
 class Response extends AbstractController
 {
     /**

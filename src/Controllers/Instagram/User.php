@@ -3,6 +3,7 @@
 namespace Controllers\Instagram;
 
 use Controllers\AbstractController;
+use Attributes\Route;
 
 /**
  * Contrôleur des profils utilisateurs Instagram
@@ -10,6 +11,7 @@ use Controllers\AbstractController;
  * Gère l'affichage des profils Instagram en utilisant les paramètres
  * dynamiques du routeur pour identifier l'utilisateur et l'action.
  */
+#[Route('/instagram/user', name: 'instagram_user')]
 class User extends AbstractController
 {
     /**

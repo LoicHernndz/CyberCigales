@@ -3,6 +3,7 @@
 namespace Controllers\Code;
 
 use Views\Code\Permutation\DecodePermutationView;
+use Attributes\Route;
 
 /**
  * Contrôleur du déchiffrement par Permutation
@@ -11,6 +12,7 @@ use Views\Code\Permutation\DecodePermutationView;
  * la vérification du texte déchiffré soumis par l'utilisateur.
  * Hérite de ChiffrementPermutation pour réutiliser la logique commune.
  */
+#[Route('/code/dechiffrement-permutation', name: 'code_dechiffrement_permutation')]
 class DechiffrementPermutation extends ChiffrementPermutation
 {
     /**
@@ -37,7 +39,7 @@ class DechiffrementPermutation extends ChiffrementPermutation
         if (!isset($_POST['btn-submit'])) {
             \helpers\Code\Permutation::verification($texte, $texte_chiffre_a_verifier, 'decrypt', $cle);
         } else {
-            echo json_encode(['success' => false, 'message' => 'Action invalide']);
+            $this->jsonResponse(['success' => false, 'message' => 'Action invalide']);
         }
         $view = new DecodePermutationView();
         $view->render();

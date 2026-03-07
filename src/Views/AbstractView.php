@@ -14,7 +14,10 @@ abstract class AbstractView
     {
         $template = file_get_contents($this->templatePath());
 
-        foreach ($this->templateKeys() as $key => $value) {
+        // Fusionner les clés URL communes avec les clés spécifiques à la vue
+        $allKeys = array_merge($this->commonUrlKeys(), $this->templateKeys());
+
+        foreach ($allKeys as $key => $value) {
             // Convertir en string pour éviter les problèmes de type
             $value = (string) $value;
             // Remplacer toutes les occurrences de la clé
@@ -38,6 +41,43 @@ abstract class AbstractView
     abstract function templateKeys(): array;
 
     /**
+     * Clés URL communes disponibles dans tous les templates HTML.
+     */
+    protected function commonUrlKeys(): array
+    {
+        return [
+            'URL_HOME'              => url('homepage'),
+            'URL_DASHBOARD'         => url('dashboard'),
+            'URL_LOGIN'             => url('user_login'),
+            'URL_SIGNUP'            => url('user_signup'),
+            'URL_LOGOUT'            => url('user_logout'),
+            'URL_PROFIL'            => url('user_profil'),
+            'URL_EDIT'              => url('user_edit'),
+            'URL_RESET_PASSWORD'    => url('user_reset_password'),
+            'URL_LECON'             => url('lecon_index'),
+            'URL_OUTILS'            => url('outils'),
+            'URL_MINIGAMES'         => url('minigames'),
+            'URL_INSTAGRAM'         => url('instagram'),
+            'URL_MACOS'             => url('macos'),
+            'URL_MENTIONS'          => url('mentions'),
+            'URL_PLAN'              => url('plan'),
+            'URL_LECON_CESAR'       => url('lecon_cesar'),
+            'URL_LECON_HIST_MDP'    => url('lecon_hist_mdp'),
+            'URL_LECON_VIGENERE'    => url('lecon_vigenere'),
+            'URL_LECON_PERMUTATION' => url('lecon_permutation'),
+            'URL_LECON_RGPD'        => url('lecon_rgpd'),
+            'URL_GAME_HAMMING'      => url('game_hamming'),
+            'URL_GAME_FREQUENCY'    => url('game_frequency'),
+            'URL_GAME_PHISHING'     => url('game_phishing'),
+            'URL_GAME_RESET'        => url('game_reset_game'),
+            'URL_CODE_CHIFFREMENT_CESAR'       => url('code_chiffrement_cesar'),
+            'URL_CODE_CHIFFREMENT_VIGENERE'    => url('code_chiffrement_vigenere'),
+            'URL_CODE_CHIFFREMENT_PERMUTATION' => url('code_chiffrement_permutation'),
+            'URL_CODE_OUTIL_PERMUTATION'       => url('code_outil_permutation'),
+        ];
+    }
+
+    /**
      * Affiche la page dans son entierete, footer + contenu (fichier html) + header
      *
      * @return void
@@ -54,7 +94,7 @@ abstract class AbstractView
      */
     function renderHeader(): void
     {
-        $logoHref = isset($_SESSION['user_id']) ? '/dashboard' : '/';
+        $logoHref = isset($_SESSION['user_id']) ? url('dashboard') : url('homepage');
 
         echo '
 <!DOCTYPE html>
@@ -103,36 +143,36 @@ abstract class AbstractView
                 <nav class="main-nav">
             ';
         if (isset($_SESSION['user_id'])):
-            echo '<a href="/lecon" class="nav-link">
+            echo '<a href="' . url('lecon_index') . '" class="nav-link">
                         <span class="material-icons">school</span>
                         <span>Formations</span>
                     </a>
-                    <a href="/outils" class="nav-link">
+                    <a href="' . url('outils') . '" class="nav-link">
                         <span class="material-icons">build</span>
                         <span>Outils</span>
                     </a>
-                    <a href="/minigames" class="nav-link">
+                    <a href="' . url('minigames') . '" class="nav-link">
                         <span class="material-icons">games</span>
                         <span>Mini jeux</span>
                     </a>
-                    <a href="/user/profil" class="nav-link">
+                    <a href="' . url('user_profil') . '" class="nav-link">
                         <span class="material-icons">person</span>
                         <span>Profil</span>
                     </a>
-                    <a href="/user/logout" class="nav-link nav-logout">
+                    <a href="' . url('user_logout') . '" class="nav-link nav-logout">
                         <span class="material-icons">logout</span>
                         <span>Déconnexion</span>
                     </a>';
         else:
-            echo '<a href="/" class="nav-link">
+            echo '<a href="' . url('homepage') . '" class="nav-link">
                         <span class="material-icons">home</span>
                         <span>Accueil</span>
                     </a>
-                    <a href="/user/login" class="nav-link">
+                    <a href="' . url('user_login') . '" class="nav-link">
                         <span class="material-icons">login</span>
                         <span>Connexion</span>
                     </a>
-                    <a href="/user/signup" class="nav-link">
+                    <a href="' . url('user_signup') . '" class="nav-link">
                         <span class="material-icons">person_add</span>
                         <span>Inscription</span>
                     </a>';
@@ -163,18 +203,18 @@ abstract class AbstractView
                         </div>
                         <p class="footer-tagline">Votre plateforme de sensibilisation à la cybersécurité</p>
                     </div>
-                    
+
                     <div class="footer-links">
                         <h4>Navigation</h4>
-                        <a href="/">Accueil</a>
-                        <a href="/mentions">Mentions légales</a>
-                        <a href="/plan">Plan du site</a>
+                        <a href="' . url('homepage') . '">Accueil</a>
+                        <a href="' . url('mentions') . '">Mentions légales</a>
+                        <a href="' . url('plan') . '">Plan du site</a>
                     </div>
-                    
+
                     <div class="footer-social">
                         <h4>Suivez-nous</h4>
                         <div class="social-links">
-                            <a href="/instagram" aria-label="Instagram" class="social-link">
+                            <a href="' . url('instagram') . '" aria-label="Instagram" class="social-link">
                                 <span class="material-icons">photo_camera</span>
                             </a>
                             <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook" class="social-link">
@@ -183,7 +223,7 @@ abstract class AbstractView
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="footer-bottom">
                     <p>&copy; ';
         echo date("Y");

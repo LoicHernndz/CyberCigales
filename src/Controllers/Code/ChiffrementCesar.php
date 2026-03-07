@@ -4,6 +4,7 @@ namespace Controllers\Code;
 
 use Controllers\AbstractController;
 use Views\Code\Cesar\CodeCesarView;
+use Attributes\Route;
 
 /**
  * Contrôleur du chiffrement César
@@ -11,6 +12,7 @@ use Views\Code\Cesar\CodeCesarView;
  * Affiche le formulaire de chiffrement César et traite la vérification
  * du texte chiffré soumis par l'utilisateur.
  */
+#[Route('/code/chiffrement-cesar', name: 'code_chiffrement_cesar')]
 class ChiffrementCesar extends AbstractController
 {
     /**
@@ -40,7 +42,7 @@ class ChiffrementCesar extends AbstractController
         if (!isset($_POST['btn-submit'])) {
             \helpers\Code\Cesar::verification($texte, $texte_chiffre_a_verifier, 'encrypt', $decalage);
         } else {
-            echo json_encode(['success' => false, 'message' => 'Action invalide']);
+            $this->jsonResponse(['success' => false, 'message' => 'Action invalide']);
         }
         $view = new CodeCesarView();
         $view->render();

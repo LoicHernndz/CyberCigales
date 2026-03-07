@@ -3,13 +3,15 @@ namespace Controllers\User;
 use Controllers\AbstractController;
 use Models\User\User;
 use Views\User\Signup\SignupView;
+use Attributes\Route;
 
 /**
  * Contrôleur d'inscription utilisateur
- * 
+ *
  * Gère l'enregistrement d'un nouvel utilisateur avec validation complète des données,
  * vérification d'unicité (email/pseudo) et hashage sécurisé du mot de passe.
  */
+#[Route('/user/signup', name: 'user_signup')]
 class Signup extends AbstractController
 {
     private User $userModel;
@@ -151,10 +153,11 @@ class Signup extends AbstractController
         // J'essaie de créer l'utilisateur en base de données
         if($this->userModel->signup($data)){
             // Si ça marche, je redirige vers la page de connexion
-            redirect("/user/login");
+            redirect(url('user_login'));
         } else{
-            // Si ça plante (problème de base, etc.), j'arrête tout et j'affiche l'erreur
-            die("Quelque chose s'est mal passé");
+            flash("signup", "Une erreur est survenue lors de l'inscription. Veuillez réessayer.");
+            $view = new SignupView();
+            $view->render();
         }
     }
 }

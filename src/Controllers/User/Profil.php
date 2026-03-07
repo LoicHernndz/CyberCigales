@@ -4,12 +4,14 @@ namespace Controllers\User;
 use Controllers\AbstractController;
 use Models\User\UserStats;
 use Views\User\Profil\ProfilView;
+use Attributes\Route;
 
 /**
  * Contrôleur d'affichage du profil utilisateur
- * 
+ *
  * Affiche les statistiques de jeux, badges obtenus et classement de l'utilisateur connecté.
  */
+#[Route('/user/profil', name: 'user_profil')]
 class Profil extends AbstractController
 {
     /**
@@ -24,7 +26,7 @@ class Profil extends AbstractController
         // Vérifier si l'utilisateur est connecté
         if (!isset($_SESSION['user_id'])) {
             flash('profil', 'Vous devez être connecté pour accéder à votre profil.', 'form-message form-message-red');
-            redirect('/user/login');
+            redirect(url('user_login'));
             return;
         }
 

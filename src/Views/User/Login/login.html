@@ -10,7 +10,7 @@
 
         {{FLASH}}
 
-        <form method="post" action="/user/login" class="auth-form">
+        <form method="post" action="{{{URL_LOGIN}}}" class="auth-form">
             <input type="hidden" name="type" value="login">
             
             <div class="form-group">
@@ -47,10 +47,10 @@
                     Copiez le code de sécurité
                 </label>
                 <div class="captcha-container">
-                    <a href="/user/login" aria-label="Rafraîchir le code">
+                    <a href="{{{URL_LOGIN}}}" aria-label="Rafraîchir le code">
                         <img src="/captcha?ts={{CAPTCHA_TS}}" alt="Captcha" class="captcha-img" />
                     </a>
-                    <a class="btn-captcha-refresh" href="/user/login" aria-label="Rafraîchir le code">
+                    <a class="btn-captcha-refresh" href="{{{URL_LOGIN}}}" aria-label="Rafraîchir le code">
                         <span class="material-icons">refresh</span>
                     </a>
                 </div>
@@ -70,7 +70,7 @@
             </button>
 
             <div class="auth-links">
-                <a href="/user/reset-password" class="link-forgot">
+                <a href="{{{URL_RESET_PASSWORD}}}" class="link-forgot">
                     <span class="material-icons">help_outline</span>
                     Mot de passe oublié ?
                 </a>
@@ -78,7 +78,7 @@
 
             <div class="auth-footer">
                 <p>Pas encore de compte ?</p>
-                <a href="/user/signup" class="link-secondary">
+                <a href="{{{URL_SIGNUP}}}" class="link-secondary">
                     <span class="material-icons">person_add</span>
                     Créer un compte
                 </a>

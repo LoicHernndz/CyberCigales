@@ -8,13 +8,15 @@ use Models\User\ResetPasswords;
 use Models\User\User;
 use PHPMailer\src\PHPMailer;
 use Views\User\ResetPassword\ResetPasswordView;
+use Attributes\Route;
 
 /**
  * Contrôleur de réinitialisation de mot de passe
- * 
+ *
  * Gère la demande de réinitialisation de mot de passe par email.
  * Génère un token sécurisé et envoie un email avec lien de réinitialisation.
  */
+#[Route('/user/reset-password', name: 'user_reset_password')]
 class ResetPassword extends AbstractController
 {
     private ResetPasswords $resetModel;
@@ -90,12 +92,16 @@ class ResetPassword extends AbstractController
         $expires = strval((int)(date("U")) + 1800);
 
         if (!$this->resetModel->deleteEmail($usersEmail)) {
-            die("Erreur interne (deleteEmail)");
+            flash("reset", "Une erreur interne est survenue. Veuillez réessayer plus tard.");
+            (new ResetPasswordView())->render();
+            exit();
         }
 
         $hashedToken = password_hash($token, PASSWORD_DEFAULT);
         if (!$this->resetModel->insertToken($usersEmail, $selector, $hashedToken, $expires)) {
-            die("Erreur interne (insertToken)");
+            flash("reset", "Une erreur interne est survenue. Veuillez réessayer plus tard.");
+            (new ResetPasswordView())->render();
+            exit();
         }
 
         // Chargement du template email depuis la vue

@@ -4,6 +4,7 @@ namespace Controllers\Lecon;
 
 use Controllers\AbstractController;
 use Views\Lecon\AllLessonPage\AllLessonPageView;
+use Attributes\Route;
 
 /**
  * Contrôleur de la page d'accueil des leçons
@@ -11,6 +12,7 @@ use Views\Lecon\AllLessonPage\AllLessonPageView;
  * Affiche la liste de toutes les leçons disponibles.
  * Utilise la convention Index pour le routeur dynamique (/lecon → Lecon\Index).
  */
+#[Route('/lecon', name: 'lecon_index')]
 class Index extends AbstractController
 {
     /**

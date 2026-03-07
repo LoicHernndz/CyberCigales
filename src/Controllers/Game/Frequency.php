@@ -4,6 +4,7 @@ namespace Controllers\Game;
 
 use Controllers\AbstractController;
 use Views\Game\FrequencyGame\FrequencyGameView;
+use Attributes\Route;
 
 /**
  * Contrôleur du jeu d'analyse fréquentielle
@@ -11,6 +12,7 @@ use Views\Game\FrequencyGame\FrequencyGameView;
  * Mini-jeu éducatif où l'utilisateur doit décrypter un texte
  * chiffré par substitution simple en analysant la fréquence des lettres.
  */
+#[Route('/game/frequency', name: 'game_frequency')]
 class Frequency extends AbstractController
 {
     /**
@@ -36,8 +38,7 @@ class Frequency extends AbstractController
     public function getMethod(): void
     {
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /user/login');
-            exit();
+            redirect(url('user_login'));
         }
         $view = new FrequencyGameView([
             'username' => $_SESSION['username'] ?? 'Analyste'
@@ -55,8 +56,7 @@ class Frequency extends AbstractController
     public function postMethod(): void
     {
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /user/login');
-            exit();
+            redirect(url('user_login'));
         }
         $action = $_POST['action'] ?? '';
 
@@ -65,15 +65,13 @@ class Frequency extends AbstractController
             case 'verify_code':
                 if ($code == '8265') {
                     $this->startGoodCodePage();
-                    exit;
                 } else {
-                    echo json_encode([
+                    $this->jsonResponse([
                         'success' => false,
                         'message' => 'Code incorrect'
                     ]);
-
                 }
-                exit;
+                break;
             case 'start_game':
                 $this->startGame();
                 break;
@@ -81,17 +79,15 @@ class Frequency extends AbstractController
                 $this->checkSolution();
                 break;
             default:
-                echo json_encode(['success' => false, 'message' => 'Action invalide']);
+                $this->jsonResponse(['success' => false, 'message' => 'Action invalide']);
         }
     }
 
     private function startGoodCodePage(): void {
-        header('Content-Type: application/json');
-        echo json_encode([
+        $this->jsonResponse([
             'success' => true,
             'message' => 'Code correct'
         ]);
-        exit;
     }
 
     /**
@@ -118,7 +114,7 @@ class Frequency extends AbstractController
         }
         $_SESSION['freq_game_solution'] = $originalText;
         $_SESSION['freq_game_start'] = time();
-        echo json_encode(['success' => true, 'encrypted_text' => $encryptedText]);
+        $this->jsonResponse(['success' => true, 'encrypted_text' => $encryptedText]);
     }
 
     /**
@@ -133,9 +129,9 @@ class Frequency extends AbstractController
         $userSolution = strtoupper(trim($_POST['solution'] ?? ''));
         $correctSolution = $_SESSION['freq_game_solution'] ?? '';
         if ($userSolution === $correctSolution) {
-            echo json_encode(['success' => true, 'message' => 'Bravo ! Vous avez décrypté le message.', 'correct' => true]);
+            $this->jsonResponse(['success' => true, 'message' => 'Bravo ! Vous avez décrypté le message.', 'correct' => true]);
         } else {
-            echo json_encode(['success' => true, 'message' => 'Ce n\'est pas tout à fait ça. Continuez vos efforts !', 'correct' => false]);
+            $this->jsonResponse(['success' => true, 'message' => 'Ce n\'est pas tout à fait ça. Continuez vos efforts !', 'correct' => false]);
         }
     }
 }

@@ -2,6 +2,7 @@
 namespace Controllers;
 
 use Views\Captcha\CaptchaSvgView;
+use Attributes\Route;
 
 /**
  * Génère et renvoie une image CAPTCHA.
@@ -9,6 +10,7 @@ use Views\Captcha\CaptchaSvgView;
  * - Préfère un rendu PNG via GD si disponible.
  * - Sinon, délègue le rendu SVG à CaptchaSvgView (fallback).
  */
+#[Route('/captcha', name: 'captcha')]
 class Captcha extends AbstractController
 {
     /**

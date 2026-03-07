@@ -5,6 +5,7 @@ namespace Controllers\Instagram;
 use Views\Instagram\UserProfileView;
 use Models\Instagram\InstagramModel;
 use Controllers\AbstractController;
+use Attributes\Route;
 
 /**
  * Contrôleur pour afficher le profil d'un utilisateur Instagram
@@ -19,6 +20,7 @@ use Controllers\AbstractController;
  * - POSTS : HTML de la grille de posts
  * - CHAT_URL : Lien vers le chat
  */
+#[Route('/instagram/user-profile', name: 'instagram_user_profile')]
 class UserProfile extends AbstractController
 {
     /**

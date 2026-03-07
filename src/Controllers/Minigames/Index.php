@@ -4,6 +4,7 @@ namespace Controllers\Minigames;
 
 use Controllers\AbstractController;
 use Views\Minigames\MinigamesView;
+use Attributes\Route;
 
 /**
  * Contrôleur de la page d'accueil des mini-jeux
@@ -11,6 +12,7 @@ use Views\Minigames\MinigamesView;
  * Affiche la liste de tous les mini-jeux éducatifs disponibles.
  * Utilise la convention Index pour le routeur dynamique (/minigames → Minigames\Index).
  */
+#[Route('/minigames', name: 'minigames')]
 class Index extends AbstractController
 {
     /**

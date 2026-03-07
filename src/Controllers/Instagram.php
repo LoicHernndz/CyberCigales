@@ -3,6 +3,7 @@ namespace Controllers;
 
 use Models\Instagram\InstagramModel;
 use Views\Instagram\InstagramView;
+use Attributes\Route;
 
 /**
  * Contrôleur pour la page d'accueil Instagram
@@ -16,6 +17,7 @@ use Views\Instagram\InstagramView;
  * - Vue : InstagramView (template HTML)
  * - Contrôleur : Instagram (logique métier)
  */
+#[Route('/instagram', name: 'instagram')]
 class Instagram extends AbstractController
 {
     /**

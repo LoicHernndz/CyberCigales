@@ -3,6 +3,7 @@
 namespace Controllers\Game;
 
 use Controllers\AbstractController;
+use Attributes\Route;
 
 /**
  * Contrôleur du jeu de Phishing
@@ -10,6 +11,7 @@ use Controllers\AbstractController;
  * Redirige vers l'interface email en mode jeu pour permettre
  * à l'utilisateur d'apprendre à identifier les emails de phishing.
  */
+#[Route('/game/phishing', name: 'game_phishing')]
 class Phishing extends AbstractController
 {
     /**
@@ -19,7 +21,6 @@ class Phishing extends AbstractController
      */
     public function getMethod(): void
     {
-        header('Location: /email?mode=game');
-        exit;
+        redirect(url('email') . '?mode=game');
     }
 }

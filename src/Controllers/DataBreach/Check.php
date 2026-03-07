@@ -4,6 +4,7 @@ namespace Controllers\DataBreach;
 
 use Controllers\AbstractController;
 use Views\DataBreach\DataBreachCheckView;
+use Attributes\Route;
 
 /**
  * Contrôleur de vérification des fuites de données
@@ -11,6 +12,7 @@ use Views\DataBreach\DataBreachCheckView;
  * Affiche l'interface de vérification permettant à l'utilisateur
  * de savoir si ses données ont été compromises (Have I Been Pwned).
  */
+#[Route('/data-breach/check', name: 'data_breach_check')]
 class Check extends AbstractController
 {
     /**

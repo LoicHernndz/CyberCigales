@@ -4,6 +4,7 @@ namespace Controllers;
 
 use Views\InterfaceMail\InterfaceMailView;
 use Models\InterfaceMail\InterfaceMailModel;
+use Attributes\Route;
 
 /**
  * Contrôleur de la page Email
@@ -11,6 +12,7 @@ use Models\InterfaceMail\InterfaceMailModel;
  * Récupère les emails depuis le modèle et les affiche
  * via l'interface de messagerie simulée.
  */
+#[Route('/email', name: 'email')]
 class Email extends AbstractController
 {
     /**

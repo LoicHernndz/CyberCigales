@@ -4,6 +4,7 @@ namespace Controllers\Code;
 
 use Controllers\AbstractController;
 use Views\Code\Permutation\PermutationDecryptToolView;
+use Attributes\Route;
 
 /**
  * Contrôleur de l'outil de déchiffrement par Permutation
@@ -11,6 +12,7 @@ use Views\Code\Permutation\PermutationDecryptToolView;
  * Affiche l'outil avancé de déchiffrement par permutation,
  * permettant de tester différentes clés et configurations.
  */
+#[Route('/code/outil-permutation', name: 'code_outil_permutation')]
 class OutilPermutation extends AbstractController
 {
     /**

@@ -4,13 +4,15 @@ namespace Controllers\Game;
 use Controllers\AbstractController;
 use helpers\Code\Hamming as HammingHelper;
 use Views\Game\Hamming\HammingView;
+use Attributes\Route;
 
 /**
  * Contrôleur pour le mini-jeu du carré de Hamming
- * 
+ *
  * Gère l'affichage du carré avec erreur et la vérification des réponses
  * des utilisateurs via requêtes GET (affichage) et POST (vérification)
  */
+#[Route('/game/hamming', name: 'game_hamming')]
 class Hamming extends AbstractController
 {
     /**
@@ -69,13 +71,10 @@ class Hamming extends AbstractController
         if (!isset($_SESSION['hamming_square']) || !isset($_SESSION['hamming_original'])) {
             // Si requête AJAX, retourner JSON
             if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
-                header('Content-Type: application/json');
-                echo json_encode(['success' => false, 'message' => 'Session expirée', 'redirect' => '/game/hamming']);
-                exit();
+                $this->jsonResponse(['success' => false, 'message' => 'Session expirée', 'redirect' => url('game_hamming')]);
             }
             // Sinon rediriger vers GET
-            header('Location: /game/hamming');
-            exit();
+            redirect(url('game_hamming'));
         }
         
         $squareWithError = $_SESSION['hamming_square'];
@@ -128,17 +127,15 @@ class Hamming extends AbstractController
         
         // Si requête AJAX, retourner JSON
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
-            header('Content-Type: application/json');
-            echo json_encode([
+            $this->jsonResponse([
                 'success' => $resultValue,
-                'result' => $resultValue, // 1 ou 0
+                'result' => $resultValue,
                 'message' => $message,
                 'square' => $squareWithError,
                 'newSquare' => $isCorrect,
                 'streak' => $_SESSION['hamming_streak'] ?? 0,
                 'target' => 5
             ]);
-            exit();
         }
         
         // Sinon, afficher la page normalement (fallback)

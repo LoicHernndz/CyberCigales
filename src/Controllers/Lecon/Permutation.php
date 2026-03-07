@@ -4,6 +4,7 @@ namespace Controllers\Lecon;
 
 use Controllers\AbstractController;
 use Views\Lecon\LeconPermutation\LeconPermutationView;
+use Attributes\Route;
 
 /**
  * Contrôleur de la leçon sur le chiffrement par permutation
@@ -11,6 +12,7 @@ use Views\Lecon\LeconPermutation\LeconPermutationView;
  * Affiche le contenu pédagogique expliquant le fonctionnement
  * du chiffrement par permutation (substitution polyalphabétique).
  */
+#[Route('/lecon/permutation', name: 'lecon_permutation')]
 class Permutation extends AbstractController
 {
     /**
