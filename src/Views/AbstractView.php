@@ -21,11 +21,11 @@ abstract class AbstractView
             // Convertir en string pour éviter les problèmes de type
             $value = (string) $value;
             // Remplacer toutes les occurrences de la clé
-            $template = str_replace("{{{$key}}}", $value, $template);
+            $template = str_replace('{{' . $key . '}}', $value, $template);
         }
 
         // Nettoyer les accolades orphelines qui pourraient rester (sécurité)
-        $template = preg_replace('/\{\{\{[A-Z_]+\}\}\}/', '', $template);
+        $template = preg_replace('/\{\{[A-Z_]+\}\}/', '', $template);
 
         echo $template;
     }
