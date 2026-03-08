@@ -47,12 +47,10 @@
                     Copiez le code de sécurité
                 </label>
                 <div class="captcha-container">
-                    <a href="/user/login" aria-label="Rafraîchir le code">
-                        <img src="/captcha?ts={{CAPTCHA_TS}}" alt="Captcha" class="captcha-img" />
-                    </a>
-                    <a class="btn-captcha-refresh" href="/user/login" aria-label="Rafraîchir le code">
+                    <img src="/captcha?ts={{CAPTCHA_TS}}" alt="Captcha" class="captcha-img" id="captcha-img" />
+                    <button type="button" class="btn-captcha-refresh" aria-label="Rafraîchir le code">
                         <span class="material-icons">refresh</span>
-                    </a>
+                    </button>
                 </div>
                 <input 
                     type="text" 
@@ -86,3 +84,5 @@
         </form>
     </div>
 </div>
+
+<script src="/js/captcha-refresh.js"></script>
