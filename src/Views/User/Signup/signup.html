@@ -10,7 +10,7 @@
 
         {{FLASH}}
 
-        <form method="post" action="{{{URL_SIGNUP}}}" class="auth-form">
+        <form method="post" action="{{URL_SIGNUP}}" class="auth-form">
             <input type="hidden" name="type" value="register">
 
             <div class="form-row">
@@ -136,7 +136,7 @@
                     value="1"
                     required>
                 <label for="accept_mentions">
-                    J'ai lu et j'accepte les <a href="{{{URL_MENTIONS}}}">mentions légales</a>
+                    J'ai lu et j'accepte les <a href="{{URL_MENTIONS}}">mentions légales</a>
                 </label>
             </div>
 
@@ -147,7 +147,7 @@
 
             <div class="auth-footer">
                 <p>Vous avez déjà un compte ?</p>
-                <a href="{{{URL_LOGIN}}}" class="link-secondary">
+                <a href="{{URL_LOGIN}}" class="link-secondary">
                     <span class="material-icons">login</span>
                     Se connecter
                 </a>

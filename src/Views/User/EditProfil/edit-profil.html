@@ -10,7 +10,7 @@
 
         {{FLASH_MESSAGE}}
 
-        <form method="post" action="{{{URL_EDIT}}}" class="auth-form">
+        <form method="post" action="{{URL_EDIT}}" class="auth-form">
             <div class="form-row">
                 <div class="form-group">
                     <label for="prenom">
@@ -83,7 +83,7 @@
 
             <div class="info-box">
                 <span class="material-icons">lock</span>
-                <p>Pour modifier votre mot de passe, utilisez la <a href="{{{URL_RESET_PASSWORD}}}">page de réinitialisation</a></p>
+                <p>Pour modifier votre mot de passe, utilisez la <a href="{{URL_RESET_PASSWORD}}">page de réinitialisation</a></p>
             </div>
 
             <div class="form-actions">
@@ -92,7 +92,7 @@
                     <span>Enregistrer les modifications</span>
                 </button>
 
-                <a href="{{{URL_PROFIL}}}" class="btn-auth btn-secondary">
+                <a href="{{URL_PROFIL}}" class="btn-auth btn-secondary">
                     <span class="material-icons">close</span>
                     <span>Annuler</span>
                 </a>
@@ -107,7 +107,7 @@
             </div>
             <h3>Sécurité du compte</h3>
             <div class="security-items">
-                <a href="{{{URL_RESET_PASSWORD}}}" class="security-item">
+                <a href="{{URL_RESET_PASSWORD}}" class="security-item">
                     <span class="material-icons">vpn_key</span>
                     <div>
                         <h4>Modifier le mot de passe</h4>

@@ -10,7 +10,7 @@
 
         {{FLASH}}
 
-        <form method="post" action="{{{URL_LOGIN}}}" class="auth-form">
+        <form method="post" action="{{URL_LOGIN}}" class="auth-form">
             <input type="hidden" name="type" value="login">
             
             <div class="form-group">
@@ -68,7 +68,7 @@
             </button>
 
             <div class="auth-links">
-                <a href="{{{URL_RESET_PASSWORD}}}" class="link-forgot">
+                <a href="{{URL_RESET_PASSWORD}}" class="link-forgot">
                     <span class="material-icons">help_outline</span>
                     Mot de passe oublié ?
                 </a>
@@ -76,7 +76,7 @@
 
             <div class="auth-footer">
                 <p>Pas encore de compte ?</p>
-                <a href="{{{URL_SIGNUP}}}" class="link-secondary">
+                <a href="{{URL_SIGNUP}}" class="link-secondary">
                     <span class="material-icons">person_add</span>
                     Créer un compte
                 </a>
