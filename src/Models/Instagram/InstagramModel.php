@@ -124,15 +124,15 @@ class InstagramModel
                 'location' => 'Paris, France',
                 'image' => 'images/instagram/daniel-lincoln-IE2Z11zKsso-unsplash.jpg',
                 'likes' => 1234,
-                'caption' => 'Magnifique journée à Paris ! 🌟 #paris #photographie #coucherdesoleil',
+                'caption' => 'Ce petit bâillement 🥺 Séance photo réussie ! 📸 #puppy #chiot #petphotography #cute',
                 'comments' => [
                     [
                         'username' => 'marie_photo',
-                        'text' => 'Tellement beau ! 😍'
+                        'text' => 'Trop mignon ce bâillement ! 😍'
                     ],
                     [
                         'username' => 'pierre_art',
-                        'text' => 'Composition incroyable !'
+                        'text' => 'Le cadrage est parfait !'
                     ]
                 ],
                 'time' => 'Il y a 2 heures'
@@ -180,15 +180,15 @@ class InstagramModel
                 'location' => 'Studio Créatif',
                 'image' => 'images/instagram/leo_visions-XAsr6c40MJM-unsplash.jpg',
                 'likes' => 3421,
-                'caption' => 'La créativité n\'a pas de limites 🎨 #art #creative #studio #inspiration',
+                'caption' => 'Mon atelier sur roues 🚐✨ L\'inspiration est partout quand on vit sur la route ! #vanlife #roadtrip #creative #homeonwheels',
                 'comments' => [
                     [
                         'username' => 'art_lover',
-                        'text' => 'Superbe travail !'
+                        'text' => 'L\'aménagement est incroyable !'
                     ],
                     [
                         'username' => 'design_pro',
-                        'text' => 'Quelle technique ! 🔥'
+                        'text' => 'Quel design d\'intérieur ! 🔥'
                     ]
                 ],
                 'time' => 'Il y a 8 heures'
@@ -224,11 +224,11 @@ class InstagramModel
                 'location' => 'Coffee Shop',
                 'image' => 'images/instagram/shelley-pauls-I58f47LRQYM-unsplash.jpg',
                 'likes' => 1876,
-                'caption' => 'Premier café du matin ☕ Le rituel sacré ! #coffee #morning #routine',
+                'caption' => 'Marché du matin 🍎 Rien de tel que des pommes bien fraîches ! #market #apples #fresh #healthy',
                 'comments' => [
                     [
                         'username' => 'caffeine_addict',
-                        'text' => 'Pareil ici ! ☕'
+                        'text' => 'Parfait pour un jus de pomme ! 🍏'
                     ]
                 ],
                 'time' => 'Il y a 12 heures'
@@ -240,15 +240,15 @@ class InstagramModel
                 'location' => 'Montagnes',
                 'image' => 'images/instagram/janosch-diggelmann-8xLel9jx3fE-unsplash.jpg',
                 'likes' => 5234,
-                'caption' => 'Vue imprenable 🏔️ Rien de tel que la montagne ! #travel #mountains #nature #adventure',
+                'caption' => 'Nouveau compagnon de voyage 🐶✈️ Il est prêt pour l\'aventure ! #traveldog #puppy #companion #doglife',
                 'comments' => [
                     [
                         'username' => 'wanderlust',
-                        'text' => 'C\'est où ? C\'est magnifique !'
+                        'text' => 'Il est trop chou ! 😍'
                     ],
                     [
                         'username' => 'hiker_life',
-                        'text' => 'J\'ai besoin de ça dans ma vie !'
+                        'text' => 'Ces yeux ! Je fonds ! 🥺'
                     ]
                 ],
                 'time' => 'Il y a 14 heures'
@@ -260,7 +260,7 @@ class InstagramModel
                 'location' => 'Ma Cuisine',
                 'image' => 'images/instagram/brooke-lark-qdyBKWSzpSI-unsplash.jpg',
                 'likes' => 2890,
-                'caption' => 'Repas fait maison 🍽️ La cuisine c\'est l\'amour ! #homemade #food #cooking #yummy',
+                'caption' => 'Smoothie bowl du matin 🥤🍓 Plein de vitamines pour bien démarrer ! #smoothie #healthy #fruits #vitamines',
                 'comments' => [
                     [
                         'username' => 'foodie_paris',
@@ -268,7 +268,7 @@ class InstagramModel
                     ],
                     [
                         'username' => 'chef_amateur',
-                        'text' => 'Ça a l\'air délicieux !'
+                        'text' => 'Les couleurs sont magnifiques !'
                     ]
                 ],
                 'time' => 'Il y a 16 heures'
@@ -280,15 +280,15 @@ class InstagramModel
                 'location' => 'Centre-ville',
                 'image' => 'images/instagram/cristina-anne-costello-4jsmBl30x_A-unsplash.jpg',
                 'likes' => 3156,
-                'caption' => 'Style du jour 💫 #fashion #style #ootd #streetstyle',
+                'caption' => 'Citrons frais du jardin 🍋☀️ L\'été en une photo ! #lemon #summer #aesthetic #freshvibes',
                 'comments' => [
                     [
                         'username' => 'fashion_week',
-                        'text' => 'J\'adore ton style !'
+                        'text' => 'Trop beau le jaune !'
                     ],
                     [
                         'username' => 'style_icon',
-                        'text' => 'Où as-tu acheté ça ? 😍'
+                        'text' => 'L\'aesthetic parfaite ! 🍋✨'
                     ]
                 ],
                 'time' => 'Il y a 18 heures'
@@ -300,7 +300,7 @@ class InstagramModel
                 'location' => 'Petit-déjeuner',
                 'image' => 'images/instagram/aliona-gumeniuk-jeAjT87nbjM-unsplash.jpg',
                 'likes' => 1543,
-                'caption' => 'Brunch du dimanche 🥐 Le meilleur moment de la semaine ! #brunch #sunday #foodie',
+                'caption' => 'Plateau apéro 🧀🍷 Parmesan, grenade et bon vin ! #cheese #apero #wine #fromage #gourmandise',
                 'comments' => [
                     [
                         'username' => 'brunch_lover',
