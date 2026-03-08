@@ -696,7 +696,9 @@ Loin d\'être réservé aux experts, l\'usage du terminal repose sur quelques co
             $rawInput = trim($_POST['url_input']);
 
             // 2. On nettoie l'URL pour trouver la "clé"
-            $cleanKey = str_replace(['https://', 'http://', 'www.', '/'], '', $rawInput);
+            // strtolower() EN PREMIER sur $rawInput, puis on supprime les préfixes (www. etc.)
+            // Ordre important : si on fait strtolower après, 'WWW.' n'est pas supprimé par str_replace('www.'...)
+            $cleanKey = str_replace(['https://', 'http://', 'www.', '/'], '', strtolower($rawInput));
 
             // On met à jour l'URL affichée
             $this->currentUrl = $rawInput;

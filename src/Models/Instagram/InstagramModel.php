@@ -200,7 +200,7 @@ class InstagramModel
                 'location' => 'Maison',
                 'image' => 'images/instagram/clifford-VobvKmG-StA-unsplash 2.jpg',
                 'likes' => 4567,
-                'caption' => 'Mon meilleur ami 🐕 #dog #cute #bestfriend #animals',
+                'caption' => 'cuisine aesthetic 💫! #cuisine #food #aesthetic #homemade',
                 'comments' => [
                     [
                         'username' => 'dog_parent',

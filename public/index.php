@@ -13,7 +13,8 @@ include "../src/helpers/session_helper.php";
 include "../src/helpers/url_helper.php";
 
 // Récupère l'URI sans les paramètres GET
-$uri = parse_url($_SERVER['REQUEST_URI'])['path'];
+// Normalisation en lowercase : /MACOS, /MacOS → /macos (routing insensible à la casse)
+$uri = strtolower(parse_url($_SERVER['REQUEST_URI'])['path']);
 
 // Cas spécial : page d'accueil
 if ($uri === '/') {
