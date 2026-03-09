@@ -100,7 +100,7 @@ class InstagramModel
                 'is_yours' => false,
                 'profile_url' => '/instagram/user/monika_cuisine',
                 'is_unseen' => true
-            ]
+            ],
         ];
     }
 
@@ -608,10 +608,10 @@ class InstagramModel
                 ['type' => 'received', 'content' => 'Je t\'en garde quelques-uns ? 💚', 'time' => '15:37'],
             ],
             'leo_creative' => [
-                ['type' => 'received', 'content' => 'Hey ! Je travaille sur un nouveau projet 🎨', 'time' => '20:00'],
-                ['type' => 'sent', 'content' => 'Trop cool ! C\'est quoi ?', 'time' => '20:05'],
-                ['type' => 'received', 'content' => 'Une série d\'illustrations sur les villes françaises', 'time' => '20:06'],
-                ['type' => 'received', 'content' => 'Je te montre un preview ? ✨', 'time' => '20:07'],
+                ['type' => 'received', 'content' => 'Salut !', 'time' => '20:00'],
+                ['type' => 'received', 'content' => 'J\'ai appris que tu aimais bien tout ce qui était déchiffrement de code, enquête, etc. Et je viens de recevoir un message assez bizarre. Du coup, je me demandais si tu pouvais m\'aider à le déchiffrer pour pouvoir le comprendre et y répondre.', 'time' => '20:01'],
+                ['type' => 'received', 'content' => 'Le voici : GFJLOOHZJBIRRBSYWCVISOSVABIJODUASQUUCKDVIKSFBPUZZPYECKJLABHZHBITSNKZJXJRFOYMSOIZHRQJFBKJGFQCSAUTVFVWFBHVBSEZSJEZQBSZOOHVHBJVGYUKWPUJ', 'time' => '20:02'],
+                ['type' => 'received', 'content' => 'Tu saurais d\'où ça vient ? Ça a l\'air chiffré... Je compte sur toi ! 🙏', 'time' => '20:03'],
             ],
             'diliara_style' => [
                 ['type' => 'received', 'content' => 'Coucou ! Les soldes ont commencé 🛍️', 'time' => '11:00'],

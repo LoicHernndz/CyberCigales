@@ -6,7 +6,7 @@ const MailGame = (function () {
 
     const userEmail = "lucie.bertrand@cybercigales.fr";
 
-    // --- Données du compte hackeur ---
+    // --- Données du compte hackeur (Histoire 1 : K0de_Breaker) ---
     const HACKER_CREDENTIALS = {
         email: 'k0de_breaker@darkweb.net',
         password: 'EmailS3cret!'
