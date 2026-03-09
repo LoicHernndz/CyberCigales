@@ -74,6 +74,9 @@ abstract class AbstractView
             'URL_CODE_CHIFFREMENT_VIGENERE'    => url('code_chiffrement_vigenere'),
             'URL_CODE_CHIFFREMENT_PERMUTATION' => url('code_chiffrement_permutation'),
             'URL_CODE_OUTIL_PERMUTATION'       => url('code_outil_permutation'),
+            'URL_CODE_DECHIFFREMENT_CESAR'       => url('code_dechiffrement_cesar'),
+            'URL_CODE_DECHIFFREMENT_VIGENERE'    => url('code_dechiffrement_vigenere'),
+            'URL_CODE_DECHIFFREMENT_PERMUTATION' => url('code_dechiffrement_permutation'),
         ];
     }
 
