@@ -8,6 +8,10 @@ use Views\Code\Hamming\HammingView;
 
 class Hamming extends AbstractController
 {
+
+    private const key = "MON NOM EST ALEXANDRE SCHMIDT. JSP CE QU'IL SE PASSE. TOUT EST CHIFFRÉ, ILS ME DEMANDENT DE L'ARGENT. J'AI UNE CLE A ENVOYER MAIS JE DOIS PAYER POUR LA DECRYPTER : AAAAAAA";
+    private const noise = "AFO QMP EIJ YZDKSLCFR AIZDKSQ. ZAJ OZ ZI'KD SA OFRGB. ZEFJ ZEI ADZOKFE, DAZ PF AZDPLKQSQ GE O'AQWNCV. A'AI JIE VBC X FQMLKFP EIOS BA MWLK KFEZH ASXN LP ADZSDOICO : FEOIKSD";
+
     /**
      * Affiche la page de déverrouillage.
      *
@@ -16,7 +20,7 @@ class Hamming extends AbstractController
     function getMethod()
     {
 
-        $_SESSION['hamming_streak'] = 0;
+        $_SESSION['hamming_progress'] = 0;
 
         $view = new HammingView([]);
         $view->render();
@@ -52,19 +56,18 @@ class Hamming extends AbstractController
             $squareWithError = $_SESSION['hamming_square'];
             $errorPos = $_SESSION['hamming_error_pos'];
 
-            if (!isset($_SESSION['hamming_streak'])) {
-                $_SESSION['hamming_streak'] = 0;
+            if (!isset($_SESSION['hamming_progress'])) {
+                $_SESSION['hamming_progress'] = 0;
             }
 
             $isCorrect = ($row === $errorPos['row'] && $col === $errorPos['col']);
             $resultValue = $isCorrect ? 1 : 0;
+            $target = str_word_count(self::key);
+
 
             if ($isCorrect) {
-                $_SESSION['hamming_streak'] = ($_SESSION['hamming_streak'] ?? 0) + 1;
-
-                if ($_SESSION['hamming_streak'] >= 5) {
-                    $_SESSION['hamming_streak'] = 0;
-                }
+                if ($_SESSION['hamming_progress'] < $target)
+                $_SESSION['hamming_progress'] = ($_SESSION['hamming_progress'] ?? 0) + 1;
 
                 $newResult = HammingHelper::generateSquareWithError();
                 $_SESSION['hamming_square'] = $newResult['square'];
@@ -72,24 +75,29 @@ class Hamming extends AbstractController
                 $_SESSION['hamming_error_pos'] = $newResult['errorPosition'];
                 $squareWithError = $newResult['square'];
             } else {
-                $_SESSION['hamming_streak'] = 0;
+                if ($_SESSION['hamming_progress'] > 0)
+                    $_SESSION['hamming_progress'] = ($_SESSION['hamming_progress'] ?? 0) - 1;
             }
+
+            // Ajout d'autant de mots du message que de nombres de succès, puis remplissage par du bruit.
+            $message = implode(" ", array_slice(explode(" ", self::key), 0, $_SESSION['hamming_progress']));
+            $message .= " " . implode(" ", array_slice(explode(" ", self::noise), $_SESSION['hamming_progress']));
 
             header('Content-Type: application/json');
             echo json_encode([
                 'success' => $resultValue,
                 'result' => $resultValue,
+                'message' => $message,
                 'square' => $squareWithError,
                 'newSquare' => $isCorrect,
-                'streak' => $_SESSION['hamming_streak'] ?? 0,
-                'target' => 5
+                'progress' => $_SESSION['hamming_progress'] ?? 0,
             ]);
             exit();
         }
 
         $message = trim((string)($_POST['message'] ?? ''));
 
-        if ($message !== 'access granted') {
+        if ($message !== 'access granted' && !str_contains($message, self::noise)) {
             flash('hamming', 'Impossible de traiter ce message...');
             header('Location: /code/hamming');
             exit();
@@ -101,14 +109,14 @@ class Hamming extends AbstractController
         $_SESSION['hamming_original'] = $result['originalSquare'];
         $_SESSION['hamming_error_pos'] = $result['errorPosition'];
 
-        if (!isset($_SESSION['hamming_streak'])) {
-            $_SESSION['hamming_streak'] = 0;
+        if (!isset($_SESSION['hamming_progress'])) {
+            $_SESSION['hamming_progress'] = 0;
         }
 
         $view = new HammingView([
             'square' => $result['square'],
-            'streak' => $_SESSION['hamming_streak'],
-            'target' => 5
+            'message' => $message,
+            'progress' => $_SESSION['hamming_progress'],
         ]);
         $view->render();
     }

@@ -1,15 +1,6 @@
     <div class="hamming-game-container">
       <!-- Zone de jeu principale -->
       <div class="game-area">
-        <!-- Stats du jeu -->
-        <div class="game-stats">
-          <div class="stat-item">
-            <div class="progress-bar-container">
-              <div class="progress-bar" id="progress-bar"></div>
-            </div>
-            <span class="stat-value" id="streak-display">0 / 5</span>
-          </div>
-        </div>
 
         <!-- Le carre de Hamming -->
         <div class="square-section">
@@ -18,6 +9,13 @@
               <!-- Les cellules seront generees par JS -->
             </div>
           </div>
+
+            <!-- Feedback -->
+            <div class="feedback-section" id="feedback-section">
+                <div class="feedback-content" id="feedback-content">
+                    <!-- Message de feedback -->
+                </div>
+            </div>
         </div>
       </div>
     </div>

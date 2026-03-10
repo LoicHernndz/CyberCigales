@@ -17,9 +17,6 @@ namespace helpers\Code;
  */
 class Hamming
 {
-
-    private const key = "
-    MON NOM EST ALEXANDRE SCHMIDT. JSP CE QU'IL SE PASSE. TOUT EST CHIFFRÉ, ILS ME DEMANDENT DE L'ARGENT. J'AI UNE CLE A ENVOYER MAIS JE DOIS PAYER POUR LA DECRYPTER : AAAAAAA";
     /**
      * Génère un carré de Hamming valide pour 4 bits de données donnés
      * 
@@ -124,10 +121,6 @@ class Hamming
             'errorPosition' => ['row' => $errorRow, 'col' => $errorCol],
             'originalSquare' => $square
         ];
-    }
-
-    public static function showKey(int $progress) {
-
     }
 }
 
