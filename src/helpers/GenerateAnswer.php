@@ -75,7 +75,7 @@ class GenerateAnswer
             echo $json_a->$realName->$step->{"message"};
         }
         // Si l'étape a une clé et que le message contient cette clé
-        else if (isset($json_a->$realName->$step->{"key"}) && str_contains($message, $json_a->$realName->$step->{"key"})) {
+        else if (isset($json_a->$realName->$step->{"key"}) && str_contains(strtolower($message), strtolower($json_a->$realName->$step->{"key"}))) {
             $next_step = strval((int)($step + 1));
 
             // Vérifier si l'étape suivante existe

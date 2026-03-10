@@ -396,263 +396,41 @@ Loin d\'être réservé aux experts, l\'usage du terminal repose sur quelques co
     </div>',
 
         'haveibeenpwned.music' => '
-            <style>
-                .hibp-container { max-width: 800px; margin: 0 auto; font-family: "Segoe UI", Arial, sans-serif; }
-                .hibp-header { background: #2d2d2d; color: white; padding: 20px 30px; text-align: center; }
-                .hibp-header h1 { font-size: 28px; margin: 0 0 5px 0; }
-                .hibp-header h1 span { color: #f44336; }
-                .hibp-header p { color: #aaa; font-size: 14px; margin: 0; }
-                .hibp-search { text-align: center; padding: 30px; background: #f5f5f5; }
-                .hibp-search input { width: 350px; padding: 12px 16px; border: 2px solid #ddd; border-radius: 4px; font-size: 16px; }
-                .hibp-search button { padding: 12px 24px; background: #1976d2; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; margin-left: 10px; }
-                .hibp-search button:hover { background: #1565c0; }
-                .hibp-result { display: none; margin: 20px 30px; padding: 20px; border-radius: 8px; }
-                .hibp-result.danger { background: #ffebee; border: 2px solid #f44336; }
-                .hibp-result.danger h2 { color: #d32f2f; margin-top: 0; }
-                .hibp-breach { background: white; border: 1px solid #eee; padding: 15px; margin: 10px 0; border-radius: 6px; }
-                .hibp-breach h3 { margin: 0 0 8px 0; color: #d32f2f; }
-                .hibp-breach p { margin: 4px 0; font-size: 14px; color: #555; }
-                .hibp-info { margin: 30px; padding: 20px; background: #e3f2fd; border-radius: 8px; border-left: 4px solid #1976d2; }
-                .hibp-info h3 { margin-top: 0; color: #1565c0; }
-                .hibp-info a { color: #1976d2; font-weight: bold; }
-                .hibp-timer-bar { display:none; margin: 20px 30px; padding: 20px; background: #fff3e0; border: 2px solid #ff9800; border-radius: 8px; text-align: center; }
-                .hibp-timer-bar h2 { color: #e65100; margin-top: 0; }
-                .hibp-timer-display { font-size: 48px; font-weight: bold; font-family: monospace; color: #d32f2f; }
-                .hibp-pwd-form { margin: 15px 0; }
-                .hibp-pwd-form label { display: block; font-weight: bold; margin: 10px 0 4px; text-align: left; font-size: 14px; }
-                .hibp-pwd-form input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 14px; }
-                .hibp-pwd-form .pwd-row { background: #fff; border: 1px solid #eee; padding: 12px; margin: 8px 0; border-radius: 6px; text-align: left; }
-                .hibp-pwd-form .pwd-site { font-weight: bold; color: #333; }
-                .hibp-pwd-form .pwd-old { font-size: 12px; color: #999; }
-                .hibp-pwd-form .pwd-status { float: right; font-size: 12px; padding: 2px 8px; border-radius: 10px; }
-                .pwd-status.done { background: #c8e6c9; color: #2e7d32; }
-                .pwd-status.pending { background: #ffcdd2; color: #c62828; }
-                .hibp-fail-overlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9999; color:#f44336; font-family:monospace; }
-                .hibp-fail-content { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); text-align:center; max-width:500px; }
-                .hibp-success { display:none; margin: 20px 30px; padding: 20px; background: #e8f5e9; border: 2px solid #4caf50; border-radius: 8px; text-align: center; }
-                .hibp-success h2 { color: #2e7d32; margin-top: 0; }
-                .hibp-hacker-result { display:none; margin: 20px 30px; padding: 20px; background: #fce4ec; border: 2px solid #e91e63; border-radius: 8px; }
-                .hibp-hacker-result h2 { color: #880e4f; margin-top: 0; }
-                .hibp-db-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 13px; }
-                .hibp-db-table th { background: #333; color: white; padding: 8px 12px; text-align: left; }
-                .hibp-db-table td { padding: 8px 12px; border-bottom: 1px solid #eee; }
-                .hibp-db-table tr:hover { background: #fff9c4; }
-                .hibp-db-table .highlight { background: #ffeb3b; font-weight: bold; }
-            </style>
-            <div class="hibp-container">
-                <div class="hibp-header">
-                    <h1>have i been <span>pwned?</span></h1>
-                    <p>Vérifiez si votre adresse email a été compromise dans une fuite de données</p>
-                </div>
-                <div class="hibp-search">
-                    <input type="text" id="hibp-email" placeholder="Entrez une adresse email...">
-                    <button id="hibp-check-btn">Vérifier</button>
-                </div>
-
-                <!-- Résultat : email utilisateur compromis -->
-                <div class="hibp-result" id="hibp-result-danger">
-                    <h2>⚠️ Oh non — cet email a été compromis !</h2>
-                    <p>Cette adresse a été trouvée dans <strong>3 fuites de données</strong> connues :</p>
-                    <div class="hibp-breach">
-                        <h3>SocialApp Data Breach (2024)</h3>
-                        <p><strong>Données exposées :</strong> Email, mot de passe hashé, date de naissance</p>
+            <link rel="stylesheet" href="/styles/data-breach-check.css">
+            <div class="breach-page">
+                <div class="breach-hero">
+                    <div class="hero-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
                     </div>
-                    <div class="hibp-breach">
-                        <h3>GamePlatform Leak (2023)</h3>
-                        <p><strong>Données exposées :</strong> Email, pseudo, adresse IP</p>
-                    </div>
-                    <div class="hibp-breach">
-                        <h3>ShopOnline Hack (2023)</h3>
-                        <p><strong>Données exposées :</strong> Email, nom complet, adresse postale</p>
-                    </div>
-                    <p style="color:#d32f2f;font-weight:bold;margin-top:15px;">⏰ Vous devez changer vos mots de passe immédiatement ! Cliquez ci-dessous pour lancer la procédure de sécurisation.</p>
-                    <button id="hibp-start-timer" style="padding:12px 30px;background:#d32f2f;color:white;border:none;border-radius:6px;font-size:16px;cursor:pointer;margin-top:10px;">Sécuriser mes comptes maintenant</button>
+                    <h1>Have I Been <span class="highlight">Pwned</span> ?</h1>
+                    <p class="tagline">Verifiez si votre adresse email a ete compromise dans une fuite de donnees</p>
                 </div>
-
-                <!-- Timer + changement de mots de passe -->
-                <div class="hibp-timer-bar" id="hibp-timer-section">
-                    <h2>🔒 Sécurisation en cours</h2>
-                    <p>Changez vos mots de passe avant la fin du temps imparti !</p>
-                    <div class="hibp-timer-display" id="hibp-timer">5:00</div>
-                    <div class="hibp-pwd-form" id="hibp-pwd-form">
-                        <div class="pwd-row" data-site="socialapp">
-                            <span class="pwd-site">SocialApp</span>
-                            <span class="pwd-status pending" id="status-socialapp">Non modifié</span>
-                            <label>Nouveau mot de passe :</label>
-                            <input type="password" id="pwd-socialapp" placeholder="Minimum 8 caractères">
-                            <button class="hibp-pwd-btn" data-target="socialapp" style="margin-top:6px;padding:6px 16px;background:#1976d2;color:white;border:none;border-radius:4px;cursor:pointer;">Changer</button>
-                        </div>
-                        <div class="pwd-row" data-site="gameplatform">
-                            <span class="pwd-site">GamePlatform</span>
-                            <span class="pwd-status pending" id="status-gameplatform">Non modifié</span>
-                            <label>Nouveau mot de passe :</label>
-                            <input type="password" id="pwd-gameplatform" placeholder="Minimum 8 caractères">
-                            <button class="hibp-pwd-btn" data-target="gameplatform" style="margin-top:6px;padding:6px 16px;background:#1976d2;color:white;border:none;border-radius:4px;cursor:pointer;">Changer</button>
-                        </div>
-                        <div class="pwd-row" data-site="shoponline">
-                            <span class="pwd-site">ShopOnline</span>
-                            <span class="pwd-status pending" id="status-shoponline">Non modifié</span>
-                            <label>Nouveau mot de passe :</label>
-                            <input type="password" id="pwd-shoponline" placeholder="Minimum 8 caractères">
-                            <button class="hibp-pwd-btn" data-target="shoponline" style="margin-top:6px;padding:6px 16px;background:#1976d2;color:white;border:none;border-radius:4px;cursor:pointer;">Changer</button>
-                        </div>
+                <div class="search-section">
+                    <div class="search-box">
+                        <input type="email" id="email-input" placeholder="Entrez une adresse email..." autocomplete="off" spellcheck="false">
+                        <button id="search-btn" type="button"><span class="btn-text">Rechercher</span></button>
                     </div>
                 </div>
-
-                <!-- Succès : comptes sécurisés -->
-                <div class="hibp-success" id="hibp-success">
-                    <h2>✅ Tous vos comptes ont été sécurisés !</h2>
-                    <p>Vos mots de passe ont été changés à temps. Bien joué !</p>
-                    <p style="margin-top:15px;font-size:14px;color:#555;">Vous pouvez maintenant utiliser la barre de recherche ci-dessus pour chercher d\'autres adresses email...</p>
-                </div>
-
-                <!-- Résultat : email du hackeur trouvé dans une base fuitée -->
-                <div class="hibp-hacker-result" id="hibp-hacker-result">
-                    <h2>💀 Email trouvé dans une base de données fuitée !</h2>
-                    <p>L\'adresse <strong>k0de_breaker@darkweb.net</strong> apparaît dans la fuite <strong>DarkForumDB (2024)</strong>.</p>
-                    <p>Voici un extrait de la base de données compromise :</p>
-                    <table class="hibp-db-table">
-                        <thead>
-                            <tr><th>Email</th><th>Username</th><th>Password</th><th>Last Login</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>shadow_x@mail.ru</td><td>ShadowX</td><td>*****</td><td>2024-01-15</td></tr>
-                            <tr><td>null_byte@proton.me</td><td>NullByte</td><td>*****</td><td>2024-02-03</td></tr>
-                            <tr class="highlight"><td>k0de_breaker@darkweb.net</td><td>K0de_Breaker</td><td>EmailS3cret!</td><td>2024-03-22</td></tr>
-                            <tr><td>ghost99@tutanota.com</td><td>Gh0st99</td><td>*****</td><td>2024-01-28</td></tr>
-                            <tr><td>cyph3r@riseup.net</td><td>Cyph3rPunk</td><td>*****</td><td>2024-02-14</td></tr>
-                        </tbody>
-                    </table>
-                    <p style="margin-top:15px;color:#880e4f;font-weight:bold;">Le mot de passe du hackeur est visible ! Utilisez-le pour accéder à sa boîte mail et aider votre amie.</p>
-                </div>
-
-                <!-- Échec : temps écoulé -->
-                <div class="hibp-fail-overlay" id="hibp-fail-overlay">
-                    <div class="hibp-fail-content">
-                        <h1 style="font-size:48px;">⏰ Temps écoulé !</h1>
-                        <p style="font-size:18px;color:#ff6b6b;line-height:1.6;">Vous n\'avez pas changé vos mots de passe à temps.<br>Votre compte s\'est fait pirater !</p>
-                        <p style="font-size:14px;color:#888;margin-top:20px;">Vous devez recommencer. La prochaine fois, soyez plus rapide !</p>
-                        <button id="hibp-retry" style="margin-top:20px;padding:12px 30px;background:#f44336;color:white;border:none;border-radius:6px;font-size:16px;cursor:pointer;">Recommencer</button>
+                <div id="result-area" class="result-area"></div>
+                <div class="stats-footer">
+                    <div class="stat">
+                        <span class="stat-num">847</span>
+                        <span class="stat-label">Sites compromis</span>
                     </div>
-                </div>
-
-                <div class="hibp-info">
-                    <h3>🔍 Testez avec votre vrai email !</h3>
-                    <p>Ce site est une simulation éducative. Pour vérifier si votre vrai email a fuité, rendez-vous sur le vrai site :</p>
-                    <p><a href="https://haveibeenpwned.com" target="_blank">👉 haveibeenpwned.com</a></p>
-                    <p style="font-size:13px; color:#555;">C\'est gratuit, fiable, et créé par Troy Hunt, un expert reconnu en cybersécurité.</p>
+                    <div class="stat">
+                        <span class="stat-num">12.4B</span>
+                        <span class="stat-label">Comptes exposes</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-num">284</span>
+                        <span class="stat-label">Pastes analyses</span>
+                    </div>
                 </div>
             </div>
-            <script>
-            (function() {
-                const HACKER_EMAIL = "k0de_breaker@darkweb.net";
-                const TIMER_SECONDS = 300; // 5 minutes
-
-                const btn = document.getElementById("hibp-check-btn");
-                const input = document.getElementById("hibp-email");
-                const dangerResult = document.getElementById("hibp-result-danger");
-                const startTimerBtn = document.getElementById("hibp-start-timer");
-                const timerSection = document.getElementById("hibp-timer-section");
-                const timerDisplay = document.getElementById("hibp-timer");
-                const successDiv = document.getElementById("hibp-success");
-                const hackerResult = document.getElementById("hibp-hacker-result");
-                const failOverlay = document.getElementById("hibp-fail-overlay");
-                const retryBtn = document.getElementById("hibp-retry");
-
-                let timerInterval = null;
-                let timeLeft = TIMER_SECONDS;
-                let passwordsChanged = { socialapp: false, gameplatform: false, shoponline: false };
-                let challengeCompleted = localStorage.getItem("hibp_challenge_done") === "true";
-
-                // Recherche email
-                btn.addEventListener("click", function() {
-                    const email = input.value.trim().toLowerCase();
-                    dangerResult.style.display = "none";
-                    hackerResult.style.display = "none";
-
-                    if (!email || !email.includes("@")) {
-                        alert("Veuillez entrer une adresse email valide.");
-                        return;
-                    }
-
-                    if (email === HACKER_EMAIL) {
-                        hackerResult.style.display = "block";
-                        return;
-                    }
-
-                    if (!challengeCompleted) {
-                        dangerResult.style.display = "block";
-                    } else {
-                        dangerResult.style.display = "block";
-                        startTimerBtn.style.display = "none";
-                        dangerResult.querySelector("p[style]").textContent = "Vos comptes ont déjà été sécurisés.";
-                    }
-                });
-
-                input.addEventListener("keydown", function(e) {
-                    if (e.key === "Enter") btn.click();
-                });
-
-                // Lancer le timer
-                startTimerBtn.addEventListener("click", function() {
-                    dangerResult.style.display = "none";
-                    timerSection.style.display = "block";
-                    timeLeft = TIMER_SECONDS;
-                    passwordsChanged = { socialapp: false, gameplatform: false, shoponline: false };
-                    updateTimer();
-                    timerInterval = setInterval(function() {
-                        timeLeft--;
-                        updateTimer();
-                        if (timeLeft <= 0) {
-                            clearInterval(timerInterval);
-                            failOverlay.style.display = "block";
-                        }
-                    }, 1000);
-                });
-
-                function updateTimer() {
-                    const min = Math.floor(timeLeft / 60);
-                    const sec = timeLeft % 60;
-                    timerDisplay.textContent = min + ":" + (sec < 10 ? "0" : "") + sec;
-                    if (timeLeft <= 60) timerDisplay.style.color = "#d32f2f";
-                    else if (timeLeft <= 120) timerDisplay.style.color = "#ff9800";
-                    else timerDisplay.style.color = "#2e7d32";
-                }
-
-                // Boutons changer mot de passe
-                document.querySelectorAll(".hibp-pwd-btn").forEach(function(b) {
-                    b.addEventListener("click", function() {
-                        var site = b.getAttribute("data-target");
-                        var pwd = document.getElementById("pwd-" + site).value;
-                        if (pwd.length < 8) {
-                            alert("Le mot de passe doit contenir au moins 8 caractères !");
-                            return;
-                        }
-                        passwordsChanged[site] = true;
-                        document.getElementById("status-" + site).textContent = "Modifié ✓";
-                        document.getElementById("status-" + site).className = "pwd-status done";
-                        b.disabled = true;
-                        b.textContent = "Fait !";
-                        b.style.background = "#4caf50";
-
-                        if (passwordsChanged.socialapp && passwordsChanged.gameplatform && passwordsChanged.shoponline) {
-                            clearInterval(timerInterval);
-                            timerSection.style.display = "none";
-                            successDiv.style.display = "block";
-                            challengeCompleted = true;
-                            localStorage.setItem("hibp_challenge_done", "true");
-                        }
-                    });
-                });
-
-                // Recommencer
-                retryBtn.addEventListener("click", function() {
-                    failOverlay.style.display = "none";
-                    timerSection.style.display = "none";
-                    dangerResult.style.display = "block";
-                });
-            })();
-            </script>',
+            <script src="/js/data-breach-check.js"></script>',
 
         'lemonde.fr-acces-complet' => '
 

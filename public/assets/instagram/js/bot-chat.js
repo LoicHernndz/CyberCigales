@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     async function generateResponse(message) {
         try {
-            let url = "/instagram/chat/response?name=" + username + "&message=" + message
+            let url = "/instagram/chat/response?name=" + encodeURIComponent(username) + "&message=" + encodeURIComponent(message)
             const response = await fetch(url);
             if (!response.ok) {
                 throw new Error(`Response status: ${response.status}`);

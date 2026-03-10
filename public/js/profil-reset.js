@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.removeItem('instagram_notifications');
             localStorage.setItem('instagram_unread_count', '0');
             localStorage.removeItem('mailActiveAccount');
+            localStorage.removeItem('hibp_password_changed');
+            localStorage.removeItem('hibp_quiz_completed');
+            localStorage.removeItem('hibp_challenge_done');
             window.dispatchEvent(new Event("storage"));
 
             document.getElementById('form-reset-game').submit();

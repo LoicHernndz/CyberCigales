@@ -33,22 +33,27 @@
   },
   "Lucas": {
     "0": {
-      "message": "Salut !\nJ'ai appris que tu aimais bien tout ce qui était déchiffrement de code, enquête, etc. Et je viens de recevoir un message assez bizarre. Du coup, je me demandais si tu pouvais m'aider à le déchiffrer pour pouvoir le comprendre et y répondre.\n\nLe voici : GFJLOOHZJBIRRBSYWCVISOSVABIJODUASQUUCKDVIKSFBPUZZPYECKJLABHZHBITSNKZJXJRFOYMSOIZHRQJFBKJGFQCSAUTVFVWFBHVBSEZSJEZQBSZOOHVHBJVGYUKWPUJ\n\nTu saurais d'où ça vient ? Ça a l'air chiffré...",
+      "message": "Salut !\nJ'ai appris que tu aimais bien tout ce qui était déchiffrement de code, enquête, etc. Et je viens de recevoir un message assez bizarre. Du coup, je me demandais si tu pouvais m'aider à le déchiffrer pour pouvoir le comprendre et y répondre.\n\nLe voici : XYZIEWYJCVUFAAGPOHPKEBAVIBIMZXAFWZNQMUWOBNWAFQNWACYCKXTANWOGXYKDKFY\n\nL'expéditeur m'a dit que c'était chiffré avec Vigenère et que la clé c'est MUSIC. Tu peux essayer de le déchiffrer avec l'outil Vigenère sur la page Outils ?\n\nEnvoie-moi le mot clé du message quand tu l'auras déchiffré !",
       "responses": ["Hmm c'est bizarre en effet... Tu as une idée d'où ça vient ?", "Aucune idée pour l'instant, laisse-moi chercher.", "C'est clairement chiffré, faut que je fouille un peu."],
-      "key": "arrête tes bêtises"
+      "key": "phishing"
     },
     "1": {
-      "message": "Incroyable ! Merci ! Je vais lui envoyer ça tout de suite. T'es un génie 🙌\n\nMais attends... Si quelqu'un m'envoie ce genre de message, ça veut dire que mon compte est peut-être compromis non ? 😰 Un pote m'a parlé d'un site pour vérifier si ton email a fuité : haveibeenpwned.music. Tu devrais aller checker ton email dessus depuis le navigateur, on sait jamais...",
+      "message": "Incroyable ! Merci ! Je vais lui envoyer ça tout de suite. T'es un génie 🙌\n\nMais attends... Si quelqu'un m'envoie ce genre de message, ça veut dire que mon compte est peut-être compromis non ? 😰 Un pote m'a parlé d'un site pour vérifier si ton email a fuité : haveibeenpwned.music. Tu devrais aller checker ton email dessus depuis le navigateur, on sait jamais...\n\nChange ton mot de passe sur le site si ton compte a fuité, et reviens me voir ensuite !",
       "responses": ["Ok je vais voir ça !", "T'inquiète je regarde.", "Bonne idée, je check."],
-      "key": "c'est bon"
+      "key": ""
     },
     "2": {
-      "message": "Ouf, content que t'aies sécurisé tes comptes ! 😮‍💨\n\nD'ailleurs, en parlant de comptes piratés... tu sais que le compte Instagram de Mel (mel_133) s'est fait hacker ? On essaie de l'aider mais on bloque. Apparemment le hackeur utilise l'adresse k0de_breaker@darkweb.net. Tu pourrais chercher cette adresse sur haveibeenpwned.music ? Si son email a fuité dans une base de données, on pourrait retrouver son mot de passe et aider Mel !",
+      "message": "Ouf, content que t'aies sécurisé tes comptes ! 😮‍💨\n\nD'ailleurs, en parlant de comptes piratés... tu sais que le compte Instagram de Mel (mel_133) s'est fait hacker ? On essaie de l'aider mais on galère.\n\nJe suis sûr que le hackeur a laissé des traces quelque part... Regarde dans ta boîte mail sur ton ordi, peut-être qu'il t'a contacté ou menacé. Si tu trouves son adresse email, va la chercher sur haveibeenpwned.music, peut-être que son mot de passe a fuité dans une base de données !\n\nEnvoie-moi le mot de passe que tu trouves !",
       "responses": ["Je regarde ça !", "Ok je cherche.", "J'y vais !"],
-      "key": "mot de passe"
+      "key": "rlcseavleuin"
     },
     "3": {
-      "message": "T'es incroyable ! Grâce à toi on va pouvoir aider Mel à récupérer son compte ! Merci pour tout 🙌🔥",
+      "message": "Hmm... \"rlcseavleuin\" 🤔 Ça ressemble pas vraiment à un mot de passe normal, on dirait que c'est chiffré !\n\nJ'ai entendu parler du chiffrement par permutation, ça pourrait être ça. Essaie d'utiliser l'outil de déchiffrement par permutation dans la page Outils avec 4 colonnes. Réarrange les colonnes jusqu'à trouver un mot qui a du sens !\n\nEnvoie-moi le vrai mot de passe quand tu l'as déchiffré !",
+      "responses": ["Ok je vais essayer !", "Je regarde avec l'outil.", "4 colonnes, c'est noté !"],
+      "key": "surveillance"
+    },
+    "4": {
+      "message": "T'es incroyable ! \"surveillance\" — ça colle bien avec un hackeur qui espionne ses victimes ! 🔥 Grâce à toi on va pouvoir aider Mel à récupérer son compte ! Merci pour tout 🙌🔥",
       "responses": ["De rien !", "Pas de quoi, c'était fun !"]
     }
   },
