@@ -18,9 +18,9 @@ class Error404 extends AbstractController {
      * @return void
      */
     function getMethod(){
-        // Création d’une instance de la vue "MentionsView"
+        // OWASP A05 : retourner le vrai code HTTP 404 (au lieu de 200)
+        http_response_code(404);
         $view = new Page404View();
-        // Affichage de la page des mentions légales
         $view->render();
     }
 }

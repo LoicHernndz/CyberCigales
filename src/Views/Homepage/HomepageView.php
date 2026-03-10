@@ -54,7 +54,7 @@ class HomepageView extends AbstractView
         // Si un utilisateur est connecté (présence d'un ID dans la session)
         if (isset($_SESSION['user_id'])) {
             // On récupère le pseudo stocké dans la session et on n'affiche que le premier mot (souvent le prénom)
-            $keys = [self::USERNAME_KEY => explode(" ", $_SESSION['user_pseudo'])[0]];
+            $keys = [self::USERNAME_KEY => htmlspecialchars(explode(" ", $_SESSION['user_pseudo'])[0], ENT_QUOTES, 'UTF-8')];
 
             // Valeurs par défaut pour les statistiques
             $defaultStats = [

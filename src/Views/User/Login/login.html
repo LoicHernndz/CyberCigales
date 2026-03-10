@@ -8,7 +8,7 @@
             <p class="auth-subtitle">Accédez à votre espace de formation en cybersécurité</p>
         </div>
 
-        {{FLASH}}
+        {{{FLASH}}}
 
         <form method="post" action="/user/login" class="auth-form">
             {{{CSRF_FIELD}}}
@@ -49,7 +49,7 @@
                 </label>
                 <div class="captcha-container">
                     <a href="/user/login" aria-label="Rafraîchir le code">
-                        <img src="/captcha?ts={{CAPTCHA_TS}}" alt="Captcha" class="captcha-img" />
+                        <img src="/captcha?ts={{{CAPTCHA_TS}}}" alt="Captcha" class="captcha-img" />
                     </a>
                     <a class="btn-captcha-refresh" href="/user/login" aria-label="Rafraîchir le code">
                         <span class="material-icons">refresh</span>

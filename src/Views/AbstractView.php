@@ -24,6 +24,11 @@ abstract class AbstractView
         // Nettoyer les accolades orphelines qui pourraient rester (sécurité)
         $template = preg_replace('/\{\{\{[A-Z_]+\}\}\}/', '', $template);
 
+        // OWASP A03 - CSP nonce : injecte le nonce dans tous les <script> du template
+        if (defined('CSP_NONCE')) {
+            $template = preg_replace('/<script(?![^>]*nonce=)/', '<script nonce="' . CSP_NONCE . '"', $template);
+        }
+
         echo $template;
     }
 
@@ -77,18 +82,18 @@ abstract class AbstractView
         <meta property="og:site_name" content="CyberCigales">
         <meta property="og:title" content="CyberCigales">
         <meta property="og:description" content="Escape Game Numérique autour de la cybersécurité et de la cryptographie.">
-        <meta property="og:image" content="https://cybercigales.fr/images/cybercigales-logo.png?v=4">
+        <meta property="og:image" content="https://benahmed.alwaysdata.net/images/cybercigales-logo.png?v=4">
         <meta property="og:image:type" content="image/png">
         <meta property="og:image:width" content="512">
         <meta property="og:image:height" content="512">
         <meta property="og:image:alt" content="Logo CyberCigales - Cigale avec cadenas">
-        <meta property="og:url" content="https://cybercigales.fr">
+        <meta property="og:url" content="https://benahmed.alwaysdata.net">
         <meta name="twitter:card" content="summary_large_image">
         <meta property="og:image" content="/images/favicon.svg">
         <meta name="twitter:card" content="summary">
         <meta name="twitter:title" content="CyberCigales">
         <meta name="twitter:description" content="Escape Game Numérique autour de la cybersécurité et de la cryptographie.">
-        <meta name="twitter:image" content="https://cybercigales.fr/images/cybercigales-logo.png?v=4">
+        <meta name="twitter:image" content="https://benahmed.alwaysdata.net/images/cybercigales-logo.png?v=4">
         <meta name="twitter:image:alt" content="Logo CyberCigales - Cigale avec cadenas">
     </head>
     <body>
@@ -190,7 +195,7 @@ abstract class AbstractView
         echo ' CyberCigales. Tous droits réservés.</p>
                 </div>
             </footer>
-            <script src="/js/mobile-menu.js"></script>
+            <script nonce="' . CSP_NONCE . '" src="/js/mobile-menu.js"></script>
         </body>
     </html>';
     }

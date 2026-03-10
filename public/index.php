@@ -31,12 +31,12 @@ header('Referrer-Policy: strict-origin-when-cross-origin');
 // Désactive l'accès aux APIs sensibles du navigateur (caméra, micro, géolocalisation)
 header('Permissions-Policy: camera=(), microphone=(), geolocation=()');
 
-// Content-Security-Policy (CSP) : définit les sources autorisées pour les ressources
-// - default-src 'self' : par défaut, seules les ressources de notre domaine sont autorisées
-// - script-src/style-src 'unsafe-inline' : nécessaire pour les scripts/styles inline existants
-// - font-src : autorise Google Fonts pour les polices
-// - img-src data: : autorise les images encodées en base64 (SVG CAPTCHA)
-header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:;");
+// OWASP A03 - CSP avec nonce : empêche l'exécution de scripts inline non autorisés
+// Génère un nonce unique par requête (128 bits d'entropie)
+// Seuls les <script nonce="..."> correspondants seront exécutés par le navigateur
+$cspNonce = base64_encode(random_bytes(16));
+define('CSP_NONCE', $cspNonce);
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-{$cspNonce}' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:;");
 
 // Récupère l'URI sans les paramètres GET
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];

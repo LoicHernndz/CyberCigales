@@ -54,8 +54,9 @@ class Edit extends AbstractController
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
             $errors = [];
             $userId = $_SESSION['user_id'];
-            $prenom = trim($_POST['prenom'] ?? '');
-            $nom = trim($_POST['nom'] ?? '');
+            // OWASP A03 - Injection : strip_tags() supprime les balises HTML avant stockage
+            $prenom = strip_tags(trim($_POST['prenom'] ?? ''));
+            $nom = strip_tags(trim($_POST['nom'] ?? ''));
             $pseudo = trim($_POST['pseudo'] ?? '');
             $email = trim($_POST['email'] ?? '');
 

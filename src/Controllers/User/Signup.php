@@ -64,8 +64,9 @@ class Signup extends AbstractController
 
         // Je récupère et nettoie toutes les données du formulaire d'inscription
         $data = [
-            'prenom' => trim($_POST['prenom']), // Je récupère le prénom et j'enlève les espaces
-            'nom' => trim($_POST['nom']), // Je récupère le nom et j'enlève les espaces
+            // OWASP A03 - Injection : strip_tags() supprime les balises HTML avant stockage en BDD
+            'prenom' => strip_tags(trim($_POST['prenom'])),
+            'nom' => strip_tags(trim($_POST['nom'])),
             'pseudo' => trim($_POST['pseudo']), // Je récupère le pseudo et j'enlève les espaces
             'email' => trim($_POST['email']), // Je récupère l'email et j'enlève les espaces
             'password' => trim($_POST['password']), // Je récupère le mot de passe

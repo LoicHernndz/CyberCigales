@@ -27,10 +27,10 @@ class ProfilView extends AbstractView {
         
         // Informations utilisateur de base
         if (!empty($this->stats['general'])) {
-            $keys['FIRSTNAME_KEY'] = $this->stats['general']['prenom'];
-            $keys['LASTNAME_KEY'] = $this->stats['general']['nom'];
-            $keys['USERNAME_KEY'] = $this->stats['general']['pseudo'];
-            $keys['EMAIL_KEY'] = $this->stats['general']['email'];
+            $keys['FIRSTNAME_KEY'] = htmlspecialchars($this->stats['general']['prenom'], ENT_QUOTES, 'UTF-8');
+            $keys['LASTNAME_KEY'] = htmlspecialchars($this->stats['general']['nom'], ENT_QUOTES, 'UTF-8');
+            $keys['USERNAME_KEY'] = htmlspecialchars($this->stats['general']['pseudo'], ENT_QUOTES, 'UTF-8');
+            $keys['EMAIL_KEY'] = htmlspecialchars($this->stats['general']['email'], ENT_QUOTES, 'UTF-8');
             $keys['MEMBRE_DEPUIS'] = $this->stats['general']['membre_depuis'];
         } else {
             $keys['FIRSTNAME_KEY'] = 'Invité';
