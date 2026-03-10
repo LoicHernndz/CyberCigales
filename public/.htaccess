@@ -1,9 +1,27 @@
-# Restriction des droits sur les fichiers
+# === Configuration Apache sécurisée ===
 RewriteEngine On
 
-# Si la requete concerne un fichier public, l'acces est autorise
+# OWASP A08 - Headers de sécurité
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+# OWASP A05 - Désactiver le listing des répertoires
+Options -Indexes
+
+# OWASP A05 - Bloquer l'accès aux fichiers cachés (.env, .git, etc.)
+<FilesMatch "^\.">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# Routage : redirige vers index.php si le fichier/dossier n'existe pas
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-
-# Sinon, on s'addresse au routeur (index.php)
 RewriteRule ^(.*)$ index.php [L,QSA]
