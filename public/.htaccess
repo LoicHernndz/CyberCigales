@@ -1,17 +1,10 @@
 # === OWASP A05 - Security Misconfiguration : Configuration Apache sécurisée ===
 RewriteEngine On
 
-# OWASP A08 - Software and Data Integrity Failures : Forcer HTTPS
-# Redirige toutes les requêtes HTTP vers HTTPS pour chiffrer les communications
-# Sans HTTPS, les cookies de session et mots de passe transitent en clair sur le réseau
-RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-# OWASP A08 - HSTS (HTTP Strict Transport Security)
-# Indique au navigateur de TOUJOURS utiliser HTTPS pendant 1 an
-# Même si l'utilisateur tape http://, le navigateur ira directement en HTTPS
+# OWASP A08 - Headers de sécurité
+# Note : la redirection HTTPS est gérée par le reverse proxy alwaysdata,
+# pas besoin de la forcer ici (sinon boucle de redirections ERR_TOO_MANY_REDIRECTS)
 <IfModule mod_headers.c>
-    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
     Header always set X-Content-Type-Options "nosniff"
     Header always set X-Frame-Options "SAMEORIGIN"
 </IfModule>
