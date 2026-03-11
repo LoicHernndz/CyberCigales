@@ -7,97 +7,37 @@ use Models\Lesson\LessonProgress;
 use Views\Homepage\HomepageView;
 use Attributes\Route;
 
-/**
- * Contrôleur de la page d'accueil
- * 
- * Affiche la page d'accueil avec statistiques personnalisées pour les utilisateurs connectés.
- */
 #[Route('/', name: 'homepage')]
 class Homepage extends AbstractController
 {
-
-    /**
-     * Affiche la page d'accueil
-     * 
-     * Récupère et affiche les statistiques de l'utilisateur s'il est connecté.
-     * 
-     * @return void
-     */
     function getMethod(){
-        // Création d'une instance de la vue "HomepageView"
         $view = new HomepageView();
-        
-        // Si un utilisateur est connecté, on récupère ses statistiques
+
         if (isset($_SESSION['user_id'])) {
             $userId = $_SESSION['user_id'];
-            
-            // Récupération des statistiques de l'utilisateur
-            $userStats = new UserStats();
-            $stats = $userStats->getUserStats($userId);
-            
-            $this->updateUserStatsInView($view, $stats, $userId, $userStats);
+
+            // Statistiques utilisateur (indépendant des leçons)
+            try {
+                $userStats = new UserStats();
+                $stats = $userStats->getUserStats($userId);
+                $this->updateUserStatsInView($view, $stats, $userId, $userStats);
+            } catch (\Exception $e) {
+                error_log('Homepage UserStats error: ' . $e->getMessage());
+            }
+
+            // Progression des leçons (indépendant des stats)
+            $this->updateLessonProgressInView($view, $userId);
         }
-        
-        // Affichage de la page d'accueil
+
         $view->render();
     }
-    
-    // Méthode pour mettre à jour les statistiques dans la vue
-    private function updateUserStatsInView($view, $stats, $userId, UserStats $userStats) {
-        // Modules complétés
-        $modulesCompleted = 0;
-        if (isset($stats['rgpd']) && $stats['rgpd']['completion'] >= 100) $modulesCompleted++;
-        if ($stats['cypher']['games_played'] > 0) $modulesCompleted++;
-        
-        // Points gagnés
-        $totalPoints = $stats['general']['total_score'];
-        
-        // Temps d'apprentissage en minutes
-        $learningTime = 0;
-        if (preg_match('/(\d+)h/', $stats['general']['total_time'], $hours)) {
-            $learningTime += $hours[1] * 60;
-        }
-        if (preg_match('/(\d+)min/', $stats['general']['total_time'], $minutes)) {
-            $learningTime += $minutes[1];
-        }
-        
-        // RGPD progression (mise à 0 car supprimé)
-        $rgpdCompletion = 0;
-        
-        // Cypher Rush progression
-        $cypherCompletion = $stats['cypher']['games_played'] > 0 ? 100 : 0;
-        
-        // Badges débloqués
-        $badges = $userStats->getBadges($userId);
-        $unlockedBadges = array_filter($badges, function($badge) {
-            return $badge['unlocked'];
-        });
-        
-        // Mise à jour des variables dans la vue
-        $view->addTemplateKey('MODULES_COMPLETED', $modulesCompleted);
-        $view->addTemplateKey('TOTAL_POINTS', $totalPoints);
-        $view->addTemplateKey('LEARNING_TIME', $learningTime);
-        $view->addTemplateKey('RGPD_COMPLETION', $rgpdCompletion);
-        $view->addTemplateKey('CYPHER_COMPLETION', $cypherCompletion);
-        $view->addTemplateKey('UNLOCKED_BADGES', count($unlockedBadges));
 
-        // Progression des leçons pour l'escape game
+    private function updateLessonProgressInView($view, $userId): void {
         try {
             $lessonProgress = new LessonProgress();
             $completedLessons = $lessonProgress->getCompletedLessons($userId);
             $lessonsCount = count(array_intersect($completedLessons, ['cesar', 'vigenere', 'permutation']));
             $allDone = $lessonsCount >= 3;
-
-            error_log('Homepage lesson progress: userId=' . $userId . ' completed=' . json_encode($completedLessons) . ' count=' . $lessonsCount);
-
-            // DEBUG TEMPORAIRE — à supprimer après résolution
-            $view->addTemplateKey('DEBUG_LESSON', '<div style="background:#ff0;color:#000;padding:10px;margin:10px;border:3px solid red;font-family:monospace;font-size:14px;">'
-                . '<strong>DEBUG LESSON PROGRESS</strong><br>'
-                . 'userId=' . $userId . '<br>'
-                . 'completedLessons=' . json_encode($completedLessons) . '<br>'
-                . 'lessonsCount=' . $lessonsCount . '<br>'
-                . 'allDone=' . ($allDone ? 'true' : 'false')
-                . '</div>');
 
             $view->addTemplateKey('LESSONS_DONE_COUNT', $lessonsCount);
             $view->addTemplateKey('LESSONS_PERCENT', round($lessonsCount / 3 * 100));
@@ -127,7 +67,39 @@ class Homepage extends AbstractController
             }
             $view->addTemplateKey('ESCAPE_CARD', $escapeCard);
         } catch (\Exception $e) {
-            error_log('Homepage lesson progress ERROR: ' . $e->getMessage());
+            error_log('Homepage LessonProgress error: ' . $e->getMessage());
         }
+    }
+
+    private function updateUserStatsInView($view, $stats, $userId, UserStats $userStats) {
+        $modulesCompleted = 0;
+        if (isset($stats['rgpd']) && $stats['rgpd']['completion'] >= 100) $modulesCompleted++;
+        if (isset($stats['cypher']['games_played']) && $stats['cypher']['games_played'] > 0) $modulesCompleted++;
+
+        $totalPoints = $stats['general']['total_score'] ?? 0;
+
+        $learningTime = 0;
+        $totalTime = $stats['general']['total_time'] ?? '';
+        if (preg_match('/(\d+)h/', $totalTime, $hours)) {
+            $learningTime += $hours[1] * 60;
+        }
+        if (preg_match('/(\d+)min/', $totalTime, $minutes)) {
+            $learningTime += $minutes[1];
+        }
+
+        $rgpdCompletion = 0;
+        $cypherCompletion = (isset($stats['cypher']['games_played']) && $stats['cypher']['games_played'] > 0) ? 100 : 0;
+
+        $badges = $userStats->getBadges($userId);
+        $unlockedBadges = array_filter($badges, function($badge) {
+            return $badge['unlocked'];
+        });
+
+        $view->addTemplateKey('MODULES_COMPLETED', $modulesCompleted);
+        $view->addTemplateKey('TOTAL_POINTS', $totalPoints);
+        $view->addTemplateKey('LEARNING_TIME', $learningTime);
+        $view->addTemplateKey('RGPD_COMPLETION', $rgpdCompletion);
+        $view->addTemplateKey('CYPHER_COMPLETION', $cypherCompletion);
+        $view->addTemplateKey('UNLOCKED_BADGES', count($unlockedBadges));
     }
 }
