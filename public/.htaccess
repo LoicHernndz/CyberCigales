@@ -1,6 +1,22 @@
 # === Configuration Apache sécurisée ===
 RewriteEngine On
 
+# Types MIME explicites (nécessaire avec X-Content-Type-Options: nosniff)
+<IfModule mod_mime.c>
+    AddType text/css .css
+    AddType text/javascript .js
+    AddType application/javascript .js
+    AddType image/svg+xml .svg
+    AddType image/png .png
+    AddType image/jpeg .jpg .jpeg
+    AddType image/gif .gif
+    AddType image/webp .webp
+    AddType image/x-icon .ico
+    AddType font/woff2 .woff2
+    AddType font/woff .woff
+    AddType font/ttf .ttf
+</IfModule>
+
 # OWASP A08 - Headers de sécurité
 <IfModule mod_headers.c>
     Header always set X-Content-Type-Options "nosniff"

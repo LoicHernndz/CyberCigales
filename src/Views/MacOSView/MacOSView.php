@@ -91,8 +91,8 @@ class MacOSView
     <!-- Chargement de Tailwind CSS (local) pour le style -->
     <script src="/js/tailwind.min.js"></script>
     
-    <link rel="stylesheet" href="/styles/normalize.css"> <!-- Reset CSS pour la cohérence cross-browser -->
-    <link rel="stylesheet" href="/assets/macos/css/macos.css">
+    <link rel="stylesheet" href="/styles/normalize.css?v=2"> <!-- Reset CSS pour la cohérence cross-browser -->
+    <link rel="stylesheet" href="/assets/macos/css/macos.css?v=2">
     
 </head>
 <body class="min-h-screen relative">
