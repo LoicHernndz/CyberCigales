@@ -89,7 +89,7 @@ class MacOSView
     <title>MacOS Personnel</title>
 
     <!-- Chargement de Tailwind CSS (via CDN) pour le style -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script nonce="' . CSP_NONCE . '" src="https://cdn.tailwindcss.com"></script>
     
     <link rel="stylesheet" href="/styles/normalize.css"> <!-- Reset CSS pour la cohérence cross-browser -->
     <link rel="stylesheet" href="/assets/macos/css/macos.css">
@@ -237,7 +237,7 @@ class MacOSView
     </div>
 </footer>
 
-<script src="/assets/macos/js/macos.js"></script>
+<script nonce="' . CSP_NONCE . '" src="/assets/macos/js/macos.js"></script>
 </body>
 </html>';
     }
