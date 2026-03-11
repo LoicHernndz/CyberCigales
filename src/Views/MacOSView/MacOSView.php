@@ -91,8 +91,9 @@ class MacOSView
     <!-- Chargement de Tailwind CSS (via CDN) pour le style -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <link rel="stylesheet" href="/styles/normalize.css"> <!-- Reset CSS pour la cohérence cross-browser -->
+    <link rel="stylesheet" href="/styles/normalize.css">
     <link rel="stylesheet" href="/assets/macos/css/macos.css">
+    <link rel="stylesheet" href="/assets/macos/css/intro.css">
     
 </head>
 <body class="min-h-screen relative">
@@ -238,16 +239,15 @@ class MacOSView
 </footer>
 
 <!-- Intro Overlay -->
-<div id="intro-overlay" style="display:none;position:fixed;inset:0;z-index:9999;background:#000;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.5s;">
-    <div style="width:90%;max-width:700px;max-height:70vh;overflow-y:auto;padding:2rem;">
-        <pre id="intro-text" style="font-family:monospace;color:#00ff41;font-size:0.95rem;line-height:1.7;white-space:pre-wrap;word-wrap:break-word;margin:0;"></pre><span id="intro-cursor" style="color:#00ff41;animation:introBlink 1s step-end infinite;">█</span>
+<div id="intro-overlay">
+    <div class="intro-content">
+        <pre id="intro-text"></pre><span id="intro-cursor">█</span>
     </div>
-    <div style="margin-top:2rem;display:flex;gap:1rem;">
-        <button id="intro-skip" style="padding:0.7rem 2rem;background:transparent;border:1px solid #00ff41;color:#00ff41;font-family:monospace;font-size:0.9rem;cursor:pointer;border-radius:8px;">Passer ›</button>
-        <button id="intro-start" style="display:none;padding:0.7rem 2rem;background:rgba(0,255,65,0.15);border:1px solid #00ff41;color:#00ff41;font-family:monospace;font-size:0.9rem;font-weight:bold;cursor:pointer;border-radius:8px;">Commencer ›</button>
+    <div class="intro-buttons">
+        <button id="intro-skip" class="intro-btn">Passer ›</button>
+        <button id="intro-start" class="intro-btn">Commencer ›</button>
     </div>
 </div>
-<style>@keyframes introBlink{0%,100%{opacity:1}50%{opacity:0}}</style>
 
 <script src="/assets/macos/js/notifications.js?v=2"></script>
 <script src="/assets/macos/js/macos.js"></script>
