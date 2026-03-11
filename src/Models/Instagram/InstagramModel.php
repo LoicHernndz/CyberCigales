@@ -25,10 +25,10 @@ class InstagramModel
                 'is_unseen' => true
             ],
             [
-                'username' => 'alex_photo',
-                'avatar' => 'images/instagram/alexander-schimmeck-2zJhA9RSkys-unsplash.jpg',
+                'username' => '?ERREUR',
+                'avatar' => 'images/instagram/avslagzns-uwdtczj-2zJhA9RSkys-unsplash.jpg',
                 'is_yours' => false,
-                'profile_url' => '/instagram/user/alex_photo',
+                'profile_url' => '/instagram/user/avsl_ydbjb',
                 'is_unseen' => true
             ],
             [
@@ -114,12 +114,12 @@ class InstagramModel
         return [
             [
                 'id' => 1,
-                'username' => 'alex_photo',
-                'avatar' => 'images/instagram/alexander-schimmeck-2zJhA9RSkys-unsplash.jpg',
+                'username' => 'avsl_ydbjb',
+                'avatar' => 'images/instagram/avslagzns-uwdtczj-2zJhA9RSkys-unsplash.jpg',
                 'location' => 'Paris, France',
                 'image' => 'images/instagram/daniel-lincoln-IE2Z11zKsso-unsplash.jpg',
                 'likes' => 1234,
-                'caption' => 'Magnifique journée à Paris ! 🌟 #paris #photographie #coucherdesoleil',
+                'caption' => 'Taegcxchis rbingss a Yancu ! 🌟 #yancu #ydbjbenaydcs #wbiwdsnzsubvscv',
                 'comments' => [
                     [
                         'username' => 'marie_photo',
@@ -315,14 +315,14 @@ class InstagramModel
     public function getAllUserProfiles(): array
     {
         return [
-            'alex_photo' => [
-                'username' => 'alex_photo',
-                'display_name' => 'Alexandre Schmidt',
-                'avatar' => '/images/instagram/alexander-schimmeck-2zJhA9RSkys-unsplash.jpg',
+            'avsl_ydbjb' => [
+                'username' => 'avsl_ydbjb',
+                'display_name' => 'Avslagzns Uwdtczj',
+                'avatar' => '/images/instagram/avslagzns-uwdtczj-2zJhA9RSkys-unsplash.jpg',
                 'posts_count' => '47',
                 'followers_count' => '12.4K',
                 'following_count' => '892',
-                'bio' => "📸 Photographe passionné\n🌆 Urbex & Street Photography\n📍 Paris / Lyon\n✨ Capturer l'instant parfait",
+                'bio' => "📸 Ydbjbenayds yauucbggs\n🌆 Inqsl & Ujnssj Ydbjbenaydp\n📍 Yancu / Vpbg\n✨ Wayjinsn v'cgujagj yanxacj",
                 'website' => '',
                 'verified' => false,
                 'posts' => [
@@ -532,11 +532,8 @@ class InstagramModel
     public function getUserChatMessages(string $username): array
     {
         $chatMessages = [
-            'alex_photo' => [
-                ['type' => 'received', 'content' => 'Hey ! Tu as vu ma dernière photo ? 📸', 'time' => '10:15'],
-                ['type' => 'sent', 'content' => 'Oui superbe ! C\'est où ?', 'time' => '10:18'],
-                ['type' => 'received', 'content' => 'À Paris, près du Sacré-Cœur au lever du soleil', 'time' => '10:20'],
-                ['type' => 'received', 'content' => 'Il faut qu\'on fasse un shooting ensemble un jour !', 'time' => '10:21'],
+            'avsl_ydbjb' => [
+                ['type' => 'received', 'content' => 'Vinhpye, ks kfnsg aqm k\'ql nccs apm wbcddd, pq cnw m\'ds ok mmmfc...', 'time' => '10:15'],
             ],
             'anna_food' => [
                 ['type' => 'received', 'content' => 'Coucou ! J\'ai trouvé un super resto 🍴', 'time' => '12:30'],

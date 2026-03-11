@@ -106,7 +106,7 @@ class GenerateAnswer
         // Mapping des identifiants Instagram vers les vrais noms
         $mapping = [
             'mel_133' => 'Melina',
-            'alex_photo' => 'Alexandre',
+            'avsl_ydbjb' => 'Avslagzns',
             'anna_food' => 'Sophie',
             'annie_nature' => 'Emma',
             'brooke_kitchen' => 'Julie',
