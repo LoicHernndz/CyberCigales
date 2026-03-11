@@ -29,12 +29,8 @@
         </form>
     </div>
 
-    <div class="nav-controls" style="display:flex;align-items:center;gap:8px;">
+    <div class="nav-controls">
         <span class="nav-btn">+</span>
-        <div id="vpn-toggle" title="Activer/Désactiver le VPN" style="cursor:pointer;display:flex;align-items:center;gap:4px;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:600;background:#ffcdd2;color:#c62828;border:1px solid #ef9a9a;transition:all 0.3s;">
-            <span id="vpn-icon" style="font-size:14px;">🔓</span>
-            <span id="vpn-label">VPN OFF</span>
-        </div>
     </div>
 </header>
 
@@ -42,39 +38,5 @@
     {{CONTENT_VALUE}}
 </main>
 <script src="assets/macos/InterfaceWeb/script.js"></script>
-<script>
-(function() {
-    const toggle = document.getElementById('vpn-toggle');
-    const icon = document.getElementById('vpn-icon');
-    const label = document.getElementById('vpn-label');
-
-    function updateVpnUI(active) {
-        if (active) {
-            toggle.style.background = '#c8e6c9';
-            toggle.style.color = '#2e7d32';
-            toggle.style.borderColor = '#81c784';
-            icon.textContent = '🔒';
-            label.textContent = 'VPN ON';
-        } else {
-            toggle.style.background = '#ffcdd2';
-            toggle.style.color = '#c62828';
-            toggle.style.borderColor = '#ef9a9a';
-            icon.textContent = '🔓';
-            label.textContent = 'VPN OFF';
-        }
-    }
-
-    // Initialiser depuis localStorage
-    const vpnActive = localStorage.getItem('vpn_active') === 'true';
-    updateVpnUI(vpnActive);
-
-    toggle.addEventListener('click', function() {
-        const current = localStorage.getItem('vpn_active') === 'true';
-        const newState = !current;
-        localStorage.setItem('vpn_active', newState.toString());
-        updateVpnUI(newState);
-    });
-})();
-</script>
 </body>
 </html>
