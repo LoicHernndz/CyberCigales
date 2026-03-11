@@ -1,65 +1,65 @@
-<link rel="stylesheet" href="/styles/permutation-decrypt-tool.css?v=3">
+<link rel="stylesheet" href="/styles/permutation-decrypt-tool.css?v=4">
 <script src="/assets/code/permutation-decrypt-tool.js"></script>
 
-<div class="decrypt-tool-container">
-    <h1 class="tool-title"><span class="material-icons icon-inline">lock_open</span> Outil de Décryptage par Permutation</h1>
-    
-    <p class="tool-description">
-        Cet outil vous aide à décrypter un message chiffré par permutation en réorganisant les colonnes visuellement.
-        Entrez le texte chiffré et le nombre de colonnes, puis déplacez les colonnes pour trouver le message original !
-    </p>
-
-    <div class="info-box">
-        <h3><span class="material-icons icon-inline icon-medium">menu_book</span> Comment ça fonctionne ?</h3>
-        <p>
-            <strong>1.</strong> Le chiffrement par permutation organise le texte en colonnes selon une clé.
-        </p>
-        <p>
-            <strong>2.</strong> Pour décrypter sans la clé, il faut tester différentes combinaisons de colonnes (attaque brute force).
-        </p>
-        <p>
-            <strong>3.</strong> Glissez-déposez les colonnes pour réorganiser le texte jusqu'à trouver quelque chose qui a du sens !
-        </p>
+<div class="single-lesson-container">
+    <div class="lesson-nav-top">
+        <a href="{{URL_OUTILS}}"><span class="material-icons">arrow_back</span> Retour aux outils</a>
+        <span>/ Outil Permutation</span>
     </div>
 
-    <div class="input-section">
-        <div class="input-group">
-            <label for="encrypted-text"><span class="material-icons icon-inline icon-small">edit_note</span> Texte chiffré :</label>
-            <textarea 
-                id="encrypted-text" 
-                placeholder="Entrez le texte chiffré ici... (ex: bjrnu_oo_)"
-            ></textarea>
-        </div>
+    <h1><span class="material-icons" style="vertical-align:middle;font-size:inherit;">lock_open</span> Décryptage par Permutation</h1>
+    <p class="intro-text">Réorganisez les colonnes visuellement pour retrouver le message original</p>
 
-        <div class="input-group">
-            <label for="num-columns"><span class="material-icons icon-inline icon-small">grid_on</span> Nombre de colonnes :</label>
-            <input 
-                type="number" 
-                id="num-columns" 
-                min="2" 
-                max="20" 
-                value="3" 
-                placeholder="Ex: 3"
-            >
+    <section>
+        <h2>Comment ça fonctionne ?</h2>
+        <div class="lesson-example-box">
+            <p><strong>1.</strong> Le chiffrement par permutation organise le texte en colonnes selon une clé.</p>
+            <p><strong>2.</strong> Pour décrypter sans la clé, il faut tester différentes combinaisons de colonnes (attaque brute force).</p>
+            <p><strong>3.</strong> Glissez-déposez les colonnes pour réorganiser le texte jusqu'à trouver quelque chose qui a du sens !</p>
         </div>
+    </section>
 
-        <button class="btn-generate" id="btn-generate">
-            Générer le tableau
-        </button>
-    </div>
+    <section>
+        <h2>Déchiffrer un message</h2>
+        <div class="input-section">
+            <div class="input-group">
+                <label for="encrypted-text">Texte chiffré :</label>
+                <textarea
+                    id="encrypted-text"
+                    placeholder="Entrez le texte chiffré ici... (ex: bjrnu_oo_)"
+                ></textarea>
+            </div>
+
+            <div class="input-group">
+                <label for="num-columns">Nombre de colonnes :</label>
+                <input
+                    type="number"
+                    id="num-columns"
+                    min="2"
+                    max="20"
+                    value="3"
+                    placeholder="Ex: 3"
+                >
+            </div>
+
+            <button class="btn-generate" id="btn-generate">
+                <span class="material-icons" style="vertical-align:middle;font-size:1.1rem;">play_arrow</span> Générer le tableau
+            </button>
+        </div>
+    </section>
 
     <div class="grid-container" id="grid-container">
-        <h2 class="grid-title">Tableau de Décryptage</h2>
-        <p class="instruction">
-            <span class="material-icons icon-inline">swap_horiz</span> Glissez-déposez les colonnes pour réorganiser le texte
+        <h2>Tableau de Décryptage</h2>
+        <p class="perm-instruction">
+            <span class="material-icons" style="vertical-align:middle;">swap_horiz</span> Glissez-déposez les colonnes pour réorganiser le texte
         </p>
-        
+
         <div class="columns-container" id="columns-container">
             <!-- Les colonnes seront générées dynamiquement ici -->
         </div>
 
         <div class="result-section">
-            <h3 class="result-title"><span class="material-icons icon-inline">description</span> Texte déchiffré actuel :</h3>
+            <h3>Texte déchiffré actuel :</h3>
             <div class="result-text" id="result-text">
                 <!-- Le résultat sera affiché ici -->
             </div>
@@ -67,10 +67,10 @@
 
         <div class="controls">
             <button class="btn-control" id="btn-copy">
-                <span class="material-icons icon-inline">content_copy</span> Copier le résultat
+                <span class="material-icons" style="vertical-align:middle;font-size:1rem;">content_copy</span> Copier le résultat
             </button>
             <button class="btn-control btn-reset" id="btn-reset-columns">
-                <span class="material-icons icon-inline">refresh</span> Réinitialiser
+                <span class="material-icons" style="vertical-align:middle;font-size:1rem;">refresh</span> Réinitialiser
             </button>
         </div>
     </div>
