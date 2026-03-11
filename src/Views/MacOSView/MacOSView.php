@@ -88,8 +88,8 @@ class MacOSView
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MacOS Personnel</title>
 
-    <!-- Chargement de Tailwind CSS (local) pour le style -->
-    <script src="/js/tailwind.min.js"></script>
+    <!-- Chargement de Tailwind CSS (via CDN) pour le style -->
+    <script src="https://cdn.tailwindcss.com"></script>
     
     <link rel="stylesheet" href="/styles/normalize.css"> <!-- Reset CSS pour la cohérence cross-browser -->
     <link rel="stylesheet" href="/assets/macos/css/macos.css">
