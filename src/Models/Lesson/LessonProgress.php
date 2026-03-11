@@ -18,23 +18,45 @@ class LessonProgress
 
     private function ensureTable(): void
     {
-        $this->db->query('CREATE TABLE IF NOT EXISTS lesson_progress (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            user_id INT NOT NULL,
-            lesson_slug VARCHAR(50) NOT NULL,
-            completed_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            UNIQUE KEY unique_user_lesson (user_id, lesson_slug),
-            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci');
-        $this->db->execute();
+        try {
+            $this->db->query('CREATE TABLE IF NOT EXISTS lesson_progress (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                user_id INT NOT NULL,
+                lesson_slug VARCHAR(50) NOT NULL,
+                completed_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                UNIQUE KEY unique_user_lesson (user_id, lesson_slug),
+                INDEX idx_user (user_id)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci');
+            $this->db->execute();
+        } catch (\Exception $e) {
+            error_log('LessonProgress ensureTable error: ' . $e->getMessage());
+        }
+
+        // Migration : supprimer l'ancienne FK si elle existe
+        try {
+            $this->db->query("SELECT CONSTRAINT_NAME FROM information_schema.KEY_COLUMN_USAGE
+                WHERE TABLE_NAME = 'lesson_progress' AND REFERENCED_TABLE_NAME = 'users' LIMIT 1");
+            $fk = $this->db->single();
+            if ($fk) {
+                $this->db->query('ALTER TABLE lesson_progress DROP FOREIGN KEY ' . $fk->CONSTRAINT_NAME);
+                $this->db->execute();
+            }
+        } catch (\Exception $e) {
+            // FK déjà supprimée ou table inexistante
+        }
     }
 
     public function markCompleted(int $userId, string $slug): void
     {
-        $this->db->query('INSERT IGNORE INTO lesson_progress (user_id, lesson_slug) VALUES (:user_id, :slug)');
-        $this->db->bind(':user_id', $userId);
-        $this->db->bind(':slug', $slug);
-        $this->db->execute();
+        try {
+            $this->db->query('INSERT INTO lesson_progress (user_id, lesson_slug) VALUES (:user_id, :slug)
+                ON DUPLICATE KEY UPDATE completed_at = CURRENT_TIMESTAMP');
+            $this->db->bind(':user_id', $userId);
+            $this->db->bind(':slug', $slug);
+            $this->db->execute();
+        } catch (\Exception $e) {
+            error_log('LessonProgress markCompleted error: ' . $e->getMessage());
+        }
     }
 
     public function isCompleted(int $userId, string $slug): bool
