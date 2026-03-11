@@ -666,6 +666,17 @@ body::before {
 .icon-small { font-size: 1.1em; }
 .icon-inline { vertical-align: middle; font-size: inherit; }
 
+/* Lesson History Section */
+.lesson-history-section { margin: 2rem 0 2.5rem; }
+.lesson-history-section h2 { display: flex; align-items: center; gap: 0.5rem; }
+.lesson-history-card { background: rgba(0, 200, 255, 0.05); border-left: 4px solid #00c8ff; padding: 1.5rem 1.8rem; margin: 1rem 0; border-radius: 0 12px 12px 0; color: rgba(255, 255, 255, 0.9); line-height: 1.7; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); }
+.lesson-history-card p { margin: 0.6rem 0; text-align: left; }
+.lesson-history-card strong { color: #00c8ff; }
+.lesson-history-card em { color: rgba(255, 255, 255, 0.7); font-style: italic; }
+.lesson-wiki-link { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.8rem; color: #4361ee; text-decoration: none; font-weight: 500; font-size: 1rem; transition: color 0.2s; }
+.lesson-wiki-link:hover { color: #00c8ff; text-decoration: underline; }
+.lesson-wiki-link .material-icons { font-size: 1.1rem; }
+
 /* RGPD Presentation */
 .rgpd-subtitle { text-align: center; color: #00ff41; }
 
