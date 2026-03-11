@@ -250,8 +250,8 @@ class MacOSView
 </div>
 
 <script src="/assets/macos/js/notifications.js?v=2"></script>
-<script src="/assets/macos/js/macos.js"></script>
-<script src="/assets/macos/js/intro.js"></script>
+<script src="/assets/macos/js/macos.js?v=2"></script>
+<script src="/assets/macos/js/intro.js?v=2"></script>
 </body>
 </html>';
     }
