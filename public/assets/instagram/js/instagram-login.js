@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.innerHTML = '<div class="lock-code-reveal">'
                 + '<p class="lock-code-text">Vous avez récupéré le compte de Melina !</p>'
                 + '<p class="lock-code-hint">Retenez bien ce nombre pour ouvrir le cadenas :</p>'
-                + '<div class="lock-code-number">..42</div>'
+                + '<div class="lock-code-number">**42</div>'
                 + '<button class="insta-login-btn" id="lock-code-continue">Continuer</button>'
                 + '</div>';
             document.getElementById('lock-code-continue').addEventListener('click', function() {
