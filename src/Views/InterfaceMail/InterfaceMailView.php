@@ -70,8 +70,8 @@ class InterfaceMailView {
         } else {
             error_log("Erreur critique [InterfaceMailView] : Le fichier template est introuvable au chemin : " . $templatePath);
 
-            echo "<div style='color: red; padding: 20px; border: 1px solid red; background: #ffeeee;'>
-                    <strong>Erreur système :</strong> Impossible de charger l'interface de messagerie (Template manquant). 
+            echo "<div class='error-template-missing'>
+                    <strong>Erreur système :</strong> Impossible de charger l'interface de messagerie (Template manquant).
                     Veuillez contacter l'administrateur.
                   </div>";
         }

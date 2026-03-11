@@ -325,6 +325,20 @@ body {
     transform: scale(1.02);
 }
 
+.post-media {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: #fafafa;
+}
+
+.post-video {
+    width: 100%;
+    max-height: 600px;
+    object-fit: contain;
+    background: black;
+}
+
 .post-actions {
     display: flex;
     justify-content: space-between;

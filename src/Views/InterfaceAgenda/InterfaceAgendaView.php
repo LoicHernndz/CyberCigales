@@ -60,8 +60,8 @@ class InterfaceAgendaView {
         } else {
             error_log("Erreur critique [InterfaceAgendaView] : Le fichier template est introuvable au chemin : " . $templatePath);
 
-            echo "<div style='color: red; padding: 20px; border: 1px solid red; background: #ffeeee;'>
-                    <strong>Erreur système :</strong> Impossible de charger l'interface agenda (Template manquant). 
+            echo "<div class='error-template-missing'>
+                    <strong>Erreur système :</strong> Impossible de charger l'interface agenda (Template manquant).
                     Veuillez contacter l'administrateur.
                   </div>";
         }

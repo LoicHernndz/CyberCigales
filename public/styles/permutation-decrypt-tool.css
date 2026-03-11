@@ -1,5 +1,9 @@
 /* Outil Permutation — complément au style main.css (single-lesson-container) */
 
+/* Icônes inline Material Icons */
+.icon-inline { vertical-align: middle; font-size: inherit; }
+.icon-inline.icon-sm { font-size: 1rem; }
+
 /* Inputs */
 .input-section { margin-bottom: 1.5rem; }
 

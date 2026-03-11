@@ -86,7 +86,7 @@ class InstagramView extends BaseInstagramView
 
             $mediaHtml = '';
             if (isset($post['is_video']) && $post['is_video'] && isset($post['video'])) {
-                $mediaHtml = '<video src="' . $post['video'] . '" title="Post by ' . $post['username'] . '" autoplay muted loop playsinline controls style="width: 100%; max-height: 600px; object-fit: contain; background: black;"></video>';
+                $mediaHtml = '<video src="' . $post['video'] . '" title="Post by ' . $post['username'] . '" autoplay muted loop playsinline controls class="post-video"></video>';
             } else {
                 $mediaHtml = '<img src="' . $post['image'] . '" alt="Post by ' . $post['username'] . '">';
             }
@@ -101,7 +101,7 @@ class InstagramView extends BaseInstagramView
                 . '</div></div>'
                 . '<button class="more-btn" aria-label="Plus d\'options">&#x22EF;</button>'
                 . '</div>'
-                . '<div class="post-media" style="width: 100%; display: flex; justify-content: center; background: #fafafa;">'
+                . '<div class="post-media">'
                 . $mediaHtml
                 . '</div>'
                 . '<div class="post-actions">'

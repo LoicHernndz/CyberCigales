@@ -46,13 +46,12 @@
                 <span>Changer mon mot de passe</span>
                 <span class="material-icons action-arrow">arrow_forward</span>
             </a>
-            <form action="{{URL_GAME_RESET}}" method="POST" id="form-reset-game" style="width: 100%;">
+            <form action="{{URL_GAME_RESET}}" method="POST" id="form-reset-game" class="form-reset-game">
                 <input type="hidden" name="action" value="reset_all">
-                <button type="button" class="action-button action-btn-danger" id="btn-reset-game"
-                    style="width: 100%; border: none; background: none; cursor: pointer; color: inherit; font: inherit;">
-                    <span class="material-icons" style="color: #ff4d4d;">delete_forever</span>
-                    <span style="color: #ff4d4d; font-weight: bold;">Réinitialiser ma progression</span>
-                    <span class="material-icons action-arrow" style="color: #ff4d4d;">arrow_forward</span>
+                <button type="button" class="action-button action-btn-danger" id="btn-reset-game">
+                    <span class="material-icons danger-icon">delete_forever</span>
+                    <span class="danger-text">Réinitialiser ma progression</span>
+                    <span class="material-icons action-arrow danger-icon">arrow_forward</span>
                 </button>
             </form>
             <script src="/js/profil-reset.js"></script>

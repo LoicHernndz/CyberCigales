@@ -586,8 +586,8 @@ const MailGame = (function () {
                 if (indicatorEmail) indicatorEmail.textContent = hackerAccount.email;
 
                 // Badges actifs
-                if (userBadge) userBadge.style.display = 'none';
-                if (hackerBadge) hackerBadge.style.display = 'block';
+                if (userBadge) userBadge.classList.add('hidden');
+                if (hackerBadge) hackerBadge.classList.remove('hidden');
 
                 // Rendre le compte hackeur visible dans la sidebar
                 if (hackerItem) hackerItem.classList.remove('hidden');
@@ -611,8 +611,8 @@ const MailGame = (function () {
                 if (indicatorEmail) indicatorEmail.textContent = userAccount.email;
 
                 // Badges
-                if (userBadge) userBadge.style.display = 'block';
-                if (hackerBadge) hackerBadge.style.display = 'none';
+                if (userBadge) userBadge.classList.remove('hidden');
+                if (hackerBadge) hackerBadge.classList.add('hidden');
 
 
 

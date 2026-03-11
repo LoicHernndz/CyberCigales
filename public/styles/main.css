@@ -1,3 +1,6 @@
+/* Erreur template manquant */
+.error-template-missing { color: red; padding: 20px; border: 1px solid red; background: #ffeeee; }
+
 /* ==========================================================================
    1. CONFIGURATION (VARIABLES & ROOT)
    ========================================================================== */
@@ -538,6 +541,10 @@ body::before {
 }
 .action-button:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(0, 255, 65, 0.3); transform: translateX(5px); }
 .action-arrow { margin-left: auto; color: #00ff41; }
+.form-reset-game { width: 100%; }
+.action-btn-danger { width: 100%; border: none; background: none; cursor: pointer; color: inherit; font: inherit; }
+.danger-icon { color: #ff4d4d; }
+.danger-text { color: #ff4d4d; font-weight: bold; }
 .btn-edit-profil {
     display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 1rem; margin-top: 1.5rem;
     background: rgba(0, 255, 65, 0.1); border: 1px solid #00ff41; border-radius: 12px;
