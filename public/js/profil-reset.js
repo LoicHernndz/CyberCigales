@@ -11,6 +11,17 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.removeItem('hibp_password_changed');
             localStorage.removeItem('hibp_quiz_completed');
             localStorage.removeItem('hibp_challenge_done');
+
+            // Supprimer les messages de chat Instagram sauvegardés
+            var chatKeys = [];
+            for (var i = 0; i < localStorage.length; i++) {
+                var key = localStorage.key(i);
+                if (key && key.startsWith('chat_messages_')) {
+                    chatKeys.push(key);
+                }
+            }
+            chatKeys.forEach(function(key) { localStorage.removeItem(key); });
+
             window.dispatchEvent(new Event("storage"));
 
             document.getElementById('form-reset-game').submit();
