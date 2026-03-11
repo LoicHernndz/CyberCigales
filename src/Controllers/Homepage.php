@@ -90,6 +90,15 @@ class Homepage extends AbstractController
 
             error_log('Homepage lesson progress: userId=' . $userId . ' completed=' . json_encode($completedLessons) . ' count=' . $lessonsCount);
 
+            // DEBUG TEMPORAIRE — à supprimer après résolution
+            $view->addTemplateKey('DEBUG_LESSON', '<div style="background:#ff0;color:#000;padding:10px;margin:10px;border:3px solid red;font-family:monospace;font-size:14px;">'
+                . '<strong>DEBUG LESSON PROGRESS</strong><br>'
+                . 'userId=' . $userId . '<br>'
+                . 'completedLessons=' . json_encode($completedLessons) . '<br>'
+                . 'lessonsCount=' . $lessonsCount . '<br>'
+                . 'allDone=' . ($allDone ? 'true' : 'false')
+                . '</div>');
+
             $view->addTemplateKey('LESSONS_DONE_COUNT', $lessonsCount);
             $view->addTemplateKey('LESSONS_PERCENT', round($lessonsCount / 3 * 100));
 
