@@ -106,7 +106,7 @@ class MacOSView
             <span class="font-semibold text-base"></span>
             <!-- Apple Dropdown -->
             <div id="apple-menu-dropdown" class="absolute top-7 left-0 w-48 bg-white backdrop-blur-sm rounded-lg shadow-xl p-1 hidden text-gray-800 ring-1 ring-gray-300 z-50">
-                <div class="hover:bg-blue-500 hover:text-white p-1 rounded-md">À propos de ce Bureau</div>
+                <div id="btn-about" class="hover:bg-blue-500 hover:text-white p-1 rounded-md cursor-pointer">À propos de ce Bureau</div>
                 <div class="h-px my-1 bg-gray-200"></div>
                 <div id="btn-shutdown" class="hover:bg-blue-500 hover:text-white p-1 rounded-md cursor-pointer">Éteindre...</div>
             </div>

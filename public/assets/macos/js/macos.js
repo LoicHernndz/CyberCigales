@@ -475,7 +475,16 @@ window.addEventListener('load', () => {
     if (appleMenuEl) appleMenuEl.addEventListener('click', toggleAppleMenu);
     if (fileMenuToggleEl) fileMenuToggleEl.addEventListener('click', toggleFileMenu);
 
-    // 6. Bouton Éteindre → retour accueil
+    // 6. Bouton À propos → rejouer l'intro
+    var aboutBtn = document.getElementById('btn-about');
+    if (aboutBtn) {
+        aboutBtn.addEventListener('click', function () {
+            document.getElementById('apple-menu-dropdown').classList.add('hidden');
+            if (typeof playIntro === 'function') playIntro();
+        });
+    }
+
+    // 7. Bouton Éteindre → retour accueil
     var shutdownBtn = document.getElementById('btn-shutdown');
     if (shutdownBtn) {
         shutdownBtn.addEventListener('click', function () {
