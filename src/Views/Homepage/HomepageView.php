@@ -63,7 +63,16 @@ class HomepageView extends AbstractView
                 self::LEARNING_TIME => 0,
                 self::RGPD_COMPLETION => 0,
                 self::CYPHER_COMPLETION => 0,
-                self::UNLOCKED_BADGES => 0
+                self::UNLOCKED_BADGES => 0,
+                'LESSONS_DONE_COUNT' => 0,
+                'LESSONS_PERCENT' => 0,
+                'CESAR_DONE_CLASS' => 'prereq-todo',
+                'CESAR_DONE_ICON' => 'radio_button_unchecked',
+                'VIGENERE_DONE_CLASS' => 'prereq-todo',
+                'VIGENERE_DONE_ICON' => 'radio_button_unchecked',
+                'PERMUTATION_DONE_CLASS' => 'prereq-todo',
+                'PERMUTATION_DONE_ICON' => 'radio_button_unchecked',
+                'ESCAPE_CARD' => '',
             ];
 
             // Fusionner les clés par défaut avec les clés additionnelles
