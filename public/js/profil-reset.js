@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.removeItem('hibp_password_changed');
             localStorage.removeItem('hibp_quiz_completed');
             localStorage.removeItem('hibp_challenge_done');
+            localStorage.removeItem('escape_game_intro_seen');
 
             // Supprimer les messages de chat Instagram sauvegardés
             var chatKeys = [];

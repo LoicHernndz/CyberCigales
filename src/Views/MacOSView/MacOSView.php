@@ -107,7 +107,7 @@ class MacOSView
             <div id="apple-menu-dropdown" class="absolute top-7 left-0 w-48 bg-white backdrop-blur-sm rounded-lg shadow-xl p-1 hidden text-gray-800 ring-1 ring-gray-300 z-50">
                 <div class="hover:bg-blue-500 hover:text-white p-1 rounded-md">À propos de ce Bureau</div>
                 <div class="h-px my-1 bg-gray-200"></div>
-                <div class="hover:bg-blue-500 hover:text-white p-1 rounded-md">Éteindre...</div>
+                <div id="btn-shutdown" class="hover:bg-blue-500 hover:text-white p-1 rounded-md cursor-pointer">Éteindre...</div>
             </div>
         </div>
     
@@ -237,8 +237,21 @@ class MacOSView
     </div>
 </footer>
 
+<!-- Intro Overlay -->
+<div id="intro-overlay" style="display:none;position:fixed;inset:0;z-index:9999;background:#000;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.5s;">
+    <div style="width:90%;max-width:700px;max-height:70vh;overflow-y:auto;padding:2rem;">
+        <pre id="intro-text" style="font-family:monospace;color:#00ff41;font-size:0.95rem;line-height:1.7;white-space:pre-wrap;word-wrap:break-word;margin:0;"></pre><span id="intro-cursor" style="color:#00ff41;animation:introBlink 1s step-end infinite;">█</span>
+    </div>
+    <div style="margin-top:2rem;display:flex;gap:1rem;">
+        <button id="intro-skip" style="padding:0.7rem 2rem;background:transparent;border:1px solid #00ff41;color:#00ff41;font-family:monospace;font-size:0.9rem;cursor:pointer;border-radius:8px;">Passer ›</button>
+        <button id="intro-start" style="display:none;padding:0.7rem 2rem;background:rgba(0,255,65,0.15);border:1px solid #00ff41;color:#00ff41;font-family:monospace;font-size:0.9rem;font-weight:bold;cursor:pointer;border-radius:8px;">Commencer ›</button>
+    </div>
+</div>
+<style>@keyframes introBlink{0%,100%{opacity:1}50%{opacity:0}}</style>
+
 <script src="/assets/macos/js/notifications.js?v=2"></script>
 <script src="/assets/macos/js/macos.js"></script>
+<script src="/assets/macos/js/intro.js"></script>
 </body>
 </html>';
     }

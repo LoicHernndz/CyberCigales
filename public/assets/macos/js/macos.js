@@ -475,7 +475,15 @@ window.addEventListener('load', () => {
     if (appleMenuEl) appleMenuEl.addEventListener('click', toggleAppleMenu);
     if (fileMenuToggleEl) fileMenuToggleEl.addEventListener('click', toggleFileMenu);
 
-    // 6. Event delegation pour les boutons de fenêtres (close/minimize/maximize)
+    // 6. Bouton Éteindre → retour accueil
+    var shutdownBtn = document.getElementById('btn-shutdown');
+    if (shutdownBtn) {
+        shutdownBtn.addEventListener('click', function () {
+            window.location.href = '/';
+        });
+    }
+
+    // 7. Event delegation pour les boutons de fenêtres (close/minimize/maximize)
     document.addEventListener('click', function (e) {
         var btn = e.target.closest('[data-window-action]');
         if (!btn) return;
