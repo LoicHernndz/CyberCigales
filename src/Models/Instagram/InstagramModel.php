@@ -639,10 +639,11 @@ class InstagramModel
                 ['type' => 'received', 'content' => 'Je t\'envoie un exemplaire dédicacé ? 💝', 'time' => '14:12'],
             ],
             'mel_133' => [
-                ['type' => 'received', 'content' => 'Salut ! Comment ça va ? 😊', 'time' => '14:30'],
-                ['type' => 'sent', 'content' => 'Salut Melina ! Ça va super, merci !', 'time' => '14:32'],
-                ['type' => 'received', 'content' => 'J\'ai vu tes nouvelles photos, elles sont magnifiques ! 📸', 'time' => '14:35'],
-                ['type' => 'sent', 'content' => 'Merci beaucoup ! J\'adore la photographie ✨', 'time' => '14:37'],
+                ['type' => 'received', 'content' => 'Heyy ! T\'as vu mon nouveau post sur mon profil ? 😊', 'time' => '14:30'],
+                ['type' => 'received', 'content' => 'C\'est une image avec un truc bizarre écrit dessus, on dirait un code ou un chiffrement... Genre le chiffrement de César tu connais ?', 'time' => '14:31'],
+                ['type' => 'sent', 'content' => 'Ah ouais je vois ! Ça ressemble bien à du César', 'time' => '14:32'],
+                ['type' => 'received', 'content' => 'Tu pourrais essayer de le déchiffrer ? Va voir dans les cours sur le site, y a une leçon sur le chiffrement de César et un outil pour le décoder !', 'time' => '14:33'],
+                ['type' => 'received', 'content' => 'Regarde mon profil pour voir le post, et utilise l\'outil César dans la page Outils 🔐', 'time' => '14:34'],
             ],
         ];
 
