@@ -164,6 +164,8 @@ body {
     padding: 12px 16px;
     border-radius: 18px;
     position: relative;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .message.received .message-content {
