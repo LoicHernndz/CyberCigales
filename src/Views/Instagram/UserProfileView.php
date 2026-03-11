@@ -99,7 +99,7 @@ class UserProfileView extends BaseInstagramView
             $mediaHtml = '';
             if (isset($post['is_video']) && $post['is_video'] && isset($post['video'])) {
                 // Astuce : pour que Safari/iOS affiche la première frame d'une vidéo sans image de couverture, on ajoute #t=0.001
-                $mediaHtml = '<video loading="lazy" src="' . $post['video'] . '#t=0.001" playsinline muted autoplay loop title="Post ' . $post['id'] . '" style="width: 100%; height: 100%; object-fit: cover;"></video>';
+                $mediaHtml = '<video loading="lazy" src="' . $post['video'] . '#t=0.001" playsinline muted autoplay loop title="Post ' . $post['id'] . '"></video>';
             } else {
                 $mediaHtml = '<img loading="lazy" src="' . $post['image'] . '" alt="Post ' . $post['id'] . '" />';
             }
