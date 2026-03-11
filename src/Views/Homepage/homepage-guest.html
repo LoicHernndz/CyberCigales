@@ -1,61 +1,58 @@
-<!-- Hero Section -->
-<section class="hero-section">
-    <div class="section-container">
-        <div class="hero-badge">
-            <span class="material-icons">security</span>
-            <span>Plateforme Officielle</span>
-        </div>
-        <h1 class="hero-title">Maîtrisez la cybersécurité avec CyberCigales</h1>
-        <p class="hero-subtitle">
-            Plongez dans un univers interactif où chaque défi vous rapproche de l'expertise en cybersécurité. Apprenez,
-            pratiquez et excellez dans la protection des données numériques.
-        </p>
-        <div class="hero-buttons">
-            <a href="{{URL_SIGNUP}}" class="btn-primary">
-                <span>Commencer gratuitement</span>
-                <span class="material-icons">arrow_forward</span>
+<div class="dashboard-container">
+    <div class="hero-section">
+        <h1 class="hero-title">Bienvenue sur CyberCigales</h1>
+        <p class="hero-subtitle">Développez vos compétences en cybersécurité</p>
+        <div class="hero-buttons" style="margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <a href="{{URL_LOGIN}}" class="btn-primary">
+                <span>Se connecter</span>
+                <span class="material-icons">login</span>
             </a>
-            <a href="#concept" class="btn-secondary">
-                <span>Découvrir le projet</span>
-                <span class="material-icons">expand_more</span>
+            <a href="{{URL_SIGNUP}}" class="btn-secondary">
+                <span>Créer un compte</span>
+                <span class="material-icons">person_add</span>
             </a>
         </div>
     </div>
-</section>
 
-<!-- Concept Section -->
-<section id="concept" class="concept-section">
-    <div class="section-container">
-
-        <div class="concept-grid">
+    <section class="concept-section">
+        <div class="section-container">
             <div class="section-header">
-                <span class="section-badge">L'Escape Game</span>
-                <h2>Un apprentissage ludique et immersif</h2>
-                <p>Transformez votre façon d'apprendre la cybersécurité grâce à notre méthodologie unique</p>
+                <span class="section-badge">Formations</span>
+                <h2>Apprenez les bases</h2>
+                <p>Maîtrisez les différents systèmes de cryptage avant de lancer l'escape game.</p>
             </div>
 
             <div class="concept-grid">
-                <a href="{{URL_MACOS}}" class="concept-card">
+                <a href="{{URL_LECON}}" class="concept-card">
                     <div class="concept-icon">
-                        <span class="material-icons">sports_esports</span>
+                        <span class="material-icons">school</span>
                     </div>
-                    <h3>Notre Escape Game</h3>
-                    <p>Mettez en pratique toutes les connaissances que vous avez au travers de cet escape game
-                        interactif et ludique.</p>
-
+                    <h3>Nos Formations</h3>
+                    <p>Apprenez de nouvelles compétences grâce à nos leçons sur différents systèmes de cryptage et de décryptage.</p>
                     <span class="btn-card-action">
-                        <span>Lancer l'escape game</span>
-                        <span class="material-icons">play_arrow</span>
+                        <span>Accéder aux leçons</span>
+                        <span class="material-icons">arrow_forward</span>
                     </span>
                 </a>
+            </div>
+        </div>
+    </section>
 
+    <section class="concept-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-badge">Mini-Jeux & Outils</span>
+                <h2>Entraînez-vous en jouant</h2>
+                <p>Testez vos connaissances avec nos mini-jeux éducatifs sur la cybersécurité</p>
+            </div>
+
+            <div class="concept-grid">
                 <a href="{{URL_MINIGAMES}}" class="concept-card">
                     <div class="concept-icon">
                         <span class="material-icons">games</span>
                     </div>
                     <h3>Nos Mini-Jeux</h3>
-                    <p>Testez vos compétences avec nos mini-jeux interactifs</p>
-
+                    <p>Déchiffrement, analyse fréquentielle, détection de phishing... Relevez les défis pour progresser !</p>
                     <span class="btn-card-action">
                         <span>Jouer</span>
                         <span class="material-icons">arrow_forward</span>
@@ -68,7 +65,6 @@
                     </div>
                     <h3>Nos Outils</h3>
                     <p>Vérifiez vos messages cryptés grâce à nos systèmes de décryptage multi-protocoles.</p>
-
                     <span class="btn-card-action">
                         <span>Accéder aux outils</span>
                         <span class="material-icons">arrow_forward</span>
@@ -76,328 +72,28 @@
                 </a>
             </div>
         </div>
-    </div>
+    </section>
 
-
-    </div>
-</section>
-
-<!-- Formations Section -->
-<section class="formations-section">
-    <div class="section-container">
-        <div class="section-header">
-            <span class="section-badge">Nos Modules</span>
-            <h2>Nos différentes leçons</h2>
-            <p>Développez vos compétences à travers des modules d'apprentissages conçus par des experts</p>
-        </div>
-        <div class="formations-grid">
-            <!-- RGPD Module - Active -->
-            <div class="formation-card active">
-                <div class="formation-badge">
-                    <span class="material-icons">verified_user</span>
-                </div>
-                <h3>Formation RGPD</h3>
-                <p>Comprenez vos droits et obligations concernant la protection des données personnelles dans l'Union
-                    européenne.</p>
-                <ul class="formation-features">
-                    <li>
-                        <span class="material-icons">check_circle</span>
-                        <span>Comprendre les principes du RGPD</span>
-                    </li>
-                    <li>
-                        <span class="material-icons">check_circle</span>
-                        <span>Connaître vos droits et obligations</span>
-                    </li>
-                    <li>
-                        <span class="material-icons">check_circle</span>
-                        <span>QCM interactif avec feedback</span>
-                    </li>
-                </ul>
-                <div class="formation-meta">
-                    <div class="meta-item">
-                        <span class="material-icons">schedule</span>
-                        <span>10-15 min</span>
-                    </div>
-                    <div class="meta-item">
-                        <span class="material-icons">signal_cellular_alt</span>
-                        <span>Intermédiaire</span>
-                    </div>
-                </div>
+    <section class="concept-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-badge">L'Escape Game</span>
+                <h2>Mettez vos connaissances en pratique</h2>
+                <p>Connectez-vous et complétez les 3 leçons obligatoires pour débloquer l'escape game.</p>
             </div>
 
-            <!-- Chiffrement César - Active -->
-            <div class="formation-card active">
-                <div class="formation-badge">
-                    <span class="material-icons">vpn_key</span>
-                </div>
-                <h3>Chiffrement César</h3>
-                <p>Plongez dans l'univers fascinant de la cryptographie et apprenez à déchiffrer des messages codés avec
-                    le chiffement César.</p>
-                <ul class="formation-features">
-                    <li>
-                        <span class="material-icons">check_circle</span>
-                        <span>Bases de la cryptographie</span>
-                    </li>
-                    <li>
-                        <span class="material-icons">check_circle</span>
-                        <span>Algorithmes de chiffrement</span>
-                    </li>
-                    <li>
-                        <span class="material-icons">check_circle</span>
-                        <span>Utile pour notre escape game</span>
-                    </li>
-                </ul>
-                <div class="formation-meta">
-                    <div class="meta-item">
-                        <span class="material-icons">schedule</span>
-                        <span>10-15 min</span>
-                    </div>
-                    <div class="meta-item">
-                        <span class="material-icons">signal_cellular_alt</span>
-                        <span>Intermédiaire</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Chiffrement Vigenère - Active -->
-            <div class="formation-card active">
-                <div class="formation-badge">
-                    <span class="material-icons">vpn_key</span>
-                </div>
-                <h3>Chiffrement Vigenère</h3>
-                <p>Plongez dans l'univers fascinant de la cryptographie et apprenez à déchiffrer des messages codés avec
-                    le chiffement Vigenère.</p>
-                <ul class="formation-features">
-                    <li>
-                        <span class="material-icons">check_circle</span>
-                        <span>Bases de la cryptographie</span>
-                    </li>
-                    <li>
-                        <span class="material-icons">check_circle</span>
-                        <span>Algorithmes de chiffrement</span>
-                    </li>
-                    <li>
-                        <span class="material-icons">check_circle</span>
-                        <span>Utile pour notre escape game</span>
-                    </li>
-                </ul>
-                <div class="formation-meta">
-                    <div class="meta-item">
-                        <span class="material-icons">schedule</span>
-                        <span>10-15 min</span>
-                    </div>
-                    <div class="meta-item">
-                        <span class="material-icons">signal_cellular_alt</span>
-                        <span>Intermédiaire</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Chiffrement par permutation - Active -->
-            <div class="formation-card active">
-                <div class="formation-badge">
-                    <span class="material-icons">vpn_key</span>
-                </div>
-                <h3>Chiffrement par permutation</h3>
-                <p>Plongez dans l'univers fascinant de la cryptographie et apprenez à déchiffrer des messages codés avec
-                    le chiffement par permutation.</p>
-                <ul class="formation-features">
-                    <li>
-                        <span class="material-icons">check_circle</span>
-                        <span>Bases de la cryptographie</span>
-                    </li>
-                    <li>
-                        <span class="material-icons">check_circle</span>
-                        <span>Algorithmes de chiffrement</span>
-                    </li>
-                    <li>
-                        <span class="material-icons">check_circle</span>
-                        <span>Utile pour notre escape game</span>
-                    </li>
-                </ul>
-                <div class="formation-meta">
-                    <div class="meta-item">
-                        <span class="material-icons">schedule</span>
-                        <span>10-15 min</span>
-                    </div>
-                    <div class="meta-item">
-                        <span class="material-icons">signal_cellular_alt</span>
-                        <span>Intermédiaire</span>
-                    </div>
-                </div>
-            </div>
-
-            <!--  - Active -->
-            <div class="formation-card active">
-                <div class="formation-badge">
-                    <span class="material-icons">vpn_key</span>
-                </div>
-                <h3>Les Mots De Passe</h3>
-                <p>Explore comment les mots de passe sont nés, ont évolué et continuent de protéger nos données</p>
-                <ul class="formation-features">
-                    <li>
-                        <span class="material-icons">check_circle</span>
-                        <span>Connaissances historiques</span>
-                    </li>
-                    <li>
-                        <span class="material-icons">check_circle</span>
-                        <span>Connaissance actuelle</span>
-                    </li>
-                    <li>
-                        <span class="material-icons">check_circle</span>
-                        <span>Utile pour notre escape game</span>
-                    </li>
-                </ul>
-                <div class="formation-meta">
-                    <div class="meta-item">
-                        <span class="material-icons">schedule</span>
-                        <span>10-15 min</span>
-                    </div>
-                    <div class="meta-item">
-                        <span class="material-icons">signal_cellular_alt</span>
-                        <span>Intermédiaire</span>
-                    </div>
+            <div class="concept-grid">
+                <div class="concept-card escape-locked">
+                    <div class="escape-lock-overlay"><span class="material-icons">lock</span></div>
+                    <div class="concept-icon"><span class="material-icons">sports_esports</span></div>
+                    <h3>Notre Escape Game</h3>
+                    <p>Connectez-vous pour suivre votre progression et débloquer l'escape game.</p>
+                    <a href="{{URL_LOGIN}}" class="btn-card-action">
+                        <span>Se connecter</span>
+                        <span class="material-icons">login</span>
+                    </a>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-
-<section id="games" class="concept-section">
-    <div class="section-container">
-        <div class="section-header">
-            <span class="section-badge">Nos mini-jeux</span>
-            <h2>Découvrez la cryptographie en vous amusant</h2>
-            <p>Voici nos différents mini-jeux</p>
-        </div>
-
-        <div class="concept-grid">
-            <!-- carré de hamming -->
-            <a href="{{URL_GAME_HAMMING}}" class="concept-card">
-                <div class="concept-icon">
-                    <span class="material-icons">sports_esports</span>
-                </div>
-                <h3>Hamming square</h3>
-                <p>Trouvez l'erreur dans le carré de Hamming</p>
-
-                <span class="btn-card-action">
-                    <span>Jouer</span>
-                    <span class="material-icons">play_arrow</span>
-                </span>
-            </a>
-
-            <!-- Attacke de fréquence -->
-            <a href="{{URL_GAME_FREQUENCY}}" class="concept-card">
-                <div class="concept-icon">
-                    <span class="material-icons">bar_chart</span>
-                </div>
-                <h3>Frequency Game</h3>
-                <p>Déchiffrez le message codé grâce aux règles du langage.</p>
-
-                <span class="btn-card-action">
-                    <span>Jouer</span>
-                    <span class="material-icons">play_arrow</span>
-                </span>
-            </a>
-
-
-        </div>
-    </div>
-</section>
-
-<!-- Team Section -->
-<section class="team-section">
-    <div class="section-container">
-        <div class="section-header">
-            <span class="section-badge">Qui sommes-nous ?</span>
-            <h2>Une équipe passionnée à votre service</h2>
-            <p>Nous mettons notre expertise au service de votre apprentissage</p>
-        </div>
-        <div class="team-content">
-            <div class="team-description">
-                <p>
-                    <strong>CyberCigales</strong> est né de la volonté de démocratiser l'apprentissage de la
-                    cybersécurité auprès des étudiantes. Dans un monde où les menaces numériques sont omniprésentes,
-                    nous croyons que chacun doit avoir accès aux connaissances essentielles pour se protéger.
-                </p>
-                <p>
-                    Notre équipe réunit des experts en sécurité informatique, des pédagogues passionnés et des
-                    développeurs créatifs. Ensemble, nous avons conçu une plateforme qui allie rigueur technique et
-                    approche ludique pour rendre l'apprentissage de la cybersécurité accessible, engageant et efficace.
-                </p>
-                <p>
-                    Nous travaillons sans relâche pour créer du contenu de qualité, des exercices pratiques et des
-                    simulations réalistes qui vous préparent aux défis du monde numérique.
-                </p>
-                <div class="team-stats">
-                    <div class="team-stat">
-                        <span class="stat-number">4+</span>
-                        <span class="stat-label">Modules</span>
-                    </div>
-                    <div class="team-stat">
-                        <span class="stat-number">100%</span>
-                        <span class="stat-label">Gratuit</span>
-                    </div>
-                    <div class="team-stat">
-                        <span class="stat-number">24/7</span>
-                        <span class="stat-label">Accessible</span>
-                    </div>
-                </div>
-            </div>
-            <div class="team-values">
-                <div class="value-item">
-                    <div class="value-icon">
-                        <span class="material-icons">school</span>
-                    </div>
-                    <div>
-                        <h4>Pédagogie innovante</h4>
-                        <p>Des méthodes d'apprentissage modernes et efficaces</p>
-                    </div>
-                </div>
-                <div class="value-item">
-                    <div class="value-icon">
-                        <span class="material-icons">emoji_objects</span>
-                    </div>
-                    <div>
-                        <h4>Approche ludique</h4>
-                        <p>Apprendre en s'amusant pour mieux retenir</p>
-                    </div>
-                </div>
-                <div class="value-item">
-                    <div class="value-icon">
-                        <span class="material-icons">security</span>
-                    </div>
-                    <div>
-                        <h4>Expertise reconnue</h4>
-                        <p>Contenu validé par des professionnels du secteur</p>
-                    </div>
-                </div>
-                <div class="value-item">
-                    <div class="value-icon">
-                        <span class="material-icons">diversity_3</span>
-                    </div>
-                    <div>
-                        <h4>Accessibilité totale</h4>
-                        <p>Formation gratuite et ouverte à tous les étudiants</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- CTA Section -->
-<section class="cta-section">
-    <div class="cta-container">
-        <div class="cta-icon">
-            <span class="material-icons">rocket_launch</span>
-        </div>
-        <h2>Prêt à commencer votre aventure ?</h2>
-        <p>Rejoignez dès maintenant la communauté CyberCigales et devenez un expert en cybersécurité !</p>
-        <a href="{{URL_SIGNUP}}" class="btn-cta">
-            <span>Créer mon compte gratuit</span>
-            <span class="material-icons">arrow_forward</span>
-        </a>
-        <p class="cta-note">Aucune carte bancaire requise • Accès immédiat à tous les modules</p>
-    </div>
-</section>
+    </section>
+</div>
