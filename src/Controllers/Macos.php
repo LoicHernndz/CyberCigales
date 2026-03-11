@@ -4,6 +4,7 @@ namespace Controllers;
 
 use Views\MacOSView\MacOSView;
 use Views\MacOSLock\MacOSLockView;
+use Models\Lesson\LessonProgress;
 use Attributes\Route;
 
 /**
@@ -26,6 +27,14 @@ class Macos extends AbstractController
         if (!isset($_SESSION['user_id'])) {
             $view = new MacOSLockView();
             $view->render();
+            return;
+        }
+
+        $progress = new LessonProgress();
+        if (!$progress->areRequiredLessonsCompleted($_SESSION['user_id'])) {
+            $missing = $progress->getMissingLessons($_SESSION['user_id']);
+            flash('lecon', 'Vous devez d\'abord terminer les leçons suivantes avant d\'accéder à l\'escape game : ' . implode(', ', $missing), 'form-message form-message-red');
+            redirect(url('lecon_index'));
             return;
         }
 

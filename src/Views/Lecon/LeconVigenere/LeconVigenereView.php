@@ -6,17 +6,19 @@ use Views\AbstractView;
 
 class LeconVigenereView extends AbstractView {
 
-    // Chemin du fichier HTML associé à la page des mentions légales
     private const TEMPLATE_HTML = __DIR__ . '/LeconVigenere.html';
+    private array $additionalKeys = [];
 
-    // Méthode qui retourne le chemin du template HTML à afficher
+    public function addTemplateKey(string $key, $value): void
+    {
+        $this->additionalKeys[$key] = $value;
+    }
+
     public function templatePath() : string {
         return self::TEMPLATE_HTML;
     }
 
-    // Méthode qui retourne les variables à injecter dans le template
-    // Ici, la page est statique donc aucune donnée dynamique n’est envoyée
     public function templateKeys() : array {
-        return [];
+        return $this->additionalKeys;
     }
 }

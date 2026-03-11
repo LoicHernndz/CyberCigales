@@ -4,27 +4,62 @@
         <p class="hero-subtitle">Développez vos compétences en cybersécurité</p>
     </div>
 
+    <section id="traditionnel" class="concept-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-badge">Étape 1 — Formations</span>
+                <h2>Commencez par les leçons</h2>
+                <p>Avant de lancer l'escape game, vous devez d'abord maîtriser les bases de la cryptographie.</p>
+            </div>
+
+            <div class="prereq-checklist">
+                <div class="prereq-item {{CESAR_DONE_CLASS}}">
+                    <span class="material-icons prereq-icon">{{CESAR_DONE_ICON}}</span>
+                    <a href="{{URL_LECON_CESAR}}">Chiffrement de César</a>
+                </div>
+                <div class="prereq-item {{VIGENERE_DONE_CLASS}}">
+                    <span class="material-icons prereq-icon">{{VIGENERE_DONE_ICON}}</span>
+                    <a href="{{URL_LECON_VIGENERE}}">Chiffrement de Vigenère</a>
+                </div>
+                <div class="prereq-item {{PERMUTATION_DONE_CLASS}}">
+                    <span class="material-icons prereq-icon">{{PERMUTATION_DONE_ICON}}</span>
+                    <a href="{{URL_LECON_PERMUTATION}}">Chiffrement par Permutation</a>
+                </div>
+            </div>
+
+            <div class="prereq-progress">
+                <div class="prereq-progress-bar">
+                    <div class="prereq-progress-fill" style="width: {{LESSONS_PERCENT}}%"></div>
+                </div>
+                <span class="prereq-progress-text">{{LESSONS_DONE_COUNT}}/3 leçons terminées</span>
+            </div>
+
+            <div class="concept-grid">
+                <a href="{{URL_LECON}}" class="concept-card">
+                    <div class="concept-icon">
+                        <span class="material-icons">school</span>
+                    </div>
+                    <h3>Nos Formations</h3>
+                    <p>Apprenez de nouvelles compétences grâce à nos leçons sur différents systèmes de cryptage et de décryptage.</p>
+                    <span class="btn-card-action">
+                        <span>Accéder aux leçons</span>
+                        <span class="material-icons">arrow_forward</span>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <section id="concept" class="concept-section">
         <div class="section-container">
             <div class="section-header">
-                <span class="section-badge">L'Escape Game</span>
+                <span class="section-badge">Étape 2 — L'Escape Game</span>
                 <h2>Un apprentissage ludique et immersif</h2>
                 <p>Transformez votre façon d'apprendre la cybersécurité grâce à notre méthodologie unique</p>
             </div>
 
             <div class="concept-grid">
-                <a href="{{URL_MACOS}}" class="concept-card">
-                    <div class="concept-icon">
-                        <span class="material-icons">sports_esports</span>
-                    </div>
-                    <h3>Notre Escape Game</h3>
-                    <p>Mettez en pratique toutes les connaissances que vous avez au travers de cet escape game interactif et ludique.</p>
-
-                    <span class="btn-card-action">
-                    <span>Lancer l'escape game</span>
-                    <span class="material-icons">play_arrow</span>
-                </span>
-                </a>
+                {{ESCAPE_CARD}}
 
                 <a href="{{URL_OUTILS}}" class="concept-card">
                     <div class="concept-icon">
@@ -36,32 +71,6 @@
                     <span class="btn-card-action">
                     <span>Accéder aux outils</span>
                     <span class="material-icons">arrow_forward</span>
-                </span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-
-    <section id="traditionnel" class="concept-section">
-        <div class="section-container">
-            <div class="section-header">
-                <span class="section-badge">Nos leçons</span>
-                <h2>Un apprentissage plus traditionnel</h2>
-                <p>Si vous préférez une approche plus classique avec des leçon interactive. N'hésitez pas à suivre nos formations.</p>
-            </div>
-
-            <div class="concept-grid">
-                <a href="{{URL_LECON}}" class="concept-card">
-                    <div class="concept-icon">
-                        <span class="material-icons">school</span>
-                    </div>
-                    <h3>Notre Formations</h3>
-                    <p>Apprennez de nouvelles compétences grâce à nos leçons sur différents systèmes de cryptage et de décryptage.</p>
-
-                    <span class="btn-card-action">
-                    <span>Commencer à apprendre</span>
-                    <span class="material-icons">play_arrow</span>
                 </span>
                 </a>
             </div>

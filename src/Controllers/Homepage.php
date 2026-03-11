@@ -3,6 +3,7 @@ namespace Controllers;
 
 use Models\User\User;
 use Models\User\UserStats;
+use Models\Lesson\LessonProgress;
 use Views\Homepage\HomepageView;
 use Attributes\Route;
 
@@ -79,5 +80,39 @@ class Homepage extends AbstractController
         $view->addTemplateKey('RGPD_COMPLETION', $rgpdCompletion);
         $view->addTemplateKey('CYPHER_COMPLETION', $cypherCompletion);
         $view->addTemplateKey('UNLOCKED_BADGES', count($unlockedBadges));
+
+        // Progression des leçons pour l'escape game
+        $lessonProgress = new LessonProgress();
+        $completedLessons = $lessonProgress->getCompletedLessons($userId);
+        $lessonsCount = count(array_intersect($completedLessons, ['cesar', 'vigenere', 'permutation']));
+        $allDone = $lessonsCount >= 3;
+
+        $view->addTemplateKey('LESSONS_DONE_COUNT', $lessonsCount);
+        $view->addTemplateKey('LESSONS_PERCENT', round($lessonsCount / 3 * 100));
+
+        foreach (['cesar', 'vigenere', 'permutation'] as $lesson) {
+            $done = in_array($lesson, $completedLessons);
+            $key = strtoupper($lesson);
+            $view->addTemplateKey($key . '_DONE_CLASS', $done ? 'prereq-done' : 'prereq-todo');
+            $view->addTemplateKey($key . '_DONE_ICON', $done ? 'check_circle' : 'radio_button_unchecked');
+        }
+
+        if ($allDone) {
+            $escapeCard = '<a href="' . url('macos') . '" class="concept-card">
+                    <div class="concept-icon"><span class="material-icons">sports_esports</span></div>
+                    <h3>Notre Escape Game</h3>
+                    <p>Mettez en pratique toutes les connaissances que vous avez au travers de cet escape game interactif et ludique.</p>
+                    <span class="btn-card-action"><span>Lancer l\'escape game</span><span class="material-icons">play_arrow</span></span>
+                </a>';
+        } else {
+            $escapeCard = '<div class="concept-card escape-locked">
+                    <div class="escape-lock-overlay"><span class="material-icons">lock</span></div>
+                    <div class="concept-icon"><span class="material-icons">sports_esports</span></div>
+                    <h3>Notre Escape Game</h3>
+                    <p>Terminez les 3 leçons obligatoires pour débloquer l\'escape game.</p>
+                    <span class="btn-card-action btn-card-disabled"><span>Verrouillé — ' . $lessonsCount . '/3 leçons</span><span class="material-icons">lock</span></span>
+                </div>';
+        }
+        $view->addTemplateKey('ESCAPE_CARD', $escapeCard);
     }
 }

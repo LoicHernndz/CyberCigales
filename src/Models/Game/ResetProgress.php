@@ -41,7 +41,16 @@ class ResetProgress
                 $tryCypher = false;
             }
 
-            // 3. Réinitialiser le score global de l'utilisateur
+            // 3. Supprimer la progression des leçons
+            try {
+                $this->db->query('DELETE FROM lesson_progress WHERE user_id = :user_id');
+                $this->db->bind(':user_id', $userId);
+                $this->db->execute();
+            } catch (\Exception $e) {
+                // La table n'existe peut-être pas encore
+            }
+
+            // 4. Réinitialiser le score global de l'utilisateur
             $this->db->query('UPDATE users SET score = 0 WHERE id = :user_id');
             $this->db->bind(':user_id', $userId);
             $this->db->execute();

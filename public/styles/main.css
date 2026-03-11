@@ -677,6 +677,51 @@ body::before {
 .lesson-wiki-link:hover { color: #00c8ff; text-decoration: underline; }
 .lesson-wiki-link .material-icons { font-size: 1.1rem; }
 
+/* Lesson Completion & Escape Game Gating */
+.btn-lesson-complete { display: inline-flex; align-items: center; gap: 0.5rem; padding: 1rem 2rem; background: linear-gradient(135deg, #00ff41, #00cc33); color: #0a0e1a; font-weight: 700; font-size: 1.1rem; border: none; border-radius: 12px; cursor: pointer; transition: all 0.3s; font-family: var(--font-sans); }
+.btn-lesson-complete:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0, 255, 65, 0.4); }
+.btn-lesson-complete .material-icons { font-size: 1.3rem; }
+.btn-secondary-link { display: inline-block; margin-top: 1rem; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.9rem; }
+.btn-secondary-link:hover { color: #00ff41; }
+.lesson-done-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.5rem; background: rgba(0, 255, 65, 0.1); border: 2px solid #00ff41; border-radius: 12px; color: #00ff41; font-weight: 600; font-size: 1.1rem; margin-bottom: 1rem; }
+.lesson-done-badge .material-icons { font-size: 1.4rem; }
+
+/* Escape Game Locked Card */
+.escape-locked { position: relative; opacity: 0.6; pointer-events: none; }
+.escape-lock-overlay { position: absolute; top: 1rem; right: 1rem; z-index: 2; background: rgba(255, 100, 100, 0.2); border: 1px solid rgba(255, 100, 100, 0.4); border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; }
+.escape-lock-overlay .material-icons { color: #ff6b6b; font-size: 1.5rem; }
+.btn-card-disabled { opacity: 0.5; }
+
+/* Prerequisites Checklist */
+.prereq-checklist { display: flex; flex-direction: column; gap: 0.8rem; margin: 1.5rem auto; max-width: 500px; }
+.prereq-item { display: flex; align-items: center; gap: 0.8rem; padding: 0.8rem 1.2rem; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px; transition: all 0.3s; }
+.prereq-item a { color: rgba(255, 255, 255, 0.8); text-decoration: none; font-weight: 500; }
+.prereq-item a:hover { color: #00ff41; }
+.prereq-done { border-color: rgba(0, 255, 65, 0.3); background: rgba(0, 255, 65, 0.05); }
+.prereq-done .prereq-icon { color: #00ff41; }
+.prereq-todo .prereq-icon { color: rgba(255, 255, 255, 0.3); }
+
+/* Prerequisites Progress Bar */
+.prereq-progress { display: flex; align-items: center; gap: 1rem; margin: 1.5rem auto; max-width: 500px; }
+.prereq-progress-bar { flex: 1; height: 8px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; overflow: hidden; }
+.prereq-progress-fill { height: 100%; background: linear-gradient(90deg, #00ff41, #00cc33); border-radius: 4px; transition: width 0.5s ease; }
+.prereq-progress-text { color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; font-weight: 600; white-space: nowrap; }
+
+/* Lesson Card Badges */
+.lesson-card-badge { position: absolute; top: 0.8rem; left: 0.8rem; z-index: 2; display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+.lesson-card-badge .material-icons { font-size: 0.9rem; }
+.badge-required { background: rgba(255, 165, 0, 0.2); border: 1px solid rgba(255, 165, 0, 0.5); color: #ffa500; }
+.badge-done { background: rgba(0, 255, 65, 0.15); border: 1px solid rgba(0, 255, 65, 0.4); color: #00ff41; }
+.mission-card { position: relative; }
+
+/* Lesson Progress Banner */
+.lesson-progress-banner { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.5rem; margin: 0 auto 2rem; max-width: 800px; background: rgba(0, 200, 255, 0.05); border: 1px solid rgba(0, 200, 255, 0.2); border-radius: 12px; color: rgba(255, 255, 255, 0.8); font-size: 0.95rem; flex-wrap: wrap; }
+.lesson-progress-banner > .material-icons { color: #00c8ff; font-size: 1.3rem; }
+.lesson-progress-banner .prereq-progress { margin: 0; flex: 1; min-width: 150px; }
+
+/* Flash message green */
+.form-message-green { background: rgba(0, 255, 65, 0.1); border: 1px solid rgba(0, 255, 65, 0.3); color: #00ff41; padding: 1rem; border-radius: 8px; text-align: center; margin-bottom: 1rem; }
+
 /* RGPD Presentation */
 .rgpd-subtitle { text-align: center; color: #00ff41; }
 

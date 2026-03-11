@@ -1,22 +1,26 @@
 <div class="dashboard-container">
   <div class="hero-section">
     <h1 class="hero-title">Nos Formations</h1>
-    <p class="hero-subtitle">Apprennez de nouvelles compétences grâce à nos leçons sur différents systèmes de cryptage et de décryptage.</p>
+    <p class="hero-subtitle">Apprenez de nouvelles compétences grâce à nos leçons sur différents systèmes de cryptage et de décryptage.</p>
   </div>
+
+  {{FLASH_MESSAGE}}
+  {{PROGRESS_BANNER}}
 
   <div class="game-dashboard">
     <div class="mission-cards">
       <div class="mission-card">
+        {{VIGENERE_BADGE}}
         <div class="mission-badge">
           <span class="material-icons">vpn_key</span>
         </div>
         <div class="mission-image">
-          <img src="/images/cadenas-binaire-22632253.webp" alt="Code Vignère">
+          <img src="/images/cadenas-binaire-22632253.webp" alt="Code Vigenère">
         </div>
         <div class="mission-content">
-          <h3>Code Vignère</h3>
+          <h3>Code Vigenère</h3>
           <p class="mission-description">
-            Leçon de chiffrement Vignère.
+            Leçon de chiffrement Vigenère.
           </p>
           <a href="{{URL_LECON_VIGENERE}}" class="btn-mission">
             <span>Commencer à apprendre</span>
@@ -26,6 +30,7 @@
       </div>
 
       <div class="mission-card">
+        {{CESAR_BADGE}}
         <div class="mission-badge">
           <span class="material-icons">vpn_key</span>
         </div>
@@ -49,7 +54,7 @@
           <span class="material-icons">vpn_key</span>
         </div>
         <div class="mission-image">
-          <img src="/images/cadenas-binaire-22632253.webp" alt="Frequency Game">
+          <img src="/images/cadenas-binaire-22632253.webp" alt="Les Mots De Passe">
         </div>
         <div class="mission-content">
           <h3>Les Mots De Passe</h3>
@@ -64,11 +69,12 @@
       </div>
 
       <div class="mission-card">
+        {{PERMUTATION_BADGE}}
         <div class="mission-badge">
           <span class="material-icons">vpn_key</span>
         </div>
         <div class="mission-image">
-          <img src="/images/cadenas-binaire-22632253.webp" alt="Frequency Game">
+          <img src="/images/cadenas-binaire-22632253.webp" alt="Chiffrement Par Permutation">
         </div>
         <div class="mission-content">
           <h3>Chiffrement Par Permutation</h3>
@@ -87,7 +93,7 @@
           <span class="material-icons">vpn_key</span>
         </div>
         <div class="mission-image">
-          <img src="/images/cadenas-binaire-22632253.webp" alt="Frequency Game">
+          <img src="/images/cadenas-binaire-22632253.webp" alt="RGPD">
         </div>
         <div class="mission-content">
           <h3>Règlement Sur Les Données (RGPD)</h3>
