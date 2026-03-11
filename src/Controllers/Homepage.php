@@ -2,7 +2,7 @@
 namespace Controllers;
 
 use Models\User\UserStats;
-use Models\Lesson\LessonProgress;
+use config\Database;
 use Views\Homepage\HomepageView;
 use Attributes\Route;
 
@@ -41,20 +41,26 @@ class Homepage extends AbstractController
                 error_log('Homepage stats error: ' . $e->getMessage());
             }
 
-            // Escape game : verrouillé ou débloqué
-            $allDone = false;
+            // Vérif escape game : simple COUNT SQL direct
+            $lessonsCompleted = 0;
             try {
-                $lessonProgress = new LessonProgress();
-                $allDone = $lessonProgress->areRequiredLessonsCompleted($userId);
+                $db = new Database();
+                $db->query('SELECT COUNT(*) as total FROM lesson_progress WHERE user_id = :uid AND lesson_slug IN ("cesar","vigenere","permutation")');
+                $db->bind(':uid', $userId);
+                $row = $db->single();
+                if ($row) {
+                    $lessonsCompleted = (int) $row->total;
+                }
             } catch (\Throwable $e) {
-                error_log('Homepage lesson error: ' . $e->getMessage());
+                // table n'existe pas encore ou autre erreur
             }
 
-            if ($allDone) {
-                $view->addTemplateKey('ESCAPE_CARD', '<a href="' . url('macos') . '" class="concept-card">
+            $escapeUrl = url('macos');
+            if ($lessonsCompleted >= 3) {
+                $view->addTemplateKey('ESCAPE_CARD', '<a href="' . $escapeUrl . '" class="concept-card">
                     <div class="concept-icon"><span class="material-icons">sports_esports</span></div>
                     <h3>Notre Escape Game</h3>
-                    <p>Mettez en pratique toutes les connaissances que vous avez au travers de cet escape game interactif et ludique.</p>
+                    <p>Mettez en pratique toutes les connaissances que vous avez acquises au travers de cet escape game interactif et ludique.</p>
                     <span class="btn-card-action"><span>Lancer l\'escape game</span><span class="material-icons">play_arrow</span></span>
                 </a>');
             } else {
@@ -62,8 +68,8 @@ class Homepage extends AbstractController
                     <div class="escape-lock-overlay"><span class="material-icons">lock</span></div>
                     <div class="concept-icon"><span class="material-icons">sports_esports</span></div>
                     <h3>Notre Escape Game</h3>
-                    <p>Terminez les 3 leçons obligatoires pour débloquer l\'escape game.</p>
-                    <span class="btn-card-action btn-card-disabled"><span>Verrouillé</span><span class="material-icons">lock</span></span>
+                    <p>Terminez les 3 leçons obligatoires (César, Vigenère, Permutation) pour débloquer l\'escape game.</p>
+                    <span class="btn-card-action btn-card-disabled"><span>Verrouillé — ' . $lessonsCompleted . '/3 leçons</span><span class="material-icons">lock</span></span>
                 </div>');
             }
         }
