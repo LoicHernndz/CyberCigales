@@ -478,7 +478,8 @@ window.addEventListener('load', () => {
     // 6. Bouton À propos → rejouer l'intro
     var aboutBtn = document.getElementById('btn-about');
     if (aboutBtn) {
-        aboutBtn.addEventListener('click', function () {
+        aboutBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
             document.getElementById('apple-menu-dropdown').classList.add('hidden');
             if (typeof playIntro === 'function') playIntro();
         });
@@ -487,7 +488,8 @@ window.addEventListener('load', () => {
     // 7. Bouton Éteindre → retour accueil
     var shutdownBtn = document.getElementById('btn-shutdown');
     if (shutdownBtn) {
-        shutdownBtn.addEventListener('click', function () {
+        shutdownBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
             window.location.href = '/';
         });
     }
