@@ -165,7 +165,7 @@ body {
     border-radius: 18px;
     position: relative;
     overflow-wrap: break-word;
-    word-break: break-word;
+    word-break: break-all;
 }
 
 .message.received .message-content {
@@ -184,6 +184,8 @@ body {
     margin: 0;
     font-size: 14px;
     line-height: 1.4;
+    overflow-wrap: break-word;
+    word-break: break-all;
 }
 
 .message-content .time {
