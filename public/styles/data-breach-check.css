@@ -646,6 +646,87 @@
     font-weight: 700;
 }
 
+/* Compact mode pour iframe macOS */
+.breach-page.in-iframe {
+    min-height: 100vh;
+    padding: 1.2rem 1.2rem;
+}
+
+.in-iframe .breach-hero {
+    margin-bottom: 1.2rem;
+}
+
+.in-iframe .hero-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 0.8rem;
+}
+
+.in-iframe .breach-hero h1 {
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    margin-bottom: 0.4rem;
+}
+
+.in-iframe .tagline {
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.in-iframe .search-section {
+    margin-bottom: 1.2rem;
+}
+
+.in-iframe .search-box input {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.85rem;
+}
+
+.in-iframe .search-box button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.8rem;
+}
+
+.in-iframe .result-area {
+    margin-bottom: 1.5rem;
+}
+
+.in-iframe .result-header {
+    padding: 0.9rem 1.2rem;
+}
+
+.in-iframe .result-body {
+    padding: 1rem;
+}
+
+.in-iframe .breach-detail {
+    padding: 0.9rem;
+    margin-bottom: 0.9rem;
+}
+
+.in-iframe .stats-footer {
+    gap: 2rem;
+    padding-top: 1.2rem;
+}
+
+.in-iframe .stat-num {
+    font-size: 1.1rem;
+}
+
+.in-iframe .security-quiz {
+    margin-top: 1rem;
+    padding-top: 1rem;
+}
+
+.in-iframe .quiz-question {
+    padding: 0.8rem 1rem;
+    margin-bottom: 0.7rem;
+}
+
+.in-iframe .password-change-section {
+    margin-top: 1rem;
+    padding-top: 1rem;
+}
+
 /* Responsive */
 @media (max-width: 640px) {
     .breach-page {

@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
         S_html += '            </div>';
         S_html += '            <button type="button" id="quiz-validate-btn" class="btn-quiz-validate">Valider le quiz</button>';
         S_html += '            <div id="quiz-success-msg" class="quiz-success-msg" style="display:none;">';
-        S_html += '                <span class="success-icon">&#10003;</span> Bravo ! Vous maitrisez les bases de la cybersecurite. Vous pouvez maintenant securiser votre compte.';
+        S_html += '                <span class="success-icon">&#10003;</span> Bravo ! Vous maitrisez les bases de la cybersecurite. Retournez envoyer un message a Leo pour lui dire que vous avez termine !';
         S_html += '            </div>';
         S_html += '        </div>';
 
