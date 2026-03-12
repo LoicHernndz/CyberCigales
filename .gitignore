@@ -553,9 +553,12 @@ database/
 
 docs/api/
 
-# PHPDoc / PHPUnit (outils locaux, ne pas commiter)
+# PHPDoc (outils locaux)
 phpDocumentor.phar
 phpunit.phar
-phpunit.xml
 docs/
 .phpdoc/
+
+# Composer & PHPUnit
+vendor/
+.phpunit.cache
