@@ -100,14 +100,12 @@ class Frequency extends AbstractController
     private function startGame(): void
     {
         $originalText = $this->texts[array_rand($this->texts)];
-        $alphabet = range('A', 'Z');
-        $shuffled = $alphabet;
-        shuffle($shuffled);
-        $key = array_combine($alphabet, $shuffled);
+        // Décalage César aléatoire entre 1 et 25
+        $shift = random_int(1, 25);
         $encryptedText = '';
         foreach (str_split($originalText) as $char) {
             if (ctype_upper($char)) {
-                $encryptedText .= $key[$char];
+                $encryptedText .= chr((ord($char) - ord('A') + $shift) % 26 + ord('A'));
             } else {
                 $encryptedText .= $char;
             }
