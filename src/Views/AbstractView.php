@@ -93,149 +93,58 @@ abstract class AbstractView
     }
 
     /**
-     * Affiche le header de la page
+     * Affiche le header depuis le template HTML
      */
     function renderHeader(): void
     {
-        $logoHref = isset($_SESSION['user_id']) ? url('dashboard') : url('homepage');
+        $templateDir = __DIR__ . '/templates/';
+        $header = file_get_contents($templateDir . 'header.html');
 
-        echo '
-<!DOCTYPE html>
-<html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="CyberCigales : Escape Game Numérique autour de la cybersécurité et de la cryptographie.">
-        <title>CyberCigales</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="/assets/css/main.css?v=8" type="text/css">
-        <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
-        <link rel="shortcut icon" href="/images/favicon.svg">
-        <link rel="apple-touch-icon" href="/images/favicon.svg">
-        <meta property="og:type" content="website">
-        <meta property="og:site_name" content="CyberCigales">
-        <meta property="og:title" content="CyberCigales">
-        <meta property="og:description" content="Escape Game Numérique autour de la cybersécurité et de la cryptographie.">
-        <meta property="og:image" content="https://cybercigales.fr/images/cybercigales-logo.png?v=4">
-        <meta property="og:image:type" content="image/png">
-        <meta property="og:image:width" content="512">
-        <meta property="og:image:height" content="512">
-        <meta property="og:image:alt" content="Logo CyberCigales - Cigale avec cadenas">
-        <meta property="og:url" content="https://cybercigales.fr">
-        <meta name="twitter:card" content="summary_large_image">
-        <meta property="og:image" content="/images/favicon.svg">
-        <meta name="twitter:card" content="summary">
-        <meta name="twitter:title" content="CyberCigales">
-        <meta name="twitter:description" content="Escape Game Numérique autour de la cybersécurité et de la cryptographie.">
-        <meta name="twitter:image" content="https://cybercigales.fr/images/cybercigales-logo.png?v=4">
-        <meta name="twitter:image:alt" content="Logo CyberCigales - Cigale avec cadenas">
-    </head>
-    <body>
-        <header class="site-header">
-            <div class="header-container">
-                <div class="logo">
-                    <a href="' . $logoHref . '">
-                        <span class="material-icons logo-icon">security</span>
-                        <span class="logo-text">CyberCigales</span>
-                    </a>
-                </div>
-                <nav class="main-nav">
-            ';
-        if (isset($_SESSION['user_id'])):
-            echo '<a href="' . url('lecon_index') . '" class="nav-link">
-                        <span class="material-icons">school</span>
-                        <span>Formations</span>
-                    </a>
-                    <a href="' . url('outils') . '" class="nav-link">
-                        <span class="material-icons">build</span>
-                        <span>Outils</span>
-                    </a>
-                    <a href="' . url('minigames') . '" class="nav-link">
-                        <span class="material-icons">games</span>
-                        <span>Mini jeux</span>
-                    </a>
-                    <a href="' . url('user_profil') . '" class="nav-link">
-                        <span class="material-icons">person</span>
-                        <span>Profil</span>
-                    </a>
-                    <a href="' . url('user_logout') . '" class="nav-link nav-logout">
-                        <span class="material-icons">logout</span>
-                        <span>Déconnexion</span>
-                    </a>';
-        else:
-            echo '<a href="' . url('homepage') . '" class="nav-link">
-                        <span class="material-icons">home</span>
-                        <span>Accueil</span>
-                    </a>
-                    <a href="' . url('user_login') . '" class="nav-link">
-                        <span class="material-icons">login</span>
-                        <span>Connexion</span>
-                    </a>
-                    <a href="' . url('user_signup') . '" class="nav-link">
-                        <span class="material-icons">person_add</span>
-                        <span>Inscription</span>
-                    </a>';
-        endif;
-        echo '
-                </nav>
-                <button class="mobile-menu-toggle" aria-label="Menu">
-                    <span class="material-icons">menu</span>
-                </button>
-            </div>
-        </header>
-        <main class="main-content">';
+        $navFile = isset($_SESSION['user_id']) ? 'nav-logged.html' : 'nav-guest.html';
+        $navContent = file_get_contents($templateDir . $navFile);
+
+        $keys = array_merge(
+            [
+                'NAV_LINKS'  => $navContent,
+                'LOGO_HREF'  => isset($_SESSION['user_id']) ? url('dashboard') : url('homepage'),
+                'EXTRA_HEAD' => $this->extraHeadContent(),
+            ],
+            $this->commonUrlKeys()
+        );
+
+        foreach ($keys as $key => $value) {
+            $header = str_replace('{{' . $key . '}}', (string)$value, $header);
+        }
+
+        echo $header;
     }
 
     /**
-     * Affiche le footer de la page
+     * Contenu supplémentaire à injecter dans le <head>.
+     * Les vues enfants peuvent surcharger cette méthode.
+     */
+    protected function extraHeadContent(): string
+    {
+        return '';
+    }
+
+    /**
+     * Affiche le footer depuis le template HTML
      */
     function renderFooter(): void
     {
+        $footer = file_get_contents(__DIR__ . '/templates/footer.html');
 
-        echo '</main>
-               <footer class="site-footer">
-                <div class="footer-container">
-                    <div class="footer-brand">
-                        <div class="footer-logo">
-                            <span class="material-icons">security</span>
-                            <span>CyberCigales</span>
-                        </div>
-                        <p class="footer-tagline">Votre plateforme de sensibilisation à la cybersécurité</p>
-                    </div>
+        $keys = array_merge(
+            ['YEAR' => date('Y')],
+            $this->commonUrlKeys()
+        );
 
-                    <div class="footer-links">
-                        <h4>Navigation</h4>
-                        <a href="' . url('homepage') . '">Accueil</a>
-                        <a href="' . url('mentions') . '">Mentions légales</a>
-                        <a href="' . url('plan') . '">Plan du site</a>
-                    </div>
+        foreach ($keys as $key => $value) {
+            $footer = str_replace('{{' . $key . '}}', (string)$value, $footer);
+        }
 
-                    <div class="footer-social">
-                        <h4>Suivez-nous</h4>
-                        <div class="social-links">
-                            <a href="' . url('instagram') . '" aria-label="Instagram" class="social-link">
-                                <span class="material-icons">photo_camera</span>
-                            </a>
-                            <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook" class="social-link">
-                                <span class="material-icons">facebook</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="footer-bottom">
-                    <p>&copy; ';
-        echo date("Y");
-        echo ' CyberCigales. Tous droits réservés.</p>
-                </div>
-            </footer>
-            <script src="/assets/js/mobile-menu.js"></script>
-        </body>
-    </html>';
+        echo $footer;
     }
 
 }

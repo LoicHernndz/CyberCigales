@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MacOS Personnel</title>
+
+    <!-- Chargement de Tailwind CSS (via CDN) pour le style -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="/assets/css/normalize.css">
+    <link rel="stylesheet" href="/assets/macos/css/macos.css">
+    <link rel="stylesheet" href="/assets/macos/css/intro.css">
+
+</head>
+<body class="min-h-screen relative">
+
+
+<header>
+    <nav id="menu-bar" class="menu-bar fixed top-0 left-0 right-0 h-7 shadow-sm z-50 flex items-center px-2 text-sm text-gray-800">
+        <!-- Menu Apple -->
+        <div id="apple-menu" class="group relative hover:bg-gray-200 p-1 rounded-md cursor-pointer mr-4">
+            <span class="font-semibold text-base"></span>
+            <!-- Apple Dropdown -->
+            <div id="apple-menu-dropdown" class="absolute top-7 left-0 w-48 bg-white backdrop-blur-sm rounded-lg shadow-xl p-1 hidden text-gray-800 ring-1 ring-gray-300 z-50">
+                <div id="btn-about" class="hover:bg-blue-500 hover:text-white p-1 rounded-md cursor-pointer">À propos de ce Bureau</div>
+                <div class="h-px my-1 bg-gray-200"></div>
+                <div id="btn-shutdown" class="hover:bg-blue-500 hover:text-white p-1 rounded-md cursor-pointer">Éteindre...</div>
+            </div>
+        </div>
+
+        <div id="active-app-name" class="font-semibold p-1">Bureau</div>
+        <div class="ml-4 relative">
+            <div id="file-menu-toggle" class="hover:bg-gray-200 p-1 rounded-md cursor-pointer">Fichier</div>
+            <!-- Dropdown pour Fichier -->
+            <div id="file-menu-dropdown" class="absolute top-7 left-0 w-48 bg-white backdrop-blur-sm rounded-lg shadow-xl p-1 hidden text-gray-800 ring-1 ring-gray-300 z-50">
+                <div class="hover:bg-blue-500 hover:text-white p-1 rounded-md flex justify-between items-center">
+                    <span>Ouvrir</span>
+                    <span class="text-xs text-gray-400">⌘O</span>
+                </div>
+                <div class="h-px my-1 bg-gray-200"></div>
+                <div class="p-1 rounded-md text-gray-400 cursor-default flex justify-between items-center">
+                    <span>Enregistrer</span>
+                    <span class="text-xs text-gray-400">⌘S</span>
+                </div>
+            </div>
+        </div>
+        <div class="hover:bg-gray-200 p-1 rounded-md cursor-pointer">Édition</div>
+        <div class="hover:bg-gray-200 p-1 rounded-md cursor-pointer">Présentation</div>
+
+        <!-- Éléments de Statut -->
+        <div class="ml-auto flex items-center space-x-3">
+            <span class="text-xs text-gray-700">FR</span>
+            <!-- Heure/Date (mis à jour par JS) -->
+            <span id="time-display" class="font-medium"></span>
+        </div>
+    </nav>
+</header>
+
+<main id="desktop">

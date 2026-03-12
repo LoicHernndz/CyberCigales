@@ -1,0 +1,104 @@
+</main>
+
+<footer>
+    <div id="dock-container" class="dock-container fixed bottom-4 left-1/2 -translate-x-1/2 p-2 rounded-2xl shadow-2xl">
+        <ul id="dock-list" class="flex space-x-5">
+
+            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 rounded-xl flex items-center justify-center relative group" data-app="Finder">
+                <img src="/images/macos/logo-du-finder.png">
+                <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Finder</div>
+            </li>
+
+            <!-- 2. Navigateur (Web) -->
+            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 rounded-xl flex items-center justify-center relative group" data-app="Web">
+                <img src="/images/macos/safari.png">
+                <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Web</div>
+            </li>
+
+            <!-- 3. Mail -->
+            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 rounded-xl flex items-center justify-center relative group" data-app="Mail">
+                <img src="/images/macos/email.png">
+                <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Mail</div>
+            </li>
+
+            <!-- 4. Instagram (Messages) -->
+            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 from-pink-500 via-red-500 to-yellow-500 rounded-xl flex items-center justify-center relative group" data-app="Instagram">
+                <img src="/images/macos/instagram.png">
+                <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Instagram</div>
+            </li>
+
+            <!-- Séparateur visuel -->
+            <li class="w-px h-10 self-center bg-white/20 mx-3"></li>
+
+            <!-- 6. Calendrier -->
+            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 rounded-xl flex flex-col items-center justify-center relative group" data-app="Calendrier">
+                <img src="/images/macos/calendar.png">
+            </li>
+
+            <!-- 7. Terminal -->
+            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 rounded-xl flex items-center justify-center relative group" data-app="Terminal">
+                <img src="/images/macos/terminal.png">
+                <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Terminal</div>
+            </li>
+
+            <!-- 8. Paramètres -->
+            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 rounded-xl flex items-center justify-center relative group" data-app="Paramètres">
+                <img src="/images/macos/ajustement.png">
+                <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Paramètres</div>
+            </li>
+
+            <!-- 9. Hamming (Mini-jeu) -->
+            <li class="dock-icon w-14 h-14 p-2 bg-gradient-to-br from-green-600 to-emerald-800 rounded-xl flex items-center justify-center relative group" data-app="Hamming">
+                <svg class="w-9 h-9 text-green-300" fill="currentColor" viewBox="0 0 24 24">
+                    <rect x="2" y="2" width="6" height="6" rx="1" opacity="0.9"/>
+                    <rect x="9" y="2" width="6" height="6" rx="1" opacity="0.7"/>
+                    <rect x="16" y="2" width="6" height="6" rx="1" opacity="0.9"/>
+                    <rect x="2" y="9" width="6" height="6" rx="1" opacity="0.7"/>
+                    <rect x="9" y="9" width="6" height="6" rx="1" fill="#ff4444"/>
+                    <rect x="16" y="9" width="6" height="6" rx="1" opacity="0.7"/>
+                    <rect x="2" y="16" width="6" height="6" rx="1" opacity="0.9"/>
+                    <rect x="9" y="16" width="6" height="6" rx="1" opacity="0.7"/>
+                    <rect x="16" y="16" width="6" height="6" rx="1" opacity="0.9"/>
+                </svg>
+                <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Hamming</div>
+            </li>
+
+            <!-- 10. Frequence (Mini-jeu) -->
+            <li class="dock-icon w-14 h-14 p-2 bg-gradient-to-br from-blue-600 to-indigo-800 rounded-xl flex items-center justify-center relative group" data-app="Frequence">
+                <svg class="w-9 h-9 text-blue-200" fill="currentColor" viewBox="0 0 24 24">
+                    <rect x="2" y="14" width="4" height="8" rx="1"/>
+                    <rect x="8" y="10" width="4" height="12" rx="1"/>
+                    <rect x="14" y="6" width="4" height="16" rx="1"/>
+                    <rect x="20" y="2" width="4" height="20" rx="1" opacity="0.7"/>
+                </svg>
+                <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Frequence</div>
+            </li>
+
+            <!-- Separateur visuel -->
+            <li class="w-px h-10 self-center bg-white/20 mx-3"></li>
+
+            <!-- 9. Corbeille -->
+            <li class="dock-icon w-14 h-14 p-2 bg-gray-400 rounded-xl flex items-center justify-center relative group" data-app="Corbeille">
+                <img src="/images/macos/poubelle.png">
+                <div class="absolute -top-10 px-3 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Corbeille</div>
+            </li>
+        </ul>
+    </div>
+</footer>
+
+<!-- Intro Overlay -->
+<div id="intro-overlay">
+    <div class="intro-content">
+        <pre id="intro-text"></pre><span id="intro-cursor">█</span>
+    </div>
+    <div class="intro-buttons">
+        <button id="intro-skip" class="intro-btn">Passer ›</button>
+        <button id="intro-start" class="intro-btn">Commencer ›</button>
+    </div>
+</div>
+
+<script src="/assets/macos/js/notifications.js?v=3"></script>
+<script src="/assets/macos/js/macos.js?v=3"></script>
+<script src="/assets/macos/js/intro.js?v=3"></script>
+</body>
+</html>
