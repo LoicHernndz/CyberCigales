@@ -20,12 +20,6 @@ class MacOSLockView
      */
     public function render(): void
     {
-        if (file_exists(self::TEMPLATE_HTML)) {
-            echo file_get_contents(self::TEMPLATE_HTML);
-        } else {
-            // Fallback minimaliste
-            header('Location: /user/login');
-            exit();
-        }
+        echo file_get_contents(self::TEMPLATE_HTML);
     }
 }

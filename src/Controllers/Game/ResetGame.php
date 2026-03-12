@@ -19,9 +19,7 @@ class ResetGame extends AbstractController
      */
     public function getMethod(): void
     {
-        // Rediriger vers le profil si quelqu'un essaie d'accéder via GET
-        header('Location: /user/profil');
-        exit();
+        redirect(url('user_profil'));
     }
 
     /**
@@ -36,15 +34,13 @@ class ResetGame extends AbstractController
         $userId = $_SESSION['user_id'] ?? null;
 
         if (!$userId) {
-            header('Location: /user/login');
-            exit();
+            redirect(url('user_login'));
         }
 
         // 2. Vérifier l'intention depuis le formulaire
         $action = $_POST['action'] ?? '';
         if ($action !== 'reset_all') {
-            header('Location: /user/profil');
-            exit();
+            redirect(url('user_profil'));
         }
 
         // 3. Réinitialiser la base de données
@@ -77,8 +73,6 @@ class ResetGame extends AbstractController
             $_SESSION['flash_error'] = 'Une erreur est survenue lors de la réinitialisation.';
         }
 
-        // 5. Rediriger vers le profil
-        header('Location: /user/profil');
-        exit();
+        redirect(url('user_profil'));
     }
 }

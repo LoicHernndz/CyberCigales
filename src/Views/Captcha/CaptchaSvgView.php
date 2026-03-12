@@ -32,14 +32,8 @@ class CaptchaSvgView
         header('Cache-Control: post-check=0, pre-check=0', false);
         header('Pragma: no-cache');
 
-        $lines = '';
-        for ($i = 0; $i < 6; $i++) {
-            $x1 = random_int(0, $this->width);
-            $y1 = random_int(0, $this->height);
-            $x2 = random_int(0, $this->width);
-            $y2 = random_int(0, $this->height);
-            $lines .= '<line x1="' . $x1 . '" y1="' . $y1 . '" x2="' . $x2 . '" y2="' . $y2 . '" stroke="#d0d7de" stroke-width="1" />';
-        }
+        $service = new \Services\CaptchaService();
+        $lines = $service->generateNoiseLines(6, $this->width, $this->height);
 
         $escapedCode = htmlspecialchars($this->code, ENT_QUOTES, 'UTF-8');
         $w = $this->width;

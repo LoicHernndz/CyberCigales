@@ -57,8 +57,7 @@ class UserChat extends AbstractController
 
         // Si le profil n'existe pas, rediriger vers la page Instagram
         if ($userProfile === null) {
-            header('Location: /instagram');
-            exit;
+            redirect(url('instagram'));
         }
 
         // Récupération des messages du chat

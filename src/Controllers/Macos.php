@@ -25,6 +25,10 @@ class Macos extends AbstractController
     public function getMethod(): void
     {
         if (!isset($_SESSION['user_id'])) {
+            if (!file_exists(__DIR__ . '/../Views/MacOSLock/macos-lock.html')) {
+                redirect(url('user_login'));
+                return;
+            }
             $view = new MacOSLockView();
             $view->render();
             return;

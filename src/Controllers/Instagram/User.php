@@ -27,8 +27,7 @@ class User extends AbstractController
         $params = $_REQUEST['route_params'] ?? [];
 
         if (empty($params)) {
-            header('Location: /instagram');
-            exit;
+            redirect(url('instagram'));
         }
 
         $username = $params[0];

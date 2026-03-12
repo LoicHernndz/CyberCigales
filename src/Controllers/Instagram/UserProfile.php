@@ -55,8 +55,7 @@ class UserProfile extends AbstractController
 
         // Si le profil n'existe pas, rediriger vers la page Instagram
         if ($profileData === null) {
-            header('Location: /instagram');
-            exit;
+            redirect(url('instagram'));
         }
 
         // Passage des données brutes à la vue (pas de HTML dans le controller)

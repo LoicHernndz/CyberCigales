@@ -114,7 +114,7 @@ class NewPassword extends AbstractController
             'pwd-repeat' => trim($_POST['pwd-repeat'])
         ];
 
-        $url = 'https://benahmed.alwaysdata.net/user/new-password?selector=' . $data['selector'] .
+        $url = rtrim(\config\EnvVar::get('APP_URL') ?? '', '/') . '/user/new-password?selector=' . $data['selector'] .
             '&validator=' . $data['validator'];
 
         if (empty($_POST['pwd']) || empty($_POST['pwd-repeat'])) {

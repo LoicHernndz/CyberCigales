@@ -5,7 +5,9 @@ namespace Controllers\Code;
 use Controllers\AbstractController;
 use helpers\Code\Hamming as HammingHelper;
 use Views\Code\Hamming\HammingView;
+use Attributes\Route;
 
+#[Route('/code/hamming', name: 'code_hamming')]
 class Hamming extends AbstractController
 {
 
@@ -108,8 +110,7 @@ class Hamming extends AbstractController
 
         if ($message !== 'access granted' && !str_contains($message, self::noise)) {
             flash('hamming', 'Impossible de traiter ce message...');
-            header('Location: /code/hamming');
-            exit();
+            redirect(url('code_hamming'));
         }
 
         $result = HammingHelper::generateSquareWithError();
