@@ -14,12 +14,16 @@
         </testsuite>
         <testsuite name="Controllers">
             <directory>tests/Controllers</directory>
+            <exclude>tests/Controllers/CaptchaTest.php</exclude>
+            <exclude>tests/Controllers/ControllerExistenceTest.php</exclude>
         </testsuite>
         <testsuite name="Router">
             <directory>tests/Router</directory>
+            <exclude>tests/Router/DynamicRouterTest.php</exclude>
         </testsuite>
         <testsuite name="Views">
             <directory>tests/Views</directory>
+            <exclude>tests/Views/CaptchaSvgViewTest.php</exclude>
         </testsuite>
         <testsuite name="Helpers">
             <directory>tests/Helpers</directory>

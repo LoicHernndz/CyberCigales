@@ -29,13 +29,13 @@ class Permutation extends AbstractCode
         $text = str_replace(" ", $space_char, $text);
         $text = self::cleanText($text);
 
-        $n_rows = ceil(strlen($text) / $n_columns);
+        $n_rows = (int) ceil(strlen($text) / $n_columns);
         $text .= str_repeat(\mb_strtolower($space_char), $n_columns * $n_rows - strlen($text));
         $order = self::getOrderFromKey($key);
 
         $code = "";
         for ($i = 0; $i < strlen($text); ++$i) {
-            $current_pos = ($i % $n_rows) * $n_columns + $order[floor($i/$n_rows)];   // Formule pour lire de haut en bas plutôt que de gauche à droite
+            $current_pos = ($i % $n_rows) * $n_columns + $order[(int) floor($i/$n_rows)];   // Formule pour lire de haut en bas plutôt que de gauche à droite
             $code .= $text[$current_pos];
         }
 
@@ -59,13 +59,13 @@ class Permutation extends AbstractCode
         $text = strtolower($text);
         $n_columns = strlen($key);
 
-        $n_rows = ceil(strlen($text) / $n_columns);
+        $n_rows = (int) ceil(strlen($text) / $n_columns);
         $order = self::getOrderFromKey($key);
         $order = array_flip($order);
 
         $code = "";
         for ($i = 0; $i < strlen($text); ++$i) {
-            $current_pos = $order[$i%$n_columns] * $n_rows + floor($i/$n_columns);   // Formule pour lire de haut en bas plutôt que de gauche à droite
+            $current_pos = $order[$i % $n_columns] * $n_rows + (int) floor($i / $n_columns);   // Formule pour lire de haut en bas plutôt que de gauche à droite
             $code .= $text[$current_pos];
         }
 

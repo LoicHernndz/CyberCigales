@@ -26,8 +26,8 @@ class Vigenere extends AbstractCode
         $code = "";
         for ($i = 0; $i < strlen($text); ++$i){
             if (!is_numeric($text[$i])) {
-                $position = ord($text[$i]) - ord('A');                          // position ASCII du char a traiter
-                $decalage = ord($key[$i % strlen($key)]) - ord('A');            // decalage par rapport au char actuel de la cle
+                $position = ord($text[$i]) - ord('a');                          // position ASCII du char a traiter
+                $decalage = ord($key[$i % strlen($key)]) - ord('a');            // decalage par rapport au char actuel de la cle
                 $code .= chr(($position + $decalage)%26 + ord('A'));   // ajout du nouveau caractere code
             }
             else {
@@ -39,10 +39,10 @@ class Vigenere extends AbstractCode
 
     /**
      * Déchiffre un texte chiffré avec l'algorithme de Vigenère
-     * 
+     *
      * Applique le processus inverse du chiffrement en soustrayant les décalages
      * déterminés par la clé répétée.
-     * 
+     *
      * @param string $text Le texte à déchiffrer
      * @param string $key La clé de déchiffrement (même que celle utilisée pour le chiffrement)
      * @return string Le texte déchiffré en majuscules
@@ -53,12 +53,9 @@ class Vigenere extends AbstractCode
         $code = "";
         for ($i = 0; $i < strlen($text); ++$i){
             if (!is_numeric($text[$i])) {
-                $position = ord($text[$i]) - ord('A');                          // position ASCII du char a traiter
-                $decalage = ord($key[$i % strlen($key)]) - ord('A');            // decalage par rapport au char actuel de la cle
-                if ($decalage < 0)
-                    $code .= chr(($position - $decalage + 26)%26 + ord('A'));   // ajout du nouveau caractere code
-                else
-                    $code .= chr(($position - $decalage)%26 + ord('A'));
+                $position = ord($text[$i]) - ord('a');                          // position ASCII du char a traiter
+                $decalage = ord($key[$i % strlen($key)]) - ord('a');            // decalage par rapport au char actuel de la cle
+                $code .= chr((($position - $decalage + 26) % 26) + ord('A'));   // ajout du nouveau caractere code
             }
             else {
                 $code .= $text[$i];

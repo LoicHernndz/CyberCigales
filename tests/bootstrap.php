@@ -32,3 +32,9 @@ if (!function_exists('redirect')) {
     { /* no-op en test */
     }
 }
+if (!function_exists('url')) {
+    function url(string $name): string
+    {
+        return '/' . $name;
+    }
+}
