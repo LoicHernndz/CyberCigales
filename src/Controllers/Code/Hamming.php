@@ -3,7 +3,7 @@
 namespace Controllers\Code;
 
 use Controllers\AbstractController;
-use helpers\Code\Hamming as HammingHelper;
+use Services\Code\Hamming as HammingHelper;
 use Views\Code\Hamming\HammingView;
 use Attributes\Route;
 

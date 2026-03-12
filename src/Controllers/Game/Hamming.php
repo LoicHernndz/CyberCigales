@@ -2,7 +2,7 @@
 namespace Controllers\Game;
 
 use Controllers\AbstractController;
-use helpers\Code\Hamming as HammingHelper;
+use Services\Code\Hamming as HammingHelper;
 use Views\Game\Hamming\HammingView;
 use Attributes\Route;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace helpers\Code;
+namespace Services\Code;
 
 /**
  * Algorithme de chiffrement par permutation (chiffrement par colonnes)

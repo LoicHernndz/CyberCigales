@@ -1,6 +1,6 @@
 <?php
 
-namespace helpers\Code;
+namespace Services\Code;
 
 /**
  * Classe pour gérer le carré de Hamming (4,9)

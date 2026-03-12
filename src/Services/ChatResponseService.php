@@ -1,16 +1,16 @@
 <?php
 
-namespace helpers;
+namespace Services;
 
 use config\Database;
 /**
- * Générateur de réponses contextuelles
+ * Service de génération de réponses contextuelles pour le chat Instagram
  *
  * Charge les réponses depuis answers.json et retourne la réponse appropriée
  * en fonction du nom, de l'étape et du message de l'utilisateur.
  */
 
-class GenerateAnswer
+class ChatResponseService
 {
     /**
      * Point d'entrée pour traiter les requêtes de génération de réponses

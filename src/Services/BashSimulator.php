@@ -1,15 +1,15 @@
 <?php
 
 
-namespace helpers;
+namespace Services;
 use Models\Bash\Bash;
 
 /**
- * Gestionnaire de requêtes pour les commandes Bash
- * 
+ * Simulateur de terminal Bash pour l'escape game
+ *
  * Traite les requêtes AJAX pour exécuter des commandes bash (ls, pwd, cd, cat, clear, help) dans l'environnement simulé.
  */
-class BashRequest
+class BashSimulator
 {
 
     /**

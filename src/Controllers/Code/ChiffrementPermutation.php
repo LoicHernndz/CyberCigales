@@ -41,7 +41,7 @@ class ChiffrementPermutation extends AbstractController
         $cle = $_POST['key-permutation'];
         $char_espaces = $_POST['space-char-permutation'];
         if (!isset($_POST['btn-submit'])) {
-            \helpers\Code\Permutation::verification($texte, $texte_chiffre_a_verifier, 'encrypt', $cle, $char_espaces);
+            \Services\Code\Permutation::verification($texte, $texte_chiffre_a_verifier, 'encrypt', $cle, $char_espaces);
         } else {
             $this->jsonResponse(['success' => false, 'message' => 'Action invalide']);
         }

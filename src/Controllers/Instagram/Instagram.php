@@ -1,6 +1,7 @@
 <?php
-namespace Controllers;
+namespace Controllers\Instagram;
 
+use Controllers\AbstractController;
 use Models\Instagram\InstagramModel;
 use Views\Instagram\InstagramView;
 use Attributes\Route;

@@ -3,7 +3,7 @@
 namespace Controllers\Instagram\Chat;
 
 use Controllers\AbstractController;
-use helpers\GenerateAnswer;
+use Services\ChatResponseService;
 use Attributes\Route;
 
 /**
@@ -22,7 +22,7 @@ class Response extends AbstractController
      */
     public function getMethod(): void
     {
-        $helper = new GenerateAnswer();
+        $helper = new ChatResponseService();
         $helper->control();
     }
 
@@ -33,7 +33,7 @@ class Response extends AbstractController
      */
     public function postMethod(): void
     {
-        $helper = new GenerateAnswer();
+        $helper = new ChatResponseService();
         $helper->control();
     }
 }

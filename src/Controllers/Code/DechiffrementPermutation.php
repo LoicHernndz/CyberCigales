@@ -37,7 +37,7 @@ class DechiffrementPermutation extends ChiffrementPermutation
         $texte_chiffre_a_verifier = $_POST['word-permutation-verify'];
         $cle = $_POST['key-permutation'];
         if (!isset($_POST['btn-submit'])) {
-            \helpers\Code\Permutation::verification($texte, $texte_chiffre_a_verifier, 'decrypt', $cle);
+            \Services\Code\Permutation::verification($texte, $texte_chiffre_a_verifier, 'decrypt', $cle);
         } else {
             $this->jsonResponse(['success' => false, 'message' => 'Action invalide']);
         }

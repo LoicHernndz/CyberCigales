@@ -9,8 +9,8 @@
  */
 
 include "../src/config/Autoloader.php";
-include "../src/helpers/session_helper.php";
-include "../src/helpers/url_helper.php";
+include "../src/Helpers/session_helper.php";
+include "../src/Helpers/url_helper.php";
 
 // Récupère l'URI sans les paramètres GET
 // Normalisation en lowercase : /MACOS, /MacOS → /macos (routing insensible à la casse)

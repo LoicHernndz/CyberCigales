@@ -1,6 +1,6 @@
 <?php
 
-namespace helpers\Code;
+namespace Services\Code;
 
 /**
  * Classe abstraite pour les algorithmes de chiffrement

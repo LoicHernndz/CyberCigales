@@ -40,7 +40,7 @@ class ChiffrementVigenere extends AbstractController
         $cle = $_POST['key-vigenere'];
         $texte_chiffre_a_verifier = $_POST['word-vigenere-verify'];
         if (!isset($_POST['btn-submit'])) {
-            \helpers\Code\Vigenere::verification($texte, $texte_chiffre_a_verifier, 'encrypt', $cle);
+            \Services\Code\Vigenere::verification($texte, $texte_chiffre_a_verifier, 'encrypt', $cle);
         } else {
             $this->jsonResponse(['success' => false, 'message' => 'Action invalide']);
         }
