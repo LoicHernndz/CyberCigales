@@ -65,7 +65,9 @@ function updateDockIcon(appName, isActive) {
     const dockIcons = document.querySelectorAll('.dock-icon');
     dockIcons.forEach(icon => {
         // On récupère le nom de l'application pour cette icône à partir du contenu
-        const iconAppName = icon.querySelector('div').textContent.split('(')[0].trim();
+        const label = icon.querySelector('div');
+        if (!label) return;
+        const iconAppName = label.textContent.split('(')[0].trim();
         let dot = icon.querySelector('.active-dot');
 
         if (iconAppName === appName) {
