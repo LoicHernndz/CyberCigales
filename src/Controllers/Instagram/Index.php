@@ -19,7 +19,7 @@ use Attributes\Route;
  * - Contrôleur : Instagram (logique métier)
  */
 #[Route('/instagram', name: 'instagram')]
-class Instagram extends AbstractController
+class Index extends AbstractController
 {
     /**
      * Méthode principale appelée lors de l'accès à /instagram

@@ -8,7 +8,7 @@ use Views\Homepage\HomepageView;
 use Attributes\Route;
 
 #[Route('/', name: 'homepage')]
-class Homepage extends AbstractController
+class Index extends AbstractController
 {
     function getMethod(){
         $view = new HomepageView();

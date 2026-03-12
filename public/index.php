@@ -18,7 +18,7 @@ $uri = strtolower(parse_url($_SERVER['REQUEST_URI'])['path']);
 
 // Cas spécial : page d'accueil
 if ($uri === '/') {
-    $controller = new Controllers\Homepage();
+    $controller = new Controllers\Homepage\Index();
     $controller->control();
     exit();
 }

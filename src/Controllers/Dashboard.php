@@ -1,7 +1,7 @@
 <?php
-namespace Controllers\Homepage;
+namespace Controllers;
 
-use Controllers\AbstractController;
+
 use Models\User\UserStats;
 use config\Database;
 use Views\Homepage\HomepageView;
