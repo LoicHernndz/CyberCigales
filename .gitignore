@@ -561,4 +561,6 @@ docs/
 
 # Composer & PHPUnit
 vendor/
+composer.phar
+composer.lock
 .phpunit.cache
