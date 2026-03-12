@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     updatePreview();
 
                     if (dialogueText) {
-                        dialogueText.textContent = "Analyse le message chiffre ! Clique sur une lettre pour definir sa correspondance.";
+                        dialogueText.textContent = "Repere la lettre la plus frequente dans le texte : c'est surement le E ! Trouve le decalage, puis dechiffre tout le message.";
                     }
                 } else {
                     btnStart.addEventListener("click", () => {

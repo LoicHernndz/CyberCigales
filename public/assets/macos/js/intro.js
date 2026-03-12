@@ -29,6 +29,11 @@ var INTRO_LINES = [
     "à déchiffrer des messages suspects, retrouver des mots",
     "de passe compromis, et sécuriser leurs comptes.",
     "",
+    "— CONSEIL —",
+    "",
+    "Commencez par jeter un coup d'œil à Instagram.",
+    "C'est là que tout a commencé...",
+    "",
     "> Bonne chance, agent. Le système est entre vos mains."
 ];
 
