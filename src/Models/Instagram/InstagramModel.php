@@ -527,7 +527,7 @@ class InstagramModel
                 'verified' => true,
                 'posts' => (function () {
                     $basePosts = [
-                        ['id' => 1, 'image' => '/images/instagram/Cesar.png', 'type' => 'normal', 'is_video' => false],
+                        ['id' => 1, 'image' => '/images/instagram/Cesar.jpg', 'type' => 'normal', 'is_video' => false],
                         ['id' => 3, 'image' => '/images/instagram/steve-doig-FaMBWkmvPyY-unsplash.jpg', 'type' => 'normal', 'is_video' => false],
                         ['id' => 4, 'image' => '/images/instagram/faux-profil-amie-hacke/melina_photo_miroir_2.png', 'type' => 'normal', 'is_video' => false],
                     ];
