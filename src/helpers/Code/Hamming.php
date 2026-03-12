@@ -122,6 +122,5 @@ class Hamming
             'originalSquare' => $square
         ];
     }
-    
 }
 

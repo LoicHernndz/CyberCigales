@@ -105,20 +105,20 @@
       "responses": ["Content de t'aider", "De rien"]
     }
   },
-  "Alexandre": {
+  "Avslagzns": {
     "0": {
-      "message": "Hey ! Tu peux m'aider ? Mon code de sécurité est 'secure456'",
-      "responses": ["Non", "Je ne peux pas", "Désolé"],
-      "key": "secure456"
+      "message": "???",
+      "responses": ["???"],
+      "key": ""
     },
     "1": {
-      "message": "Génial ! Maintenant le code PIN : '3141'",
-      "responses": ["Non", "Nan", "Je sais pas"],
+      "message": "AFO QMP EIJ YZDKSLCFR AIZDKSQ. ZAJ OZ ZI'KD SA OFRGB. ZEFJ ZEI ADZOKFE, DAZ PF AZDPLKQSQ GE O'AQWNCV. A'AI JIE VBC X FQMLKFP EIOS BA MWLK KFEZH ASXN LP ADZSDOICO : FEOIKSD\n\n ??????????????\n??                    ??\n?   ? ?  ? ?  ? ?   ?\n?   ? ?  ? ?  ? ?   ?\n?                       ?\n?   ? ?  ? ?  ? ?   ?\n?   ? ?  ? ?  ? ?   ?\n?                  xx     ?\n?   ? ?  ? ?  ? ?   ?\n?   ? ?  ? ?  ? ?   ?\n??                    ??\n ??????????????",
+      "responses": ["..."],
       "key": "3141"
     },
     "2": {
-      "message": "Parfait ! Merci beaucoup !",
-      "responses": ["Pas de problème", "Avec plaisir"]
+      "message": "Super ! Problème résolu !",
+      "responses": ["Merci"]
     }
   },
   "Julie": {

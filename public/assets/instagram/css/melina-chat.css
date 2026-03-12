@@ -186,6 +186,8 @@ body {
     line-height: 1.4;
     overflow-wrap: break-word;
     word-break: break-all;
+    display: inline-block;
+    white-space: pre-wrap;
 }
 
 .message-content .time {
