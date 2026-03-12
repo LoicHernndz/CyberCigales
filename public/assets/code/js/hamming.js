@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let I_progress = 0;
     let I_target = 5;
     let B_canClick = true;
+    let B_gameComplete = false;
 
     /**
      * Initialise le jeu
@@ -39,6 +40,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 let O_data = JSON.parse(S_json);
                 I_progress = O_data.progress || 0;
                 I_target = O_data.target || 5;
+
+                // Afficher le message initial si fourni par le serveur
+                if (O_data.message) {
+                    showFeedback(O_data.message, false, I_progress >= I_target);
+                }
             } catch (e) {
                 console.error('Erreur parsing game data');
             }
@@ -77,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         for (let I_i = 0; I_i < A_cells.length; I_i++) {
             A_cells[I_i].addEventListener('click', function() {
-                if (!B_canClick) return;
+                if (!B_canClick || B_gameComplete) return;
 
                 let I_row = parseInt(this.getAttribute('data-row'));
                 let I_col = parseInt(this.getAttribute('data-col'));
@@ -126,6 +132,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Mettre a jour les donnees
         I_progress = O_data.progress || 0;
+        B_gameComplete = I_progress >= I_target;
 
         // Animation de la cellule
         if (B_isCorrect) {
@@ -137,9 +144,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Afficher le feedback
         showFeedback(O_data.message, B_isCorrect, I_progress >= I_target);
 
-        // Attendre puis charger le nouveau carre
+        // Attendre puis charger le nouveau carre (si le jeu n'est pas termine)
         setTimeout(function() {
-            if (O_data.newSquare && O_data.square) {
+            if (!B_gameComplete && O_data.newSquare && O_data.square) {
                 A_square = O_data.square;
                 renderSquare();
             }
@@ -153,15 +160,24 @@ document.addEventListener('DOMContentLoaded', function() {
     function showFeedback(S_message, B_success, B_complete) {
         if (!O_feedbackSection || !O_feedbackContent) return;
 
-        O_feedbackContent.textContent = S_message;
         O_feedbackContent.className = 'feedback-content';
 
         if (B_complete) {
+            // Mettre en avant le nom et la cle dans le message final
+            let S_highlighted = S_message || '';
+            S_highlighted = S_highlighted.replace('ALEXANDRE SCHMIDT', '<span class="highlight-name">ALEXANDRE SCHMIDT</span>');
+            S_highlighted = S_highlighted.replace('APDSQMLV', '<span class="highlight-key">APDSQMLV</span>');
+
+            O_feedbackContent.innerHTML = S_highlighted;
             O_feedbackContent.classList.add('complete');
-        } else if (B_success) {
-            O_feedbackContent.classList.add('success');
         } else {
-            O_feedbackContent.classList.add('error');
+            O_feedbackContent.textContent = S_message;
+
+            if (B_success) {
+                O_feedbackContent.classList.add('success');
+            } else {
+                O_feedbackContent.classList.add('error');
+            }
         }
     }
 

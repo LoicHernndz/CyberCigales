@@ -9,8 +9,8 @@ use Views\Code\Hamming\HammingView;
 class Hamming extends AbstractController
 {
 
-    private const key = "MON NOM EST ALEXANDRE SCHMIDT. TOUT EST CHIFFRÉ. J'AI UNE CLE A ENVOYER MAIS JE DOIS PAYER POUR LA DECRYPTER : APDSQMLV";
-    private const noise = "AFO QMP EIJ YZDKSLCFR AIZDKSQ. ZEFJ ZEI ADZOKFE. A'AI JIE VBC X FQMLKFP EIOS BA MWLK KFEZH ASXN LP ADZSDOICO : FEOIKSD";
+    private const key = "MON NOM EST ALEXANDRE SCHMIDT. TOUT EST CHIFFRÉ. J'AI UNE CLE A ENVOYER MAIS JE DOIS PAYER POUR LA DECRYPTER : WDSKAVZSJNBCS";
+    private const noise = "AFO QMP EIJ YZDKSLCFR AIZDKSQ. ZEFJ ZEI ADZOKFE. A'AI JIE VBC X FQMLKFP EIOS BA MWLK KFEZH ASXN LP ADZSDOICO : FEOIKSDQPHEAZ";
 
     /**
      * Affiche la page de déverrouillage.
@@ -63,20 +63,27 @@ class Hamming extends AbstractController
             $isCorrect = ($row === $errorPos['row'] && $col === $errorPos['col']);
             $resultValue = $isCorrect ? 1 : 0;
             $target = str_word_count(self::key);
-
+            $hasCompleted = false;
 
             if ($isCorrect) {
-                if ($_SESSION['hamming_progress'] < $target)
-                $_SESSION['hamming_progress'] = ($_SESSION['hamming_progress'] ?? 0) + 1;
+                if ($_SESSION['hamming_progress'] < $target) {
+                    $_SESSION['hamming_progress'] = ($_SESSION['hamming_progress'] ?? 0) + 1;
+                }
 
-                $newResult = HammingHelper::generateSquareWithError();
-                $_SESSION['hamming_square'] = $newResult['square'];
-                $_SESSION['hamming_original'] = $newResult['originalSquare'];
-                $_SESSION['hamming_error_pos'] = $newResult['errorPosition'];
-                $squareWithError = $newResult['square'];
+                $hasCompleted = $_SESSION['hamming_progress'] >= $target;
+
+                // Ne plus générer de nouveau carré une fois le message complet révélé
+                if (!$hasCompleted) {
+                    $newResult = HammingHelper::generateSquareWithError();
+                    $_SESSION['hamming_square'] = $newResult['square'];
+                    $_SESSION['hamming_original'] = $newResult['originalSquare'];
+                    $_SESSION['hamming_error_pos'] = $newResult['errorPosition'];
+                    $squareWithError = $newResult['square'];
+                }
             } else {
-                if ($_SESSION['hamming_progress'] > 0)
+                if ($_SESSION['hamming_progress'] > 0) {
                     $_SESSION['hamming_progress'] = ($_SESSION['hamming_progress'] ?? 0) - 1;
+                }
             }
 
             // Ajout d'autant de mots du message que de nombres de succès, puis remplissage par du bruit.
@@ -89,8 +96,10 @@ class Hamming extends AbstractController
                 'result' => $resultValue,
                 'message' => $message,
                 'square' => $squareWithError,
-                'newSquare' => $isCorrect,
+                'newSquare' => $isCorrect && !$hasCompleted,
                 'progress' => $_SESSION['hamming_progress'] ?? 0,
+                'target' => $target,
+                'complete' => $hasCompleted,
             ]);
             exit();
         }
@@ -113,10 +122,18 @@ class Hamming extends AbstractController
             $_SESSION['hamming_progress'] = 0;
         }
 
+        // Préparer le message de jeu initial (tout le bruit, aucun mot corrigé)
+        $target = str_word_count(self::key);
+        $progress = $_SESSION['hamming_progress'] ?? 0;
+        $initialMessage = implode(" ", array_slice(explode(" ", self::key), 0, $progress));
+        $initialMessage .= " " . implode(" ", array_slice(explode(" ", self::noise), $progress));
+
         $view = new HammingView([
             'square' => $result['square'],
             'message' => $message,
-            'progress' => $_SESSION['hamming_progress'],
+            'progress' => $progress,
+            'target' => $target,
+            'renderedMessage' => trim($initialMessage),
         ]);
         $view->render();
     }

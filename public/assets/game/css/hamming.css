@@ -134,7 +134,50 @@
 }
 
 .bit-cell.wrong {
-    // background: linear-gradient(180deg, #ffcdd2 0%, #ef9a9a 100%);
     border-color: #ff3b30;
     color: #b71c1c;
+}
+
+/* Feedback - messages de correction */
+.feedback-section {
+    margin-top: 1rem;
+}
+
+.feedback-content {
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.feedback-content.success {
+    background: rgba(52, 199, 89, 0.10);
+    border: 1px solid rgba(52, 199, 89, 0.25);
+    color: #1f7a33;
+}
+
+.feedback-content.error {
+    background: rgba(255, 59, 48, 0.08);
+    border: 1px solid rgba(255, 59, 48, 0.22);
+    color: #b10012;
+}
+
+.feedback-content.complete {
+    background: linear-gradient(135deg, rgba(255, 214, 10, 0.22), rgba(255, 204, 0, 0.16));
+    border: 1px solid rgba(255, 204, 0, 0.7);
+    color: #ffe923;
+}
+
+.feedback-content .highlight-name {
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+.feedback-content .highlight-key {
+    font-weight: 700;
+    font-family: 'SF Mono', ui-monospace, monospace;
+    padding: 0.1rem 0.3rem;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.05);
 }
