@@ -1,7 +1,21 @@
 User-agent: *
 Disallow: /user/new-password
-
-User-agent: *
 Disallow: /user/reset-password
+Disallow: /user/profil
+Disallow: /user/edit
+Disallow: /user/delete
+Disallow: /user/logout
+Disallow: /dashboard
+Disallow: /macos
+Disallow: /instagram
+Disallow: /email
+Disallow: /agenda
+Disallow: /web
+Disallow: /game/
+Disallow: /bash
+Disallow: /minigames
+Disallow: /captcha
+Disallow: /lecon/complete
+Disallow: /error404
 
 Sitemap: https://benahmed.alwaysdata.net/sitemap.xml

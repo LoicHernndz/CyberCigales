@@ -7,7 +7,7 @@ use Views\AbstractView;
 class LeconHistMdpView extends AbstractView {
 
     // Chemin du fichier HTML associé à la page des mentions légales
-    private const TEMPLATE_HTML = __DIR__ . '/LeconHistMdp.html';
+    private const TEMPLATE_HTML = __DIR__ . '/lecon-hist-mdp.html';
 
     // Méthode qui retourne le chemin du template HTML à afficher
     public function templatePath() : string {

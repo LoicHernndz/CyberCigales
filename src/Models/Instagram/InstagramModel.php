@@ -198,7 +198,7 @@ class InstagramModel
                 'username' => 'corina_pets',
                 'avatar' => 'images/instagram/corina-rainer-sScNrKruEPs-unsplash.jpg',
                 'location' => 'Maison',
-                'image' => 'images/instagram/clifford-VobvKmG-StA-unsplash 2.jpg',
+                'image' => '/images/instagram/clifford-VobvKmG-StA-unsplash-2.jpg',
                 'likes' => 4567,
                 'caption' => 'cuisine aesthetic 💫! #cuisine #food #aesthetic #homemade',
                 'comments' => [
@@ -352,7 +352,7 @@ class InstagramModel
                 'posts' => [
                     ['id' => 1, 'image' => '/images/instagram/daniel-lincoln-IE2Z11zKsso-unsplash.jpg', 'type' => 'normal', 'is_video' => false],
                     ['id' => 2, 'image' => '/images/instagram/emre-NZMeJsrMC8U-unsplash.jpg', 'type' => 'normal', 'is_video' => false],
-                    ['id' => 3, 'image' => '/images/instagram/folco-masi-erUcICg2LYE-unsplash 2.jpg', 'type' => 'normal', 'is_video' => false],
+                    ['id' => 3, 'image' => '/images/instagram/folco-masi-erUcICg2LYE-unsplash-2.jpg', 'type' => 'normal', 'is_video' => false],
                 ]
             ],
             'anna_food' => [
@@ -462,7 +462,7 @@ class InstagramModel
                 'website' => '',
                 'verified' => false,
                 'posts' => [
-                    ['id' => 1, 'image' => '/images/instagram/clifford-VobvKmG-StA-unsplash 2.jpg', 'type' => 'normal', 'is_video' => false],
+                    ['id' => 1, 'image' => '/images/instagram/clifford-VobvKmG-StA-unsplash-2.jpg', 'type' => 'normal', 'is_video' => false],
                     ['id' => 2, 'image' => '/images/instagram/corina-rainer-sScNrKruEPs-unsplash.jpg', 'type' => 'normal', 'is_video' => false],
                     ['id' => 3, 'image' => '/images/instagram/heidi-the-sheltie-looking-out-window.jpg', 'type' => 'normal', 'is_video' => false],
                 ]
@@ -527,7 +527,7 @@ class InstagramModel
                 'verified' => true,
                 'posts' => (function () {
                     $basePosts = [
-                        ['id' => 1, 'image' => '/images/instagram/Cesar.jpg', 'type' => 'normal', 'is_video' => false],
+                        ['id' => 1, 'image' => '/images/instagram/cesar.jpg', 'type' => 'normal', 'is_video' => false],
                         ['id' => 3, 'image' => '/images/instagram/steve-doig-FaMBWkmvPyY-unsplash.jpg', 'type' => 'normal', 'is_video' => false],
                         ['id' => 4, 'image' => '/images/instagram/faux-profil-amie-hacke/melina_photo_miroir_2.png', 'type' => 'normal', 'is_video' => false],
                     ];

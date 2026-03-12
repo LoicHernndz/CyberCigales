@@ -4,34 +4,117 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-    <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
-
 
     <url>
-        <loc>https://cybercigales.fr/</loc>
-        <lastmod>2025-10-09T20:12:42+00:00</lastmod>
+        <loc>https://benahmed.alwaysdata.net/</loc>
+        <lastmod>2026-03-12</lastmod>
         <priority>1.00</priority>
     </url>
     <url>
-        <loc>https://cybercigales.fr/user/signup</loc>
-        <lastmod>2025-10-09T20:12:42+00:00</lastmod>
+        <loc>https://benahmed.alwaysdata.net/user/signup</loc>
+        <lastmod>2026-03-12</lastmod>
         <priority>0.80</priority>
     </url>
     <url>
-        <loc>https://cybercigales.fr/user/login</loc>
-        <lastmod>2025-10-09T20:12:42+00:00</lastmod>
+        <loc>https://benahmed.alwaysdata.net/user/login</loc>
+        <lastmod>2026-03-12</lastmod>
         <priority>0.80</priority>
     </url>
     <url>
-        <loc>https://cybercigales.fr/mentions</loc>
-        <lastmod>2025-10-09T20:12:42+00:00</lastmod>
+        <loc>https://benahmed.alwaysdata.net/mentions</loc>
+        <lastmod>2026-03-12</lastmod>
         <priority>0.80</priority>
     </url>
     <url>
-        <loc>https://cybercigales.fr/plan</loc>
-        <lastmod>2025-10-09T20:12:42+00:00</lastmod>
+        <loc>https://benahmed.alwaysdata.net/plan</loc>
+        <lastmod>2026-03-12</lastmod>
         <priority>0.80</priority>
     </url>
 
+    <!-- Leçons -->
+    <url>
+        <loc>https://benahmed.alwaysdata.net/lecon</loc>
+        <lastmod>2026-03-12</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://benahmed.alwaysdata.net/lecon/cesar</loc>
+        <lastmod>2026-03-12</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>https://benahmed.alwaysdata.net/lecon/vigenere</loc>
+        <lastmod>2026-03-12</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>https://benahmed.alwaysdata.net/lecon/permutation</loc>
+        <lastmod>2026-03-12</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>https://benahmed.alwaysdata.net/lecon/hist-mdp</loc>
+        <lastmod>2026-03-12</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>https://benahmed.alwaysdata.net/lecon/rgpd</loc>
+        <lastmod>2026-03-12</lastmod>
+        <priority>0.64</priority>
+    </url>
+
+    <!-- Outils de chiffrement -->
+    <url>
+        <loc>https://benahmed.alwaysdata.net/outils</loc>
+        <lastmod>2026-03-12</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://benahmed.alwaysdata.net/code/chiffrement-cesar</loc>
+        <lastmod>2026-03-12</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>https://benahmed.alwaysdata.net/code/dechiffrement-cesar</loc>
+        <lastmod>2026-03-12</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>https://benahmed.alwaysdata.net/code/chiffrement-vigenere</loc>
+        <lastmod>2026-03-12</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>https://benahmed.alwaysdata.net/code/dechiffrement-vigenere</loc>
+        <lastmod>2026-03-12</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>https://benahmed.alwaysdata.net/code/chiffrement-permutation</loc>
+        <lastmod>2026-03-12</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>https://benahmed.alwaysdata.net/code/dechiffrement-permutation</loc>
+        <lastmod>2026-03-12</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>https://benahmed.alwaysdata.net/code/outil-permutation</loc>
+        <lastmod>2026-03-12</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>https://benahmed.alwaysdata.net/code/hamming</loc>
+        <lastmod>2026-03-12</lastmod>
+        <priority>0.64</priority>
+    </url>
+
+    <!-- Data Breach -->
+    <url>
+        <loc>https://benahmed.alwaysdata.net/data-breach/check</loc>
+        <lastmod>2026-03-12</lastmod>
+        <priority>0.64</priority>
+    </url>
 
 </urlset>

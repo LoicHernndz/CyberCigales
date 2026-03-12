@@ -6,7 +6,7 @@ use Views\AbstractView;
 
 class LeconPermutationView extends AbstractView {
 
-    private const TEMPLATE_HTML = __DIR__ . '/LeconPermutation.html';
+    private const TEMPLATE_HTML = __DIR__ . '/lecon-permutation.html';
     private array $additionalKeys = [];
 
     public function addTemplateKey(string $key, $value): void

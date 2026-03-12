@@ -6,7 +6,7 @@ use Views\AbstractView;
 
 class LeconVigenereView extends AbstractView {
 
-    private const TEMPLATE_HTML = __DIR__ . '/LeconVigenere.html';
+    private const TEMPLATE_HTML = __DIR__ . '/lecon-vigenere.html';
     private array $additionalKeys = [];
 
     public function addTemplateKey(string $key, $value): void
