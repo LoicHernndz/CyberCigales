@@ -20,9 +20,8 @@ class Error404 extends AbstractController {
      * @return void
      */
     function getMethod(){
-        // Création d’une instance de la vue "MentionsView"
+        http_response_code(404);
         $view = new Page404View();
-        // Affichage de la page des mentions légales
         $view->render();
     }
 }
