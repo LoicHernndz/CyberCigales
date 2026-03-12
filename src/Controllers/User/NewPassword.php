@@ -65,6 +65,8 @@ class NewPassword extends AbstractController
         }
 
         $view = new CreateNewPasswordView();
+        $view->addTemplateKey('SELECTOR', $selector);
+        $view->addTemplateKey('VALIDATOR', $validator);
         $view->render();
     }
 
