@@ -396,7 +396,7 @@ Loin d\'être réservé aux experts, l\'usage du terminal repose sur quelques co
     </div>',
 
         'haveibeenpwned.music' => '
-            <link rel="stylesheet" href="/styles/data-breach-check.css">
+            <link rel="stylesheet" href="/assets/css/data-breach-check.css">
             <div class="breach-page">
                 <div class="breach-hero">
                     <div class="hero-icon">
@@ -430,7 +430,7 @@ Loin d\'être réservé aux experts, l\'usage du terminal repose sur quelques co
                     </div>
                 </div>
             </div>
-            <script src="/js/data-breach-check.js"></script>',
+            <script src="/assets/js/data-breach-check.js"></script>',
 
         'lemonde.fr-acces-complet' => '
 

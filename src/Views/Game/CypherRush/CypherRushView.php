@@ -36,7 +36,7 @@ class CypherRushView extends AbstractView
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Cypher Rush - Mini-jeu de déchiffrement CyberCigales">
         <title>Cypher Rush - CyberCigales</title>
-        <link rel="stylesheet" href="/styles/main.css" type="text/css">
+        <link rel="stylesheet" href="/assets/css/main.css?v=8" type="text/css">
         <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
     </head>
     <body>';

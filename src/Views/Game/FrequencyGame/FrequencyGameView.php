@@ -55,7 +55,7 @@ class FrequencyGameView extends AbstractView
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="/styles/game-base.css">
+    <link rel="stylesheet" href="/assets/css/game-base.css">
 </head>
 <body>';
     }

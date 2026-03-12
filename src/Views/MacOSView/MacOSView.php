@@ -91,7 +91,7 @@ class MacOSView
     <!-- Chargement de Tailwind CSS (via CDN) pour le style -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <link rel="stylesheet" href="/styles/normalize.css">
+    <link rel="stylesheet" href="/assets/css/normalize.css">
     <link rel="stylesheet" href="/assets/macos/css/macos.css">
     <link rel="stylesheet" href="/assets/macos/css/intro.css">
     
