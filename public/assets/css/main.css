@@ -724,7 +724,68 @@ body::before {
 .form-message-green { background: rgba(0, 255, 65, 0.1); border: 1px solid rgba(0, 255, 65, 0.3); color: #00ff41; padding: 1rem; border-radius: 8px; text-align: center; margin-bottom: 1rem; }
 
 /* RGPD Presentation */
-.rgpd-subtitle { text-align: center; color: #00ff41; }
+.rgpd-header { text-align: center; margin-bottom: 2rem; }
+.header-badge {
+    width: 64px; height: 64px; margin: 0 auto 1.5rem;
+    background: linear-gradient(135deg, rgba(0, 255, 65, 0.2), rgba(0, 200, 255, 0.1));
+    border: 2px solid rgba(0, 255, 65, 0.4); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+}
+.header-badge .material-icons { font-size: 32px; color: #00ff41; }
+.rgpd-subtitle { text-align: center; color: rgba(255,255,255,0.6); font-size: 1.1rem; margin-top: -1rem; }
+
+.intro-card {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(0, 255, 65, 0.2);
+    border-radius: 16px; padding: 2rem; margin: 2rem 0; text-align: center;
+}
+.intro-card .point-icon { margin: 0 auto 1rem; }
+.intro-card .material-icons { color: #00c8ff; }
+
+.point-icon {
+    width: 48px; height: 48px;
+    background: rgba(0, 255, 65, 0.1); border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 0.8rem;
+}
+.point-icon .material-icons { color: #00ff41; font-size: 24px; }
+
+.key-points-section { margin: 2.5rem 0; }
+.points-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 1.5rem;
+}
+.point-card {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px; padding: 1.5rem; transition: all 0.3s;
+}
+.point-card:hover { border-color: rgba(0, 255, 65, 0.4); background: rgba(0, 255, 65, 0.03); transform: translateY(-3px); }
+.point-card h3 { color: #fff; margin: 0 0 0.5rem; font-size: 1.1rem; }
+.point-card .text-small { color: rgba(255,255,255,0.6); margin: 0; }
+
+.video-card {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px; padding: 2rem; margin: 2.5rem 0;
+}
+.video-container {
+    position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+    border-radius: 12px; margin-top: 1rem;
+}
+.video-container iframe {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    border-radius: 12px; border: none;
+}
+
+.importance-card {
+    background: rgba(0, 200, 255, 0.05); border-left: 4px solid #00c8ff;
+    border-radius: 0 14px 14px 0; padding: 1.5rem 2rem;
+}
+.importance-card .point-icon { background: rgba(0, 200, 255, 0.1); }
+.importance-card .point-icon .material-icons { color: #00c8ff; }
+.importance-card h2 { margin-top: 0.5rem; }
+
+@media (max-width: 600px) {
+    .points-grid { grid-template-columns: 1fr; }
+}
 
 /* Auth Footer */
 .auth-footer-spaced { margin-top: 20px; text-align: center; }

@@ -17,7 +17,8 @@ class RgpdPresentationView extends AbstractView
     function templateKeys(): array
     {
         return [
-            'FLASH_MESSAGE' => flash('qcm')
+            'FLASH_MESSAGE' => flash('qcm'),
+            'URL_LECON' => url('lecon_index')
         ];
     }
 }
