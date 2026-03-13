@@ -503,7 +503,7 @@ class InstagramModel
                 'verified' => true,
                 'posts' => [
                     ['id' => 1, 'image' => '/images/instagram/Cesar.png', 'type' => 'normal', 'is_video' => false],
-                    ['id' => 2, 'video' => '/videos/instagram/Hacker-promo-plateforme-crypto.mp4', 'type' => 'mp4', 'is_video' => true],
+                    ['id' => 2, 'video' => '/images/videos/instagram/video-hacker-crypto.mov', 'type' => 'mp4', 'is_video' => true],
                     ['id' => 3, 'image' => '/images/instagram/steve-doig-FaMBWkmvPyY-unsplash.jpg', 'type' => 'normal', 'is_video' => false],
                     ['id' => 4, 'image' => '/images/instagram/faux-profil-amie-hacke/melina_photo_miroir_2.png', 'type' => 'normal', 'is_video' => false],
                 ]

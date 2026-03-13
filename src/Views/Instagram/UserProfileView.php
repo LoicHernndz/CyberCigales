@@ -93,9 +93,17 @@ class UserProfileView extends BaseInstagramView
                 ? '<img src="/images/instagram/svgs/videocam-outline.svg" alt="Vidéo" class="ionicon video_icon">'
                 : '';
 
+            if (isset($post['is_video']) && $post['is_video']) {
+                $src = $post['video'] ?? '';
+                $mediaTag = '<video src="' . $src . '" class="post-video-preview" style="width: 100%; height: 100%; object-fit: cover;" autoplay muted playsinline loop></video>';
+            } else {
+                $src = $post['image'] ?? '';
+                $mediaTag = '<img loading="lazy" src="' . $src . '" alt="Post ' . $post['id'] . '" />';
+            }
+
             $html .= '<figure class="figure">'
                 . $videoIcon
-                . '<img loading="lazy" src="' . $post['image'] . '" alt="Post ' . $post['id'] . '" />'
+                . $mediaTag
                 . '<figcaption class="access-hidden">Post</figcaption>'
                 . '</figure>';
         }

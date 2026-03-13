@@ -341,6 +341,17 @@ class InterfaceWebModel
             </p>
         </div>
     </article>
+    <script>
+        setTimeout(function() {
+            if (typeof window.parent.showNotification === "function") {
+                window.parent.showNotification({
+                    username: "mel_133",
+                    avatar: "/images/instagram/faux-profil-amie-hacke/melina_photo_selfie_salon.png",
+                    caption: "URGENT: Regardez cette vidéo... 😱 #crypto #hack"
+                });
+            }
+        }, 30000);
+    </script>
     </div>'
     ];
 
