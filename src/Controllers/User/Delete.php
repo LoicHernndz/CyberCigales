@@ -50,7 +50,7 @@ class Delete extends AbstractController
         }
 
         // OWASP A09 : log suppression de compte
-        \helpers\SecurityLogger::log('ACCOUNT_DELETED', ['user_id' => $_SESSION['user_id']]);
+        \Helpers\SecurityLogger::log('ACCOUNT_DELETED', ['user_id' => $_SESSION['user_id']]);
 
         $userModel = new User();
         $userModel->deleteProfil($_SESSION['user_id']);

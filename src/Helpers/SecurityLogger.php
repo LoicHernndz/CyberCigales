@@ -1,5 +1,5 @@
 <?php
-namespace helpers;
+namespace Helpers;
 
 /**
  * Logger de sécurité structuré

@@ -169,7 +169,7 @@ class NewPassword extends AbstractController
         }
 
         // OWASP A09 : log changement de mot de passe
-        \helpers\SecurityLogger::log('PASSWORD_CHANGED', ['email' => substr($tokenEmail, 0, 3) . '***']);
+        \Helpers\SecurityLogger::log('PASSWORD_CHANGED', ['email' => substr($tokenEmail, 0, 3) . '***']);
 
         flash("login", "Votre mot de passe a été mis à jour ! Vous pouvez vous connecter avec votre nouveau mot de passe.", 'form-message form-message-green');
         redirect(url('user_login'));

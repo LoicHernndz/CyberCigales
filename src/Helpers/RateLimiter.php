@@ -1,5 +1,5 @@
 <?php
-namespace helpers;
+namespace Helpers;
 
 /**
  * Rate Limiter basé sur la session

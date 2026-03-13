@@ -59,7 +59,7 @@ class Login extends AbstractController
         $_SESSION['user_email'] = $user->email;
         $_SESSION['user_pseudo'] = $user->pseudo;
         // OWASP A09 : log connexion réussie
-        \helpers\SecurityLogger::log('LOGIN_SUCCESS', ['input' => $user->email]);
+        \Helpers\SecurityLogger::log('LOGIN_SUCCESS', ['input' => $user->email]);
         redirect(url('homepage'));
     }
     
@@ -77,8 +77,8 @@ class Login extends AbstractController
         $this->csrfVerify();
 
         // OWASP A07 : rate limiting (5 tentatives / 5 minutes)
-        if (!\helpers\RateLimiter::check('login', 5, 300)) {
-            $wait = \helpers\RateLimiter::retryAfter('login', 300);
+        if (!\Helpers\RateLimiter::check('login', 5, 300)) {
+            $wait = \Helpers\RateLimiter::retryAfter('login', 300);
             flash('login', "Trop de tentatives. Réessayez dans {$wait} secondes.");
             $view = new LoginView();
             $view->render();
@@ -122,15 +122,15 @@ class Login extends AbstractController
                 $this->createUserSession($loggedInUser);
             } else{
                 // OWASP A07/A09 : log échec + rate limit
-                \helpers\RateLimiter::record('login');
-                \helpers\SecurityLogger::log('LOGIN_FAILED', ['input' => $data['name/email']]);
+                \Helpers\RateLimiter::record('login');
+                \Helpers\SecurityLogger::log('LOGIN_FAILED', ['input' => $data['name/email']]);
                 flash('login', "Utilisateur non trouvé");
                 $view = new LoginView();
                 $view->render();
             }
         } else{
-            \helpers\RateLimiter::record('login');
-            \helpers\SecurityLogger::log('LOGIN_FAILED', ['input' => $data['name/email']]);
+            \Helpers\RateLimiter::record('login');
+            \Helpers\SecurityLogger::log('LOGIN_FAILED', ['input' => $data['name/email']]);
             flash('login', "Utilisateur non trouvé");
             $view = new LoginView();
             $view->render();
