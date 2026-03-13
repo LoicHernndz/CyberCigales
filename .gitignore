@@ -552,3 +552,10 @@ src/PHPMailer/
 database/
 
 docs/api/
+
+# PHPDoc / PHPUnit (outils locaux, ne pas commiter)
+phpDocumentor.phar
+phpunit.phar
+phpunit.xml
+docs/
+.phpdoc/

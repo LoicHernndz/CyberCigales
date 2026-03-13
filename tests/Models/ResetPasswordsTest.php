@@ -8,6 +8,7 @@ class ResetPasswordsTest extends TestCase
 {
     private ResetPasswords $resetPasswords;
     private MockDatabase $mockDB;
+    private \ReflectionClass $resetPasswordsReflection;
 
     protected function setUp(): void
     {
@@ -36,7 +37,10 @@ class ResetPasswordsTest extends TestCase
         $this->mockDB->returnValue = true;
 
         $result = $this->resetPasswords->insertToken(
-            "test@test.com", "selector", "hashed", time()
+            "test@test.com",
+            "selector",
+            "hashed",
+            time()
         );
 
         $this->assertTrue($result);
@@ -45,7 +49,7 @@ class ResetPasswordsTest extends TestCase
 
     public function testResetPasswordSuccess()
     {
-        $this->mockDB->singleReturn = (object)["id" => 1];
+        $this->mockDB->singleReturn = (object) ["id" => 1];
 
         $result = $this->resetPasswords->resetPassword("selector", time());
 

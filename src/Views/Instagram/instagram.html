@@ -1,108 +1,116 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <!-- Configuration de base pour la page Instagram mobile -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instagram</title>
-    
+
     <!-- Préchargement des polices Google Fonts pour de meilleures performances -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    
-        <!-- Feuilles de style -->
-        <link rel="stylesheet" href="/styles/normalize.css"> <!-- Reset CSS pour la cohérence cross-browser -->
-        <link rel="stylesheet" href="/assets/instagram/css/instagram-fixed.css"> <!-- Styles Instagram corrigés -->
-        <link rel="stylesheet" href="/assets/instagram/css/svg-icons.css"> <!-- Styles pour les icônes SVG -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+
+    <!-- Feuilles de style -->
+    <link rel="stylesheet" href="/styles/normalize.css"> <!-- Reset CSS pour la cohérence cross-browser -->
+    <link rel="stylesheet" href="/assets/instagram/css/instagram-fixed.css"> <!-- Styles Instagram corrigés -->
+    <link rel="stylesheet" href="/assets/instagram/css/svg-icons.css"> <!-- Styles pour les icônes SVG -->
 </head>
+
 <body>
-<div class="instagram-container">
-    <!-- ======================================== -->
-    <!-- HEADER INSTAGRAM -->
-    <!-- ======================================== -->
-    <!-- En-tête fixe avec logo et actions (messages, notifications) -->
-    <header class="instagram-header">
-        <div class="header-content">
-            <!-- Logo Instagram personnalisé -->
-            <h1 class="logo">
-                <img src="/images/instagram/faux-profil-amie-hacke/logo-instagram et ecriture.png" alt="Instagram">
-            </h1>
-            
-            <!-- Actions du header (messages et notifications) -->
-            <div class="header-actions">
-                <button class="icon-btn" aria-label="Messages directs">
-                    <img src="/images/instagram/svgs/chatbubbles-outline.svg" alt="Messages" class="icon">
-                </button>
-                <button class="icon-btn" aria-label="Notifications">
-                    <img src="/images/instagram/svgs/notifications-outline.svg" alt="Notifications" class="icon">
-                </button>
-            </div>
-        </div>
-    </header>
+    <div class="instagram-container">
+        <!-- ======================================== -->
+        <!-- HEADER INSTAGRAM -->
+        <!-- ======================================== -->
+        <!-- En-tête fixe avec logo et actions (messages, notifications) -->
+        <header class="instagram-header">
+            <div class="header-content">
+                <!-- Logo Instagram personnalisé -->
+                <h1 class="logo">
+                    <img src="/images/instagram/faux-profil-amie-hacke/logo-instagram et ecriture.png" alt="Instagram">
+                </h1>
 
-    <!-- ======================================== -->
-    <!-- CONTENU PRINCIPAL -->
-    <!-- ======================================== -->
-    <main class="main-content">
-        <!-- ======================================== -->
-        <!-- SECTION STORIES -->
-        <!-- ======================================== -->
-        <!-- Section horizontale avec les avatars des stories -->
-        <section class="stories-section">
-            <div class="stories-container">
-                <!-- Story de l'utilisateur connecté (avec icône +) -->
-                <div class="story-item">
-                    <div class="story-avatar your-story">
-                        <img src="images/heidisheltie.jpg" alt="Votre story">
-                        <div class="add-story-icon">+</div>
-                    </div>
-                    <span class="story-username">Votre story</span>
+                <!-- Actions du header (messages et notifications) -->
+                <div class="header-actions">
+                    <button class="icon-btn" aria-label="Messages directs">
+                        <img src="/images/instagram/svgs/chatbubbles-outline.svg" alt="Messages" class="icon">
+                    </button>
+                    <button class="icon-btn" aria-label="Notifications">
+                        <img src="/images/instagram/svgs/notifications-outline.svg" alt="Notifications" class="icon">
+                    </button>
                 </div>
-                
-                <!-- Stories dynamiques -->
-                {{STORIES}}
             </div>
-        </section>
+        </header>
 
         <!-- ======================================== -->
-        <!-- FEED POSTS -->
+        <!-- CONTENU PRINCIPAL -->
         <!-- ======================================== -->
-        <div class="feed-container">
-            {{POSTS}}
-        </div>
+        <main class="main-content">
+            <!-- ======================================== -->
+            <!-- SECTION STORIES -->
+            <!-- ======================================== -->
+            <!-- Section horizontale avec les avatars des stories -->
+            <section class="stories-section">
+                <div class="stories-container">
+                    <!-- Story de l'utilisateur connecté (avec icône +) -->
+                    <div class="story-item">
+                        <div class="story-avatar your-story">
+                            <img src="images/heidisheltie.jpg" alt="Votre story">
+                            <div class="add-story-icon">+</div>
+                        </div>
+                        <span class="story-username">Votre story</span>
+                    </div>
 
-    <!-- ======================================== -->
-    <!-- NAVIGATION DU BAS -->
-    <!-- ======================================== -->
-    <!-- Barre de navigation fixe en bas (comme Instagram mobile) -->
-    <nav class="bottom-nav">
-        <!-- Bouton Accueil (actif) -->
-        <button class="nav-btn active" aria-label="Accueil">
-            <img src="/images/instagram/svgs/home-sharp.svg" alt="Accueil" class="icon">
-        </button>
-        
-        <!-- Bouton Recherche -->
-        <button class="nav-btn" aria-label="Recherche">
-            <img src="/images/instagram/svgs/search.svg" alt="Recherche" class="icon">
-        </button>
-        
-        <!-- Bouton Ajouter du contenu -->
-        <button class="nav-btn" aria-label="Ajouter">
-            <img src="/images/instagram/svgs/add-circle-outline.svg" alt="Ajouter" class="icon">
-        </button>
-        
-        <!-- Bouton Reels -->
-        <button class="nav-btn" aria-label="Reels">
-            <img src="/images/instagram/svgs/videocam-outline.svg" alt="Reels" class="icon">
-        </button>
-        
-        <!-- Bouton Profil (avec avatar) -->
-        <button class="nav-btn" aria-label="Profil">
-            <img src="images/heidisheltie.jpg" alt="Profil" class="profile-nav-img">
-        </button>
-    </nav>
-    </main>
-</div>
+                    <!-- Stories dynamiques -->
+                    {{STORIES}}
+                </div>
+            </section>
+
+            <!-- ======================================== -->
+            <!-- FEED POSTS -->
+            <!-- ======================================== -->
+            <div class="feed-container">
+                {{POSTS}}
+            </div>
+
+            <!-- ======================================== -->
+            <!-- NAVIGATION DU BAS -->
+            <!-- ======================================== -->
+            <!-- Barre de navigation fixe en bas (comme Instagram mobile) -->
+            <nav class="bottom-nav">
+                <!-- Bouton Accueil (actif) -->
+                <button class="nav-btn active" aria-label="Accueil">
+                    <img src="/images/instagram/svgs/home-sharp.svg" alt="Accueil" class="icon">
+                </button>
+
+                <!-- Bouton Recherche -->
+                <button class="nav-btn" aria-label="Recherche">
+                    <img src="/images/instagram/svgs/search.svg" alt="Recherche" class="icon">
+                </button>
+
+                <!-- Bouton Ajouter du contenu -->
+                <button class="nav-btn" aria-label="Ajouter">
+                    <img src="/images/instagram/svgs/add-circle-outline.svg" alt="Ajouter" class="icon">
+                </button>
+
+                <!-- Bouton Reels -->
+                <button class="nav-btn" aria-label="Reels">
+                    <img src="/images/instagram/svgs/videocam-outline.svg" alt="Reels" class="icon">
+                </button>
+
+                <!-- Bouton Profil (avec avatar) -->
+                <button class="nav-btn" aria-label="Profil">
+                    <img src="images/heidisheltie.jpg" alt="Profil" class="profile-nav-img">
+                </button>
+            </nav>
+        </main>
+    </div>
+
+    <!-- Script UI Notifications -->
+    <script src="/assets/instagram/js/instagram-ui.js"></script>
 </body>
+
 </html>

@@ -9,7 +9,8 @@
     box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
     width: 100%;
     height: 100%;
     overflow-x: hidden;
@@ -397,15 +398,15 @@ body {
     .stories-container {
         padding: 0 8px;
     }
-    
+
     .post-header {
         padding: 12px 8px;
     }
-    
+
     .post-actions {
         padding: 8px;
     }
-    
+
     .post-content {
         padding: 0 8px 12px;
     }
@@ -421,8 +422,137 @@ body {
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         min-height: 100vh;
     }
-    
+
     .post-image img {
         max-height: 600px;
     }
+}
+
+/* ========================================================= */
+/* NOTIFICATIONS (Cloche)                                    */
+/* ========================================================= */
+
+.bell-badge {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    background-color: #ff3040;
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: 50%;
+    min-width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+    z-index: 10;
+}
+
+.instagram-notif-panel {
+    position: fixed;
+    top: 65px;
+    /* Juste sous le header (60px) + marge */
+    right: 50%;
+    transform: translateX(50%);
+    /* Centré en mobile par défaut ou aligné à la marge max-width */
+    width: 340px;
+    max-width: 90vw;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05);
+    z-index: 99999;
+    /* Force le z-index au dessus de tout */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 150px);
+    transition: opacity 0.2s, transform 0.2s;
+    transform-origin: top center;
+}
+
+@media (min-width: 768px) {
+    .instagram-notif-panel {
+        /* Alignement avec le bord droit du container sur desktop */
+        right: calc(50% - 290px);
+        transform: translateX(0);
+        transform-origin: top right;
+    }
+}
+
+.instagram-notif-panel.hidden {
+    opacity: 0;
+    transform: scale(0.95) translateX(50%);
+    pointer-events: none;
+}
+
+@media (min-width: 768px) {
+    .instagram-notif-panel.hidden {
+        transform: scale(0.95);
+    }
+}
+
+.instagram-notif-panel .panel-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid #efefef;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.instagram-notif-panel .panel-content {
+    overflow-y: auto;
+    flex: 1;
+}
+
+.instagram-notif-panel .notif-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: #262626;
+    border-bottom: 1px solid #fafafa;
+    transition: background-color 0.2s;
+}
+
+.instagram-notif-panel .notif-item:hover {
+    background-color: #fafafa;
+}
+
+.instagram-notif-panel .notif-item:last-child {
+    border-bottom: none;
+}
+
+.instagram-notif-panel .notif-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.instagram-notif-panel .notif-text {
+    font-size: 13px;
+    line-height: 1.4;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.instagram-notif-panel .notif-time {
+    font-size: 12px;
+    color: #8e8e8e;
+    margin-left: 8px;
+    white-space: nowrap;
+}
+
+.instagram-notif-panel .empty-state {
+    padding: 24px;
+    text-align: center;
+    color: #8e8e8e;
+    font-size: 14px;
 }
