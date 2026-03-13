@@ -115,9 +115,9 @@ class Signup extends AbstractController
         }
 
 
-        // OWASP A07 : validation mot de passe renforcée (8 chars, majuscule, minuscule, chiffre)
-        if(strlen($data['password']) < 8){
-            flash("signup", "Le mot de passe doit contenir au moins 8 caractères");
+        // OWASP A07 : validation mot de passe renforcée (12 chars, majuscule, minuscule, chiffre)
+        if(strlen($data['password']) < 12){
+            flash("signup", "Le mot de passe doit contenir au moins 12 caractères");
             $view = new SignupView();
             $view->render();
             exit();

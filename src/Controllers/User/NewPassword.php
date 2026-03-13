@@ -128,8 +128,8 @@ class NewPassword extends AbstractController
         } else if ($data['pwd'] != $data['pwd-repeat']) {
             flash("new-password", "Les mots de passe ne correspondent pas");
             redirect($url);
-        } else if (strlen($data['pwd']) < 8) {
-            flash("new-password", "Le mot de passe doit contenir au moins 8 caractères");
+        } else if (strlen($data['pwd']) < 12) {
+            flash("new-password", "Le mot de passe doit contenir au moins 12 caractères");
             redirect($url);
         } else if (!preg_match('/[A-Z]/', $data['pwd']) || !preg_match('/[a-z]/', $data['pwd']) || !preg_match('/[0-9]/', $data['pwd'])) {
             flash("new-password", "Le mot de passe doit contenir une majuscule, une minuscule et un chiffre");
