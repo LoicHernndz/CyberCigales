@@ -11,6 +11,7 @@
         {{FLASH}}
 
         <form method="post" action="{{URL_LOGIN}}" class="auth-form">
+            {{CSRF_FIELD}}
             <input type="hidden" name="type" value="login">
             
             <div class="form-group">

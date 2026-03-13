@@ -30,7 +30,8 @@ class LoginView extends AbstractView
         return [
                 // Message flash stocké dans la session (ex: "Mauvais mot de passe", "Connexion réussie", etc.)
             self::FLASH_KEY => flash('login'),
-            'CAPTCHA_TS' => (string) time()
+            'CAPTCHA_TS' => (string) time(),
+            'CSRF_FIELD' => csrf_field()
         ];
     }
 }

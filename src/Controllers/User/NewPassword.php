@@ -80,6 +80,9 @@ class NewPassword extends AbstractController
      */
     public function postMethod(): void
     {
+        // OWASP A01 : vérification CSRF
+        $this->csrfVerify();
+
         $this->resetModel = new ResetPasswords;
         $this->userModel = new User;
 
@@ -125,8 +128,11 @@ class NewPassword extends AbstractController
         } else if ($data['pwd'] != $data['pwd-repeat']) {
             flash("new-password", "Les mots de passe ne correspondent pas");
             redirect($url);
-        } else if (strlen($data['pwd']) < 6) {
-            flash("new-password", "Le mot de passe doit contenir au moins 6 caractères");
+        } else if (strlen($data['pwd']) < 8) {
+            flash("new-password", "Le mot de passe doit contenir au moins 8 caractères");
+            redirect($url);
+        } else if (!preg_match('/[A-Z]/', $data['pwd']) || !preg_match('/[a-z]/', $data['pwd']) || !preg_match('/[0-9]/', $data['pwd'])) {
+            flash("new-password", "Le mot de passe doit contenir une majuscule, une minuscule et un chiffre");
             redirect($url);
         }
 
@@ -161,6 +167,9 @@ class NewPassword extends AbstractController
             flash("new-password", "Il y a eu une erreur.");
             redirect($url);
         }
+
+        // OWASP A09 : log changement de mot de passe
+        \helpers\SecurityLogger::log('PASSWORD_CHANGED', ['email' => substr($tokenEmail, 0, 3) . '***']);
 
         flash("login", "Votre mot de passe a été mis à jour ! Vous pouvez vous connecter avec votre nouveau mot de passe.", 'form-message form-message-green');
         redirect(url('user_login'));

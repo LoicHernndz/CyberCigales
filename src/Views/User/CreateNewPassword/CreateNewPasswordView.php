@@ -22,6 +22,7 @@ class CreateNewPasswordView extends AbstractView
     public function templateKeys() : array {
         return array_merge([
             ‘FLASH’ => flash(‘new-password’),
+            ‘CSRF_FIELD’ => csrf_field(),
         ], $this->additionalKeys);
     }
 }

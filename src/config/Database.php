@@ -45,8 +45,10 @@ class Database
             // getMessage() me donne le détail exact de ce qui a foiré
             $this->error = $e->getMessage();
 
-            // J'affiche l'erreur directement sur la page
-            echo $this->error;
+            // OWASP A09 : ne jamais afficher les erreurs BDD à l'utilisateur
+            error_log('[DB ERROR] ' . $this->error);
+            http_response_code(500);
+            die('Une erreur interne est survenue. Veuillez réessayer plus tard.');
         }
     }
 

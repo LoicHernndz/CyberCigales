@@ -52,23 +52,18 @@ class Signup extends AbstractController
      * @return void
      */
     function postMethod(){
-        // Je nettoie TOUTES les données POST en une seule fois
-        // FILTER_SANITIZE_STRING va :
-        // - Enlever les balises HTML (<script>, <img>, etc.)
-        // - Supprimer les caractères dangereux
-        // - Protéger contre les attaques XSS (cross-site scripting)
-        // Exemple : si quelqu'un tape "<script>alert('hack')</script>" dans le prénom,
-        // ça devient juste "scriptalert('hack')script" (inoffensif)
+        // OWASP A01 : vérification CSRF
+        $this->csrfVerify();
+
         $_POST = filter_input_array(INPUT_POST);
 
-        // Je récupère et nettoie toutes les données du formulaire d'inscription
         $data = [
-            'prenom' => trim($_POST['prenom']), // Je récupère le prénom et j'enlève les espaces
-            'nom' => trim($_POST['nom']), // Je récupère le nom et j'enlève les espaces
-            'pseudo' => trim($_POST['pseudo']), // Je récupère le pseudo et j'enlève les espaces
-            'email' => trim($_POST['email']), // Je récupère l'email et j'enlève les espaces
-            'password' => trim($_POST['password']), // Je récupère le mot de passe
-            'password_repeat' => trim($_POST['password_repeat']), // Je récupère la confirmation du mot de passe
+            'prenom' => strip_tags(trim($_POST['prenom'])),
+            'nom' => strip_tags(trim($_POST['nom'])),
+            'pseudo' => trim($_POST['pseudo']),
+            'email' => trim($_POST['email']),
+            'password' => trim($_POST['password']),
+            'password_repeat' => trim($_POST['password_repeat']),
             'accept_mentions' => isset($_POST['accept_mentions']) ? $_POST['accept_mentions'] : '',
             'captcha_code' => isset($_POST['captcha_code']) ? trim($_POST['captcha_code']) : ''
         ];
@@ -120,16 +115,18 @@ class Signup extends AbstractController
         }
 
 
-        // Je vérifie que le mot de passe fait au moins 6 caractères
-        if(strlen($data['password']) < 6){
-            // Si le mot de passe est trop court, c'est pas sécurisé
-            flash("signup", "Mot de passe invalide (au moins 6 caracteres)");
+        // OWASP A07 : validation mot de passe renforcée (8 chars, majuscule, minuscule, chiffre)
+        if(strlen($data['password']) < 8){
+            flash("signup", "Le mot de passe doit contenir au moins 8 caractères");
+            $view = new SignupView();
+            $view->render();
+            exit();
+        } else if(!preg_match('/[A-Z]/', $data['password']) || !preg_match('/[a-z]/', $data['password']) || !preg_match('/[0-9]/', $data['password'])){
+            flash("signup", "Le mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre");
             $view = new SignupView();
             $view->render();
             exit();
         } else if($data['password'] !== $data['password_repeat']){
-            // Je vérifie que les deux mots de passe tapés sont identiques
-            // Si l'utilisateur s'est trompé en retapant son mot de passe
             flash("signup", "Les mots de passe ne correspondent pas");
             $view = new SignupView();
             $view->render();

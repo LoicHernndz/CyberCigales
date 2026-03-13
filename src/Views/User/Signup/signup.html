@@ -11,6 +11,7 @@
         {{FLASH}}
 
         <form method="post" action="{{URL_SIGNUP}}" class="auth-form">
+            {{CSRF_FIELD}}
             <input type="hidden" name="type" value="register">
 
             <div class="form-row">

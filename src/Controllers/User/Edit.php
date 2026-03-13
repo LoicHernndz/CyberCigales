@@ -44,6 +44,9 @@ class Edit extends AbstractController
      */
     public function postMethod(): void
     {
+        // OWASP A01 : vérification CSRF
+        $this->csrfVerify();
+
         if (!isset($_SESSION['user_id'])) {
             flash('edit_profil', 'Vous devez être connecté pour modifier votre profil.', 'form-message form-message-red');
             redirect(url('user_login'));
@@ -53,8 +56,8 @@ class Edit extends AbstractController
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
             $errors = [];
             $userId = $_SESSION['user_id'];
-            $prenom = trim($_POST['prenom'] ?? '');
-            $nom = trim($_POST['nom'] ?? '');
+            $prenom = strip_tags(trim($_POST['prenom'] ?? ''));
+            $nom = strip_tags(trim($_POST['nom'] ?? ''));
             $pseudo = trim($_POST['pseudo'] ?? '');
             $email = trim($_POST['email'] ?? '');
 

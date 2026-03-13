@@ -53,11 +53,13 @@ class Login extends AbstractController
      */
     public function createUserSession($user): void
     {
-        // Je crée des variables de session avec les infos de l'utilisateur
+        // OWASP A07 : régénérer l'ID de session pour éviter la fixation de session
+        session_regenerate_id(true);
         $_SESSION['user_id'] = $user->id;
         $_SESSION['user_email'] = $user->email;
         $_SESSION['user_pseudo'] = $user->pseudo;
-        // Je redirige vers la page d'accueil ou le tableau de bord
+        // OWASP A09 : log connexion réussie
+        \helpers\SecurityLogger::log('LOGIN_SUCCESS', ['input' => $user->email]);
         redirect(url('homepage'));
     }
     
@@ -71,6 +73,18 @@ class Login extends AbstractController
      */
     function postMethod(): void
     {
+        // OWASP A01 : vérification CSRF
+        $this->csrfVerify();
+
+        // OWASP A07 : rate limiting (5 tentatives / 5 minutes)
+        if (!\helpers\RateLimiter::check('login', 5, 300)) {
+            $wait = \helpers\RateLimiter::retryAfter('login', 300);
+            flash('login', "Trop de tentatives. Réessayez dans {$wait} secondes.");
+            $view = new LoginView();
+            $view->render();
+            return;
+        }
+
         // Je nettoie TOUTES les données POST en une seule fois
         $_POST = filter_input_array(INPUT_POST);
 
@@ -107,13 +121,16 @@ class Login extends AbstractController
                 // Si le mot de passe est correct, je crée une session utilisateur
                 $this->createUserSession($loggedInUser);
             } else{
-                // Si le mot de passe est incorrect, j'affiche une erreur
+                // OWASP A07/A09 : log échec + rate limit
+                \helpers\RateLimiter::record('login');
+                \helpers\SecurityLogger::log('LOGIN_FAILED', ['input' => $data['name/email']]);
                 flash('login', "Utilisateur non trouvé");
                 $view = new LoginView();
                 $view->render();
             }
         } else{
-            // Si l'utilisateur n'existe pas, j'affiche une erreur
+            \helpers\RateLimiter::record('login');
+            \helpers\SecurityLogger::log('LOGIN_FAILED', ['input' => $data['name/email']]);
             flash('login', "Utilisateur non trouvé");
             $view = new LoginView();
             $view->render();

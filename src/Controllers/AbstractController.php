@@ -12,8 +12,19 @@ abstract class AbstractController {
     function control(){
         if ($_SERVER['REQUEST_METHOD'] === "GET"){
             $this->getMethod();
-        } else if ($_SERVER['REQUEST_METHOD']){
+        } else if ($_SERVER['REQUEST_METHOD'] === "POST"){
             $this->postMethod();
+        }
+    }
+
+    /**
+     * Vérifie le token CSRF pour les requêtes POST (OWASP A01)
+     * Redirige avec un message d'erreur si le token est invalide.
+     */
+    protected function csrfVerify(): void {
+        if (!csrf_verify()) {
+            flash('login', 'Session expirée ou requête invalide. Veuillez réessayer.');
+            redirect($_SERVER['HTTP_REFERER'] ?? '/');
         }
     }
 

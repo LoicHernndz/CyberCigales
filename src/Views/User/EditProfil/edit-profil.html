@@ -11,6 +11,7 @@
         {{FLASH_MESSAGE}}
 
         <form method="post" action="{{URL_EDIT}}" class="auth-form">
+            {{CSRF_FIELD}}
             <div class="form-row">
                 <div class="form-group">
                     <label for="prenom">
@@ -145,6 +146,7 @@
             <h3>Zone dangereuse</h3>
             <p>La suppression de compte est définitive. Vous ne pourrez pas récupérer les données que vous supprimez !</p>
             <form method="post" action="/user/delete">
+                {{CSRF_FIELD}}
                 <button class="btn-danger" data-confirm="Êtes-vous sûr de vouloir supprimer votre compte définitivement ?">
                     <span class="material-icons">delete_forever</span>
                     <span>Supprimer mon compte</span>

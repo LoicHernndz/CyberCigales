@@ -22,7 +22,8 @@ class SignupView extends AbstractView {
         return [
             // Message flash stocké dans la session (ex: "Email déjà utilisé", "Inscription réussie", etc.)
             self::FLASH_KEY => flash('signup'),
-            'CAPTCHA_TS' => (string) time()
+            'CAPTCHA_TS' => (string) time(),
+            'CSRF_FIELD' => csrf_field()
         ];
     }
 }

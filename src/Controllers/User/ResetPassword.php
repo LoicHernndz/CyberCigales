@@ -46,6 +46,18 @@ class ResetPassword extends AbstractController
      */
     public function postMethod()
     {
+        // OWASP A01 : vérification CSRF
+        $this->csrfVerify();
+
+        // OWASP A07 : rate limiting (3 tentatives / 15 minutes)
+        if (!\helpers\RateLimiter::check('reset_password', 3, 900)) {
+            $wait = \helpers\RateLimiter::retryAfter('reset_password', 900);
+            flash("reset", "Trop de demandes. Réessayez dans " . ceil($wait / 60) . " minutes.");
+            (new ResetPasswordView())->render();
+            return;
+        }
+        \helpers\RateLimiter::record('reset_password');
+
         $this->resetModel = new ResetPasswords;
         $this->userModel = new User;
 
@@ -127,6 +139,9 @@ class ResetPassword extends AbstractController
             "Si vous n'êtes pas à l'origine de cette demande, ignorez cet e-mail.";
 
         $this->mail->send();
+
+        // OWASP A09 : log demande de réinitialisation
+        \helpers\SecurityLogger::log('PASSWORD_RESET_REQUESTED', ['email' => substr($usersEmail, 0, 3) . '***']);
 
         // Message identique pour tous les cas (sécurité)
         flash("reset", "Si cette adresse email est associée à un compte, vous recevrez un email de réinitialisation.", 'form-message form-message-green');

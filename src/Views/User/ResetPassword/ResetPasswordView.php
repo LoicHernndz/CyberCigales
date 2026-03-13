@@ -21,7 +21,8 @@ class ResetPasswordView extends AbstractView {
     public function templateKeys() : array {
         return [
             // Message flash à afficher (par exemple : "Un e-mail vous a été envoyé" ou "Adresse invalide")
-            self::FLASH_KEY => flash('reset')
+            self::FLASH_KEY => flash('reset'),
+            'CSRF_FIELD' => csrf_field()
         ];
     }
 }

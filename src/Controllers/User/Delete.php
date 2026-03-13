@@ -41,6 +41,17 @@ class Delete extends AbstractController
      */
     public function postMethod(): void
     {
+        // OWASP A01 : vérification CSRF
+        $this->csrfVerify();
+
+        if (!isset($_SESSION['user_id'])) {
+            redirect(url('user_login'));
+            return;
+        }
+
+        // OWASP A09 : log suppression de compte
+        \helpers\SecurityLogger::log('ACCOUNT_DELETED', ['user_id' => $_SESSION['user_id']]);
+
         $userModel = new User();
         $userModel->deleteProfil($_SESSION['user_id']);
         unset($_SESSION['user_id']);
@@ -48,7 +59,5 @@ class Delete extends AbstractController
         unset($_SESSION['user_pseudo']);
         session_destroy();
         redirect(url('homepage'));
-        $view = new HomepageView();
-        $view->render();
     }
 }
