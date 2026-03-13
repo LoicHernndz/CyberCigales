@@ -320,7 +320,7 @@ class InstagramModel
                 'location' => 'Inconnu',
                 'image' => '/images/instagram/faux-profil-amie-hacke/melina_photo_miroir.png', // Fallback or thumbnail if needed, but video will play
                 'is_video' => true,
-                'video' => '/images/videos/instagram/hacker-terminal-promo.mov',
+                'video' => '/images/videos/instagram/hacker-riad-crypto.mov',
                 'likes' => 842,
                 'caption' => '🚨 NOUVELLE OPPORTUNITÉ CRYPTO ! 🚨 Rejoignez ma plateforme SECURISEE pour faire exploser vos profits. 📈 Ne laissez pas les banques contrôler votre argent ! Lien en bio.💸💎 #crypto #investissement #libertefinanciere #hackthesystem',
                 'comments' => [],
@@ -536,7 +536,7 @@ class InstagramModel
                         array_splice($basePosts, 1, 0, [
                             [
                                 'id' => 2,
-                                'video' => '/images/videos/instagram/Hacker-promo-plateforme-crypto.mp4',
+                                'video' => '/images/videos/instagram/hacker-riad-crypto.mov',
                                 'type' => 'mp4',
                                 'is_video' => true
                             ]
@@ -547,7 +547,7 @@ class InstagramModel
                             'image' => '/images/instagram/faux-profil-amie-hacke/melina_photo_miroir.png',
                             'type' => 'mov',
                             'is_video' => true,
-                            'video' => '/images/videos/instagram/hacker-terminal-promo.mov'
+                            'video' => '/images/videos/instagram/hacker-riad-crypto.mov'
                         ]);
                     }
                     return $basePosts;
