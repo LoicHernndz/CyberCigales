@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function createMessageHtmlWithTime(content, type, time) {
         return '<div class="message ' + type + '">'
             + '<div class="message-content">'
-            + '<p>' + escapeHtml(content) + '</p>'
+            + renderMessageContentHtml(content)
             + '<span class="time">' + escapeHtml(time) + '</span>'
             + '</div></div>';
     }
@@ -109,6 +109,46 @@ document.addEventListener('DOMContentLoaded', function() {
         var div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
+    }
+
+    function isAllowedImageSrc(src) {
+        if (!src) return false;
+        if (src.indexOf('..') !== -1) return false;
+        return src.indexOf('/images/') === 0;
+    }
+
+    function escapeHtmlWithLineBreaks(text) {
+        return escapeHtml(text).replace(/\n/g, '<br>');
+    }
+
+    function renderMessageContentHtml(content) {
+        var tokenRegex = /\{\{img:([^}]+)\}\}/g;
+        if (!tokenRegex.test(content)) {
+            return '<p>' + escapeHtmlWithLineBreaks(content) + '</p>';
+        }
+
+        tokenRegex.lastIndex = 0;
+        var parts = content.split(tokenRegex); // [text, src, text, src, text...]
+        var html = '';
+
+        for (var i = 0; i < parts.length; i++) {
+            if (i % 2 === 0) {
+                var text = (parts[i] || '').trim();
+                if (text) {
+                    html += '<p>' + escapeHtmlWithLineBreaks(text) + '</p>';
+                }
+                continue;
+            }
+
+            var src = (parts[i] || '').trim();
+            if (isAllowedImageSrc(src)) {
+                html += '<img class="message-image" src="' + escapeHtml(src) + '" alt="image" style="max-width: 100%; border-radius: 12px;" />';
+            } else {
+                html += '<p>' + escapeHtml('{{img:' + src + '}}') + '</p>';
+            }
+        }
+
+        return html || '<p></p>';
     }
 
     function scrollToBottom() {

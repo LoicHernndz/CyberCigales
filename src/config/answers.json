@@ -117,8 +117,8 @@
       "key": "chevaldetroie"
     },
     "2": {
-      "message": "Super ! Problème résolu !",
-      "responses": ["Merci"]
+      "message": "Enfin, c'est bon... J'espère en tout cas, j'irai voir un professionnel pour être sûr qu'il ne reste rien de suspicieux.\n\nD'ailleurs, j'ai fait un scan et j'ai trouvé cette image.\n\n{{img:/images/game/carte.jpg}}\n\nApparemment, ses métadonnées sont étranges, peut-être que tu peux les voir en lisant l'image comme un fichier texte sur ton terminal ?",
+      "responses": ["Si tu as besoin d'aide, la commande 'help' du terminal devrait t'aider."]
     }
   },
   "Julie": {

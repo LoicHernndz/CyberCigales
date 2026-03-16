@@ -12,6 +12,7 @@ class UserChatView extends BaseInstagramView
     private const TEMPLATE_PATH = __DIR__ . '/user-chat.html';
 
     private array $chatMessages = [];
+    private const IMAGE_TOKEN_REGEX = '/\{\{img:([^}]+)\}\}/';
 
     /**
      * Reçoit les messages bruts depuis le controller
@@ -51,11 +52,57 @@ class UserChatView extends BaseInstagramView
             $senderClass = ($message['type'] === 'sent') ? 'sent' : 'received';
             $html .= '<div class="message ' . $senderClass . '">'
                 . '<div class="message-content">'
-                . '<p>' . htmlspecialchars($message['content']) . '</p>'
+                . $this->renderMessageContent($message['content'])
                 . '<span class="time">' . $message['time'] . '</span>'
                 . '</div></div>';
         }
         return $html;
+    }
+
+    /**
+     * Rend le contenu d'un message en HTML sûr.
+     *
+     * Supporte un token d'image: {{img:/images/...}}.
+     */
+    private function renderMessageContent(string $content): string
+    {
+        if (!preg_match(self::IMAGE_TOKEN_REGEX, $content)) {
+            return '<p>' . htmlspecialchars($content) . '</p>';
+        }
+
+        $parts = preg_split(self::IMAGE_TOKEN_REGEX, $content, -1, PREG_SPLIT_DELIM_CAPTURE);
+        $html = '';
+
+        for ($i = 0; $i < count($parts); $i++) {
+            if ($i % 2 === 0) {
+                $text = trim($parts[$i] ?? '');
+                if ($text !== '') {
+                    $html .= '<p>' . htmlspecialchars($text) . '</p>';
+                }
+                continue;
+            }
+
+            $src = trim($parts[$i] ?? '');
+            if ($this->isAllowedImageSrc($src)) {
+                $safeSrc = htmlspecialchars($src);
+                $html .= '<img class="message-image" src="' . $safeSrc . '" alt="image" style="max-width: 100%; border-radius: 12px;" />';
+            } else {
+                $html .= '<p>' . htmlspecialchars('{{img:' . $src . '}}') . '</p>';
+            }
+        }
+
+        return $html === '' ? '<p></p>' : $html;
+    }
+
+    private function isAllowedImageSrc(string $src): bool
+    {
+        if ($src === '') {
+            return false;
+        }
+        if (str_contains($src, '..')) {
+            return false;
+        }
+        return str_starts_with($src, '/images/');
     }
 }
 
