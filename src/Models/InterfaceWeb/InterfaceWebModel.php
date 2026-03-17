@@ -183,6 +183,34 @@ class InterfaceWebModel
         .article-body p {
             margin-bottom: 20px;
         }
+        .article-body h2 {
+            font-size: 24px;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        code.terminal-cmd {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #f0f0f0;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        figure.article-image {
+            margin: 30px -40px;
+        }
+        figure.article-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        figcaption {
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 13px;
+            color: #666;
+            margin-top: 10px;
+            padding-left: 40px;
+        }
 
         /* Encarts Publicitaires (Indices) */
         .advertisement {
@@ -331,6 +359,30 @@ class InterfaceWebModel
                 <p>
                     Face à un écran noir où seul clignote un curseur blanc, beaucoup d\'utilisateurs ressentent une appréhension. Le terminal, cette interface textuelle omniprésente sur les systèmes Linux (qui propulsent la majorité des serveurs web mondiaux), semble austère. Pourtant, il s\'agit de l\'outil le plus direct pour dialoguer avec la machine.
                 </p>
+                <p>
+                    Loin d\'être réservé aux experts, l\'usage du terminal repose sur quelques concepts clés analogues à la navigation dans un bâtiment. Avant de construire des forteresses numériques, il faut savoir ouvrir les portes et lire les panneaux.
+                </p>
+
+                <h2>Les fondations de la navigation</h2>
+
+                <p>
+                    La première question que l\'on se pose dans un environnement inconnu est : « Où suis-je ? ». Dans le terminal, la réponse est apportée par la commande <code class="terminal-cmd">pwd</code> (Print Working Directory). Elle affiche le chemin complet du dossier dans lequel l\'utilisateur se trouve actuellement. C\'est votre point GPS.
+                </p>
+
+                <figure class="article-image">
+                    <div style="background:#000; color:#0f0; padding:20px; font-family:monospace; text-align:left;">
+                        user@linux:~$ pwd<br>
+                        /home/user<br>
+                        user@linux:~$ ls<br>
+                        Documents  Images  Musique  config.txt<br>
+                        user@linux:~$ _
+                    </div>
+                    <figcaption>Capture d\'écran d\'un terminal montrant l\'utilisation des commandes de base pour se repérer. (Capture d\'écran)</figcaption>
+                </figure>
+
+                <p>
+                    Une fois localisé, il faut observer son environnement. La commande <code class="terminal-cmd">ls</code> (List) est l\'équivalent d\'allumer la lumière dans une pièce : elle liste tous les fichiers et dossiers présents autour de vous. C\'est l\'outil d\'inventaire par excellence.
+                </p>
 
                 <div class="advertisement">
                     <span class="ad-label">Sponsorisé par l\'Institut des Outils Dev</span>
@@ -338,10 +390,10 @@ class InterfaceWebModel
                     <div class="ad-text">Face à un élément web qui vous résiste, la solution est souvent à portée de <strong>clic droit</strong>. Apprenez à <strong>inspecter</strong> le code de vos pages pour comprendre ce qui se cache vraiment derrière l\'interface utilisateur.</div>
                     <a href="#" class="ad-link">Découvrir le programme ></a>
                 </div>
-                
+
                 <div class="article-fade">
                     <p>
-Loin d\'être réservé aux experts, l\'usage du terminal repose sur quelques concepts clés analogues à la navigation dans un bâtiment. Avant de construire des forteresses numériques, il faut savoir ouvrir les portes et lire les panneaux...
+                        Pour se déplacer, l\'utilisateur emploie <code class="terminal-cmd">cd</code> (Change Directory). Taper <code class="terminal-cmd">cd Documents</code> revient à ouvrir la porte du bureau "Documents" et à y entrer...
                     </p>
                 </div>
 
