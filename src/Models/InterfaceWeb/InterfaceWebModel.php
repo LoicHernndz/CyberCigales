@@ -612,6 +612,10 @@ Loin d\'être réservé aux experts, l\'usage du terminal repose sur quelques co
 </html>
 ',
 
+        'haveibeenpwned.music' => '
+            <style>.content{padding-top:0!important;align-items:stretch!important;}</style>
+            <iframe src="/data-breach/check" style="width:100%;flex:1;border:none;min-height:600px;"></iframe>',
+
         'lemonde.fr-acces-complet' => '
 
             <style>
