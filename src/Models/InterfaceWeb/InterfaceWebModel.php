@@ -395,42 +395,222 @@ Loin d\'être réservé aux experts, l\'usage du terminal repose sur quelques co
         </article>
     </div>',
 
-        'haveibeenpwned.music' => '
-            <link rel="stylesheet" href="/assets/css/data-breach-check.css">
-            <div class="breach-page">
-                <div class="breach-hero">
-                    <div class="hero-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                        </svg>
-                    </div>
-                    <h1>Have I Been <span class="highlight">Pwned</span> ?</h1>
-                    <p class="tagline">Verifiez si votre adresse email a ete compromise dans une fuite de donnees</p>
-                </div>
-                <div class="search-section">
-                    <div class="search-box">
-                        <input type="email" id="email-input" placeholder="Entrez une adresse email..." autocomplete="off" spellcheck="false">
-                        <button id="search-btn" type="button"><span class="btn-text">Rechercher</span></button>
-                    </div>
-                </div>
-                <div id="result-area" class="result-area"></div>
-                <div class="stats-footer">
-                    <div class="stat">
-                        <span class="stat-num">847</span>
-                        <span class="stat-label">Sites compromis</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-num">12.4B</span>
-                        <span class="stat-label">Comptes exposes</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-num">284</span>
-                        <span class="stat-label">Pastes analyses</span>
-                    </div>
-                </div>
-            </div>
-            <script src="/assets/js/data-breach-check.js"></script>',
+        'injection-sql.fr' => '
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Journal Tech : Les Injections SQL</title>
+    <style>
+        /* Design inspiré de la presse (Type Le Figaro) */
+        body {
+            font-family: Georgia, \'Times New Roman\', serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+        }
+
+        .header {
+            border-top: 4px solid #004b87; /* Bleu classique presse */
+            border-bottom: 1px solid #e0e0e0;
+            padding: 25px 20px;
+            text-align: center;
+        }
+
+        .logo {
+            font-family: \'Times New Roman\', Times, serif;
+            font-size: 2.8em;
+            font-weight: bold;
+            color: #004b87;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .subtitle {
+            font-family: Arial, Helvetica, sans-serif;
+            text-transform: uppercase;
+            font-size: 0.8em;
+            color: #666;
+            letter-spacing: 2px;
+            margin-top: 10px;
+        }
+
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        h1 {
+            font-size: 2.4em;
+            line-height: 1.1;
+            margin-bottom: 15px;
+            color: #000000;
+        }
+
+        .article-meta {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 0.9em;
+            color: #777;
+            border-top: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 10px 0;
+            margin-bottom: 30px;
+        }
+
+        .standfirst {
+            font-size: 1.25em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 1.3em;
+            color: #004b87;
+            margin-top: 45px;
+            margin-bottom: 15px;
+            border-left: 4px solid #e30613; /* Accent rouge */
+            padding-left: 12px;
+        }
+
+        .code-block {
+            background-color: #f9f9f9;
+            border: 1px solid #eaeaea;
+            border-left: 3px solid #ccc;
+            padding: 15px;
+            font-family: Consolas, \'Courier New\', Courier, monospace;
+            font-size: 0.95em;
+            color: #333;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        .hacker-input {
+            color: #e30613;
+            font-weight: bold;
+        }
+
+        .analogy {
+            background-color: #fcf8e3;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border: 1px solid #faebcc;
+            font-style: italic;
+        }
+
+        .defense {
+            background-color: #f0f5fa; /* Bleu très pâle */
+            border-top: 4px solid #004b87;
+            padding: 25px;
+            margin-top: 50px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .defense h3 {
+            color: #004b87;
+            margin-top: 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 0.85em;
+            color: #888;
+            border-top: 1px solid #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <p class="logo">Le Journal Tech</p>
+        <div class="subtitle">Enquête • Cybersécurité</div>
+    </div>
+
+    <div class="container">
+        <h1>Dossier spécial : Comment une simple phrase peut faire s\'effondrer un site web (L\'Injection SQL)</h1>
+        
+        <div class="article-meta">
+            Par <strong>La Rédaction</strong> • Publié aujourd\'hui à 08:00
+        </div>
+
+        <p class="standfirst">Derrière chaque site internet se cache une gigantesque armoire à archives appelée "base de données". Mais que se passe-t-il lorsque le système qui gère ces archives est trop naïf ? Plongée au cœur de la faille informatique la plus célèbre : l\'Injection SQL.</p>
+
+        <h2>1. Le fonctionnement normal : Le bibliothécaire obéissant</h2>
+        <p>Imaginez qu\'un site web (comme un réseau social) est une immense <strong>bibliothèque</strong>. Tous les mots de passe, les pseudos et les messages y sont rangés. Pour demander une information à cette bibliothèque, le site utilise un langage spécifique : le <strong>SQL</strong>.</p>
+        <p>C\'est comme si le site donnait un ordre écrit à un bibliothécaire robotique très puissant mais totalement dénué de bon sens.</p>
+        
+        <div class="code-block">
+            Ordre SQL classique :<br>
+            SELECT * FROM Utilisateurs WHERE Pseudo = \'Alice\';
+        </div>
+        <p><em>Traduction : "Cher robot, trouve-moi le dossier dans le rayon \'Utilisateurs\' qui correspond exactement au nom Alice."</em> Le robot s\'exécute sans broncher.</p>
+
+        <h2>2. L\'intrusion de base : Tromper le robot</h2>
+        <p>Le problème de ce robot, c\'est qu\'il prend tout au pied de la lettre. Si un pirate tape une commande malicieuse directement dans le champ "Nom d\'utilisateur" de la page de connexion, il peut biaiser la consigne.</p>
+
+        <p>Au lieu de taper son prénom, le pirate tape : <span class="hacker-input">\' OU 1=1 --</span></p>
+
+        <div class="code-block">
+            Ordre modifié par le pirate :<br>
+            SELECT * FROM Utilisateurs WHERE Pseudo = \'\' <span class="hacker-input">OU 1=1 --</span>\';
+        </div>
+
+        <p>Le robot lit ceci : <em>"Trouve-moi un utilisateur qui n\'a pas de nom... <strong>OU ALORS</strong> vérifie si le chiffre 1 est égal au chiffre 1."</em><br>
+        <br>
+        Puisque 1 est toujours égal à 1, le robot considère la condition remplie à 100%. Les deux petits tirets (<code>--</code>) lui disent d\'ignorer le reste de la phrase (comme la vérification du mot de passe). Le robot ouvre les portes : le pirate est connecté, souvent sur le compte du directeur du site !</p>
+
+        <h2>3. L\'attaque destructrice : Brûler la bibliothèque (DROP DATABASE)</h2>
+        <p>C\'est ici que les choses deviennent dangereuses. Le langage SQL ne sert pas qu\'à lire, il sert aussi à détruire. La commande <code>DROP</code> (laisser tomber/supprimer) est la terreur des informaticiens.</p>
+
+        <p>Si le pirate tape : <span class="hacker-input">\'; DROP DATABASE le_site; --</span></p>
+
+        <div class="code-block">
+            Ce que le robot reçoit :<br>
+            SELECT * FROM Utilisateurs WHERE Pseudo = \'\'<span class="hacker-input">\'; DROP DATABASE le_site; --</span>\';
+        </div>
+        <br>
+        <br>
+        <div class="analogy">
+            <strong>Que fait le robot ?</strong><br>
+            Le point-virgule (<code>;</code>) signifie "Fin de la première phrase, voici un nouvel ordre". Le robot finit sa recherche, puis lit la suite : <em>"Détruis intégralement l\'armoire appelée \'le_site\'."</em> Étant naïf, il prend un lance-flammes virtuel et efface instantanément tout le site web (articles, utilisateurs, photos). Plus rien n\'existe.
+        </div>
+
+        <h2>4. L\'espionnage ultime : Voler le mot de passe du grand patron</h2>
+        <p>Un pirate malin ne détruit pas la base de données : il la pille en toute discrétion. Pour cela, il utilise la commande <code>UNION</code>, qui demande au robot de coller les résultats de deux recherches différentes ensemble.</p>
+
+        <p>Le pirate se rend sur la barre de recherche publique du site et tape : <span class="hacker-input">test\' UNION SELECT pseudo, mot_de_passe FROM administrateurs --</span></p>
+
+        <div class="code-block">
+            SELECT Titre, Article FROM Publications WHERE Recherche = \'test\' <span class="hacker-input">UNION SELECT pseudo, mot_de_passe FROM administrateurs --</span>\'
+        </div>
+        <br>
+        <br>
+        <p><strong>Résultat :</strong> Le robot cherche les articles qui parlent de "test", puis (à cause du UNION), il va discrètement chercher les pseudos et les mots de passe secrets dans le tiroir ultra-sécurisé des administrateurs. Il affiche le tout sur la page publique du site ! Le pirate n\'a plus qu\'à copier le mot de passe du propriétaire et prendre le contrôle total.</p>
+
+        <div class="defense">
+            <h3>Note de la rédaction : Comment se protéger ?</h3>
+            <p>Rassurez-vous, les grands sites ne tombent plus dans ce piège grossier. La parade absolue s\'appelle <strong>les requêtes préparées</strong> (Prepared Statements).</p>
+            <p>Le développeur configure le robot d\'une nouvelle manière : <em>"Attention, je te donne une boîte vide. Tout ce que l\'utilisateur mettra dans cette boîte n\'est QUE du texte. Même s\'il écrit des ordres SQL destructeurs comme DROP ou UNION, traite-les comme de simples mots de vocabulaire inoffensifs."</em></p>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2026 Le Journal Tech - Cet article est publié à des fins strictement éducatives et pédagogiques. Le piratage de systèmes informatiques sans autorisation préalable est un délit passible de lourdes sanctions pénales.</p>
+    </footer>
+
+</body>
+</html>
+',
 
         'lemonde.fr-acces-complet' => '
 
