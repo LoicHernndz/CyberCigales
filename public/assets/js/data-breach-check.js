@@ -361,9 +361,6 @@ document.addEventListener('DOMContentLoaded', function() {
             O_changeBtn.style.display = 'none';
             O_successMsg.style.display = 'flex';
 
-            // Auto-avancement du chat Lucas (incremente la progression en BDD)
-            fetch("/instagram/chat/response?name=" + encodeURIComponent("leo_creative") + "&message=" + encodeURIComponent("hibp_done"))
-                .catch(function() {});
         });
     }
 
