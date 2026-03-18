@@ -34,7 +34,7 @@ const MailGame = (function () {
 
                     <p>T'inquiète pas pour ça. C'est blindé. Tu ne sais pas ce que j'ai mis comme mot de passe du compte de la fille que j'ai hacké ? Impossible qu'elle devine.<br>
 
-                    J'ai fait un mix tordu : j'ai mis à la fois la date d'entrée en vigueur du RGPD (pour le côté ironique), la date de naissance de la seule personne qui compte pour moi dans ce monde de brutes, et le nom de la plus belle ville du monde (là où on ira quand on sera riches).<br>
+                    J'ai fait un mix tordu : j'ai mis à la fois le nom de la plus belle ville du monde (là où on ira quand on sera riches), la date de naissance de la seule personne qui compte pour moi dans ce monde de brutes, et l'année d'entrée en vigueur du RGPD (pour le côté ironique).<br>
 
                     Ça fait un mot de passe à rallonge, mais incassable par dictionnaire. Allez, je retourne bosser sur le projet "Coffre-fort".</p>`,
                 read: true,
