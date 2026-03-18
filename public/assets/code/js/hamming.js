@@ -166,7 +166,10 @@ document.addEventListener('DOMContentLoaded', function() {
             // Mettre en avant le nom et la cle dans le message final
             let S_highlighted = S_message || '';
             S_highlighted = S_highlighted.replace('ALEXANDRE SCHMIDT', '<span class="highlight-name">ALEXANDRE SCHMIDT</span>');
-            S_highlighted = S_highlighted.replace('APDSQMLV', '<span class="highlight-key">APDSQMLV</span>');
+            S_highlighted = S_highlighted.replace('@ALEX_PHOTO', '<a href="/instagram/user/avsl_ydbjb" target="_top" class="highlight-name" style="text-decoration:underline;cursor:pointer;">@ALEX_PHOTO</a>');
+            S_highlighted = S_highlighted.replace('WDSKAVZSJNBCS', '<span class="highlight-key">WDSKAVZSJNBCS</span>');
+
+            S_highlighted += '<p class="hamming-hint" style="margin-top:20px;opacity:0.4;font-size:0.85em;font-style:italic;">Il semblerait que la clé est chiffrée de la même façon que le compte. Les lettres qui ont été échangées pourraient être les mêmes...</p>';
 
             O_feedbackContent.innerHTML = S_highlighted;
             O_feedbackContent.classList.add('complete');
