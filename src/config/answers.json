@@ -53,7 +53,7 @@
       "key": "surveillance"
     },
     "4": {
-      "message": "T'es incroyable ! \"surveillance\" — ça colle bien avec un hackeur qui espionne ses victimes ! 🔥 Grâce à toi on va pouvoir aider Mel à récupérer son compte ! Merci pour tout 🙌🔥\n\nD'ailleurs, avec le mot de passe \"surveillance\" j'ai pu accéder à ses fichiers et j'ai trouvé un code verrouillé : 10. Note-le bien, ça pourrait servir !",
+      "message": "T'es incroyable ! \"surveillance\" — ça colle bien avec un hackeur qui espionne ses victimes ! 🔥 Grâce à toi on va pouvoir aider Mel à récupérer son compte ! Merci pour tout 🙌🔥\n\nD'ailleurs, avec le mot de passe \"surveillance\" j'ai pu accéder à ses fichiers et j'ai trouvé un code déverrouillé : 10**. Note-le bien, ça pourrait servir !",
       "responses": ["Code 10, c'est noté !", "Merci, je le garde !", "Reçu !"]
     }
   },
