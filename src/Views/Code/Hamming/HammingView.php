@@ -69,7 +69,7 @@ class HammingView extends AbstractView
             self::SCRIPTS_KEY =>
                 '<script type="application/json" id="square-data">'.json_encode($square).'</script>
                 <script type="application/json" id="game-data">'.json_encode($gameData).'</script>
-                <script src="/assets/code/js/hamming.js"></script>'
+                <script src="/assets/code/js/hamming.js?v=2"></script>'
         ];
     }
 
