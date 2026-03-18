@@ -2,7 +2,9 @@
 
 
 namespace Services;
+use config\Database;
 use Models\Bash\Bash;
+use Models\Bash\File;
 
 /**
  * Simulateur de terminal Bash pour l'escape game
@@ -27,6 +29,7 @@ class BashSimulator
         }
 
         $env = new Bash();
+        $this->maybeUnlockCampusJpg($env);
 
         // Action SSH login (verification des identifiants)
         $action = $_REQUEST["action"] ?? "";
@@ -64,6 +67,52 @@ class BashSimulator
                 "output" => "bash: " . htmlspecialchars($command) . ": commande introuvable"
             ]);
         }
+    }
+
+    /**
+     * Débloque dynamiquement des fichiers locaux en fonction
+     * de la progression du chat Instagram (persistée en base).
+     */
+    private function maybeUnlockCampusJpg(Bash $env): void
+    {
+        $userId = $_SESSION['user_id'] ?? null;
+        if (!$userId) {
+            return;
+        }
+
+        $progress = $this->getChatProgress((int)$userId, 'avsl_ydbjb');
+        if ($progress < 2) {
+            return;
+        }
+
+        // Créer /home/téléchargements/campus.jpg si absent
+        if ($env->findLocal(['home', 'téléchargements']) === null) {
+            new File($env->getLocalRoot(), 'téléchargements', 'dir', []);
+        }
+        if ($env->findLocal(['home', 'téléchargements', 'campus.jpg']) === null) {
+            new File(
+                $env->getLocalRoot(),
+                'téléchargements/campus.jpg',
+                'txt',
+                "[Fichier image - campus.jpg]\n" .
+                "=== METADONNEES (EXIF) ===\n" .
+                "Date/Time Original: 2026:03:01 18:21:09\n" .
+                "GPS Latitude      : 43°13'48.2\"N\n" .
+                "GPS Longitude     : 5°26'35.7\"E\n" .
+                "Comment           : Cette fois je ne pourrais pas le perdre. Je pense que ça sera assez précis, avec un peu d'aide de Google Maps et un peu d'observation, ça devrait prendre beaucoup moins de temps. Ah, et la combinaison aussi...\n"
+            );
+        }
+    }
+
+    private function getChatProgress(int $userId, string $chatName): int
+    {
+        $db = new Database();
+        $db->query('SELECT progress_index FROM user_chat_progress WHERE user_id = :user_id AND chat_name = :chat_name');
+        $db->bind(':user_id', $userId);
+        $db->bind(':chat_name', $chatName);
+        $result = $db->single();
+
+        return $result ? (int)$result->progress_index : 0;
     }
 
     /**
