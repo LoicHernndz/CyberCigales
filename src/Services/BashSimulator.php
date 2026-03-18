@@ -97,8 +97,8 @@ class BashSimulator
                 "[Fichier image - campus.jpg]\n" .
                 "=== METADONNEES (EXIF) ===\n" .
                 "Date/Time Original: 2026:03:01 18:21:09\n" .
-                "GPS Latitude      : 43°13'48.2\"N\n" .
-                "GPS Longitude     : 5°26'35.7\"E\n" .
+                "GPS Latitude      : 43,22980° N\n" .
+                "GPS Longitude     : 5,44292° E\n" .
                 "Comment           : Cette fois je ne pourrais pas le perdre. Je pense que ça sera assez précis, avec un peu d'aide de Google Maps et un peu d'observation, ça devrait prendre beaucoup moins de temps. Ah, et la combinaison aussi...\n"
             );
         }
